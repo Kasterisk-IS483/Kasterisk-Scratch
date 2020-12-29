@@ -7,7 +7,7 @@ const width = Dimensions.get('window').width
 
 const Button = ({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) => {
   const large = width / 4.5
-  const small = width / 6
+  const small = width / 8
   const btnSize = size === 'large' ? large : small
   const btnBgColor = type === 'filled' ? '#ffffff' : 'transparent'
   const btnTextColor = type === 'filled' ? 'black' : '#6371c2'
@@ -35,18 +35,21 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
   const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
 
   return (
+    
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
-
       <View style={[containerCommonStyle, border]}>
-        <Image
-          source={{
-            uri:
-              'https://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png',
-          }}
-          style={styles.ImageIconStyle}
-        />
-        <View style={styles.buttonIconSeparatorStyle} />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Image
+            source={{
+              uri:
+                'https://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png',
+            }}
+            style={styles.ImageIconStyle}
+          />
+        </View>
+
+        <View style={styles.buttonIconSeparatorStyle} />
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={[textCommonStyle]}> {text} </Text>
         </View>
       </View>
@@ -64,7 +67,7 @@ const styles = StyleSheet.create({
   },
 
   buttonIconSeparatorStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: 'grey',
     width: 1,
     height: 40,
   },
