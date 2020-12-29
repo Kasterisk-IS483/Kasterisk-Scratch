@@ -29,20 +29,20 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
     color: btnTextColor,
     fontSize: 18,
     fontFamily: 'Arial',
-    fontWeight: "bold"
+    fontWeight: 'bold'
   }
 
   const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
 
   return (
-    
+
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View style={[containerCommonStyle, border]}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={{
               uri:
-                'https://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png',
+                image,
             }}
             style={styles.ImageIconStyle}
           />

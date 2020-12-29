@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { ImageBackground, View, StyleSheet } from 'react-native';
 import Button from './src/components/Button';
+
+
 const onPress = () => {
   alert('clicked')
 }
+
 
 export default class App extends Component {
 
@@ -13,7 +16,7 @@ export default class App extends Component {
         <View style={styles.leftContainer}>
           <ImageBackground
             style={styles.container}
-            source={require('./assets/login.png')}
+            source={require('./assets/login-title.png')}
             imageStyle={{ resizeMode: 'cover' }}
           />
         </View>
@@ -22,23 +25,23 @@ export default class App extends Component {
           <View style={styles.buttonContainer}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
               <Button
-                image="Google"
+                image={require('./assets/login-button-google.png')}
                 text='Log in With Google'
                 onPress={onPress}
               />
               <Button
-                image="Amazon"
+                image={require('./assets/login-button-aws.png')}
                 text='Log in With Amazon'
                 onPress={onPress}
               />
               <Button
-                image="Azure"
+                image={require('./assets/login-button-azure.png')}
                 text='Log in With Azure AD'
                 onPress={onPress}
               />
               <View style={styles.lineStyle} />
               <Button
-                image="google"
+                image={require('./assets/login-button-kube.png')}
                 text='Select Kubeconfig'
                 onPress={onPress}
               />
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   buttonContainer: {
     position: 'absolute',
