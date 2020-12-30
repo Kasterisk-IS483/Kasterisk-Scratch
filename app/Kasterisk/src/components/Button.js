@@ -6,7 +6,7 @@ const width = Dimensions.get('window').width
 
 
 const Button = ({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) => {
-  const large = width / 4.5
+  const large = width / 3
   const small = width / 8
   const btnSize = size === 'large' ? large : small
   const btnBgColor = type === 'filled' ? '#ffffff' : 'transparent'
@@ -40,10 +40,7 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
       <View style={[containerCommonStyle, border]}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
-            source={{
-              uri:
-                image,
-            }}
+            source={image}
             style={styles.ImageIconStyle}
           />
         </View>
