@@ -42,7 +42,12 @@ export default class App extends Component {
               <View style={styles.lineStyle} />
               <Button
                 image={require('./assets/login-button-kube.png')}
-                text='Select Kubeconfig'
+                text='Upload Kubeconfig File'
+                onPress={onPress}
+              />
+              <Button
+                image={require('./assets/login-button-kube.png')}
+                text='Add Kubeconfig Content'
                 onPress={onPress}
               />
             </View>
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   leftContainer: {
-    flex: 2
+    flex: 1.5
   },
   rightContainer: {
     flex: 1,
