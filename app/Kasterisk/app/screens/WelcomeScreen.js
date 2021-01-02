@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
-// import * as Linking from 'expo-linking';
+import { View, Text, ImageBackground } from "react-native";
+// import * as Linking from "expo-linking";
 import * as AppAuth from "expo-app-auth";
-import Button from "../../src/components/Button";
+import Button from "../components/Button";
+import styles from "../styles.js";
 
 const onPress = () => {
   alert("clicked");
 };
 
 // const prefix = Linking.makeUrl("/");
-// Expo client: 'exp://127.0.0.1:19002'
-// Standalone: 'kasterisk://'
+// Expo client: "exp://127.0.0.1:19002"
+// Standalone: "kasterisk://"
 
 export default function WelcomeScreen({ navigation }) {
   let [authState, setAuthState] = useState(null);
@@ -62,14 +63,14 @@ export default function WelcomeScreen({ navigation }) {
               image={require("../assets/welcome-button-kube.png")}
               text="Upload Kubeconfig File"
               onPress={() =>
-                navigation.navigate('KubeconfigUpload')
+                navigation.navigate("KubeconfigUpload")
               }
             />
             <Button
               image={require("../assets/welcome-button-kube.png")}
               text="Add Kubeconfig Content"
               onPress={() =>
-                navigation.navigate('KubeconfigContent')
+                navigation.navigate("KubeconfigContent")
               }
             />
           </View>
@@ -79,39 +80,6 @@ export default function WelcomeScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  leftContainer: {
-    flex: 1.5,
-  },
-  rightContainer: {
-    flex: 1,
-    backgroundColor: "#265395",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  buttonContainer: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  addButton: {
-    width: 200,
-  },
-  lineStyle: {
-    borderWidth: 0.5,
-    borderColor: "#FFFFFF",
-    width: "90%",
-    margin: 10,
-  },
-});
 
 let googleConfig = {
     issuer: "https://accounts.google.com",

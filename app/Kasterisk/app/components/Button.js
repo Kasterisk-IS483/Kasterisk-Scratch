@@ -1,5 +1,6 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native'
+import styles from "../styles.js";
 
 const width = Dimensions.get('window').width
 
@@ -38,7 +39,7 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={image}
-            style={styles.ImageIconStyle}
+            style={styles.imageIconStyle}
           />
         </View>
 
@@ -51,20 +52,5 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
   )
 }
 
-const styles = StyleSheet.create({
-  ImageIconStyle: {
-    padding: 10,
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
-  },
-
-  buttonIconSeparatorStyle: {
-    backgroundColor: 'grey',
-    width: 1,
-    height: 40,
-  },
-});
 export default Button
 
