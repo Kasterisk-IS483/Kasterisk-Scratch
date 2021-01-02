@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
-import Button from '../../src/components/Button';
+import Button from "../../src/components/Button";
 
 const onPress = () => {
     alert("clicked")
