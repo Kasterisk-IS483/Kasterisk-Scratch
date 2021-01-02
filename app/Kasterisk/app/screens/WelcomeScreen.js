@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ImageBackground } from "react-native";
+import { AsyncStorage } from "@react-native-async-storage/async-storage";
 // import * as Linking from "expo-linking";
 import * as AppAuth from "expo-app-auth";
 import Button from "../components/Button";
@@ -84,19 +85,20 @@ export default function WelcomeScreen({ navigation }) {
 let googleConfig = {
     issuer: "https://accounts.google.com",
     scopes: ["openid", "profile", "email"],
-    redirectUrl: "https://auth.expo.io",
+    //redirectUrl: "https://auth.expo.io",
     clientId:
-        "587877229134-s4buqm9o9oinls1j1it4uiidug7ba7n9.apps.googleusercontent.com",
+        "587877229134-8gdl14qhb0oq1bqtfoh1lr8nrbnfi8m4.apps.googleusercontent.com",
 };
 
 let StorageKey = "@Kasterisk:CustomGoogleOAuthKey";
 
 export async function googleSignInAsync() {
-    try {
-        let authState = await AppAuth.authAsync(googleConfig);
-    } catch ({ message }) {
-        alert(message)
-    }
+    // try {
+    //     let authState = await AppAuth.authAsync(googleConfig);
+    // } catch ({ message }) {
+    //     alert(message)
+    // }
+    let authState = await AppAuth.authAsync(googleConfig);
     console.log("test");
     await cacheAuthAsync(authState);
     console.log("googleSignInAsync", authState);
