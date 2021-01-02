@@ -14,7 +14,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} />
+        <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={ {title: "Upload Kubeconfig File" }} />
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
