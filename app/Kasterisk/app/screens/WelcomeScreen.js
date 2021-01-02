@@ -68,7 +68,9 @@ export default function WelcomeScreen({ navigation }) {
             <Button
               image={require("../assets/login-button-kube.png")}
               text="Add Kubeconfig Content"
-              onPress={onPress}
+              onPress={() =>
+                navigation.navigate('KubeconfigContent')
+              }
             />
           </View>
         </View>
