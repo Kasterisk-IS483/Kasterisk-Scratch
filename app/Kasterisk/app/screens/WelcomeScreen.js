@@ -29,7 +29,7 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.leftContainer}>
         <ImageBackground
           style={styles.container}
-          source={require("../assets/login-title.png")}
+          source={require("../assets/welcome-title-landscape.png")}
           imageStyle={{ resizeMode: "cover" }}
         />
       </View>
@@ -40,7 +40,7 @@ export default function WelcomeScreen({ navigation }) {
             style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
             <Button
-              image={require("../assets/login-button-google.png")}
+              image={require("../assets/welcome-button-google.png")}
               text="Log in With Google"
               onPress={async () => {
                 const _authState = await googleSignInAsync();
@@ -48,25 +48,25 @@ export default function WelcomeScreen({ navigation }) {
               }}
             />
             <Button
-              image={require("../assets/login-button-aws.png")}
+              image={require("../assets/welcome-button-aws.png")}
               text="Log in With Amazon"
               onPress={onPress}
             />
             <Button
-              image={require("../assets/login-button-azure.png")}
+              image={require("../assets/welcome-button-azure.png")}
               text="Log in With Azure AD"
               onPress={onPress}
             />
             <View style={styles.lineStyle} />
             <Button
-              image={require("../assets/login-button-kube.png")}
+              image={require("../assets/welcome-button-kube.png")}
               text="Upload Kubeconfig File"
               onPress={() =>
                 navigation.navigate('KubeconfigUpload')
               }
             />
             <Button
-              image={require("../assets/login-button-kube.png")}
+              image={require("../assets/welcome-button-kube.png")}
               text="Add Kubeconfig Content"
               onPress={() =>
                 navigation.navigate('KubeconfigContent')

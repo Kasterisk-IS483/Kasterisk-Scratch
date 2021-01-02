@@ -1,18 +1,15 @@
-import React from 'react'
-import { View, StyleSheet, ImageBackground, ScrollView, Text } from 'react-native'
-import FormBuilder from 'react-native-paper-form-builder';
-import { useForm } from 'react-hook-form';
-import { Button } from 'react-native-paper';
+import React from "react"
+import { View, StyleSheet, ImageBackground, ScrollView, Text } from "react-native"
+import FormBuilder from "react-native-paper-form-builder";
+import { useForm } from "react-hook-form";
+import { Button } from "react-native-paper";
 
 function BasicExample() {
     const form = useForm({
         defaultValues: {
-            email: '',
-
-            password: '',
+            content: "",
         },
-
-        mode: 'onChange',
+        mode: "onChange",
     });
 
     return (
@@ -20,7 +17,7 @@ function BasicExample() {
             <View style={styles.leftContainer}>
                 <ImageBackground
                     style={styles.container}
-                    source={require("../assets/login-title.png")}
+                    source={require("../assets/welcome-title-landscape.png")}
                     imageStyle={{ resizeMode: "cover" }}
                 />
             </View>
@@ -33,41 +30,24 @@ function BasicExample() {
                         form={form}
                         formConfigArray={[
                             {
-                                type: 'input',
-                                name: 'email',
-                                label: 'Email',
+                                type: "input",
+                                name: "content",
+                                label: "Content",
                                 rules: {
                                     required: {
                                         value: true,
-                                        message: 'Email is required',
-                                    },
-                                },
-
-                                textInputProps: {
-                                    keyboardType: 'email-address',
-                                    autoCapitalize: 'none',
-                                },
-                            },
-
-                            {
-                                type: 'input',
-                                name: 'password',
-                                label: 'Password',
-                                rules: {
-                                    required: {
-                                        value: true,
-                                        message: 'Password is required',
+                                        message: "Kubeconfig content is required",
                                     },
                                 },
                                 textInputProps: {
-                                    secureTextEntry: true,
+                                    autoCapitalize: "none",
                                 },
                             },
                         ]}>
                         <Button
-                            mode={'contained'}
+                            mode={"contained"}
                             onPress={form.handleSubmit((data: any) => {
-                                console.log('form data', data);
+                                console.log("form data", data);
                             })}>
                             Submit
                         </Button>
@@ -89,14 +69,14 @@ const styles = StyleSheet.create({
     scrollViewStyle: {
         flex: 1,
         padding: 15,
-        justifyContent: 'center',
+        justifyContent: "center",
     },
 
     headingStyle: {
         fontSize: 30,
-        textAlign: 'center',
+        textAlign: "center",
         marginBottom: 40,
-        color: 'white',
+        color: "white",
     },
     container: {
         flex: 1,

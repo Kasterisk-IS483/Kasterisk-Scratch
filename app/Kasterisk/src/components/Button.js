@@ -1,9 +1,7 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, Dimensions, StyleSheet, Image } from 'react-native'
 
-
 const width = Dimensions.get('window').width
-
 
 const Button = ({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) => {
   const large = width / 3
@@ -35,7 +33,6 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
   const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
 
   return (
-
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View style={[containerCommonStyle, border]}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -53,6 +50,7 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
     </TouchableOpacity>
   )
 }
+
 const styles = StyleSheet.create({
   ImageIconStyle: {
     padding: 10,
@@ -60,7 +58,6 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     resizeMode: 'stretch',
-
   },
 
   buttonIconSeparatorStyle: {
@@ -68,7 +65,6 @@ const styles = StyleSheet.create({
     width: 1,
     height: 40,
   },
-
 });
 export default Button
 

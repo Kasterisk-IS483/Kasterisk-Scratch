@@ -36,6 +36,6 @@
     "react-test-renderer": "~16.13.1"
   },
   "private": true,
-  "name": "Kasterisk",
+  "name": "kasterisk",
   "version": "1.0.0"
 }

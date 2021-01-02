@@ -1,7 +1,8 @@
-import 'react-native-gesture-handler';
-import React, { Component } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import "react-native-gesture-handler";
+import React, { Component } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 import KubeconfigUploadScreen from "./app/screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./app/screens/KubeconfigContentScreen";
