@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 // import * as Linking from 'expo-linking';
 import * as AppAuth from "expo-app-auth";
-
 import Button from "../../src/components/Button";
 
 const onPress = () => {
@@ -13,7 +12,7 @@ const onPress = () => {
 // Expo client: 'exp://127.0.0.1:19002'
 // Standalone: 'kasterisk://'
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
   let [authState, setAuthState] = useState(null);
 
   useEffect(() => {
@@ -62,7 +61,9 @@ export default function WelcomeScreen() {
             <Button
               image={require("../assets/login-button-kube.png")}
               text="Upload Kubeconfig File"
-              onPress={onPress}
+              onPress={() =>
+                navigation.navigate('KubeconfigUpload')
+              }
             />
             <Button
               image={require("../assets/login-button-kube.png")}
