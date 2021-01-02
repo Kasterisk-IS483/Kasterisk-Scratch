@@ -28,6 +28,8 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "scheme": "kasterisk",
+    "description": ""
   }
 }
