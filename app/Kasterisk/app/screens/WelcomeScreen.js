@@ -52,7 +52,9 @@ export default function WelcomeScreen({ navigation }) {
             <Button
               image={require("../assets/welcome-button-aws.png")}
               text="Log in With Amazon"
-              onPress={onPress}
+              onPress={() =>
+                navigation.navigate("AWS Login")
+              }
             />
             <Button
               image={require("../assets/welcome-button-azure.png")}
