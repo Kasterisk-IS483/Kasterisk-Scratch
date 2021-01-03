@@ -27,7 +27,7 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
   const textCommonStyle = {
     color: btnTextColor,
     fontSize: 18,
-    fontFamily: 'Arial',
+    fontFamily: 'System',
     fontWeight: 'bold'
   }
 
