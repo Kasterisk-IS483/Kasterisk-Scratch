@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   leftContainer: {
-    flex: 1.5,
+    flex: 1,
   },
   rightContainer: {
     flex: 1,
@@ -39,9 +39,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  addButton: {
-    width: 200,
-  },
   lineStyle: {
     borderWidth: 0.5,
     borderColor: "#FFFFFF",
@@ -53,7 +50,6 @@ const styles = StyleSheet.create({
   scrollViewStyle: {
     flex: 1,
     padding: 50,
-    justifyContent: "center",
   },
   headingStyle: {
     fontSize: 20,
@@ -79,8 +75,13 @@ const styles = StyleSheet.create({
     left: "25%",
     top: "50%",
     textAlign: "center",
-  }
+  },
 
+  //progressbar
+  progressbar: {
+    height: 20,
+    marginBottom: 15
+  }
 });
 
 export default styles

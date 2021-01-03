@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text, ImageBackground, ScrollView, Button } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
+import { ProgressBar, Colors, Button, ActivityIndicator} from 'react-native-paper';
 import * as FileSystem from "expo-file-system";
 import styles from "../styles.js";
 
 let filecontent = "upload file first";
+
+
 
 class FileUpload extends React.Component {
   state = {
@@ -19,16 +22,16 @@ class FileUpload extends React.Component {
 
   uploadFile = async () => {
     try {
-        const res = await DocumentPicker.getDocumentAsync();
-        console.log(res.uri, res.type, res.name, res.size);
-        if (res.type == "success") {
-            filecontent = await FileSystem.readAsStringAsync(res.uri);
-            console.log(filecontent);
-            this.updateState(true, filecontent);
-            console.log(this.state.isUploaded);
-        }
+      const res = await DocumentPicker.getDocumentAsync();
+      console.log(res.uri, res.type, res.name, res.size);
+      if (res.type == "success") {
+        filecontent = await FileSystem.readAsStringAsync(res.uri);
+        console.log(filecontent);
+        this.updateState(true, filecontent);
+        console.log(this.state.isUploaded);
+      }
     } catch (err) {
-        throw err;
+      throw err;
     }
   };
 
@@ -36,10 +39,18 @@ class FileUpload extends React.Component {
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <ScrollView contentContainerStyle={styles.scrollViewStyle}>
-              <Text style={styles.headingStyle}>Upload Kubeconfig file below</Text>
-              <Button title="Upload File" onPress={this.uploadFile} />
-              <Text style={{ marginTop: 20, padding: 10, backgroundColor: "white" }}>{this.state.text}</Text>
-          </ScrollView>
+          <Text style={styles.headingStyle}>Upload Kubeconfig file below</Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin:15}}>
+            <Button style={{ width: "40%" }} mode="contained" color={Colors.blue800} onPress={this.uploadFile} >Upload File</Button>
+          </View>
+          <Text>Certificate</Text><ProgressBar style={styles.progressbar} progress={0.7} color={Colors.blue800} />
+          <Text>Certificate</Text><ProgressBar style={styles.progressbar} progress={0.7} color={Colors.blue800} />
+          <Text>Certificate</Text><ProgressBar style={styles.progressbar} progress={0.4} color={Colors.blue800} />
+          <Text>Certificate</Text><ProgressBar style={styles.progressbar} progress={1} color={Colors.red800} />
+          <Text> Status </Text><ActivityIndicator animating={true} color={Colors.blue800} />
+          <Text style={{ marginTop: 20, padding: 10, backgroundColor: "white" }}>{this.state.text}</Text>
+          
+        </ScrollView>
       </View>
     );
   }
@@ -47,7 +58,7 @@ class FileUpload extends React.Component {
 
 export default function KubeconfigUploadScreen({ navigation }) {
   return (
-      <FileUpload></FileUpload>
+    <FileUpload></FileUpload>
   );
 }
 
