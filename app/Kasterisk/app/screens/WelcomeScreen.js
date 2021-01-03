@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, ImageBackground } from "react-native";
+import { View, Text, ImageBackground, Image } from "react-native";
 import * as Google from "expo-google-app-auth";
 // import * as Linking from "expo-linking";
 import Button from "../components/Button";
@@ -18,7 +18,7 @@ const IOS_CLIENT_ID =
 const ANDROID_CLIENT_ID =
   "587877229134-budjhfr2o2trslj0jrk4llflflm8lca0.apps.googleusercontent.com";
 
-  export default class WelcomeScreen extends Component{
+export default class WelcomeScreen extends Component {
   signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
@@ -50,9 +50,14 @@ const ANDROID_CLIENT_ID =
         <View style={styles.leftContainer}>
           <ImageBackground
             style={styles.container}
-            source={require("../assets/welcome-title-landscape.png")}
+            source={require("../assets/welcome-bg-landscape.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
+          <Image
+            style={styles.logo_kasterisk}
+            source={require('../assets/logo_kasterisk.png')}
+          />
+          <Text style={styles.logo_kasterisk_text}>Access, manage and monitor your Kubernetes clusters.</Text>
         </View>
 
         <View style={styles.rightContainer}>
@@ -97,7 +102,7 @@ const ANDROID_CLIENT_ID =
         </View>
       </View>
     );
-    
+
   }
 }
 
