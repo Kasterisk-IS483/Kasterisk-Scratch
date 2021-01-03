@@ -34,22 +34,12 @@ class FileUpload extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.leftContainer}>
-            <ImageBackground
-                style={styles.container}
-                source={require("../assets/welcome-title-landscape.png")}
-                imageStyle={{ resizeMode: "cover" }}
-            />
-        </View>
-
-        <View style={styles.rightContainer}>
-            <ScrollView contentContainerStyle={styles.scrollViewStyle}>
-                <Text style={styles.headingStyle}>Upload Kubeconfig file below</Text>
-                <Button title="Upload File" onPress={this.uploadFile} />
-                <Text style={{ marginTop: 20, padding: 10, backgroundColor: "white" }}>{this.state.text}</Text>
-            </ScrollView>
-        </View>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+              <Text style={styles.headingStyle}>Upload Kubeconfig file below</Text>
+              <Button title="Upload File" onPress={this.uploadFile} />
+              <Text style={{ marginTop: 20, padding: 10, backgroundColor: "white" }}>{this.state.text}</Text>
+          </ScrollView>
       </View>
     );
   }

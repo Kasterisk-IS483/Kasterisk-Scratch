@@ -15,8 +15,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={ {title: "Upload Kubeconfig File" }} />
-        <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} />
+        <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File", headerStyle: { backgroundColor: "#265395" }, headerTintColor: '#fff' }} />
+        <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content", headerStyle: { backgroundColor: "#265395" }, headerTintColor: '#fff' }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>

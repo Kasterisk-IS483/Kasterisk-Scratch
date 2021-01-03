@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         marginBottom: 20,
-        color: "white",
-        fontFamily: "Arial",
+        color: "black",
+        fontFamily: "System",
     },
 });
 
