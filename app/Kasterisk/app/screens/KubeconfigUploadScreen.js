@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, ImageBackground, ScrollView, Button } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
 import styles from "../styles.js";
@@ -34,10 +34,22 @@ class FileUpload extends React.Component {
 
   render() {
     return (
-      <View>
-            <Text>kubeconfig page</Text>
-            <Button title="Upload File" onPress={this.uploadFile} />
-            <Text>{this.state.text}</Text>
+      <View style={styles.container}>
+        <View style={styles.leftContainer}>
+            <ImageBackground
+                style={styles.container}
+                source={require("../assets/welcome-title-landscape.png")}
+                imageStyle={{ resizeMode: "cover" }}
+            />
+        </View>
+
+        <View style={styles.rightContainer}>
+            <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+                <Text style={styles.headingStyle}>Upload Kubeconfig file below</Text>
+                <Button title="Upload File" onPress={this.uploadFile} />
+                <Text style={{ marginTop: 20, padding: 10, backgroundColor: "white" }}>{this.state.text}</Text>
+            </ScrollView>
+        </View>
       </View>
     );
   }
