@@ -16,7 +16,7 @@ const onPress = () => {
 const IOS_CLIENT_ID =
   "587877229134-8gdl14qhb0oq1bqtfoh1lr8nrbnfi8m4.apps.googleusercontent.com";
 const ANDROID_CLIENT_ID =
-  "587877229134-budjhfr2o2trslj0jrk4llflflm8lca0.apps.googleusercontent.com";
+  "587877229134-jlnds3fpb8i91orlrdstmedgvfus2qov.apps.googleusercontent.com";
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
