@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, ImageBackground, Image } from "react-native";
+import { View, Text, ImageBackground, Image, Dimensions } from "react-native";
 import * as Google from "expo-google-app-auth";
 // import * as Linking from "expo-linking";
 import Button from "../components/Button";
-import styles from "../styles.js";
+import { landscapeStyles, portraitStyles } from "../styles.js";
 
 const onPress = () => {
-  alert("clicked");
+  // alert(this.getOrientation());
 };
 
 // const prefix = Linking.makeUrl("/");
@@ -19,6 +19,34 @@ const ANDROID_CLIENT_ID =
   "587877229134-budjhfr2o2trslj0jrk4llflflm8lca0.apps.googleusercontent.com";
 
 export default class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      orientation: ''
+    };
+    Dimensions.addEventListener("change", (e) => {
+      this.setState(e.window);
+  });
+  }
+  
+  getOrientation() {
+    if (Dimensions.get('window').width > Dimensions.get('window').height) {
+      return 'LANDSCAPE';
+    } else {
+      return 'PORTRAIT';
+    }
+  }
+
+  getStyle() {
+    if (this.getOrientation() === 'LANDSCAPE') {
+      return landscapeStyles;
+    } else {
+      return portraitStyles;
+    }
+  }
+  onLayout() {
+    this.setState({ orientation: this.getOrientation()});
+  }
   signInWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
@@ -46,22 +74,22 @@ export default class WelcomeScreen extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={styles.container}>
-        <View style={styles.leftContainer}>
+      <View style={this.getStyle().container}>
+        <View style={this.getStyle().leftContainer}>
           <ImageBackground
-            style={styles.container}
+            style={this.getStyle().container}
             source={require("../assets/welcome-bg-landscape.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={styles.logo_kasterisk}
+            style={this.getStyle().logo_kasterisk}
             source={require('../assets/logo_kasterisk.png')}
           />
-          <Text style={styles.logo_kasterisk_text}>Access, manage and monitor your Kubernetes clusters.</Text>
+          <Text style={this.getStyle().logo_kasterisk_text}>Access, manage and monitor your Kubernetes clusters.</Text>
         </View>
 
-        <View style={styles.rightContainer}>
-          <View style={styles.buttonContainer}>
+        <View style={this.getStyle().rightContainer}>
+          <View style={this.getStyle().buttonContainer}>
             <View
               style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
             >
@@ -82,7 +110,7 @@ export default class WelcomeScreen extends Component {
                 text="Log in With Azure AD"
                 onPress={onPress}
               />
-              <View style={styles.lineStyle} />
+              <View style={landscapeStyles.lineStyle} />
               <Button
                 image={require("../assets/welcome-button-kube.png")}
                 text="Upload Kubeconfig File"

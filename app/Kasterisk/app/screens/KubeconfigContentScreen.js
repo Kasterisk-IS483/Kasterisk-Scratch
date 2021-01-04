@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native"
 import FormBuilder from "react-native-paper-form-builder";
 import { useForm } from "react-hook-form";
 import { Button } from "react-native-paper";
-import styles from "../styles.js";
+import { landscapeStyles, portraitStyles } from "../styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
     const form = useForm({
@@ -15,8 +15,8 @@ export default function KubeconfigContentScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1, backgroundColor: "white" }}>
-            <ScrollView contentContainerStyle={styles.scrollViewStyle}>
-                <Text style={styles.headingStyle}>Add Kubeconfig Content</Text>
+            <ScrollView contentContainerStyle={landscapeStyles.scrollViewStyle}>
+                <Text style={landscapeStyles.headingStyle}>Add Kubeconfig Content</Text>
 
                 <FormBuilder
                     form={form}

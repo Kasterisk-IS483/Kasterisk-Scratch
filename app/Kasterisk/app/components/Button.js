@@ -1,11 +1,14 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native'
-import styles from "../styles.js";
+import { landscapeStyles, portraitStyles } from "../styles.js";
 
 const width = Dimensions.get('window').width
+const height = Dimensions.get('window').Height
+
 
 const Button = ({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) => {
-  const large = width / 3
+  
+  const large = width>height? (width / 3) :(width/2.5)
   const small = width / 8
   const btnSize = size === 'large' ? large : small
   const btnBgColor = type === 'filled' ? '#ffffff' : 'transparent'
@@ -39,11 +42,11 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={image}
-            style={styles.imageIconStyle}
+            style={landscapeStyles.imageIconStyle}
           />
         </View>
 
-        <View style={styles.buttonIconSeparatorStyle} />
+        <View style={landscapeStyles.buttonIconSeparatorStyle} />
         <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={[textCommonStyle]}> {text} </Text>
         </View>
