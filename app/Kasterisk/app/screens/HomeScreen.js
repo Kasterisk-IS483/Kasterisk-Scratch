@@ -7,7 +7,7 @@ export default class Home extends Component {
       <View style={landscapeStyles.container}>
         <Text> Profile Screen </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-          Welcome, {this.props.navigation.getParam("idToken")}
+          Welcome, {this.props.navigation.idToken}
         </Text>
         <Button
           title="Sign out"

@@ -14,7 +14,7 @@ const onPress = () => {
 // Standalone: "kasterisk://"
 
 const IOS_CLIENT_ID =
-  "587877229134-8gdl14qhb0oq1bqtfoh1lr8nrbnfi8m4.apps.googleusercontent.com";
+  "587877229134-ivv7cc74rvke5jhhsejeq4cugpdfe0lh.apps.googleusercontent.com";
 const ANDROID_CLIENT_ID =
   "587877229134-jlnds3fpb8i91orlrdstmedgvfus2qov.apps.googleusercontent.com";
 
@@ -57,9 +57,9 @@ export default class WelcomeScreen extends Component {
 
       if (result.type === "success") {
         console.log("WelcomeScreen.js.js 21 | ", result.user.givenName, result.idToken);
-        this.props.navigation.navigate("HomeScreen", {
+        this.props.navigation.navigate("Home", {
           idToken: result.idToken
-        }); //after Google login redirect to Profile
+        }); //after Google login redirect to Home
         return result.accessToken;
       } else {
         return { cancelled: true };
