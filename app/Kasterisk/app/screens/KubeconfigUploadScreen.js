@@ -58,7 +58,7 @@ class FileUpload extends React.Component {
 
           <Text>Status</Text>
           <ActivityIndicator 
-            style={{alignItems: 'left', padding: 5}} 
+            style={{alignSelf: 'flex-start', padding: 5}} 
             animating={true} 
             color={Colors.blue800} 
           />
