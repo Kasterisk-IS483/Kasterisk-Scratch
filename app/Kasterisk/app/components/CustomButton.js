@@ -5,10 +5,10 @@ import { whiteCol, blackCol } from "../styles.js";
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').Height
 
-export default function Button({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) {
+export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) {
   
   const large = width>height? (width / 3) :(width/2.5)
-  const small = width / 8
+  const small = width / 4
   const btnSize = size === 'large' ? large : small
   const btnBgColor = type === 'filled' ? whiteCol : 'transparent'
   const btnTextColor = type === 'filled' ? blackCol : '#6371c2'

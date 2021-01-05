@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from "react-native"
 import FormBuilder from "react-native-paper-form-builder";
 import { useForm } from "react-hook-form";
 import { Colors, Button } from "react-native-paper";
+
 import { commonStyles } from "../styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
@@ -11,6 +12,9 @@ export default function KubeconfigContentScreen({ navigation }) {
             name: "",
             server: "",
             certificate: "",
+            username: "",
+            password: "",
+            token: "",
         },
         mode: "onSubmit",
     });
@@ -27,7 +31,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         {
                             type: "input",
                             name: "name",
-                            label: "Name",
+                            label: "Name (required)",
                             rules: {
                                 required: {
                                     value: true,
@@ -41,7 +45,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         {
                             type: "input",
                             name: "server",
-                            label: "Server",
+                            label: "Server (required)",
                             rules: {
                                 required: {
                                     value: true,
@@ -55,7 +59,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         {
                             type: "input",
                             name: "certificate",
-                            label: "Certificate",
+                            label: "Certificate (required)",
                             rules: {
                                 required: {
                                     value: true,
@@ -66,8 +70,52 @@ export default function KubeconfigContentScreen({ navigation }) {
                                 autoCapitalize: "none",
                             },
                         },
+                        {
+                            type: "input",
+                            name: "username",
+                            label: "Username (if using Username and Password)",
+                            rules: {
+                                required: {
+                                    value: false,
+                                    message: "Kubeconfig username is required",
+                                },
+                            },
+                            textInputProps: {
+                                autoCapitalize: "none",
+                            },
+                        },
+                        {
+                            type: "input",
+                            name: "password",
+                            label: "Password (if using Username and Password)",
+                            rules: {
+                                required: {
+                                    value: false,
+                                    message: "Kubeconfig password is required",
+                                },
+                            },
+                            textInputProps: {
+                                autoCapitalize: "none",
+                                secureTextEntry: true,
+                            },
+                        },
+                        {
+                            type: "input",
+                            name: "token",
+                            label: "Token (if using Token)",
+                            rules: {
+                                required: {
+                                    value: false,
+                                    message: "Kubeconfig token is required",
+                                },
+                            },
+                            textInputProps: {
+                                autoCapitalize: "none",
+                            },
+                        },
                     ]}>
-                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin:15}}>
+                    
+                    <View style={{ alignItems: 'center', justifyContent: 'center', margin:15 }}>
                         <Button
                             style={commonStyles.actionButton}
                             mode={"contained"}
@@ -77,7 +125,8 @@ export default function KubeconfigContentScreen({ navigation }) {
                             })}>
                             Submit
                         </Button>  
-                    </View>    
+                    </View>
+
                 </FormBuilder>
 
             </ScrollView>

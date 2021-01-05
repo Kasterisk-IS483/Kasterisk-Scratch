@@ -6,22 +6,10 @@ export const blackCol = "#000000";
 
 export const commonStyles  = StyleSheet.create({
 
-  container: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  fillContainer: {
-    flex: 1,
-  },
-  primaryContainer: {
-    flex: 1,
-    backgroundColor: primaryCol,
-  },
   whiteContainer: {
     flex: 1,
     backgroundColor: whiteCol,
   },
-
   centredContainer: {
     position: "relative",
     width: "100%",
@@ -47,9 +35,10 @@ export const commonStyles  = StyleSheet.create({
     color: blackCol,
     fontFamily: "System",
   },
-  progressbar: {
+  progressBar: {
     height: 20,
-    marginBottom: 15
+    marginTop: 15,
+    marginBottom: 15,
   },
   actionButton: {
     width: "40%",
@@ -57,7 +46,57 @@ export const commonStyles  = StyleSheet.create({
 
 });
 
+export const landscapeStyles  = StyleSheet.create({
+
+  logo: {
+    position: "absolute",
+    width: "50%",
+    height: "50%",
+    resizeMode: "contain",
+    left: "25%",
+    top: "15%",
+  },
+  description: {
+    position: "absolute",
+    width: "50%",
+    fontSize: 18,
+    left: "25%",
+    top: "50%",
+    textAlign: "center",
+  },
+
+  container: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  fillContainer: {
+    flex: 1,
+  },
+  primaryContainer: {
+    flex: 1,
+    backgroundColor: primaryCol,
+  },
+
+});
+
 export const portraitStyles = StyleSheet.create({
+
+  logo: {
+    position: "absolute",
+    width: "50%",
+    height: "55%",
+    resizeMode: "contain",
+    left: "25%",
+    top: "15%",
+  },
+  description: {
+    position: "absolute",
+    width: "50%",
+    fontSize: 18,
+    left: "25%",
+    top: "60%",
+    textAlign: "center",
+  },
 
   container: {
     flex: 1,
@@ -72,11 +111,5 @@ export const portraitStyles = StyleSheet.create({
     backgroundColor: primaryCol,
     flexDirection: "column",
   },
-  whiteContainer: {
-    flex: 3,
-    backgroundColor: whiteCol,
-    flexDirection: "column",
-  },
 
 });
-
