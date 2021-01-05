@@ -1,9 +1,8 @@
 import { StyleSheet, Dimensions } from "react-native";
 
 export const primaryCol = "#265395";
-export const whiteCol = "white";
-export const greyCol = "grey";
-export const blackCol = "black";
+export const whiteCol = "#ffffff";
+export const blackCol = "#00000";
 
 export const commonStyles  = StyleSheet.create({
 
@@ -37,8 +36,8 @@ export const commonStyles  = StyleSheet.create({
 
   divider: {
     borderWidth: 0.5,
-    borderColor: "#FFFFFF",
-    width: Dimensions.get('window').width * 0.3,
+    borderColor: whiteCol,
+    width: Dimensions.get("window").width * 0.3,
     margin: 10,
   },
   heading: {
@@ -51,7 +50,10 @@ export const commonStyles  = StyleSheet.create({
   progressbar: {
     height: 20,
     marginBottom: 15
-  }
+  },
+  actionButton: {
+    width: "40%",
+  },
 
 });
 

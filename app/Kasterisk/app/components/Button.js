@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native'
+import { whiteCol, blackCol } from "../styles.js";
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').Height
@@ -9,8 +10,8 @@ export default function Button({ image, text, onPress, type = 'filled', bordered
   const large = width>height? (width / 3) :(width/2.5)
   const small = width / 8
   const btnSize = size === 'large' ? large : small
-  const btnBgColor = type === 'filled' ? '#ffffff' : 'transparent'
-  const btnTextColor = type === 'filled' ? 'black' : '#6371c2'
+  const btnBgColor = type === 'filled' ? whiteCol : 'transparent'
+  const btnTextColor = type === 'filled' ? blackCol : '#6371c2'
   const btnBorderRadius = bordered ? 30 : 5
 
   const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
