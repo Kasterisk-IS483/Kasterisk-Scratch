@@ -1,9 +1,12 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
-import { ProgressBar, Colors, Button, ActivityIndicator } from 'react-native-paper';
+import { ProgressBar, Colors, Button } from 'react-native-paper';
 import * as FileSystem from "expo-file-system";
+import Collapsible from 'react-collapsible';
+
 import { commonStyles } from "../styles.js";
+import CustomButton from "../components/CustomButton";
 
 let filecontent = "upload file first";
 
@@ -37,7 +40,7 @@ class FileUpload extends React.Component {
       <View style={commonStyles.whiteContainer}>
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
           
-          <Text style={commonStyles.heading}>Upload Kubeconfig file below</Text>
+          <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
 
           <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin:15}}>
             <Button 
@@ -49,23 +52,24 @@ class FileUpload extends React.Component {
             </Button>
           </View>
 
-          <Text>Certificate</Text>
           <ProgressBar 
-            style={commonStyles.progressbar} 
+            style={commonStyles.progressBar} 
             progress={0.7} 
             color={Colors.blue800} 
           />
 
-          <Text>Status</Text>
-          <ActivityIndicator 
-            style={{alignSelf: 'flex-start', padding: 5}} 
-            animating={true} 
-            color={Colors.blue800} 
+          <CustomButton
+            image={{uri: 'https://upload.wikimedia.org/wikipedia/donate/thumb/8/89/Ooui-checkbox-selected.svg/1024px-Ooui-checkbox-selected.svg.png'}}
+            text="certificate-authority-data"
+            type='outlined'
+            size='small'
           />
 
-          <Text style={{ marginTop: 20, padding: 10, backgroundColor: "#D3D3D3" }}>
-            {this.state.text}
-          </Text>
+          <View style={{ fontFamily: 'System', marginTop: 20, padding: 10, backgroundColor: "#D3D3D3" }}>
+            <Collapsible trigger="Preview">
+              <Text>{this.state.text}</Text>
+            </Collapsible>
+          </View>
 
         </ScrollView>
       </View>
