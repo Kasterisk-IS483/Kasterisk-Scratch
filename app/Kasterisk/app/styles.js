@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export const primaryCol = "#265395";
 export const whiteCol = "#ffffff";
-export const blackCol = "#00000";
+export const blackCol = "#000000";
 
 export const commonStyles  = StyleSheet.create({
 
