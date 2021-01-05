@@ -2,30 +2,12 @@ import React, { Component, useEffect, useState } from "react";
 import { View, Text, ImageBackground, Image, Dimensions, StyleSheet } from "react-native";
 import * as Google from "expo-google-app-auth";
 // import * as Linking from "expo-linking";
-import Button from "../components/Button";
-import { commonStyles, portraitStyles } from "../styles.js";
+
+import CustomButton from "../components/CustomButton";
+import { commonStyles, landscapeStyles, portraitStyles, whiteCol } from "../styles.js";
 
 const onPress = () => {
   // alert(this.getOrientation());
-};
-
-const styles = {
-  logo: {
-    position: "absolute",
-    width: "50%",
-    height: "50%",
-    resizeMode: "contain",
-    left: "25%",
-    top: "15%",
-  },
-  description: {
-    position: "absolute",
-    width: "50%",
-    fontSize: 18,
-    left: "25%",
-    top: "50%",
-    textAlign: "center",
-  },
 };
 
 // const prefix = Linking.makeUrl("/");
@@ -58,7 +40,7 @@ export default class WelcomeScreen extends Component {
 
   getStyle() {
     if (this.getOrientation() === 'LANDSCAPE') {
-      return commonStyles;
+      return landscapeStyles;
     } else {
       return portraitStyles;
     }
@@ -103,10 +85,10 @@ export default class WelcomeScreen extends Component {
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={styles.logo}
+            style={this.getStyle().logo}
             source={require('../assets/kasterisk-logo.png')}
           />
-          <Text style={styles.description}>Access, manage and monitor your Kubernetes clusters.</Text>
+          <Text style={this.getStyle().description}>Access, manage and monitor your Kubernetes clusters.</Text>
         </View>
 
         <View style={this.getStyle().primaryContainer}>
@@ -114,32 +96,32 @@ export default class WelcomeScreen extends Component {
             <View
               style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
             >
-              <Button
+              <CustomButton
                 image={require("../assets/welcome-button-google.png")}
                 text="Log in With Google"
                 onPress={this.signInWithGoogle}
               />
-              <Button
+              <CustomButton
                 image={require("../assets/welcome-button-aws.png")}
                 text="Log in With Amazon"
                 onPress={() =>
                   navigation.navigate("AWS Login")
                 }
               />
-              <Button
+              <CustomButton
                 image={require("../assets/welcome-button-azure.png")}
                 text="Log in With Azure AD"
                 onPress={onPress}
               />
               <View style={commonStyles.divider} />
-              <Button
+              <CustomButton
                 image={require("../assets/welcome-button-kube.png")}
                 text="Upload Kubeconfig File"
                 onPress={() =>
                   navigation.navigate("KubeconfigUpload")
                 }
               />
-              <Button
+              <CustomButton
                 image={require("../assets/welcome-button-kube.png")}
                 text="Add Kubeconfig Content"
                 onPress={() =>
