@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Button } from "react-native";
 export default class Home extends Component {
   render() {
     return (
-      <View style={landscapeStyles.container}>
+      <View style={styles.container}>
         <Text> Profile Screen </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           Welcome, {this.props.navigation.idToken}
@@ -18,7 +18,7 @@ export default class Home extends Component {
   }
 }
 
-const landscapeStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",

@@ -1,12 +1,31 @@
 import React, { Component, useEffect, useState } from "react";
-import { View, Text, ImageBackground, Image, Dimensions } from "react-native";
+import { View, Text, ImageBackground, Image, Dimensions, StyleSheet } from "react-native";
 import * as Google from "expo-google-app-auth";
 // import * as Linking from "expo-linking";
 import Button from "../components/Button";
-import { landscapeStyles, portraitStyles } from "../styles.js";
+import { commonStyles, portraitStyles } from "../styles.js";
 
 const onPress = () => {
   // alert(this.getOrientation());
+};
+
+const styles = {
+  logo: {
+    position: "absolute",
+    width: "50%",
+    height: "50%",
+    resizeMode: "contain",
+    left: "25%",
+    top: "15%",
+  },
+  description: {
+    position: "absolute",
+    width: "50%",
+    fontSize: 18,
+    left: "25%",
+    top: "50%",
+    textAlign: "center",
+  },
 };
 
 // const prefix = Linking.makeUrl("/");
@@ -39,7 +58,7 @@ export default class WelcomeScreen extends Component {
 
   getStyle() {
     if (this.getOrientation() === 'LANDSCAPE') {
-      return landscapeStyles;
+      return commonStyles;
     } else {
       return portraitStyles;
     }
@@ -77,21 +96,21 @@ export default class WelcomeScreen extends Component {
 
     return (
       <View style={this.getStyle().container}>
-        <View style={this.getStyle().leftContainer}>
+        <View style={this.getStyle().fillContainer}>
           <ImageBackground
-            style={this.getStyle().container}
+            style={this.getStyle().fillContainer}
             source={require("../assets/welcome-bg-landscape.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={this.getStyle().logo_kasterisk}
-            source={require('../assets/logo_kasterisk.png')}
+            style={styles.logo}
+            source={require('../assets/kasterisk-logo.png')}
           />
-          <Text style={this.getStyle().logo_kasterisk_text}>Access, manage and monitor your Kubernetes clusters.</Text>
+          <Text style={styles.description}>Access, manage and monitor your Kubernetes clusters.</Text>
         </View>
 
-        <View style={this.getStyle().rightContainer}>
-          <View style={this.getStyle().buttonContainer}>
+        <View style={this.getStyle().primaryContainer}>
+          <View style={commonStyles.centredContainer}>
             <View
               style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
             >
@@ -112,7 +131,7 @@ export default class WelcomeScreen extends Component {
                 text="Log in With Azure AD"
                 onPress={onPress}
               />
-              <View style={landscapeStyles.lineStyle} />
+              <View style={commonStyles.divider} />
               <Button
                 image={require("../assets/welcome-button-kube.png")}
                 text="Upload Kubeconfig File"

@@ -1,12 +1,10 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Dimensions, Image } from 'react-native'
-import { landscapeStyles, portraitStyles } from "../styles.js";
+import { View, Text, TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native'
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').Height
 
-
-const Button = ({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) => {
+export default function Button({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) {
   
   const large = width>height? (width / 3) :(width/2.5)
   const small = width / 8
@@ -14,6 +12,8 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
   const btnBgColor = type === 'filled' ? '#ffffff' : 'transparent'
   const btnTextColor = type === 'filled' ? 'black' : '#6371c2'
   const btnBorderRadius = bordered ? 30 : 5
+
+  const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
 
   const containerCommonStyle = {
     backgroundColor: btnBgColor,
@@ -34,7 +34,21 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
     fontWeight: 'bold'
   }
 
-  const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
+  const iconStyle = {
+    imageIcon: {
+      padding: 10,
+      margin: 5,
+      height: 25,
+      width: 25,
+      resizeMode: 'stretch',
+    },
+
+    buttonIconSeparator: {
+      backgroundColor: 'grey',
+      width: 1,
+      height: 40,
+    },
+  };
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
@@ -42,11 +56,11 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={image}
-            style={landscapeStyles.imageIconStyle}
+            style={iconStyle.imageIcon}
           />
         </View>
 
-        <View style={landscapeStyles.buttonIconSeparatorStyle} />
+        <View style={iconStyle.buttonIconSeparator} />
         <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
           <Text style={[textCommonStyle]}> {text} </Text>
         </View>
@@ -54,6 +68,3 @@ const Button = ({ image, text, onPress, type = 'filled', bordered = false, size 
     </TouchableOpacity>
   )
 }
-
-export default Button
-
