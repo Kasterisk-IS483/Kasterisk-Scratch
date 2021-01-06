@@ -3,7 +3,6 @@ import { View, Text, ScrollView } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { ProgressBar, Colors, Button } from 'react-native-paper';
 import * as FileSystem from "expo-file-system";
-import Collapsible from 'react-collapsible';
 
 import { commonStyles } from "../styles.js";
 import CustomButton from "../components/CustomButton";
@@ -65,10 +64,10 @@ class FileUpload extends React.Component {
             size='small'
           />
 
-          <View style={{ fontFamily: 'System', marginTop: 20, padding: 10, backgroundColor: "#D3D3D3" }}>
-            <Collapsible trigger="Preview">
-              <Text>{this.state.text}</Text>
-            </Collapsible>
+          <View style={{ marginTop: 20, padding: 10, backgroundColor: "#D3D3D3" }}>
+          {this.state.text &&
+            <Text>{this.state.text}</Text>
+          }
           </View>
 
         </ScrollView>
