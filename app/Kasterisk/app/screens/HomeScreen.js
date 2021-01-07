@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
+import ClusterAuthProviderGoogle from "./WelcomeScreen";
 
 export default class Home extends Component {
   render() {
@@ -8,8 +9,8 @@ export default class Home extends Component {
         <Text> Profile Screen </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           Welcome, TESTINGGGGGGGGGG
-          {this.props.route.params.idToken}
-          {localStorage.getItem('STORAGE_TEMPORARY_CREDENTIALS')}
+          {ClusterAuthProviderGoogle}
+          {JSON.parse(localStorage.getItem("ClusterAuthProviderGoogle"))}
         </Text>
         <Button
           title="Sign out"
