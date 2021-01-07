@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import { View, Text, ImageBackground, Image, Dimensions, StyleSheet } from "react-native";
 import * as Google from "expo-google-app-auth";
+import implement, { Interface, type } from 'implement-js'
 // import * as Linking from "expo-linking";
 
 import CustomButton from "../components/CustomButton";
@@ -57,9 +58,16 @@ export default class WelcomeScreen extends Component {
         androidClientId: ANDROID_CLIENT_ID,
         scopes: ["profile", "email"]
       });
-
+      console.log(result)
       if (result.type === "success") {
-        console.log("WelcomeScreen.js.js 21 | ", result.user.givenName, result.idToken);
+        console.log("WelcomeScreen.js.js 21 | ", result.user.givenName);
+        saveTemporaryCredentials({
+          accessToken: result.accessToken,
+          expires: 0,
+          idToken: result.idToken,
+          refreshToken: result.refreshToken,
+        });
+        console.log(localStorage.getItem(STORAGE_TEMPORARY_CREDENTIALS));
         this.props.navigation.navigate("Home", {
           idToken: result.idToken
         }); //after Google login redirect to Home
@@ -136,3 +144,20 @@ export default class WelcomeScreen extends Component {
 
   }
 }
+
+const IClusterAuthProviderGoogle = Interface('IClusterAuthProviderGoogle') ({
+  accessToken: type('string'),
+  expires: type('number'),
+  idToken: type('string'),
+  refreshToken: type('string'),
+  clusterID?: type('string'),
+},{
+  strict: true
+})
+
+export const saveTemporaryCredentials = (
+  credentials: IClusterAuthProviderGoogle
+): void => {
+  localStorage.setItem(STORAGE_TEMPORARY_CREDENTIALS, JSON.stringify(credentials));
+};
+

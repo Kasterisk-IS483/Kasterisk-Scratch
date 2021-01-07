@@ -7,11 +7,13 @@ export default class Home extends Component {
       <View style={styles.container}>
         <Text> Profile Screen </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-          Welcome, {this.props.navigation.idToken}
+          Welcome, TESTINGGGGGGGGGG
+          {this.props.route.params.idToken}
+          {localStorage.getItem('STORAGE_TEMPORARY_CREDENTIALS')}
         </Text>
         <Button
           title="Sign out"
-          onPress={() => this.props.navigation.navigate("WelcomeScreen")}
+          onPress={() => this.props.navigation.navigate("Welcome")}
         />
       </View>
     );
