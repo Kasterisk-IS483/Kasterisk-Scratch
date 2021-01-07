@@ -57,12 +57,16 @@ export default class WelcomeScreen extends Component {
         androidClientId: ANDROID_CLIENT_ID,
         scopes: ["profile", "email"]
       });
-      console.log(result)
+
       if (result.type === "success") {
         console.log("WelcomeScreen.js.js 21 | ", result.user.givenName);
+
+        // set credentials for google after logged in
         ClusterAuthProviderGoogle["accessToken"] = result.accessToken;
         ClusterAuthProviderGoogle["idToken"] = result.idToken;
         ClusterAuthProviderGoogle["refreshToken"] = result.refreshToken;
+
+        // save credentials into localStorage
         saveTemporaryCredentials("ClusterAuthProviderGoogle", ClusterAuthProviderGoogle);
         console.log(JSON.parse(localStorage.getItem("ClusterAuthProviderGoogle")));
         

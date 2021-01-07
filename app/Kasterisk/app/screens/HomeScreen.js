@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
-import ClusterAuthProviderGoogle from "./WelcomeScreen";
 
 export default class Home extends Component {
   render() {
+    var google = JSON.parse(localStorage.getItem("ClusterAuthProviderGoogle"));
     return (
       <View style={styles.container}>
         <Text> Profile Screen </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           Welcome, TESTINGGGGGGGGGG
-          {ClusterAuthProviderGoogle}
-          {JSON.parse(localStorage.getItem("ClusterAuthProviderGoogle"))}
+          {google["accessToken"]}
         </Text>
         <Button
           title="Sign out"
