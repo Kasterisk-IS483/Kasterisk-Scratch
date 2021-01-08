@@ -7,12 +7,28 @@ import * as FileSystem from "expo-file-system";
 import { commonStyles } from "../styles.js";
 import CustomButton from "../components/CustomButton";
 
-let filecontent = "upload file first";
+let filecontent = "File contents will be shown here";
+
+const k8s = require('@kubernetes/client-node');
+
+const kc = new k8s.KubeConfig();
+kc.loadFromCluster();
+
+const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
+
+k8sApi.listNamespacedPod('default')
+    .then((res) => {
+	console.log(res.body);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
 
 class FileUpload extends React.Component {
   state = {
     isUploaded: false,
-    text: "File contents will be shown here",
+    text: filecontent,
   };
 
   updateState(uploadStatus, uploadFileContent) {
@@ -25,9 +41,9 @@ class FileUpload extends React.Component {
       console.log(res.uri, res.type, res.name, res.size);
       if (res.type == "success") {
         filecontent = await FileSystem.readAsStringAsync(res.uri);
-        console.log(filecontent);
         this.updateState(true, filecontent);
-        console.log(this.state.isUploaded);
+      } else {
+        alert("File upload failed, please try again")
       }
     } catch (err) {
       throw err;
