@@ -4,7 +4,6 @@ module.exports = {
   },
   resolver: {
     extraNodeModules: require('node-libs-react-native'),
-    net: require('react-native-tcp'),
     sourceExts: ["jsx", "js", "ts", "tsx", "native", "json"],
   },
 };
