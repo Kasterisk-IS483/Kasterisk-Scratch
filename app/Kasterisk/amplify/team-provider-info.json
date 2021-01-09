@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kasterisk-dev-11514-authRole",
+      "UnauthRoleArn": "arn:aws:iam::134746376031:role/amplify-kasterisk-dev-11514-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::134746376031:role/amplify-kasterisk-dev-11514-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-kasterisk-dev-11514-deployment",
+      "UnauthRoleName": "amplify-kasterisk-dev-11514-unauthRole",
+      "StackName": "amplify-kasterisk-dev-11514",
+      "StackId": "arn:aws:cloudformation:us-east-1:134746376031:stack/amplify-kasterisk-dev-11514/3feab970-529e-11eb-b057-12ab197e9ef5",
+      "AmplifyAppId": "dq8xydulyyv46"
+    },
+    "categories": {
+      "auth": {
+        "kasterisk7b880755": {}
+      }
+    }
+  }
+}
