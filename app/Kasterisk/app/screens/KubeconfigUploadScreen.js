@@ -18,7 +18,7 @@ class FileAcceptStatus extends React.Component {
       isCCAccepted: false,
       isCKAccepted: false,
     };
-  }
+  };
 
   updateState(stateKey, stateStatus) {
     if (stateKey == "CA") {

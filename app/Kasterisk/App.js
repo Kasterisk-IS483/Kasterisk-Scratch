@@ -9,6 +9,7 @@ import KubeconfigContentScreen from "./app/screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./app/screens/AWSLoginScreen";
 import HomeScreen from "./app/screens/HomeScreen";
 import { primaryCol, whiteCol } from "./app/styles.js";
+// import AsyncStorage from '@react-native-community/async-storage';
 import 'localstorage-polyfill';
 
 const Stack = createStackNavigator();
