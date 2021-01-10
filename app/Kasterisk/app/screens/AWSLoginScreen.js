@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, ScrollView, TouchableHighlight, Alert } from 'react-native'
-import { TextInput, Button } from "react-native-paper";
+import { View, Text, ScrollView, Alert } from 'react-native'
+import { TextInput, Button, Colors } from "react-native-paper";
 import { commonStyles } from "../styles.js";
 
-// import Amplify from '@aws-amplify/core'
-// import config from '../../aws-exports'
-// Amplify.configure(config)
-
-// var AWS = require('aws-sdk/dist/aws-sdk-react-native');
 
 export default function AWSLoginScreen({ navigation }) {
     const [loginState, setLoginState] = useState({
@@ -15,9 +10,9 @@ export default function AWSLoginScreen({ navigation }) {
         secretAccessKey: '',
     });
 
-    const handleAwsLoginPress = async () => {
+    const AwsLogin = async () => {
         if (loginState.accessKeyId !== '' && loginState.secretAccessKey !== '') {
-            const isValidCredentials = await AwsApi.fetchEksClusterNames('us-west-2', credentials);
+            const isValidCredentials = await AwsApi.fetchEksClusters('us-west-2', credentials);
             if (isValidCredentials) {
                 navigation.navigate('Home');
             } else {
@@ -27,41 +22,6 @@ export default function AWSLoginScreen({ navigation }) {
             Alert.alert('Invalid Entry', 'Please enter Access Key ID and Secret Access Key.');
         }
     };
-    // state = {
-    //     username: '',
-    //     password: '',
-    //     phone_number: '',
-    //     email: '',
-    //     authCode: '',
-    //     user: {}
-    // }
-    // async signUp() {
-    //     const { username, password, email, phone_number } = this.state
-    //     await Auth.signUp({
-    //         username,
-    //         password,
-    //         attributes: { email, phone_number }
-    //     })
-    //     console.log('sign up successful!')
-    // }
-    // async confirmSignUp() {
-    //     const { username, authCode } = this.state
-    //     await Auth.configSignignUp(username, authCode)
-    //     console.log('confirm sign up successful!')
-    // }
-    // async signIn() {
-    //     const { username, password } = this.state
-    //     const user = await Auth.signIn(username, password)
-    //     this.setState({ user })
-    //     console.log('sign in successful!')
-    // }
-    // async confirmSignIn() {
-    //     const { user, authCode } = this.state
-    //     await Auth.configSignignIn(user, authCode)
-    //     console.log('user now successfully signed in to the app!!')
-    // }
-
-
 
     return (
         <View style={commonStyles.whiteContainer}>
@@ -88,19 +48,16 @@ export default function AWSLoginScreen({ navigation }) {
                         />
                     </View>
                 </View>
-                <View>
+                <View style={{ alignItems: 'center', justifyContent: 'center', margin: 15 }}>
                     <Button
-                        underlayColor={'#1621CF'}
-                        onPress={() => handleAwsLoginPress()}>
-                        <Text>Sign in with AWS</Text>
-                    </Button>
+                        style={commonStyles.actionButton}
+                        mode={"contained"}
+                        color={Colors.blue500}
+                        onPress={() => AwsLogin()}>
+                        AWS Sign In
+                        </Button>
                 </View>
-
-
-
             </ScrollView>
         </View>
     );
 }
-
-// export default withAuthenticator(AWSLoginScreen, { includeGreetings: true })

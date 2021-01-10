@@ -54,7 +54,7 @@ class AwsApi {
       }
     };
   
-    static fetchEksClusterNames = async (region, AwsCredentials) => {
+    static fetchEksClusters = async (region, AwsCredentials) => {
       try {
         const clusters = await this.eksFetch(region, '/clusters', AwsCredentials);
         return clusters.clusters;
