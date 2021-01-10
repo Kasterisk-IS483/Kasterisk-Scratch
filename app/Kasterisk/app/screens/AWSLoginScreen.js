@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
 import { TextInput, Button, Colors } from "react-native-paper";
 import { commonStyles } from "../styles.js";
+import { checkAwsCredentials } from "../api/AwsApi.js"
 
 
-export default function AWSLoginScreen({ navigation }) {
+const AWSLoginScreen = ({ navigation }) => {
+
     const [loginState, setLoginState] = useState({
         accessKeyId: '',
         secretAccessKey: '',
@@ -12,10 +14,16 @@ export default function AWSLoginScreen({ navigation }) {
 
     const AwsLogin = async () => {
         if (loginState.accessKeyId !== '' && loginState.secretAccessKey !== '') {
-            const isValidCredentials = await AwsApi.fetchEksClusters('us-west-2', credentials);
-            if (isValidCredentials) {
-                navigation.navigate('Home');
-            } else {
+            try {
+                const isValidCredentials = await (
+                    checkAwsCredentials(loginState)
+                );
+                if (isValidCredentials) {
+                    navigation.navigate('Home');
+                } else {
+                    Alert.alert('Invalid Credentials', 'Please enter valid access keys and ensure you have correct permissions.');
+                }
+            } catch (err) {
                 Alert.alert('Invalid Credentials', 'Please enter valid access keys and ensure you have correct permissions.');
             }
         } else {
@@ -26,7 +34,6 @@ export default function AWSLoginScreen({ navigation }) {
     return (
         <View style={commonStyles.whiteContainer}>
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
-
                 <Text style={commonStyles.heading}>AWS Login</Text>
                 <View>
                     <View>
@@ -60,4 +67,6 @@ export default function AWSLoginScreen({ navigation }) {
             </ScrollView>
         </View>
     );
-}
+};
+
+export default React.memo(AWSLoginScreen);
