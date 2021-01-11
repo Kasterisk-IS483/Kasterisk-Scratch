@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useState } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     View,
     Text,
     ImageBackground,
     Image,
     Dimensions,
-    StyleSheet,
-    AsyncStorage
+    StyleSheet
 } from "react-native";
 import * as Google from "expo-google-app-auth";
 
