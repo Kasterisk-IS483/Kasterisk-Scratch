@@ -3,13 +3,23 @@ import { Text, View, StyleSheet, Button } from "react-native";
 
 export default class Home extends Component {
   render() {
-    var google = JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"));
+    var getGoogle = JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"));
+
+    const getGoogle = async () => {
+      try {
+        let google = JSON.parse(await AsyncStorage.getItem("ClusterAuthProviderGoogle"));
+      } catch (error) {
+        // Error retrieving data
+        console.log(error.message);
+      }
+    }
+    
     return (
       <View style={styles.container}>
         <Text> Profile Screen </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           Welcome, TESTINGGGGGGGGGG
-          {google["accessToken"]}
+          {this.getGoogle["accessToken"]}
         </Text>
         <Button
           title="Sign out"

@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useState } from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     View,
     Text,
     ImageBackground,
     Image,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    AsyncStorage
 } from "react-native";
 import * as Google from "expo-google-app-auth";
 
@@ -63,7 +63,14 @@ export default class WelcomeScreen extends Component {
         this.setState({ orientation: this.getOrientation() });
     }
 
-    
+    async saveTemporaryCredentials(toSave, credentials) {
+        try {
+          await AsyncStorage.setItem(toSave, JSON.stringify(credentials));
+        } catch (e) {
+          console.log(e)
+        }
+      }
+
 
   signInWithGoogle = async () => {
     try {
@@ -82,13 +89,13 @@ export default class WelcomeScreen extends Component {
             ClusterAuthProviderGoogle["refreshToken"] = result.refreshToken;
 
             // save credentials into localStorage
-            saveTemporaryCredentials(
+            this.saveTemporaryCredentials(
             "ClusterAuthProviderGoogle",
             ClusterAuthProviderGoogle
             );
-            console.log(
-            JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"))
-            );
+            // console.log(
+            // JSON.parse(await AsyncStorage.getItem("ClusterAuthProviderGoogle"))
+            // );
 
             this.props.navigation.navigate("Home", {
             idToken: result.idToken,
@@ -174,9 +181,7 @@ export default class WelcomeScreen extends Component {
     }
 }
 
-function saveTemporaryCredentials(toSave, credentials) {
-    AsyncStorage.setItem(toSave, JSON.stringify(credentials));
-}
+
 
 var ClusterAuthProviderGoogle = {
     accessToken: "",
