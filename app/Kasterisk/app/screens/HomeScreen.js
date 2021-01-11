@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button } from "react-native";
 
 export default class Home extends Component {
   render() {
-    var google = JSON.parse(localStorage.getItem("ClusterAuthProviderGoogle"));
+    var google = JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"));
     return (
       <View style={styles.container}>
         <Text> Profile Screen </Text>

@@ -15,6 +15,7 @@ import {
     landscapeStyles,
     portraitStyles,
     whiteCol,
+    AsyncStorage
 } from "../styles.js";
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "../utils/constants";
 
@@ -71,7 +72,7 @@ export default class WelcomeScreen extends Component {
             ClusterAuthProviderGoogle
             );
             console.log(
-            JSON.parse(localStorage.getItem("ClusterAuthProviderGoogle"))
+            JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"))
             );
 
             this.props.navigation.navigate("Home", {
@@ -152,7 +153,7 @@ export default class WelcomeScreen extends Component {
 }
 
 function saveTemporaryCredentials(toSave, credentials) {
-    localStorage.setItem(toSave, JSON.stringify(credentials));
+    AsyncStorage.setItem(toSave, JSON.stringify(credentials));
 }
 
 var ClusterAuthProviderGoogle = {
