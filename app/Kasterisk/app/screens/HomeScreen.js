@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button } from "react-native";
 
 export default class Home extends Component {
   render() {
-    var getGoogle = JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"));
+    //var getGoogle = JSON.parse(AsyncStorage.getItem("ClusterAuthProviderGoogle"));
 
     const getGoogle = async () => {
       try {
