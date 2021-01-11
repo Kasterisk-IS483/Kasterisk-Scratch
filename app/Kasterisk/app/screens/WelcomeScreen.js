@@ -19,6 +19,19 @@ import {
 } from "../styles.js";
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "../utils/constants";
 
+import * as AuthSession from 'expo-auth-session';
+import { openAuthSession } from 'azure-ad-graph-expo';
+
+const azureAdAppProps = {
+        clientId        :   "047ad4bd-b216-4efd-9f44-6093ec72eef6",
+        tenantId        :   "f8cdef31-a31e-4b4a-93e4-5f571e91255a",
+        scope           :   'User.Read',
+        redirectUrl     :   AuthSession.makeRedirectUri(),
+        clientSecret    :   "K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB",
+        // domainHint      :   AZURE_DOMAIN_HINT,
+        prompt          :   'login'
+};
+
 export default class WelcomeScreen extends Component {
     constructor(props) {
         super(props);
@@ -49,6 +62,8 @@ export default class WelcomeScreen extends Component {
     onLayout() {
         this.setState({ orientation: this.getOrientation() });
     }
+
+    
 
   signInWithGoogle = async () => {
     try {
@@ -88,6 +103,11 @@ export default class WelcomeScreen extends Component {
         return { error: true };
     }
   };
+
+  _handlePressAsync = async () => {
+    let result = await openAuthSession(azureAdAppProps);
+    this.setState({ result });
+  }
 
     render() {
         const { navigation } = this.props;
@@ -131,7 +151,7 @@ export default class WelcomeScreen extends Component {
                     <CustomButton
                         image={require("../assets/welcome-button-azure.png")}
                         text="Log in With Azure AD"
-                        onPress={() => navigation.navigate("AWS Login")}
+                        onPress={this._handlePressAsync}
                     />
                     <View style={commonStyles.divider} />
                     <CustomButton
@@ -148,6 +168,8 @@ export default class WelcomeScreen extends Component {
                 </View>
                 </View>
             </View>
+
+            
         );
     }
 }
