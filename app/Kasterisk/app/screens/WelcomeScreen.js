@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from "react";
 import {
     View,
     Text,
+    ScrollView,
     ImageBackground,
     Image,
     Dimensions,
@@ -137,42 +138,46 @@ export default class WelcomeScreen extends Component {
                 </View>
 
                 <View style={this.getStyle().primaryContainer}>
-                <View style={commonStyles.centredContainer}>
-                    <View
-                    style={{
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                    >
-                    <CustomButton
-                        image={require("../assets/welcome-button-google.png")}
-                        text="Log in With Google"
-                        onPress={this.signInWithGoogle}
-                    />
-                    <CustomButton
-                        image={require("../assets/welcome-button-aws.png")}
-                        text="Log in With Amazon"
-                        onPress={() => navigation.navigate("AWS Login")}
-                    />
-                    <CustomButton
-                        image={require("../assets/welcome-button-azure.png")}
-                        text="Log in With Azure AD"
-                        onPress={this._handlePressAsync}
-                    />
-                    <View style={commonStyles.divider} />
-                    <CustomButton
-                        image={require("../assets/welcome-button-kube.png")}
-                        text="Upload Kubeconfig File"
-                        onPress={() => navigation.navigate("KubeconfigUpload")}
-                    />
-                    <CustomButton
-                        image={require("../assets/welcome-button-kube.png")}
-                        text="Add Kubeconfig Content"
-                        onPress={() => navigation.navigate("KubeconfigContent")}
-                    />
-                    </View>
-                </View>
+                    <ScrollView>
+                        <View style={commonStyles.centredContainer}>
+                            <View
+                            style={{
+                                padding: 35,
+                                width: '100%',
+                                flex: 1,
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                                >
+                                <CustomButton
+                                    image={require("../assets/welcome-button-google.png")}
+                                    text="Log in With Google"
+                                    onPress={this.signInWithGoogle}
+                                />
+                                <CustomButton
+                                    image={require("../assets/welcome-button-aws.png")}
+                                    text="Log in With Amazon"
+                                    onPress={() => navigation.navigate("AWS Login")}
+                                />
+                                <CustomButton
+                                    image={require("../assets/welcome-button-azure.png")}
+                                    text="Log in With Azure AD"
+                                    onPress={this._handlePressAsync}
+                                />
+                                <View style={commonStyles.divider} />
+                                <CustomButton
+                                    image={require("../assets/welcome-button-kube.png")}
+                                    text="Upload Kubeconfig File"
+                                    onPress={() => navigation.navigate("KubeconfigUpload")}
+                                />
+                                <CustomButton
+                                    image={require("../assets/welcome-button-kube.png")}
+                                    text="Add Kubeconfig Content"
+                                    onPress={() => navigation.navigate("KubeconfigContent")}
+                                />
+                            </View>
+                        </View>
+                    </ScrollView>
                 </View>
             </View>
 

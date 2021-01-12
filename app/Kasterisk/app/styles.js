@@ -41,7 +41,8 @@ export const commonStyles  = StyleSheet.create({
     marginBottom: 15,
   },
   actionButton: {
-    width: "40%",
+    width: "auto",
+    marginBottom: 25,
   },
 
 });
@@ -59,7 +60,7 @@ export const landscapeStyles  = StyleSheet.create({
   description: {
     position: "absolute",
     width: "50%",
-    fontSize: 18,
+    fontSize: 20,
     left: "25%",
     top: "50%",
     textAlign: "center",
@@ -92,7 +93,7 @@ export const portraitStyles = StyleSheet.create({
   description: {
     position: "absolute",
     width: "50%",
-    fontSize: 18,
+    fontSize: 20,
     left: "25%",
     top: "60%",
     textAlign: "center",

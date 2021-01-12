@@ -33,11 +33,11 @@ class FileAcceptStatus extends React.Component {
   render() {
     return (
       <View>
-        <AntDesign name="checkcircleo" size={24} color="black" />
-        <MaterialIcons name="check-circle-outline" size={24} color="black" />
-        <Text>{this.state.isCAAccepted}</Text>
+        {/* <AntDesign name="checkcircleo" size={24} color="black" />
+        <MaterialIcons name="check-circle-outline" size={24} color="black" /> */}
+        {/* <Text>{this.state.isCAAccepted}</Text>
         <Text>{this.state.isCCAccepted}</Text>
-        <Text>{this.state.isCKAccepted}</Text>
+        <Text>{this.state.isCKAccepted}</Text> */}
       </View>
     );
   }
@@ -132,7 +132,6 @@ class FileUpload extends React.Component {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              margin: 15,
             }}
           >
             <Button
@@ -141,15 +140,9 @@ class FileUpload extends React.Component {
               color={Colors.blue500}
               onPress={this.uploadFile}
             >
-              Upload File
+              Select File
             </Button>
           </View>
-
-          <ProgressBar
-            style={commonStyles.progressBar}
-            progress={0.7}
-            color={Colors.blue800}
-          />
 
           <FileAcceptStatus></FileAcceptStatus>
 
@@ -161,13 +154,36 @@ class FileUpload extends React.Component {
             text="certificate-authority-data"
             type="outlined"
             size="small"
+            disabled={true}
           />
 
-          <View
-            style={{ marginTop: 20, padding: 10, backgroundColor: "#D3D3D3" }}
+          <CustomButton
+            image={{
+              uri:
+                "https://upload.wikimedia.org/wikipedia/donate/thumb/8/89/Ooui-checkbox-selected.svg/1024px-Ooui-checkbox-selected.svg.png",
+            }}
+            text="client-certificate"
+            type="outlined"
+            size="small"
+            disabled={true}
+          />
+
+          <CustomButton
+            image={{
+              uri:
+                "https://upload.wikimedia.org/wikipedia/donate/thumb/8/89/Ooui-checkbox-selected.svg/1024px-Ooui-checkbox-selected.svg.png",
+            }}
+            text="client-key"
+            type="outlined"
+            size="small"
+            disabled={true}
+          />
+
+          <ScrollView
+            style={{ marginTop: 20, padding: 10, backgroundColor: "#DCDCDC" }}
           >
-            <Text>{this.state.text}</Text>
-          </View>
+            <Text style={{ fontSize: 18 }}>{this.state.text}</Text>
+          </ScrollView>
         </ScrollView>
       </View>
     );
