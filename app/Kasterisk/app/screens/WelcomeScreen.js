@@ -134,8 +134,8 @@ export default class WelcomeScreen extends Component {
                 </View>
 
                 <View style={this.getStyle().primaryContainer}>
-                    <ScrollView>
-                        <View style={commonStyles.centredContainer}>
+                    <ScrollView contentContainerStyle={commonStyles.centeredContainer}>
+                        <View>
                             <View
                             style={{
                                 padding: 35,
