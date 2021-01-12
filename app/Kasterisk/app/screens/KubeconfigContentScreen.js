@@ -73,7 +73,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         {
                             type: "input",
                             name: "username",
-                            label: "Username (if using Username and Password)",
+                            label: "Username (if using UN & PW)",
                             rules: {
                                 required: {
                                     value: false,
@@ -87,7 +87,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         {
                             type: "input",
                             name: "password",
-                            label: "Password (if using Username and Password)",
+                            label: "Password (if using UN & PW)",
                             rules: {
                                 required: {
                                     value: false,

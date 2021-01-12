@@ -5,34 +5,38 @@ import { whiteCol, blackCol } from "../styles.js";
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').Height
 
-export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large' }) {
+export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', disabled = false }) {
   
   const large = width>height? (width / 3) :(width/2.5)
-  const small = width / 4
+  const small = 'auto'
   const btnSize = size === 'large' ? large : small
   const btnBgColor = type === 'filled' ? whiteCol : 'transparent'
   const btnTextColor = type === 'filled' ? blackCol : '#6371c2'
   const btnBorderRadius = bordered ? 30 : 5
-
   const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
+  const textAlign = size === 'large' ? 'center' : 'flex-start'
+  const verticalSpacing = size === 'large' ? 10 : 3
+
+  const containerStyle = { flex: 1, justifyContent: 'center', alignItems: 'center' }
+  const textStyle = { flex: 4, justifyContent: 'center', alignItems: textAlign }
 
   const containerCommonStyle = {
     backgroundColor: btnBgColor,
-    paddingVertical: 10,
-    marginVertical: 10,
+    paddingVertical: verticalSpacing,
+    marginVertical: verticalSpacing,
     width: btnSize,
     borderRadius: btnBorderRadius,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 0.5,
-    margin: 5,
   }
 
   const textCommonStyle = {
     color: btnTextColor,
     fontSize: 18,
     fontFamily: 'System',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    padding: 5,
   }
 
   const iconStyle = {
@@ -52,9 +56,9 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
   };
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7} disabled={disabled}>
       <View style={[containerCommonStyle, border]}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={containerStyle}>
           <Image
             source={image}
             style={iconStyle.imageIcon}
@@ -62,7 +66,8 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
         </View>
 
         <View style={iconStyle.buttonIconSeparator} />
-        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}>
+
+        <View style={textStyle}>
           <Text style={[textCommonStyle]}> {text} </Text>
         </View>
       </View>
