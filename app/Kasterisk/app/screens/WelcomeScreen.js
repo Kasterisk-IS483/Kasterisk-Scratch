@@ -69,8 +69,7 @@ export default class WelcomeScreen extends Component {
         } catch (e) {
           console.log(e)
         }
-      }
-
+    }
 
   signInWithGoogle = async () => {
     try {
@@ -90,12 +89,9 @@ export default class WelcomeScreen extends Component {
 
             // save credentials into localStorage
             this.saveTemporaryCredentials(
-            "ClusterAuthProviderGoogle",
+            "@ClusterAuthProviderGoogle",
             ClusterAuthProviderGoogle
             );
-            // console.log(
-            // JSON.parse(await AsyncStorage.getItem("ClusterAuthProviderGoogle"))
-            // );
 
             this.props.navigation.navigate("Home", {
             idToken: result.idToken,
