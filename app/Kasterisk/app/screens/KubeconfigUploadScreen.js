@@ -4,7 +4,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { Colors, Button } from "react-native-paper";
 import * as FileSystem from "expo-file-system";
 
-import { commonStyles } from "../styles.js";
+import { fonts, commonStyles } from "../styles.js";
 import CustomButton from "../components/CustomButton";
 
 let filecontent = "Contents of file will be shown here upon successful upload";
@@ -140,39 +140,36 @@ class FileUpload extends React.Component {
           </View>
 
           <View>
-            <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: 18, fontWeight: 'bold' }}>Fields required:</Text>
+            <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Fields required:</Text>
 
             <CustomButton
               image={this.state.CAAImg}
               text="certificate-authority-data"
-              type="outlined"
+              type="checkbox"
               align="flex-start"
-              vertSpacing='small'
               disabled={true}
             />
 
             <CustomButton
               image={this.state.CCAImg}
               text="client-certificate"
-              type="outlined"
+              type="checkbox"
               align="flex-start"
-              vertSpacing='small'
               disabled={true}
             />
 
             <CustomButton
               image={this.state.CKImg}
               text="client-key"
-              type="outlined"
+              type="checkbox"
               align="flex-start"
-              vertSpacing='small'
               disabled={true}
             />
           </View>
 
-          <Text style={{ paddingLeft: 25, paddingTop: 25, fontSize: 18, fontWeight: 'bold' }}>File preview:</Text>
+          <Text style={{ paddingLeft: 25, paddingTop: 25, fontSize: fonts.md, fontWeight: 'bold' }}>File preview:</Text>
           <ScrollView style={{ margin: 20, backgroundColor: "#DCDCDC" }}>
-            <Text style={{ padding: 20, fontSize: 18 }}>{this.state.text}</Text>
+            <Text style={{ padding: 20, fontSize: fonts.md }}>{this.state.text}</Text>
           </ScrollView>
         </ScrollView>
       </View>

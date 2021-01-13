@@ -115,7 +115,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         },
                     ]}>
                     
-                    <View style={{ ...commonStyles.centralise, margin:15 }}>
+                    <View style={{ ...commonStyles.centralise, margin: 15 }}>
                         <Button
                             style={commonStyles.actionButton}
                             mode={"contained"}

@@ -146,27 +146,32 @@ export default class WelcomeScreen extends Component {
                                 <CustomButton
                                     image={require("../assets/welcome-button-google.png")}
                                     text="Log in With Google"
+                                    size="small"
                                     onPress={this.signInWithGoogle}
                                 />
                                 <CustomButton
                                     image={require("../assets/welcome-button-aws.png")}
                                     text="Log in With Amazon"
+                                    size="small"
                                     onPress={() => navigation.navigate("AWS Login")}
                                 />
                                 <CustomButton
                                     image={require("../assets/welcome-button-azure.png")}
                                     text="Log in With Azure AD"
+                                    size="small"
                                     onPress={this._handlePressAsync}
                                 />
                                 <View style={commonStyles.divider} />
                                 <CustomButton
                                     image={require("../assets/welcome-button-kube.png")}
                                     text="Upload Kubeconfig File"
+                                    size="small"
                                     onPress={() => navigation.navigate("KubeconfigUpload")}
                                 />
                                 <CustomButton
                                     image={require("../assets/welcome-button-kube.png")}
                                     text="Add Kubeconfig Content"
+                                    size="small"
                                     onPress={() => navigation.navigate("KubeconfigContent")}
                                 />
                             </View>

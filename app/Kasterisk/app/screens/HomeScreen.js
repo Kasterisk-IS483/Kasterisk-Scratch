@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
-import { commonStyles } from "../styles.js";
+import { fonts, commonStyles } from "../styles.js";
 
 export default class Home extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class Home extends Component {
     return (
       <View style={styles.container}>
         <Text> Profile Screen </Text>
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+        <Text style={{ fontSize: fonts.md, fontWeight: "bold" }}>
           Welcome, TESTINGGGGGGGGGG
           {getGoogle["accessToken"]}
         </Text>

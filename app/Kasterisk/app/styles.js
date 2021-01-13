@@ -7,7 +7,13 @@ export const dimensions = {
 
 export const colours = { 
   primary: "#265395"
-};
+}
+
+export const fonts = {
+  sm: 14,
+  md: 18,
+  lg: 22,
+}
 
 export const commonStyles  = StyleSheet.create({
 
@@ -36,7 +42,7 @@ export const commonStyles  = StyleSheet.create({
     margin: 10,
   },
   heading: {
-    fontSize: 20,
+    fontSize: fonts.lg,
     textAlign: "center",
     marginBottom: 20,
     color: 'black',
@@ -61,7 +67,7 @@ export const landscapeStyles  = StyleSheet.create({
   description: {
     position: "absolute",
     width: "50%",
-    fontSize: 26,
+    fontSize: fonts.lg,
     left: "25%",
     top: "50%",
     textAlign: "center",
@@ -94,7 +100,7 @@ export const portraitStyles = StyleSheet.create({
   description: {
     position: "absolute",
     width: "50%",
-    fontSize: 20,
+    fontSize: fonts.md,
     left: "25%",
     top: "60%",
     textAlign: "center",
