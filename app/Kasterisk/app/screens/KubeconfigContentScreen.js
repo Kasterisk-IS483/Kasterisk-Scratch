@@ -121,7 +121,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                             mode={"contained"}
                             color={Colors.blue500} 
                             onPress={form.handleSubmit((data) => {
-                                alert(data.content);
+                                alert(data.name);
                             })}>
                             Submit
                         </Button>  

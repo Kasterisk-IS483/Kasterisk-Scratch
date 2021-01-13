@@ -146,7 +146,8 @@ class FileUpload extends React.Component {
               image={this.state.CAAImg}
               text="certificate-authority-data"
               type="outlined"
-              size="small"
+              align="flex-start"
+              vertSpacing='small'
               disabled={true}
             />
 
@@ -154,7 +155,8 @@ class FileUpload extends React.Component {
               image={this.state.CCAImg}
               text="client-certificate"
               type="outlined"
-              size="small"
+              align="flex-start"
+              vertSpacing='small'
               disabled={true}
             />
 
@@ -162,7 +164,8 @@ class FileUpload extends React.Component {
               image={this.state.CKImg}
               text="client-key"
               type="outlined"
-              size="small"
+              align="flex-start"
+              vertSpacing='small'
               disabled={true}
             />
           </View>

@@ -1,24 +1,21 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native'
-import { whiteCol, blackCol, commonStyles } from "../styles.js";
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 
-const width = Dimensions.get('window').width
-const height = Dimensions.get('window').Height
+import { dimensions, commonStyles } from "../styles.js";
 
-export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', disabled = false }) {
+export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', align = 'center', vertSpacing = 'large', disabled = false }) {
   
-  const large = width>height? (width / 3) : (width / 2.5)
-  const small = width>height? (width / 6) :  (width / 3)
+  const large = dimensions.fullWidth>dimensions.fullHeight ? (dimensions.fullWidth / 3) : (dimensions.fullWidth / 2.5)
+  const small = dimensions.fullWidth>dimensions.fullHeight ? (dimensions.fullWidth / 6) :  (dimensions.fullWidth / 3)
   const btnSize = size === 'large' ? large : small
-  const btnBgColor = type === 'filled' ? whiteCol : 'transparent'
-  const btnTextColor = type === 'filled' ? blackCol : '#6371c2'
+  const btnBgColor = type === 'filled' ? 'white' : 'transparent'
+  const btnTextColor = type === 'filled' ? 'black' : '#6371c2'
   const btnBorderRadius = bordered ? 30 : 5
-  const border = type === 'outlined' && { borderColor: '#ffffff', borderWidth: 2 }
-  const textAlign = size === 'large' ? 'center' : 'flex-start'
-  const verticalSpacing = size === 'large' ? 10 : 3
+  const border = type === 'outlined' && { borderColor: 'white', borderWidth: 2 }
+  const verticalSpacing = vertSpacing === 'large' ? 10 : 3
 
   const containerStyle = { flex: 1, ...commonStyles.centralise }
-  const textStyle = { flex: 4, justifyContent: 'center', alignItems: textAlign }
+  const textStyle = { flex: 4, justifyContent: 'center', alignItems: align }
 
   const containerCommonStyle = {
     backgroundColor: btnBgColor,
@@ -36,7 +33,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
     fontSize: 18,
     fontFamily: 'System',
     fontWeight: 'bold',
-    paddingLeft: 30,
+    marginHorizontal: 30,
   }
 
   const iconStyle = {

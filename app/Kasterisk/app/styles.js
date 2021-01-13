@@ -1,19 +1,24 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-export const primaryCol = "#265395";
-export const whiteCol = "#ffffff";
-export const blackCol = "#000000";
+export const dimensions = {
+  fullHeight: Dimensions.get('window').height,
+  fullWidth: Dimensions.get('window').width,
+}
+
+export const colours = { 
+  primary: "#265395"
+};
 
 export const commonStyles  = StyleSheet.create({
 
   centralise: {
     alignItems: "center", 
-    justifyContent: "center"
+    justifyContent: "center",
   },
 
   whiteContainer: {
     flex: 1,
-    backgroundColor: whiteCol,
+    backgroundColor: 'white',
   },
   centeredContainer: {
     flexGrow: 1,
@@ -26,7 +31,7 @@ export const commonStyles  = StyleSheet.create({
 
   divider: {
     borderWidth: 0.5,
-    borderColor: whiteCol,
+    borderColor: 'white',
     width: Dimensions.get("window").width * 0.3,
     margin: 10,
   },
@@ -34,8 +39,7 @@ export const commonStyles  = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     marginBottom: 20,
-    color: blackCol,
-    fontFamily: "System",
+    color: 'black',
   },
   actionButton: {
     width: "auto",
@@ -72,7 +76,7 @@ export const landscapeStyles  = StyleSheet.create({
   },
   primaryContainer: {
     flex: 1,
-    backgroundColor: primaryCol,
+    backgroundColor: colours.primary,
   },
 
 });
@@ -106,7 +110,7 @@ export const portraitStyles = StyleSheet.create({
   },
   primaryContainer: {
     flex: 3,
-    backgroundColor: primaryCol,
+    backgroundColor: colours.primary,
     flexDirection: "column",
   },
 
