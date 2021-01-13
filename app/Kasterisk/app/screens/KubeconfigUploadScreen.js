@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, AsyncStorage } from "react-native";
+import { View, Text, ScrollView, AsyncStorage, Alert } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import { ProgressBar, Colors, Button } from "react-native-paper";
 import * as FileSystem from "expo-file-system";
@@ -10,14 +10,13 @@ import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 let filecontent = "File contents will be shown here";
 
-class FileAcceptStatus extends React.Component {
-  constructor(props) {
-      super(props)
-    this.state = {
-      isCAAccepted: false,
-      isCCAccepted: false,
-      isCKAccepted: false,
-    };
+class FileUpload extends React.Component {
+  state = {
+    isUploaded: false,
+    text: filecontent,
+    isCAAccepted: false,
+    isCCAccepted: false,
+    isCKAccepted: false,
   };
 
   updateState(stateKey, stateStatus) {
@@ -27,30 +26,11 @@ class FileAcceptStatus extends React.Component {
       this.setState({ isCCAccepted: stateStatus });
     } else if (stateKey == "CK") {
       this.setState({ isCKAccepted: stateStatus });
+    } else if (stateKey == "isUploaded") {
+      this.setState({ isUploaded: stateStatus });
+    } else if (stateKey == "text") {
+      this.setState({ text: stateStatus });
     }
-  }
-
-  render() {
-    return (
-      <View>
-        {/* <AntDesign name="checkcircleo" size={24} color="black" />
-        <MaterialIcons name="check-circle-outline" size={24} color="black" /> */}
-        {/* <Text>{this.state.isCAAccepted}</Text>
-        <Text>{this.state.isCCAccepted}</Text>
-        <Text>{this.state.isCKAccepted}</Text> */}
-      </View>
-    );
-  }
-}
-
-class FileUpload extends React.Component {
-  state = {
-    isUploaded: false,
-    text: filecontent,
-  };
-
-  updateState(uploadStatus, uploadFileContent) {
-    this.setState({ isUploaded: uploadStatus, text: uploadFileContent });
   }
 
   async storeData(dataKey, dataValue) {
@@ -63,7 +43,7 @@ class FileUpload extends React.Component {
     }
   }
 
-  checkFileContent(filecontent) {
+  async checkFileContent(filecontent) {
     var fileContentLines = filecontent.split("\n");
     var checkCAData,
       checkCCData,
@@ -74,22 +54,22 @@ class FileUpload extends React.Component {
       trimLine = aLine.trim();
       if (trimLine.startsWith("certificate-authority-data")) {
         requiredLineData = trimLine.substring(28).trim();
-        checkCAData = this.storeData(
+        checkCAData = await this.storeData(
           "@certificate-authority-data",
           requiredLineData
         );
-        FileAcceptStatus.updateState("CA", checkCAData);
+        this.updateState("CA", checkCAData);
       } else if (trimLine.startsWith("client-certificate-data")) {
         requiredLineData = trimLine.substring(25).trim();
-        checkCCData = this.storeData(
+        checkCCData = await this.storeData(
           "@client-certificate-data",
           requiredLineData
         );
-        this.props.FileAcceptStatus.updateState("CC", checkCAData);
+        this.updateState("CC", checkCCData);
       } else if (trimLine.startsWith("client-key-data")) {
         requiredLineData = trimLine.substring(16).trim();
-        checkCKData = this.storeData("@client-key-data", requiredLineData);
-        FileAcceptStatus.updateState("CK", checkCAData);
+        checkCKData = await this.storeData("@client-key-data", requiredLineData);
+        this.updateState("CK", checkCKData);
       }
     }
     if (checkCAData && checkCCData && checkCKData) {
@@ -105,18 +85,31 @@ class FileUpload extends React.Component {
       if (res.type == "success") {
         filecontent = await FileSystem.readAsStringAsync(res.uri);
         var fileResult = await this.checkFileContent(filecontent);
-        if (fileResult) {
-          this.updateState(true, filecontent);
-        } else {
-          alert(
-            "File upload was successful but data extraction failed, please try again"
+        this.updateState("isUploaded", fileResult);
+        this.updateState("text", filecontent);
+        if (!fileResult) {
+          var missingData = "";
+          if (!this.state.isCAAccepted) {
+            missingData += "\tcertificate-authority-data\n";
+          }
+          if (!this.state.isCCAccepted) {
+            missingData += "\tclient-certificate-data\n";
+          }
+          if (!this.state.isCKAccepted) {
+            missingData += "\tclient-key-data\n";
+          }
+          Alert.alert(
+            "File Upload Failed",
+            "The following data fields are missing:\n" +
+              missingData +
+              "Please try again."
           );
         }
       } else {
-        alert("File upload failed, please try again");
+        Alert.alert("File Upload Failed", "Please try again.");
       }
     } catch (err) {
-      alert("File upload failed, please try again");
+      Alert.alert("File Upload Failed", "Please try again.");
       alert(err);
     }
   };
@@ -144,7 +137,17 @@ class FileUpload extends React.Component {
             </Button>
           </View>
 
-          <FileAcceptStatus></FileAcceptStatus>
+          <ProgressBar
+            style={commonStyles.progressBar}
+            progress={0.7}
+            color={Colors.blue800}
+          />
+
+          <AntDesign name="checkcircleo" size={24} color="black" />
+          <MaterialIcons name="check-circle-outline" size={24} color="black" />
+          <Text>Boolean Value: { String(this.state.isCAAccepted) }</Text>
+          <Text>Boolean Value: { String(this.state.isCCAccepted) }</Text>
+          <Text>Boolean Value: { String(this.state.isCKAccepted) }</Text>
 
           <CustomButton
             image={{
