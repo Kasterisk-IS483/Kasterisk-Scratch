@@ -17,15 +17,22 @@ class FileUpload extends React.Component {
     isCAAccepted: false,
     isCCAccepted: false,
     isCKAccepted: false,
+    CAAImg: require("../assets/grey-icon.png"),
+    CCAImg: require("../assets/grey-icon.png"),
+    CKImg: require("../assets/grey-icon.png"),
+
   };
 
   updateState(stateKey, stateStatus) {
     if (stateKey == "CA") {
       this.setState({ isCAAccepted: stateStatus });
+      this.setState({ CAAImg: require("../assets/blue-tick-icon.png") });
     } else if (stateKey == "CC") {
       this.setState({ isCCAccepted: stateStatus });
+      this.setState({ CCAImg: require("../assets/blue-tick-icon.png") });
     } else if (stateKey == "CK") {
       this.setState({ isCKAccepted: stateStatus });
+      this.setState({ CKImg: require("../assets/blue-tick-icon.png") });
     } else if (stateKey == "isUploaded") {
       this.setState({ isUploaded: stateStatus });
     } else if (stateKey == "text") {
@@ -101,8 +108,8 @@ class FileUpload extends React.Component {
           Alert.alert(
             "File Upload Failed",
             "The following data fields are missing:\n" +
-              missingData +
-              "Please try again."
+            missingData +
+            "Please try again."
           );
         }
       } else {
@@ -137,23 +144,12 @@ class FileUpload extends React.Component {
             </Button>
           </View>
 
-          <ProgressBar
-            style={commonStyles.progressBar}
-            progress={0.7}
-            color={Colors.blue800}
-          />
-
-          <AntDesign name="checkcircleo" size={24} color="black" />
-          <MaterialIcons name="check-circle-outline" size={24} color="black" />
-          <Text>Boolean Value: { String(this.state.isCAAccepted) }</Text>
-          <Text>Boolean Value: { String(this.state.isCCAccepted) }</Text>
-          <Text>Boolean Value: { String(this.state.isCKAccepted) }</Text>
+          {/* <Text>Boolean Value: {String(this.state.isCAAccepted)}</Text>
+          <Text>Boolean Value: {String(this.state.isCCAccepted)}</Text>
+          <Text>Boolean Value: {String(this.state.isCKAccepted)}</Text> */}
 
           <CustomButton
-            image={{
-              uri:
-                "https://upload.wikimedia.org/wikipedia/donate/thumb/8/89/Ooui-checkbox-selected.svg/1024px-Ooui-checkbox-selected.svg.png",
-            }}
+            image={this.state.CAAImg}
             text="certificate-authority-data"
             type="outlined"
             size="small"
@@ -161,10 +157,7 @@ class FileUpload extends React.Component {
           />
 
           <CustomButton
-            image={{
-              uri:
-                "https://upload.wikimedia.org/wikipedia/donate/thumb/8/89/Ooui-checkbox-selected.svg/1024px-Ooui-checkbox-selected.svg.png",
-            }}
+            image={this.state.CCAImg}
             text="client-certificate"
             type="outlined"
             size="small"
@@ -172,10 +165,7 @@ class FileUpload extends React.Component {
           />
 
           <CustomButton
-            image={{
-              uri:
-                "https://upload.wikimedia.org/wikipedia/donate/thumb/8/89/Ooui-checkbox-selected.svg/1024px-Ooui-checkbox-selected.svg.png",
-            }}
+            image={this.state.CKImg}
             text="client-key"
             type="outlined"
             size="small"
