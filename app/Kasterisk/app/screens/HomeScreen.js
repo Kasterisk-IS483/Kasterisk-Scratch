@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
-import { fonts, commonStyles } from "../styles.js";
+
+import { fonts, commonStyles } from "../utils/styles.js";
 
 export default class Home extends Component {
   render() {

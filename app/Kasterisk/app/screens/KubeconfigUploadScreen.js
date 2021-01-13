@@ -4,7 +4,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { Colors, Button } from "react-native-paper";
 import * as FileSystem from "expo-file-system";
 
-import { fonts, commonStyles } from "../styles.js";
+import { fonts, commonStyles } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 
 let filecontent = "Contents of file will be shown here upon successful upload";

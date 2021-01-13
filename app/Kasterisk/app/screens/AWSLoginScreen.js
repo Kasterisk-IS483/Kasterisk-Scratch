@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
 import { TextInput, Button, Colors } from "react-native-paper";
 
-import { commonStyles } from "../styles.js";
+import { commonStyles } from "../utils/styles.js";
 import { checkAwsCredentials } from "../api/AwsApi.js"
 
 

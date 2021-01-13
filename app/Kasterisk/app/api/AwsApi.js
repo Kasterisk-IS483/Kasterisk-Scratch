@@ -1,5 +1,6 @@
 import { Base64 } from 'react-native-base64';
 import { sign } from 'aws-sdk';
+
 class AwsApi {
 
   /**

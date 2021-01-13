@@ -38,7 +38,7 @@ export const commonStyles  = StyleSheet.create({
   divider: {
     borderWidth: 0.5,
     borderColor: 'white',
-    width: Dimensions.get("window").width * 0.3,
+    width: dimensions.fullWidth * 0.3,
     margin: 10,
   },
   heading: {

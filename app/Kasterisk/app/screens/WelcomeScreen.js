@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component } from "react";
 import {
     View,
     Text,
@@ -6,7 +6,6 @@ import {
     ImageBackground,
     Image,
     Dimensions,
-    StyleSheet,
     AsyncStorage
 } from "react-native";
 import * as Google from "expo-google-app-auth";
@@ -16,7 +15,7 @@ import {
     commonStyles,
     landscapeStyles,
     portraitStyles,
-} from "../styles.js";
+} from "../utils/styles.js";
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "../utils/constants";
 
 import * as AuthSession from 'expo-auth-session';

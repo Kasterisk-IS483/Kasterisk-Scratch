@@ -4,7 +4,7 @@ import FormBuilder from "react-native-paper-form-builder";
 import { useForm } from "react-hook-form";
 import { Colors, Button } from "react-native-paper";
 
-import { commonStyles } from "../styles.js";
+import { commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
     const form = useForm({
