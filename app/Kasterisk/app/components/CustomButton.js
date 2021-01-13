@@ -1,14 +1,14 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Dimensions, Image, StyleSheet } from 'react-native'
-import { whiteCol, blackCol } from "../styles.js";
+import { whiteCol, blackCol, commonStyles } from "../styles.js";
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').Height
 
 export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', disabled = false }) {
   
-  const large = width>height? (width / 3) :(width/2.5)
-  const small = 'auto'
+  const large = width>height? (width / 3) : (width / 2.5)
+  const small = width>height? (width / 6) :  (width / 3)
   const btnSize = size === 'large' ? large : small
   const btnBgColor = type === 'filled' ? whiteCol : 'transparent'
   const btnTextColor = type === 'filled' ? blackCol : '#6371c2'
@@ -17,7 +17,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
   const textAlign = size === 'large' ? 'center' : 'flex-start'
   const verticalSpacing = size === 'large' ? 10 : 3
 
-  const containerStyle = { flex: 1, justifyContent: 'center', alignItems: 'center' }
+  const containerStyle = { flex: 1, ...commonStyles.centralise }
   const textStyle = { flex: 4, justifyContent: 'center', alignItems: textAlign }
 
   const containerCommonStyle = {
@@ -36,7 +36,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
     fontSize: 18,
     fontFamily: 'System',
     fontWeight: 'bold',
-    padding: 5,
+    paddingLeft: 30,
   }
 
   const iconStyle = {

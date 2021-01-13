@@ -6,6 +6,11 @@ export const blackCol = "#000000";
 
 export const commonStyles  = StyleSheet.create({
 
+  centralise: {
+    alignItems: "center", 
+    justifyContent: "center"
+  },
+
   whiteContainer: {
     flex: 1,
     backgroundColor: whiteCol,
@@ -32,11 +37,6 @@ export const commonStyles  = StyleSheet.create({
     color: blackCol,
     fontFamily: "System",
   },
-  progressBar: {
-    height: 20,
-    marginTop: 15,
-    marginBottom: 15,
-  },
   actionButton: {
     width: "auto",
     marginBottom: 25,
@@ -57,7 +57,7 @@ export const landscapeStyles  = StyleSheet.create({
   description: {
     position: "absolute",
     width: "50%",
-    fontSize: 20,
+    fontSize: 26,
     left: "25%",
     top: "50%",
     textAlign: "center",

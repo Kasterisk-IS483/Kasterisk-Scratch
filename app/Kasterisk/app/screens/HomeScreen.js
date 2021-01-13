@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
+import { commonStyles } from "../styles.js";
 
 export default class Home extends Component {
   render() {
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    ...commonStyles.centralise
   }
 });

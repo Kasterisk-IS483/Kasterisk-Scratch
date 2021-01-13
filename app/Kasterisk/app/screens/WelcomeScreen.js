@@ -16,7 +16,6 @@ import {
     commonStyles,
     landscapeStyles,
     portraitStyles,
-    whiteCol
 } from "../styles.js";
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "../utils/constants";
 
@@ -141,8 +140,7 @@ export default class WelcomeScreen extends Component {
                                 padding: 35,
                                 width: '100%',
                                 flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
+                                ...commonStyles.centralise
                             }}
                                 >
                                 <CustomButton

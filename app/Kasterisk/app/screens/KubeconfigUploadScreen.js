@@ -1,14 +1,16 @@
 import React from "react";
 import { View, Text, ScrollView, AsyncStorage, Alert } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
-import { ProgressBar, Colors, Button } from "react-native-paper";
+import { Colors, Button } from "react-native-paper";
 import * as FileSystem from "expo-file-system";
 
 import { commonStyles } from "../styles.js";
 import CustomButton from "../components/CustomButton";
-import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
-let filecontent = "File contents will be shown here";
+let filecontent = "Contents of file will be shown here upon successful upload";
+
+const uncheckedIcon = require("../assets/checkbox-cross.png");
+const checkedIcon = require("../assets/checkbox-tick.png");
 
 class FileUpload extends React.Component {
   state = {
@@ -17,22 +19,21 @@ class FileUpload extends React.Component {
     isCAAccepted: false,
     isCCAccepted: false,
     isCKAccepted: false,
-    CAAImg: require("../assets/grey-icon.png"),
-    CCAImg: require("../assets/grey-icon.png"),
-    CKImg: require("../assets/grey-icon.png"),
-
+    CAAImg: uncheckedIcon,
+    CCAImg: uncheckedIcon,
+    CKImg: uncheckedIcon,
   };
 
   updateState(stateKey, stateStatus) {
     if (stateKey == "CA") {
       this.setState({ isCAAccepted: stateStatus });
-      this.setState({ CAAImg: require("../assets/blue-tick-icon.png") });
+      this.setState({ CAAImg: checkedIcon });
     } else if (stateKey == "CC") {
       this.setState({ isCCAccepted: stateStatus });
-      this.setState({ CCAImg: require("../assets/blue-tick-icon.png") });
+      this.setState({ CCAImg: checkedIcon });
     } else if (stateKey == "CK") {
       this.setState({ isCKAccepted: stateStatus });
-      this.setState({ CKImg: require("../assets/blue-tick-icon.png") });
+      this.setState({ CKImg: checkedIcon });
     } else if (stateKey == "isUploaded") {
       this.setState({ isUploaded: stateStatus });
     } else if (stateKey == "text") {
@@ -127,13 +128,7 @@ class FileUpload extends React.Component {
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <View style={commonStyles.centralise}>
             <Button
               style={commonStyles.actionButton}
               mode="contained"
@@ -144,38 +139,37 @@ class FileUpload extends React.Component {
             </Button>
           </View>
 
-          {/* <Text>Boolean Value: {String(this.state.isCAAccepted)}</Text>
-          <Text>Boolean Value: {String(this.state.isCCAccepted)}</Text>
-          <Text>Boolean Value: {String(this.state.isCKAccepted)}</Text> */}
+          <View>
+            <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: 18, fontWeight: 'bold' }}>Fields required:</Text>
 
-          <CustomButton
-            image={this.state.CAAImg}
-            text="certificate-authority-data"
-            type="outlined"
-            size="small"
-            disabled={true}
-          />
+            <CustomButton
+              image={this.state.CAAImg}
+              text="certificate-authority-data"
+              type="outlined"
+              size="small"
+              disabled={true}
+            />
 
-          <CustomButton
-            image={this.state.CCAImg}
-            text="client-certificate"
-            type="outlined"
-            size="small"
-            disabled={true}
-          />
+            <CustomButton
+              image={this.state.CCAImg}
+              text="client-certificate"
+              type="outlined"
+              size="small"
+              disabled={true}
+            />
 
-          <CustomButton
-            image={this.state.CKImg}
-            text="client-key"
-            type="outlined"
-            size="small"
-            disabled={true}
-          />
+            <CustomButton
+              image={this.state.CKImg}
+              text="client-key"
+              type="outlined"
+              size="small"
+              disabled={true}
+            />
+          </View>
 
-          <ScrollView
-            style={{ marginTop: 20, padding: 10, backgroundColor: "#DCDCDC" }}
-          >
-            <Text style={{ fontSize: 18 }}>{this.state.text}</Text>
+          <Text style={{ paddingLeft: 25, paddingTop: 25, fontSize: 18, fontWeight: 'bold' }}>File preview:</Text>
+          <ScrollView style={{ margin: 20, backgroundColor: "#DCDCDC" }}>
+            <Text style={{ padding: 20, fontSize: 18 }}>{this.state.text}</Text>
           </ScrollView>
         </ScrollView>
       </View>

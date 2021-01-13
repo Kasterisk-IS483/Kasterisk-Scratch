@@ -55,7 +55,7 @@ const AWSLoginScreen = ({ navigation }) => {
                         />
                     </View>
                 </View>
-                <View style={{ alignItems: 'center', justifyContent: 'center', margin: 15 }}>
+                <View style={{ ...commonStyles.centralise, margin: 15 }}>
                     <Button
                         style={commonStyles.actionButton}
                         mode={"contained"}
