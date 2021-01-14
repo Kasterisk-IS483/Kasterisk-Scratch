@@ -1,21 +1,37 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, AsyncStorage } from "react-native";
 
 import { commonStyles} from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
 
-export default class Home extends Component {
-  render() {
 
-    const getGoogle = async () => {
-      try {
-        let google = JSON.parse(await AsyncStorage.getItem("@ClusterAuthProviderGoogle"));
-        return google;
-      } catch (error) {
-        // Error retrieving data
-        console.log(error.message);
-      }
+
+export default class Home extends Component {
+  state = {googleKey : ""};
+
+  async getGoogle() {
+    try {
+      let google = await AsyncStorage.getItem("@ClusterAuthProviderGoogle");
+      alert(google)
+      google = JSON.parse(google)
+      
+      alert(google.accessToken)
+      return google.accessToken;
+    } catch (error) {
+      // Error retrieving data
+      console.log(error.message);
     }
+  }
+
+
+  async componentDidMount(){
+    let key = await this.getGoogle()
+      this.setState({googleKey : key});
+  }
+
+  
+
+  render() {
     
     return (
       <View style={commonStyles.whiteContainer}>
@@ -23,7 +39,7 @@ export default class Home extends Component {
 
           <Text style={commonStyles.heading}>
             Welcome, [name]
-            {getGoogle["accessToken"]}
+            {this.state.googleKey}
           </Text>
 
           <ActionButton
