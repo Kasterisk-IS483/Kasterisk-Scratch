@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, ScrollView } from "react-native";
+import { Colors, Button } from "react-native-paper";
 
-import { fonts, commonStyles } from "../utils/styles.js";
+import { commonStyles } from "../utils/styles.js";
 
 export default class Home extends Component {
   render() {
@@ -17,25 +18,27 @@ export default class Home extends Component {
     }
     
     return (
-      <View style={styles.container}>
-        <Text> Profile Screen </Text>
-        <Text style={{ fontSize: fonts.md, fontWeight: "bold" }}>
-          Welcome, TESTINGGGGGGGGGG
-          {getGoogle["accessToken"]}
-        </Text>
-        <Button
-          title="Sign out"
-          onPress={() => this.props.navigation.navigate("Welcome")}
-        />
+      <View style={commonStyles.whiteContainer}>
+        <ScrollView contentContainerStyle={commonStyles.scrollView}>
+
+          <Text style={commonStyles.heading}>
+            Welcome, [name]
+            {getGoogle["accessToken"]}
+          </Text>
+
+          <View style={commonStyles.centralise}>
+            <Button 
+              style={commonStyles.actionButton}
+              mode={"contained"}
+              color={Colors.blue500}
+              onPress={() => this.props.navigation.navigate("Welcome")}
+            >
+              Sign out
+            </Button>
+
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    ...commonStyles.centralise
-  }
-});

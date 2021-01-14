@@ -49,7 +49,7 @@ export const commonStyles  = StyleSheet.create({
   },
   actionButton: {
     width: "auto",
-    marginBottom: 25,
+    marginVertical: 10,
   },
 
 });

@@ -110,7 +110,7 @@ class FileUpload extends React.Component {
             "File Upload Failed",
             "The following data fields are missing:\n" +
             missingData +
-            "Please try again."
+            "\nPlease try again."
           );
         }
       } else {
@@ -131,7 +131,7 @@ class FileUpload extends React.Component {
           <View style={commonStyles.centralise}>
             <Button
               style={commonStyles.actionButton}
-              mode="contained"
+              mode={"contained"}
               color={Colors.blue500}
               onPress={this.uploadFile}
             >
