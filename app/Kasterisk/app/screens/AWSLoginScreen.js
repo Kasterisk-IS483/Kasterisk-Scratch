@@ -6,7 +6,6 @@ import ActionButton from "../components/ActionButton";
 import { commonStyles } from "../utils/styles.js";
 import { checkAwsCredentials } from "../api/AwsApi.js"
 
-
 const AWSLoginScreen = ({ navigation }) => {
 
     const [loginState, setLoginState] = useState({
@@ -38,24 +37,19 @@ const AWSLoginScreen = ({ navigation }) => {
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
                 <Text style={commonStyles.heading}>AWS Login</Text>
                 <View>
-                    <View>
-                        <TextInput
-                            onChangeText={text =>
-                                setLoginState({ ...loginState, accessKeyId: text })
-                            }
-                            label="Access Key ID"
-                            placeholder="Enter Access Key ID Here"
-                        />
-                    </View>
-                    <View >
-                        <TextInput
-                            onChangeText={text =>
-                                setLoginState({ ...loginState, secretAccessKey: text })
-                            }
-                            label="Secret Access Key"
-                            placeholder="Enter Secret Access Key Here"
-                        />
-                    </View>
+                    <TextInput
+                        onChangeText={text => setLoginState({ ...loginState, accessKeyId: text })                }
+                        style={commonStyles.textInput}
+                        label="Access Key ID"
+                        placeholder="Enter Access Key ID Here"
+                    />
+
+                    <TextInput
+                        onChangeText={text => setLoginState({ ...loginState, secretAccessKey: text })}
+                        label="Secret Access Key"
+                        style={commonStyles.textInput}
+                        placeholder="Enter Secret Access Key Here"
+                    />
                 </View>
 
                 <ActionButton

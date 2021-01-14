@@ -51,6 +51,10 @@ export const commonStyles  = StyleSheet.create({
     width: "auto",
     marginVertical: 10,
   },
+  textInput: {
+    marginHorizontal: 20,
+    marginVertical: 8,
+  }
 
 });
 
