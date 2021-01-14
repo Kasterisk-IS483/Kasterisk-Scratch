@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from "react-native"
-import { TextInput } from "react-native-paper";
+import { TextInput, RadioButton } from "react-native-paper";
 
 import ActionButton from "../components/ActionButton";
-import { commonStyles } from "../utils/styles.js";
+import { fonts, colours, commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
+
+    const [checked, setChecked] = React.useState('auth-unpw');
 
     const [data, setData] = useState({
         name: '',
@@ -29,14 +31,18 @@ export default function KubeconfigContentScreen({ navigation }) {
             missingData += "\tcertificate\n";
         }
 
-        if (data.username == '') {
-        missingData += "\tusername\n";
-        }
-        if (data.password == '') {
-            missingData += "\tpassword\n";
-        }
-        if (data.token == '') {
-            missingData += "\ttoken\n";
+        if (checked === 'auth-unpw') {
+            if (data.username == '') {
+                missingData += "\tusername\n";
+            }
+            if (data.password == '') {
+                missingData += "\tpassword\n";
+            }
+        } 
+        if (checked === 'auth-token') {
+            if (data.token == '') {
+                missingData += "\ttoken\n";
+            }            
         }
         
         if (missingData == '') {
@@ -59,42 +65,67 @@ export default function KubeconfigContentScreen({ navigation }) {
                 <Text style={commonStyles.heading}>Add Kubeconfig Content</Text>
 
                 <View>
+                    <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>General Information:</Text>
+
                     <TextInput 
                         onChangeText={text => setData({ ...data, name: text })                }
                         style={commonStyles.textInput}
-                        label="Name (required)"
+                        label="Name"
                     />
                     <TextInput
                         onChangeText={text => setData({ ...data, server: text })                }
                         style={commonStyles.textInput}
-                        label="Server (required)"
+                        label="Server"
                     />
                     <TextInput
                         onChangeText={text => setData({ ...data, certificate: text })                }
                         style={commonStyles.textInput}
-                        label="Certificate (required)"
+                        label="Certificate Authority Data"
                     />
 
-                    <TextInput
-                        onChangeText={text => setData({ ...data, username: text })                }
-                        style={commonStyles.textInput}
-                        label="Username (if using UN and PW)"
-                    />
-                    <TextInput
-                        onChangeText={text => setData({ ...data, password: text })                }
-                        style={commonStyles.textInput}
-                        label="Password (if using UN and PW)"
-                    />
-                    <TextInput
-                        onChangeText={text => setData({ ...data, token: text })                }
-                        style={commonStyles.textInput}
-                        label="Token (if using Token)"
-                    />
+
+                    <Text style={{ paddingLeft: 25, paddingTop: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Authentication Mode:</Text>
+                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                        <View style={{marginLeft: 20, marginBottom: 5}}>
+                            <View style={{flexDirection: 'row'}}>
+                                <RadioButton value="auth-unpw" color={colours.secondary}/>
+                                <Text style={{marginTop: 8, fontSize: fonts.sm}}>Username and Password</Text>
+                            </View>
+                            <View style={{flexDirection: 'row'}}>
+                                <RadioButton value="auth-token" color={colours.secondary}/>
+                                <Text style={{marginTop: 8, fontSize: fonts.sm}}>Token</Text>
+                            </View>
+                        </View>
+                    </RadioButton.Group>
+
+                    <View>
+                        {
+                            checked === 'auth-unpw' ?
+                            <View>
+                                <TextInput
+                                    onChangeText={text => setData({ ...data, username: text })}
+                                    style={commonStyles.textInput}
+                                    label="Username"
+                                />
+                                <TextInput
+                                    onChangeText={text => setData({ ...data, password: text })}
+                                    style={commonStyles.textInput}
+                                    label="Password"
+                                />
+                            </View>
+                            : <View>
+                                <TextInput
+                                    onChangeText={text => setData({ ...data, token: text })}
+                                    style={commonStyles.textInput}
+                                    label="Token"
+                                />                                
+                            </View>
+                        }
+                    </View>
+
                 </View>
 
-                <ActionButton
-                    text="Submit"
-                    onPress={() => ContentUpload()}
+                <ActionButton text="Submit" onPress={() => ContentUpload()}
                 />
 
             </ScrollView>

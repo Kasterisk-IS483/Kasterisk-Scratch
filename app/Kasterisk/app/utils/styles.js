@@ -6,7 +6,8 @@ export const dimensions = {
 }
 
 export const colours = { 
-  primary: "#265395"
+  primary: "#265395",
+  secondary: "#b0d0ff",
 }
 
 export const fonts = {

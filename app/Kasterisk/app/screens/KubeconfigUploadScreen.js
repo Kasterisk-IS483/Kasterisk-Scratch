@@ -126,12 +126,10 @@ class FileUpload extends React.Component {
     return (
       <View style={commonStyles.whiteContainer}>
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
+          
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
 
-          <ActionButton
-              text="Select File"
-              onPress={this.uploadFile}
-          />
+          <ActionButton text="Select File" onPress={this.uploadFile} />
 
           <View>
             <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Fields required:</Text>
