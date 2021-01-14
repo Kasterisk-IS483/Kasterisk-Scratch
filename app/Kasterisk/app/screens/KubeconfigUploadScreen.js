@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, ScrollView, AsyncStorage, Alert } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
-import { Colors, Button } from "react-native-paper";
 import * as FileSystem from "expo-file-system";
 
 import { fonts, commonStyles } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
+import ActionButton from "../components/ActionButton";
 
 let filecontent = "Contents of file will be shown here upon successful upload";
 
@@ -128,16 +128,10 @@ class FileUpload extends React.Component {
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
 
-          <View style={commonStyles.centralise}>
-            <Button
-              style={commonStyles.actionButton}
-              mode={"contained"}
-              color={Colors.blue500}
+          <ActionButton
+              text="Select File"
               onPress={this.uploadFile}
-            >
-              Select File
-            </Button>
-          </View>
+          />
 
           <View>
             <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Fields required:</Text>

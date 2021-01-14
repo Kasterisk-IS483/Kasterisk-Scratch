@@ -2,8 +2,8 @@ import React from "react"
 import { View, Text, ScrollView } from "react-native"
 import FormBuilder from "react-native-paper-form-builder";
 import { useForm } from "react-hook-form";
-import { Colors, Button } from "react-native-paper";
 
+import ActionButton from "../components/ActionButton";
 import { commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
@@ -115,17 +115,12 @@ export default function KubeconfigContentScreen({ navigation }) {
                         },
                     ]}>
                     
-                    <View style={commonStyles.centralise}>
-                        <Button
-                            style={commonStyles.actionButton}
-                            mode={"contained"}
-                            color={Colors.blue500} 
-                            onPress={form.handleSubmit((data) => {
-                                alert(data.name);
-                            })}>
-                            Submit
-                        </Button>  
-                    </View>
+                    <ActionButton
+                        text="Submit"
+                        onPress={form.handleSubmit((data) => {
+                            alert(data.name);
+                        })}
+                    />
 
                 </FormBuilder>
 

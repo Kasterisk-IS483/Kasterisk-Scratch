@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
-import { TextInput, Button, Colors } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 
+import ActionButton from "../components/ActionButton";
 import { commonStyles } from "../utils/styles.js";
 import { checkAwsCredentials } from "../api/AwsApi.js"
 
@@ -56,15 +57,12 @@ const AWSLoginScreen = ({ navigation }) => {
                         />
                     </View>
                 </View>
-                <View style={{ ...commonStyles.centralise, margin: 15 }}>
-                    <Button
-                        style={commonStyles.actionButton}
-                        mode={"contained"}
-                        color={Colors.blue500}
-                        onPress={() => AwsLogin()}>
-                        AWS Sign In
-                        </Button>
-                </View>
+
+                <ActionButton
+                    text="AWS Sign In"
+                    onPress={() => AwsLogin()}
+                />
+
             </ScrollView>
         </View>
     );

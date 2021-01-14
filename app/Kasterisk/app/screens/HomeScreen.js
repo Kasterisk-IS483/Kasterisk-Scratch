@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Text, View, ScrollView } from "react-native";
-import { Colors, Button } from "react-native-paper";
 
 import { commonStyles } from "../utils/styles.js";
 
@@ -26,17 +25,11 @@ export default class Home extends Component {
             {getGoogle["accessToken"]}
           </Text>
 
-          <View style={commonStyles.centralise}>
-            <Button 
-              style={commonStyles.actionButton}
-              mode={"contained"}
-              color={Colors.blue500}
+          <ActionButton
+              text="Sign out"
               onPress={() => this.props.navigation.navigate("Welcome")}
-            >
-              Sign out
-            </Button>
+          />
 
-          </View>
         </ScrollView>
       </View>
     );
