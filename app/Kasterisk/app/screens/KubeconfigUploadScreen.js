@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, ScrollView, AsyncStorage, Alert } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
+import * as SecureStore from 'expo-secure-store';
+
 
 import { fonts, commonStyles } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
@@ -62,6 +64,9 @@ class FileUpload extends React.Component {
       trimLine = aLine.trim();
       if (trimLine.startsWith("certificate-authority-data")) {
         requiredLineData = trimLine.substring(28).trim();
+        var testsecure = await SecureStore.setItemAsync("test", requiredLineData)
+        let res = await SecureStore.getItemAsync("test")
+        alert(res)
         checkCAData = await this.storeData(
           "@certificate-authority-data",
           requiredLineData
