@@ -7,7 +7,7 @@ import { fonts, commonStyles } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 import ActionButton from "../components/ActionButton";
 
-let filecontent = "Contents of file will be shown here upon successful upload";
+let filecontent;
 
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");
@@ -15,7 +15,7 @@ const checkedIcon = require("../assets/checkbox-tick.png");
 class FileUpload extends React.Component {
   state = {
     isUploaded: false,
-    text: filecontent,
+    text: "Contents of file will be shown here upon successful upload",
     isCAAccepted: false,
     isCCAccepted: false,
     isCKAccepted: false,
