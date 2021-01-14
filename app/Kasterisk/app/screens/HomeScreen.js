@@ -1,35 +1,30 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView, AsyncStorage } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 
 import { commonStyles} from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
-
-
+import * as SecureStore from 'expo-secure-store';
 
 export default class Home extends Component {
-  state = {googleKey : ""};
 
-  async getGoogle() {
-    try {
-      let google = await AsyncStorage.getItem("@ClusterAuthProviderGoogle");
-      alert(google)
-      google = JSON.parse(google)
-      
-      alert(google.accessToken)
-      return google.accessToken;
+  state = {credentials : []};
+
+  async getGoogle(){
+    try{
+      let google1 = await SecureStore.getItemAsync("ClusterAuthProviderGoogle");
+      google1 = JSON.parse(google1);
+      return google1;
     } catch (error) {
       // Error retrieving data
       console.log(error.message);
     }
   }
 
-
   async componentDidMount(){
-    let key = await this.getGoogle()
-      this.setState({googleKey : key});
+    let response = await this.getGoogle()
+      this.setState({credentials : response});
   }
 
-  
 
   render() {
     
@@ -38,8 +33,7 @@ export default class Home extends Component {
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
           <Text style={commonStyles.heading}>
-            Welcome, [name]
-            {this.state.googleKey}
+            Welcome, {this.state.credentials["accessToken"]}
           </Text>
 
           <ActionButton

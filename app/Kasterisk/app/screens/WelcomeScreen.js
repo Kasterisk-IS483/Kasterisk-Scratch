@@ -5,8 +5,7 @@ import {
     ScrollView,
     ImageBackground,
     Image,
-    Dimensions,
-    AsyncStorage
+    Dimensions
 } from "react-native";
 import * as Google from "expo-google-app-auth";
 
@@ -14,12 +13,13 @@ import CustomButton from "../components/CustomButton";
 import {
     commonStyles,
     landscapeStyles,
-    portraitStyles,
+    portraitStyles
 } from "../utils/styles.js";
-import { IOS_CLIENT_ID, ANDROID_CLIENT_ID } from "../utils/constants";
+import { IOS_CLIENT_ID, ANDROID_CLIENT_ID, ClusterAuthProviderGoogle } from "../utils/constants";
 
 import * as AuthSession from 'expo-auth-session';
 import { openAuthSession } from 'azure-ad-graph-expo';
+import * as SecureStore from 'expo-secure-store';
 
 const azureAdAppProps = {
         clientId        :   "047ad4bd-b216-4efd-9f44-6093ec72eef6",
@@ -64,52 +64,50 @@ export default class WelcomeScreen extends Component {
 
     async saveTemporaryCredentials(toSave, credentials) {
         try {
-          await AsyncStorage.setItem(toSave, JSON.stringify(credentials));
+          await SecureStore.setItemAsync(toSave, JSON.stringify(credentials));
         } catch (e) {
           console.log(e)
         }
     }
 
-  signInWithGoogle = async () => {
-    try {
-        const result = await Google.logInAsync({
-            iosClientId: IOS_CLIENT_ID,
-            androidClientId: ANDROID_CLIENT_ID,
-            scopes: ["profile", "email"],
-        });
+    signInWithGoogle = async () => {
+        try {
+            const result = await Google.logInAsync({
+                iosClientId: IOS_CLIENT_ID,
+                androidClientId: ANDROID_CLIENT_ID,
+                scopes: ["profile", "email"],
+            });
 
-        if (result.type === "success") {
-            console.log("WelcomeScreen.js.js 21 | ", result.user.givenName);
+            if (result.type === "success") {
+                console.log("WelcomeScreen.js.js 21 | ", result.user.givenName);
 
-            // set credentials for google after logged in
-            ClusterAuthProviderGoogle["accessToken"] = result.accessToken;
-            ClusterAuthProviderGoogle["idToken"] = result.idToken;
-            ClusterAuthProviderGoogle["refreshToken"] = result.refreshToken;
+                // set credentials for google after logged in
+                ClusterAuthProviderGoogle["accessToken"] = result.accessToken;
+                ClusterAuthProviderGoogle["idToken"] = result.idToken;
+                ClusterAuthProviderGoogle["refreshToken"] = result.refreshToken;
 
-            // save credentials into localStorage
-            this.saveTemporaryCredentials(
-            "@ClusterAuthProviderGoogle",
-            ClusterAuthProviderGoogle
-            );
+                // save credentials into localStorage
+                this.saveTemporaryCredentials(
+                "ClusterAuthProviderGoogle",
+                ClusterAuthProviderGoogle
+                );
 
-            this.props.navigation.navigate("Home", {
-            idToken: result.idToken,
-            }); //after Google login redirect to Home
-            console.log(result);
-            return result.accessToken;
-        } else {
-            return { cancelled: true };
+                this.props.navigation.navigate("Home"); //after Google login redirect to Home
+
+                return result.accessToken;
+            } else {
+                return { cancelled: true };
+            }
+        } catch (e) {
+            console.log("WelcomeScreen.js.js 30 | Error with login", e);
+            return { error: true };
         }
-    } catch (e) {
-        console.log("WelcomeScreen.js.js 30 | Error with login", e);
-        return { error: true };
-    }
-  };
+    };
 
-  _handlePressAsync = async () => {
-    let result = await openAuthSession(azureAdAppProps);
-    this.setState({ result });
-  }
+    _handlePressAsync = async () => {
+        let result = await openAuthSession(azureAdAppProps);
+        this.setState({ result });
+    }
 
     render() {
         const { navigation } = this.props;
@@ -186,9 +184,3 @@ export default class WelcomeScreen extends Component {
 
 
 
-var ClusterAuthProviderGoogle = {
-    accessToken: "",
-    expires: 0,
-    idToken: "",
-    refreshToken: "",
-};
