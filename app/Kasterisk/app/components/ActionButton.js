@@ -2,20 +2,14 @@ import React from 'react'
 import { View } from 'react-native'
 import { Colors, Button } from "react-native-paper";
 
-import {commonStyles } from "../utils/styles.js";
+import { spacings, commonStyles } from "../utils/styles.js";
 
 export default function ActionButton({ text, onPress, }) {
-
-  const style = {
-    width: "auto",
-    marginTop: 15,
-    marginBottom: 25,
-  }
 
   return (
     <View style={commonStyles.centralise}>
     <Button
-        style={style}
+        style={{ marginTop: spacings.md, marginBottom: spacings.lg }}
         mode={"contained"}
         color={Colors.blue500} 
         onPress={onPress}>

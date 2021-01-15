@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Alert } from "react-native"
 import { TextInput, RadioButton } from "react-native-paper";
 
 import ActionButton from "../components/ActionButton";
-import { fonts, colours, commonStyles } from "../utils/styles.js";
+import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
 
@@ -65,35 +65,34 @@ export default function KubeconfigContentScreen({ navigation }) {
                 <Text style={commonStyles.heading}>Add Kubeconfig Content</Text>
 
                 <View>
-                    <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>General Information:</Text>
+                    <Text style={commonStyles.subheading}>General Information:</Text>
 
                     <TextInput 
-                        onChangeText={text => setData({ ...data, name: text })                }
+                        onChangeText={text => setData({ ...data, name: text })}
                         style={commonStyles.textInput}
                         label="Name"
                     />
                     <TextInput
-                        onChangeText={text => setData({ ...data, server: text })                }
+                        onChangeText={text => setData({ ...data, server: text })}
                         style={commonStyles.textInput}
                         label="Server"
                     />
                     <TextInput
-                        onChangeText={text => setData({ ...data, certificate: text })                }
+                        onChangeText={text => setData({ ...data, certificate: text })}
                         style={commonStyles.textInput}
                         label="Certificate Authority Data"
                     />
 
-
-                    <Text style={{ paddingLeft: 25, paddingTop: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Authentication Mode:</Text>
+                    <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>Authentication Mode:</Text>
                     <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
-                        <View style={{marginLeft: 20, marginBottom: 5}}>
+                        <View style={{marginLeft: spacings.lg, marginBottom: spacings.xs}}>
                             <View style={{flexDirection: 'row'}}>
                                 <RadioButton value="auth-unpw" color={colours.secondary}/>
-                                <Text style={{marginTop: 8, fontSize: fonts.sm}}>Username and Password</Text>
+                                <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Username and Password</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
                                 <RadioButton value="auth-token" color={colours.secondary}/>
-                                <Text style={{marginTop: 8, fontSize: fonts.sm}}>Token</Text>
+                                <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Token</Text>
                             </View>
                         </View>
                     </RadioButton.Group>
@@ -125,9 +124,10 @@ export default function KubeconfigContentScreen({ navigation }) {
 
                 </View>
 
-                <ActionButton text="Submit" onPress={() => ContentUpload()}
+                <ActionButton 
+                    text="Submit" 
+                    onPress={() => ContentUpload()}
                 />
-
             </ScrollView>
         </View>
     );

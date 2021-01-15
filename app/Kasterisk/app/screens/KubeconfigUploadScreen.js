@@ -4,8 +4,7 @@ import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
 import * as SecureStore from 'expo-secure-store';
 
-
-import { fonts, commonStyles } from "../utils/styles.js";
+import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 import ActionButton from "../components/ActionButton";
 
@@ -131,6 +130,7 @@ class FileUpload extends React.Component {
     return (
       <View style={commonStyles.whiteContainer}>
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
+
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
 
           <ActionButton
@@ -139,7 +139,7 @@ class FileUpload extends React.Component {
           />
 
           <View>
-            <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Fields required:</Text>
+            <Text style={commonStyles.subheading}>Fields required:</Text>
 
             <CustomButton
               image={this.state.CAAImg}
@@ -166,10 +166,11 @@ class FileUpload extends React.Component {
             />
           </View>
 
-          <Text style={{ paddingLeft: 25, paddingTop: 25, fontSize: fonts.md, fontWeight: 'bold' }}>File preview:</Text>
-          <ScrollView style={{ margin: 20, backgroundColor: "#DCDCDC" }}>
-            <Text style={{ padding: 20, fontSize: fonts.md }}>{this.state.text}</Text>
+          <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>File preview:</Text>
+          <ScrollView style={{ marginVertical: spacings.sm, marginHorizontal: spacings.lg, backgroundColor: colours.grey }}>
+            <Text style={{ padding: spacings.lg, fontSize: fonts.sm }}>{this.state.text}</Text>
           </ScrollView>
+
         </ScrollView>
       </View>
     );

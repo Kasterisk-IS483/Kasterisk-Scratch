@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 
-import { dimensions, fonts, commonStyles } from "../utils/styles.js";
+import { dimensions, fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', align = 'center', disabled = false }) {
   
@@ -16,7 +16,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
   const border = type === 'checkbox' && { borderColor: 'white', borderWidth: 2 }
   const bolded = type === 'filled' ? 'bold' : 'normal'
 
-  const verticalSpacing = type === 'filled' ? 10 : 3
+  const verticalSpacing = type === 'filled' ? spacings.sm : 3
 
   const containerStyle = { flex: 1, ...commonStyles.centralise }
   const textStyle = { flex: 4, justifyContent: 'center', alignItems: align }
@@ -37,13 +37,13 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
     fontSize: fonts.md,
     fontFamily: 'System',
     fontWeight: bolded,
-    marginHorizontal: 10,
+    marginHorizontal: spacings.sm,
   }
 
   const iconStyle = {
     imageIcon: {
-      padding: 10,
-      margin: 5,
+      padding: spacings.sm,
+      margin: spacings.xs,
       height: 25,
       width: 25,
       resizeMode: 'stretch',
@@ -69,7 +69,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
         <View style={iconStyle.buttonIconSeparator} />
 
         <View style={textStyle}>
-          <Text style={[textCommonStyle]}> {text} </Text>
+          <Text style={textCommonStyle}> {text} </Text>
         </View>
       </View>
     </TouchableOpacity>

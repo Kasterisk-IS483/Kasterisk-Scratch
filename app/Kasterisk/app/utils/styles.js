@@ -8,12 +8,22 @@ export const dimensions = {
 export const colours = { 
   primary: "#265395",
   secondary: "#b0d0ff",
+  grey: "#DCDCDC",
 }
 
 export const fonts = {
-  sm: 14,
+  sm: 16,
   md: 18,
   lg: 22,
+}
+
+export const spacings = {
+  xs: 5,
+  s: 8,
+  sm: 10,
+  md: 15,
+  lg: 20,
+  xl: 25,
 }
 
 export const commonStyles  = StyleSheet.create({
@@ -23,39 +33,41 @@ export const commonStyles  = StyleSheet.create({
     justifyContent: "center",
   },
 
+  scrollView: {
+    flexGrow: 1,
+    padding: 40,
+  },
   whiteContainer: {
     flex: 1,
     backgroundColor: 'white',
-  },
-  centeredContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-  },
-  scrollView: {
-    flex: 1,
-    padding: 50,
   },
 
   divider: {
     borderWidth: 0.5,
     borderColor: 'white',
     width: dimensions.fullWidth * 0.3,
-    margin: 10,
+    margin: spacings.sm,
   },
   heading: {
     fontSize: fonts.lg,
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: spacings.lg,
     color: 'black',
   },
   actionButton: {
     width: "auto",
-    marginVertical: 10,
+    marginVertical: spacings.sm,
   },
   textInput: {
-    marginHorizontal: 20,
-    marginVertical: 8,
-  }
+    marginHorizontal: spacings.lg,
+    marginVertical: spacings.s,
+  },
+  subheading: {
+    paddingLeft: spacings.xl, 
+    paddingBottom: spacings.sm, 
+    fontSize: fonts.md, 
+    fontWeight: 'bold',
+  },
 
 });
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, ScrollView } from "react-native";
 
-import { commonStyles} from "../utils/styles.js";
+import { commonStyles } from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
 import * as SecureStore from 'expo-secure-store';
 

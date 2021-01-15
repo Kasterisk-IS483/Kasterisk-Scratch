@@ -53,7 +53,7 @@ const AWSLoginScreen = ({ navigation }) => {
                 </View>
 
                 <ActionButton
-                    text="AWS Sign In"
+                    text="Sign In"
                     onPress={() => AwsLogin()}
                 />
 

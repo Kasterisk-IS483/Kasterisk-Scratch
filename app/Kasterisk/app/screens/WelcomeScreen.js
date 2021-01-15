@@ -89,8 +89,8 @@ export default class WelcomeScreen extends Component {
 
                 // save credentials into localStorage
                 this.saveTemporaryCredentials(
-                "ClusterAuthProviderGoogle",
-                ClusterAuthProviderGoogle
+                    "ClusterAuthProviderGoogle",
+                    ClusterAuthProviderGoogle
                 );
 
                 this.props.navigation.navigate("Home"); //after Google login redirect to Home
@@ -116,64 +116,55 @@ export default class WelcomeScreen extends Component {
         return (
             <View style={this.getStyle().container}>
                 <View style={this.getStyle().fillContainer}>
-                <ImageBackground
-                    style={this.getStyle().fillContainer}
-                    source={require("../assets/welcome-bg-landscape.png")}
-                    imageStyle={{ resizeMode: "cover" }}
-                />
-                <Image
-                    style={this.getStyle().logo}
-                    source={require("../assets/kasterisk-logo.png")}
-                />
-                <Text style={this.getStyle().description}>
-                    Access, manage and monitor your Kubernetes clusters.
-                </Text>
+                    <ImageBackground
+                        style={this.getStyle().fillContainer}
+                        source={require("../assets/welcome-bg.png")}
+                        imageStyle={{ resizeMode: "cover" }}
+                    />
+                    <Image
+                        style={this.getStyle().logo}
+                        source={require("../assets/kasterisk-logo.png")}
+                    />
+                    <Text style={this.getStyle().description}>
+                        Access, manage and monitor your Kubernetes clusters.
+                    </Text>
                 </View>
 
                 <View style={this.getStyle().primaryContainer}>
-                    <ScrollView contentContainerStyle={commonStyles.centeredContainer}>
-                        <View>
-                            <View
-                            style={{
-                                padding: 35,
-                                width: '100%',
-                                flex: 1,
-                                ...commonStyles.centralise
-                            }}
-                                >
-                                <CustomButton
-                                    image={require("../assets/welcome-button-google.png")}
-                                    text="Log in With Google"
-                                    size="small"
-                                    onPress={this.signInWithGoogle}
-                                />
-                                <CustomButton
-                                    image={require("../assets/welcome-button-aws.png")}
-                                    text="Log in With Amazon"
-                                    size="small"
-                                    onPress={() => navigation.navigate("AWS Login")}
-                                />
-                                <CustomButton
-                                    image={require("../assets/welcome-button-azure.png")}
-                                    text="Log in With Azure AD"
-                                    size="small"
-                                    onPress={this._handlePressAsync}
-                                />
-                                <View style={commonStyles.divider} />
-                                <CustomButton
-                                    image={require("../assets/welcome-button-kube.png")}
-                                    text="Upload Kubeconfig File"
-                                    size="small"
-                                    onPress={() => navigation.navigate("KubeconfigUpload")}
-                                />
-                                <CustomButton
-                                    image={require("../assets/welcome-button-kube.png")}
-                                    text="Add Kubeconfig Content"
-                                    size="small"
-                                    onPress={() => navigation.navigate("KubeconfigContent")}
-                                />
-                            </View>
-                        </View>
+                    <ScrollView contentContainerStyle={[commonStyles.scrollView, commonStyles.centralise]}>
+                        <CustomButton
+                            image={require("../assets/welcome-button-google.png")}
+                            text="Log in With Google"
+                            size="small"
+                            onPress={this.signInWithGoogle}
+                        />
+                        <CustomButton
+                            image={require("../assets/welcome-button-aws.png")}
+                            text="Log in With Amazon"
+                            size="small"
+                            onPress={() => navigation.navigate("AWS Login")}
+                        />
+                        <CustomButton
+                            image={require("../assets/welcome-button-azure.png")}
+                            text="Log in With Azure AD"
+                            size="small"
+                            onPress={this._handlePressAsync}
+                        />
+
+                        <View style={commonStyles.divider} />
+
+                        <CustomButton
+                            image={require("../assets/welcome-button-kube.png")}
+                            text="Upload Kubeconfig File"
+                            size="small"
+                            onPress={() => navigation.navigate("KubeconfigUpload")}
+                        />
+                        <CustomButton
+                            image={require("../assets/welcome-button-kube.png")}
+                            text="Add Kubeconfig Content"
+                            size="small"
+                            onPress={() => navigation.navigate("KubeconfigContent")}
+                        />
                     </ScrollView>
                 </View>
             </View>
