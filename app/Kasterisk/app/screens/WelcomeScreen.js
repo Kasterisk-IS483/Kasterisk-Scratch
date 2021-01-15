@@ -20,14 +20,15 @@ import { IOS_CLIENT_ID, ANDROID_CLIENT_ID, ClusterAuthProviderGoogle } from "../
 import * as AuthSession from 'expo-auth-session';
 import { openAuthSession } from 'azure-ad-graph-expo';
 import * as SecureStore from 'expo-secure-store';
+// import {AzureInstance, AzureLoginView} from 'react-native-azure-ad-2'
 
 const azureAdAppProps = {
-        clientId        :   "047ad4bd-b216-4efd-9f44-6093ec72eef6",
-        tenantId        :   "f8cdef31-a31e-4b4a-93e4-5f571e91255a",
-        scope           :   'User.Read',
-        redirectUrl     :   AuthSession.makeRedirectUri(),
-        clientSecret    :   "K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB",
-        // domainHint      :   AZURE_DOMAIN_HINT,
+        clientId        :   '047ad4bd-b216-4efd-9f44-6093ec72eef6',
+        tenantId        :   'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
+        scope           :   'user.read',
+        redirectUrl     :   'msal047ad4bd-b216-4efd-9f44-6093ec72eef6://auth',
+        clientSecret    :   'K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB',
+        domainHint      :   '',
         prompt          :   'login'
 };
 
