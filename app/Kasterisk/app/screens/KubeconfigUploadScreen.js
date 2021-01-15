@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, AsyncStorage, Alert } from "react-native";
+import { View, Text, ScrollView, Alert } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
 import * as SecureStore from 'expo-secure-store';
@@ -46,7 +46,7 @@ class FileUpload extends React.Component {
   async storeData(dataKey, dataValue) {
     try {
       const jsonValue = JSON.stringify(dataValue);
-      await AsyncStorage.setItem(dataKey, jsonValue);
+      await SecureStore.setItemAsync(dataKey, jsonValue);
       return true;
     } catch (e) {
       return false;
@@ -131,10 +131,12 @@ class FileUpload extends React.Component {
     return (
       <View style={commonStyles.whiteContainer}>
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
-          
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
 
-          <ActionButton text="Select File" onPress={this.uploadFile} />
+          <ActionButton
+              text="Select File"
+              onPress={this.uploadFile}
+          />
 
           <View>
             <Text style={{ paddingLeft: 25, paddingBottom: 10, fontSize: fonts.md, fontWeight: 'bold' }}>Fields required:</Text>
