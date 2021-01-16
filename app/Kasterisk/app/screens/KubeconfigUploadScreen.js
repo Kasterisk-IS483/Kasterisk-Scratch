@@ -7,6 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 import ActionButton from "../components/ActionButton";
+import * as KubeApi from "../api/KubeApi"
 
 let filecontent;
 
@@ -63,25 +64,25 @@ class FileUpload extends React.Component {
       trimLine = aLine.trim();
       if (trimLine.startsWith("certificate-authority-data")) {
         requiredLineData = trimLine.substring(28).trim();
-        var testsecure = await SecureStore.setItemAsync("test", requiredLineData)
-        let res = await SecureStore.getItemAsync("test")
-        alert(res)
         checkCAData = await this.storeData(
-          "@certificate-authority-data",
+          "certificate-authority-data",
           requiredLineData
         );
         this.updateState("CA", checkCAData);
       } else if (trimLine.startsWith("client-certificate-data")) {
         requiredLineData = trimLine.substring(25).trim();
         checkCCData = await this.storeData(
-          "@client-certificate-data",
+          "client-certificate-data",
           requiredLineData
         );
         this.updateState("CC", checkCCData);
       } else if (trimLine.startsWith("client-key-data")) {
         requiredLineData = trimLine.substring(16).trim();
-        checkCKData = await this.storeData("@client-key-data", requiredLineData);
+        checkCKData = await this.storeData("client-key-data", requiredLineData);
         this.updateState("CK", checkCKData);
+      } else if (trimLine.startsWith("server")) {
+        requiredLineData = trimLine.substring(8).trim();
+        await this.storeData("server-url", requiredLineData);
       }
     }
     if (checkCAData && checkCCData && checkCKData) {
@@ -97,6 +98,8 @@ class FileUpload extends React.Component {
       if (res.type == "success") {
         filecontent = await FileSystem.readAsStringAsync(res.uri);
         var fileResult = await this.checkFileContent(filecontent);
+        let test = await KubeApi.checkServerStatus()
+        alert(test)
         this.updateState("isUploaded", fileResult);
         this.updateState("text", filecontent);
         if (!fileResult) {
