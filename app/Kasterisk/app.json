@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Kasterisk",
+    "slug": "Kasterisk",
+    "version": "1.0.0",
+    "icon": "./app/assets/kasterisk-icon.png",
+    "splash": {
+      "image": "./app/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kasterisk.ios",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.447181180888-bou5e3olte901t7srk0e1mv3c413g0lt"
+        }
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/kasterisk-icon-transparent.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.kasterisk.android"
+    },
+    "web": {
+      "favicon": "./app/assets/kasterisk-icon-transparent.png"
+    },
+    "scheme": "kasterisk",
+    "description": ""
+  }
+}
