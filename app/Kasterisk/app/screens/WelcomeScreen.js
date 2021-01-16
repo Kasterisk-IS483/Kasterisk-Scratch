@@ -24,7 +24,7 @@ const azureAdAppProps = {
         clientId        :   '047ad4bd-b216-4efd-9f44-6093ec72eef6',
         tenantId        :   'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
         scope           :   'user.read',
-        redirectUrl     :   'msal047ad4bd-b216-4efd-9f44-6093ec72eef6://auth',
+        redirectUrl     :   AuthSession.makeRedirectUri(),
         clientSecret    :   'K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB',
         domainHint      :   '',
         prompt          :   'login'
@@ -35,6 +35,7 @@ export default class WelcomeScreen extends Component {
         super(props);
         this.state = {
         orientation: "",
+        result: null,
         };
         Dimensions.addEventListener("change", (e) => {
         this.setState(e.window);
@@ -78,6 +79,7 @@ export default class WelcomeScreen extends Component {
     }
 
     _handlePressAsync = async () => {
+        console.log(azureAdAppProps.redirectUrl);
         let result = await openAuthSession(azureAdAppProps);
         this.setState({ result });
     }
@@ -122,6 +124,9 @@ export default class WelcomeScreen extends Component {
                             size="small"
                             onPress={this._handlePressAsync}
                         />
+                        {this.state.result ? (
+                        <Text>{JSON.stringify(this.state.result)}</Text>) 
+                        : <Text>Nothing to see here.</Text>}
 
                         <View style={commonStyles.divider} />
 
