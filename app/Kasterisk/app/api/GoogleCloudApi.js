@@ -1,5 +1,4 @@
 import * as Google from "expo-google-app-auth";
-import * as SecureStore from 'expo-secure-store';
 import { IOS_CLIENT_ID, ANDROID_CLIENT_ID, ClusterAuthProviderGoogle, saveTemporaryCredentials } from "../utils/constants";
 
 class GoogleCloudApi {
@@ -25,7 +24,7 @@ class GoogleCloudApi {
                     "ClusterAuthProviderGoogle",
                     ClusterAuthProviderGoogle
                 );
-                
+
                 return result.accessToken;
             } else {
                 return { cancelled: true };

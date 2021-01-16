@@ -8,6 +8,8 @@ export var ClusterAuthProviderGoogle = {
     refreshToken: "",
 };
 
+import * as SecureStore from 'expo-secure-store';
+
 export const saveTemporaryCredentials = async(toSave, credentials) => {
     try {
       await SecureStore.setItemAsync(toSave, JSON.stringify(credentials));
