@@ -7,3 +7,11 @@ export var ClusterAuthProviderGoogle = {
     idToken: "",
     refreshToken: "",
 };
+
+export const saveTemporaryCredentials = async(toSave, credentials) => {
+    try {
+      await SecureStore.setItemAsync(toSave, JSON.stringify(credentials));
+    } catch (e) {
+      console.log(e)
+    }
+}
