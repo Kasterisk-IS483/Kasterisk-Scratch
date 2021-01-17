@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, Text, ScrollView, Alert } from "react-native"
+import React, { useState } from "react";
+import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput, RadioButton } from "react-native-paper";
 
 import ActionButton from "../components/ActionButton";
@@ -71,16 +71,19 @@ export default function KubeconfigContentScreen({ navigation }) {
                         onChangeText={text => setData({ ...data, name: text })}
                         style={commonStyles.textInput}
                         label="Name"
+                        placeholder="Enter Name Here"
                     />
                     <TextInput
                         onChangeText={text => setData({ ...data, server: text })}
                         style={commonStyles.textInput}
                         label="Server"
+                        placeholder="Enter Server Here"
                     />
                     <TextInput
                         onChangeText={text => setData({ ...data, certificate: text })}
                         style={commonStyles.textInput}
                         label="Certificate Authority Data"
+                        placeholder="Enter Certificate Here"
                     />
 
                     <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>Authentication Mode:</Text>
@@ -105,11 +108,13 @@ export default function KubeconfigContentScreen({ navigation }) {
                                     onChangeText={text => setData({ ...data, username: text })}
                                     style={commonStyles.textInput}
                                     label="Username"
+                                    placeholder="Enter Username Here"
                                 />
                                 <TextInput
                                     onChangeText={text => setData({ ...data, password: text })}
                                     style={commonStyles.textInput}
                                     label="Password"
+                                    placeholder="Enter Password Here"
                                 />
                             </View>
                             : <View>
@@ -117,6 +122,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                                     onChangeText={text => setData({ ...data, token: text })}
                                     style={commonStyles.textInput}
                                     label="Token"
+                                    placeholder="Enter Token Here"
                                 />                                
                             </View>
                         }
