@@ -19,27 +19,27 @@ import * as AuthSession from 'expo-auth-session';
 import { openAuthSession } from 'azure-ad-graph-expo';
 // import {AzureInstance, AzureLoginView} from 'react-native-azure-ad-2'
 import GoogleCloudApi from '../api/GoogleCloudApi';
-import { AZURE_DOMAIN_HINT, AZURE_CLIENT_ID, AZURE_TENANT_ID,  AZURE_CLIENT_SECRET } from "../utils/constants";
+import { AZURE_DOMAIN_HINT, AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET } from "../utils/constants";
 
 const azureAdAppProps = {
-        clientId        :   AZURE_CLIENT_ID,
-        tenantId        :   AZURE_TENANT_ID,
-        scope           :   'user.read',
-        redirectUrl     :   AuthSession.makeRedirectUri(),
-        clientSecret    :   AZURE_CLIENT_SECRET,
-        domainHint      :   AZURE_DOMAIN_HINT,
-        prompt          :   'login'
+    clientId: AZURE_CLIENT_ID,
+    tenantId: AZURE_TENANT_ID,
+    scope: 'user.read',
+    redirectUrl: AuthSession.makeRedirectUri(),
+    clientSecret: AZURE_CLIENT_SECRET,
+    domainHint: AZURE_DOMAIN_HINT,
+    prompt: 'login'
 };
 
 export default class WelcomeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        orientation: "",
-        result: null,
+            orientation: "",
+            result: null,
         };
         Dimensions.addEventListener("change", (e) => {
-        this.setState(e.window);
+            this.setState(e.window);
         });
     }
 
@@ -64,7 +64,7 @@ export default class WelcomeScreen extends Component {
     }
 
     GoogleLogin = async () => {
-        try{
+        try {
             const isValidCredentials = await (
                 GoogleCloudApi.checkGoogleCredentials()
             );
@@ -74,7 +74,7 @@ export default class WelcomeScreen extends Component {
                 Alert.alert('Login Cancelled', 'Please enter your email and password to sign in.');
             }
         }
-        catch (e){
+        catch (e) {
             Alert.alert('Invalid Credentials', 'Please enter valid email and password for your google account.');;
         }
     }
@@ -126,8 +126,8 @@ export default class WelcomeScreen extends Component {
                             onPress={this._handlePressAsync}
                         />
                         {this.state.result ? (
-                        <Text>{JSON.stringify(this.state.result)}</Text>) 
-                        : <Text>Nothing to see here.</Text>}
+                            <Text>{JSON.stringify(this.state.result)}</Text>)
+                            : <Text>Nothing to see here.</Text>}
 
                         <View style={commonStyles.divider} />
 
@@ -143,11 +143,17 @@ export default class WelcomeScreen extends Component {
                             size="small"
                             onPress={() => navigation.navigate("KubeconfigContent")}
                         />
+                        <CustomButton
+                            image={require("../assets/welcome-button-kube.png")}
+                            text="Test Screen"
+                            size="small"
+                            onPress={() => navigation.navigate("TestScreen")}
+                        />
                     </ScrollView>
                 </View>
             </View>
 
-            
+
         );
     }
 }

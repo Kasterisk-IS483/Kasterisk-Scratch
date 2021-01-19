@@ -8,6 +8,7 @@ import KubeconfigUploadScreen from "./app/screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./app/screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./app/screens/AWSLoginScreen";
 import HomeScreen from "./app/screens/HomeScreen";
+import TestScreen from "./app/screens/TestScreen";
 import { colours } from "./app/utils/styles.js";
 
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
+        <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
