@@ -19,14 +19,15 @@ import * as AuthSession from 'expo-auth-session';
 import { openAuthSession } from 'azure-ad-graph-expo';
 // import {AzureInstance, AzureLoginView} from 'react-native-azure-ad-2'
 import GoogleCloudApi from '../api/GoogleCloudApi';
+import { AZURE_DOMAIN_HINT, AZURE_CLIENT_ID, AZURE_TENANT_ID,  AZURE_CLIENT_SECRET } from "../utils/constants";
 
 const azureAdAppProps = {
-        clientId        :   '047ad4bd-b216-4efd-9f44-6093ec72eef6',
-        tenantId        :   'f8cdef31-a31e-4b4a-93e4-5f571e91255a',
+        clientId        :   AZURE_CLIENT_ID,
+        tenantId        :   AZURE_TENANT_ID,
         scope           :   'user.read',
         redirectUrl     :   AuthSession.makeRedirectUri(),
-        clientSecret    :   'K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB',
-        domainHint      :   '',
+        clientSecret    :   AZURE_CLIENT_SECRET,
+        domainHint      :   AZURE_DOMAIN_HINT,
         prompt          :   'login'
 };
 
