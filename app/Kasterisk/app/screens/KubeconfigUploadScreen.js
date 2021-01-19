@@ -7,7 +7,8 @@ import * as SecureStore from 'expo-secure-store';
 import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 import ActionButton from "../components/ActionButton";
-// import * as KubeApi from "../api/KubeApi"
+import * as KubeApi from "../api/KubeApi"
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let filecontent;
 
@@ -98,8 +99,8 @@ class FileUpload extends React.Component {
       if (res.type == "success") {
         filecontent = await FileSystem.readAsStringAsync(res.uri);
         var fileResult = await this.checkFileContent(filecontent);
-        // let test = await KubeApi.checkServerStatus()
-        // alert(test)
+        let test = await KubeApi.checkServerStatus()
+        alert(test)
         this.updateState("isUploaded", fileResult);
         this.updateState("text", filecontent);
         if (!fileResult) {
