@@ -8,7 +8,8 @@ import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 import ActionButton from "../components/ActionButton";
 import * as KubeApi from "../api/KubeApi"
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Kubeconfig } from "../api/KubeApi/config"
 
 let filecontent;
 
@@ -98,6 +99,9 @@ class FileUpload extends React.Component {
       console.log(res.uri, res.type, res.name, res.size);
       if (res.type == "success") {
         filecontent = await FileSystem.readAsStringAsync(res.uri);
+        let k8s = new Kubeconfig();
+        var testApi = await k8s.loadFromFile(filecontent);
+        alert(k8s.getCurrentContext().toString())
         var fileResult = await this.checkFileContent(filecontent);
         let test = await KubeApi.checkServerStatus()
         alert(test)
