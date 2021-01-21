@@ -7,64 +7,61 @@ import { commonStyles } from "../utils/styles.js";
 import PodApi from "../api/PodApi.js";
 import * as SecureStore from 'expo-secure-store';
 
-
-
-
 export default function TestScreen({ navigation }) {
+
 
     const [namespaceState, setNamespaceState] = useState({
         namespace: ''
     });
 
-    const getCert1 = async () => {
-        cert1 = await SecureStore.getItemAsync("certificate-authority-data");
-    }
+    // const getCert1 = async () => {
+    //     cert1 = await SecureStore.getItemAsync("certificate-authority-data");
+    // }
 
-    const getCert2 = async () => {
-        cert2 = await SecureStore.getItemAsync("client-key-data");
-    }
+    // const getCert2 = async () => {
+    //     cert2 = await SecureStore.getItemAsync("client-key-data");
+    // }
 
     const test = async () => {
         try {
 
-            const namespace1 = await (
+            let namespace1 = await (
                 PodApi.listAllNamespace()
             );
 
-            // namespace1 = JSON.parse(namespace1);
-            //Alert.alert(response);
+            namespace1 = JSON.stringify(namespace1);
+            // Alert.alert(namespace1);
+            Alert.alert('test',namespace1);
 
 
-            //console.log(response);
+            // //console.log(response);
             setNamespaceState({ ...namespaceState, namespace: namespace1 });
             Alert.alert(namespace1, namespaceState.namespace);
 
         } catch (err) {
             console.log(err);
-            Alert.alert('Invalid Credentials', 'didd not nav - catch.');
+            Alert.alert('Invalid Credentials', err.message);
         }
 
     }
 
+    return (
+        <View style={commonStyles.whiteContainer} >
+            <ScrollView contentContainerStyle={commonStyles.scrollView}>
+                <Text style={commonStyles.heading}>test</Text>
 
+                <ActionButton
+                    text="test"
+                    onPress={() => test()}
+                />
 
+                <Text style={commonStyles.heading}>
+                    Welcome, {namespaceState.namespace}
+                </Text>
 
-        return (
-            <View style={commonStyles.whiteContainer} >
-                <ScrollView contentContainerStyle={commonStyles.scrollView}>
-                    <Text style={commonStyles.heading}>test</Text>
-
-                    <ActionButton
-                        text="test"
-                        onPress={() => test()}
-                    />
-
-                    <Text style={commonStyles.heading}>
-                        Welcome, {namespaceState.namespace}, {getCert1()}, {getCert2()}
-                    </Text>
-
-                </ScrollView>
-            </View>
-        );
+            </ScrollView>
+        </View>
+    );
 
 }
+
