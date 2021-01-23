@@ -5,7 +5,9 @@ import {
     ScrollView,
     ImageBackground,
     Image,
-    Dimensions
+    Dimensions,
+    Alert,
+    Linking
 } from "react-native";
 
 import CustomButton from "../components/CustomButton";
@@ -15,16 +17,21 @@ import {
     portraitStyles
 } from "../utils/styles.js";
 
+import { authorize } from 'react-native-app-auth';
 import * as AuthSession from 'expo-auth-session';
 import { openAuthSession } from 'azure-ad-graph-expo';
 // import {AzureInstance, AzureLoginView} from 'react-native-azure-ad-2'
 import GoogleCloudApi from '../api/GoogleCloudApi';
-import { AZURE_DOMAIN_HINT, AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET } from "../utils/constants";
+import { AZURE_DOMAIN_HINT,
+    AZURE_CLIENT_ID,
+    AZURE_TENANT_ID,
+    AZURE_CLIENT_SECRET,
+    googleConfig } from "../utils/constants";
 
-const azureAdAppProps = {
+const azureConfig = {
     clientId: AZURE_CLIENT_ID,
-    tenantId: AZURE_TENANT_ID,
-    scope: 'user.read',
+    issuer: "https://login.microsoftonline.com/" + AZURE_TENANT_ID + "/v2.0",
+    scopes: ['openid', 'profile', 'email', 'offline_access'],
     redirectUrl: AuthSession.makeRedirectUri(),
     clientSecret: AZURE_CLIENT_SECRET,
     domainHint: AZURE_DOMAIN_HINT,
@@ -65,16 +72,25 @@ export default class WelcomeScreen extends Component {
 
     GoogleLogin = async () => {
         try {
-            const isValidCredentials = await (
-                GoogleCloudApi.checkGoogleCredentials()
-            );
-            if (isValidCredentials) {
-                this.props.navigation.navigate('Home'); //after Google login redirect to Home
-            } else {
-                Alert.alert('Login Cancelled', 'Please enter your email and password to sign in.');
-            }
+            let a = Linking.addEventListener("url", authorize(googleConfig))
+            alert(a)
+            const authState = await authorize(googleConfig);
+            alert(authState.accessToken())
+            const refreshedState = await refresh(googleConfig, {
+                refreshToken: authState.refreshToken
+              });
+              
+            // const isValidCredentials = await (
+            //     GoogleCloudApi.checkGoogleCredentials()
+            // );
+            // if (isValidCredentials) {
+            //     this.props.navigation.navigate('Home'); //after Google login redirect to Home
+            // } else {
+            //     Alert.alert('Login Cancelled', 'Please enter your email and password to sign in.');
+            // }
         }
         catch (e) {
+            alert(e)
             Alert.alert('Invalid Credentials', 'Please enter valid email and password for your google account.');;
         }
     }
