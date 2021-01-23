@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
-import * as DocumentPicker from "expo-document-picker";
-import * as FileSystem from "expo-file-system";
-import * as SecureStore from 'expo-secure-store';
+import * as RNFS from "react-native-fs";
+import * as DocumentPicker from "react-native-document-picker";
+import RNFetchBlob from "react-native-fetch-blob";
+
 
 import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
@@ -10,6 +11,7 @@ import ActionButton from "../components/ActionButton";
 import * as KubeApi from "../api/KubeApi"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Kubeconfig } from "../api/KubeApi/config"
+import { saveToLocal } from "../api/KubeApi/config_types"
 
 let filecontent;
 
@@ -29,117 +31,53 @@ class FileUpload extends React.Component {
   };
 
   updateState(stateKey, stateStatus) {
-    if (stateKey == "CA") {
+    if (stateKey == "clusterCheck") {
       this.setState({ isCAAccepted: stateStatus });
       this.setState({ CAAImg: checkedIcon });
-    } else if (stateKey == "CC") {
-      this.setState({ isCCAccepted: stateStatus });
-      this.setState({ CCAImg: checkedIcon });
-    } else if (stateKey == "CK") {
-      this.setState({ isCKAccepted: stateStatus });
-      this.setState({ CKImg: checkedIcon });
-    } else if (stateKey == "isUploaded") {
+    }   else if (stateKey == "isUploaded") {
       this.setState({ isUploaded: stateStatus });
     } else if (stateKey == "text") {
       this.setState({ text: stateStatus });
     }
   }
 
-  async storeData(dataKey, dataValue) {
-    try {
-      const jsonValue = JSON.stringify(dataValue);
-      await SecureStore.setItemAsync(dataKey, jsonValue);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  async checkFileContent(filecontent) {
-    var fileContentLines = filecontent.split("\n");
-    var checkCAData,
-      checkCCData,
-      checkCKData = false;
-    var requiredLineData,
-      trimLine = "";
-    for (const aLine of fileContentLines) {
-      trimLine = aLine.trim();
-      if (trimLine.startsWith("certificate-authority-data")) {
-        requiredLineData = trimLine.substring(28).trim();
-        checkCAData = await this.storeData(
-          "certificate-authority-data",
-          requiredLineData
-        );
-        this.updateState("CA", checkCAData);
-      } else if (trimLine.startsWith("client-certificate-data")) {
-        requiredLineData = trimLine.substring(25).trim();
-        checkCCData = await this.storeData(
-          "client-certificate-data",
-          requiredLineData
-        );
-        this.updateState("CC", checkCCData);
-      } else if (trimLine.startsWith("client-key-data")) {
-        requiredLineData = trimLine.substring(16).trim();
-        checkCKData = await this.storeData("client-key-data", requiredLineData);
-        this.updateState("CK", checkCKData);
-      } else if (trimLine.startsWith("server")) {
-        requiredLineData = trimLine.substring(8).trim();
-        await this.storeData("server-url", requiredLineData);
-      }
-    }
-    if (checkCAData && checkCCData && checkCKData) {
-      return true;
-    }
-    return false;
-  }
-
   uploadFile = async () => {
     try {
-      const res = await DocumentPicker.getDocumentAsync();
-      console.log(res.uri, res.type, res.name, res.size);
-      if (res.type == "success") {
-        filecontent = await FileSystem.readAsStringAsync(res.uri);
-        let k8s = new Kubeconfig();
-        var testApi = await k8s.loadFromFile(filecontent);
-        alert(k8s.getCurrentContext().toString())
-        var fileResult = await this.checkFileContent(filecontent);
-        let test = await KubeApi.checkServerStatus()
-        alert(test)
-        this.updateState("isUploaded", fileResult);
-        this.updateState("text", filecontent);
-        if (!fileResult) {
-          var missingData = "";
-          if (!this.state.isCAAccepted) {
-            missingData += "\tcertificate-authority-data\n";
-          }
-          if (!this.state.isCCAccepted) {
-            missingData += "\tclient-certificate-data\n";
-          }
-          if (!this.state.isCKAccepted) {
-            missingData += "\tclient-key-data\n";
-          }
-          Alert.alert(
-            "File Upload Failed",
-            "The following data fields are missing:\n" +
-            missingData +
-            "\nPlease try again."
-          );
-        }
-      } else {
-        Alert.alert("File Upload Failed", "Please try again.");
+      const res = await DocumentPicker.default.pick();
+      let filecontent = await RNFS.readFile(res.uri);
+      let k8s = new Kubeconfig();
+      try {
+        k8s.loadFromFile(filecontent);
+      } catch (e) {
+        Alert.alert("File Upload Failed", e.message)
+        return
       }
-    } catch (err) {
-      Alert.alert("File Upload Failed", "Please try again.");
-      alert(err);
+      try {
+        await saveToLocal(k8s.getClusters())
+      } catch (e) {
+        Alert.alert("File Upload Failed", e.message)
+        return
+      }
+      this.updateState("clusterCheck", true);
+      this.updateState("isUploaded", true);
+      this.updateState("text", k8s.getKubeconfigContent());
+    } catch (e) {
+      if (DocumentPicker.default.isCancel(e)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        Alert.alert("File Upload Failed", e.message);
+      }
     }
   };
 
   render() {
     return (
       <View style={commonStyles.whiteContainer}>
+        {/* //TODO: add confirm button at top right of toolbar */}
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
+          {/* // TODO: add div saying "Kubeconfig must contain certificate authority data, or tls insecure to be true" */}
 
           <ActionButton
               text="Select File"
@@ -151,23 +89,8 @@ class FileUpload extends React.Component {
 
             <CustomButton
               image={this.state.CAAImg}
+              //TODO: change this as well
               text="certificate-authority-data"
-              type="checkbox"
-              align="flex-start"
-              disabled={true}
-            />
-
-            <CustomButton
-              image={this.state.CCAImg}
-              text="client-certificate"
-              type="checkbox"
-              align="flex-start"
-              disabled={true}
-            />
-
-            <CustomButton
-              image={this.state.CKImg}
-              text="client-key"
               type="checkbox"
               align="flex-start"
               disabled={true}

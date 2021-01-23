@@ -36,8 +36,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="kasterisk"/>
         <data android:scheme="com.kasterisk.android"/>
+        <data android:scheme="com.googleusercontent.apps.447181180888-ker4pf1d0d16u3d8pnek049q3kdpu07k"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>

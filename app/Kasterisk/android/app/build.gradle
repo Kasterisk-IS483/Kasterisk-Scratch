@@ -137,13 +137,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
-        android {
-            defaultConfig {
-                manifestPlaceholders = [
-                appAuthRedirectScheme: 'com.kasterisk.android'
-                ]
-            }
-        }
+        manifestPlaceholders = [
+            appAuthRedirectScheme: 'com.kasterisk.android'
+        ]
     }
     splits {
         abi {

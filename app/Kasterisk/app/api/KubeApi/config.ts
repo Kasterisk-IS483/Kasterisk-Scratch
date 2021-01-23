@@ -1,4 +1,11 @@
-import { Cluster, User, Context } from "./config_types";
+import { Cluster,
+    User,
+    Context,
+    newClusters,
+    newContexts,
+    newUsers,
+    ConfigOptions
+     } from "./config_types";
 import * as yaml from "js-yaml";
 
 interface KConfig {
@@ -16,6 +23,7 @@ export class Kubeconfig {
     public 'users': User[];
     public 'contexts': Context[];
     public 'currentContext': string;
+    public 'kubeData': KConfig;
 
     constructor() {
         this.contexts = [];
@@ -78,27 +86,40 @@ export class Kubeconfig {
         return findObject(this.users, name, 'user');
     }
 
-    public loadFromFile(fileContents: string): boolean {
+    public getKubeconfigContent(): string {
+        return yaml.dump(this.kubeData)
+    }
+
+    public loadFromFile(fileContents: string, opts?: Partial<ConfigOptions>): void {
         try {
             let kubeFile = yaml.load(fileContents) as KConfig
-            console.log(kubeFile)
             if (kubeFile == null) {
-                return false;
+                throw new Error("File cannot be read, please try again. File must be in YAML interface.")
             }
+            this.clusters = newClusters(kubeFile.clusters, opts);
+            this.contexts = newContexts(kubeFile.contexts, opts);
+            this.users = newUsers(kubeFile.users, opts);
+            this.currentContext = kubeFile['current-context'];
             this.apiVersion = kubeFile.apiVersion
-            this.clusters = kubeFile.clusters
-            this.contexts = kubeFile.contexts
-            this.users = kubeFile.users
-            this.currentContext = kubeFile["current-context"]
+            this.kubeData = kubeFile
+            
         }
         catch (e) {
-            return false;
+            throw new Error(e)
         }
+    }
 
-        
-
-        return true
-        
+    public loadFromClusterAndUser(cluster: Cluster, user: User): void {
+        this.clusters = [cluster];
+        this.users = [user];
+        this.currentContext = 'loaded-context';
+        this.contexts = [
+            {
+                cluster: cluster.name,
+                user: user.name,
+                name: this.currentContext,
+            } as Context,
+        ];
     }
 
 

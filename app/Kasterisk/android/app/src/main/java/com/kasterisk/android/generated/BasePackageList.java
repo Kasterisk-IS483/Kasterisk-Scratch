@@ -20,7 +20,6 @@ public class BasePackageList {
         new expo.modules.application.ApplicationPackage(),
         new expo.modules.webbrowser.WebBrowserPackage(),
         new expo.modules.crypto.CryptoPackage(),
-        new expo.modules.documentpicker.DocumentPickerPackage(),
         new expo.modules.imageloader.ImageLoaderPackage(),
         new expo.modules.random.RandomPackage(),
         new expo.modules.securestore.SecureStorePackage(),
