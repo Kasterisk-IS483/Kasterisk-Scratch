@@ -1,46 +1,7 @@
 import React, { Component } from "react";
-import RNFetchBlob from "react-native-fetch-blob";
 
-import { urlOptions } from "../utils/constants.js";
-
+import CommonAPI from "./CommonApi.js";
 class ReplicasetApi extends Component {
-
-    static apiFetch = async ({ apiUrl, method, body="" }) => {
-
-        try {
-            let callUrl = `${urlOptions.baseUrl}/${apiUrl}`;
-
-            const response = await RNFetchBlob.config({
-                trusty: true,
-            }).fetch(method, callUrl, {
-                Authorization:
-                    `Bearer ${urlOptions.refreshToken}`,
-                insecureSkipTLSVerify: false
-            }, body);
-            return response.json();
-
-        }
-        catch (err) {
-            console.log(err);
-            return Promise.reject(err);
-        }
-    };
-
-    static get(apiUrl, body="") {
-        return this.apiFetch({ method: 'GET', apiUrl, body });
-    }
-    static post(apiUrl, body="") {
-        return this.apiFetch({ method: 'POST', apiUrl, body });
-    }
-    static put(apiUrl, body="") {
-        return this.apiFetch({ method: 'PUT', apiUrl, body });
-    }
-    static delete(apiUrl, body="") {
-        return this.apiFetch({ method: 'DELETE', apiUrl, body });
-    }
-    static patch(apiUrl, body="") {
-        return this.apiFetch({ method: 'PATCH', apiUrl, body });
-    }
 
     /** Write **/
 
@@ -52,7 +13,7 @@ class ReplicasetApi extends Component {
      * @body ReplicaSet
      */
     static createReplicaSet = async (namespace, body) => {
-        const replicasetsList = await this.post(`apis/apps/v1/namespaces/${namespace}/replicasets`, body);
+        const replicasetsList = await CommonAPI.post(`/apis/apps/v1/namespaces/${namespace}/replicasets`, body);
         return replicasetsList.items;
     }
 
@@ -64,7 +25,7 @@ class ReplicasetApi extends Component {
      * @body Patch
      */
     static patchReplicaSet = async (namespace, body) => {
-        const replicasetsList = await this.patch(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
+        const replicasetsList = await CommonAPI.patch(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
         return replicasetsList.items;
     }
 
@@ -76,7 +37,7 @@ class ReplicasetApi extends Component {
      * @body ReplicaSet
      */
     static replaceReplicaSet = async (namespace, body) => {
-        const replicasetsList = await this.put(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
+        const replicasetsList = await CommonAPI.put(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
         return replicasetsList.items;
     }
 
@@ -88,7 +49,7 @@ class ReplicasetApi extends Component {
      * @body DeleteOptions
      */
     static deleteReplicaSet = async (namespace, body) => {
-        const replicasetsList = await this.delete(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
+        const replicasetsList = await CommonAPI.delete(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
         return replicasetsList.items;
     }
 
@@ -100,7 +61,7 @@ class ReplicasetApi extends Component {
      * @body DeleteOptions
      */
     static deleteReplicaSetCollection = async (namespace, body) => {
-        const replicasetsList = await this.delete(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
+        const replicasetsList = await CommonAPI.delete(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}`, body);
         return replicasetsList.items;
     }
     
@@ -114,7 +75,7 @@ class ReplicasetApi extends Component {
      * @param name 
      */
     static readReplicaSet = async (namespace, name) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`);
+        const replicasetsList = await CommonAPI.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`);
         return replicasetsList.items;
     }
 
@@ -125,7 +86,7 @@ class ReplicasetApi extends Component {
      * @param namespace 
      */
     static listReplicaSet = async (namespace) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets`);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets`);
         return replicasetsList.items;
     }
 
@@ -134,7 +95,7 @@ class ReplicasetApi extends Component {
      * GET /apis/apps/v1/replicasets
      */
     static listAllReplicaSet = async () => {
-        const replicasetsList = await this.get(`apis/apps/v1/replicasets`);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/replicasets`);
         return replicasetsList.items;
     }
 
@@ -149,7 +110,7 @@ class ReplicasetApi extends Component {
      * @body Patch
      */
     static patchReplicaSetStatus = async (namespace, name, body) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`, body);
+        const replicasetsList = await CommonAPI.patch(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`, body);
         return replicasetsList.items;
     }
 
@@ -161,7 +122,7 @@ class ReplicasetApi extends Component {
      * @param name
     */
     static readReplicaSetStatus = async (namespace, name) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`);
         return replicasetsList.items;
     }
 
@@ -174,7 +135,7 @@ class ReplicasetApi extends Component {
      * @body ReplicaSet
      */
     static replaceReplicaSet = async (namespace, name, body) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`, body);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`, body);
         return replicasetsList.items;
     }
     
@@ -188,7 +149,7 @@ class ReplicasetApi extends Component {
      * @param name
      */
     static readReplicaSetScale = async (namespace, name) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`);
         return replicasetsList.items;
     }
 
@@ -201,7 +162,7 @@ class ReplicasetApi extends Component {
      * @body Scale
      */
     static listreplaceReplicaSetScaleAllReplicaSet = async (namespace, name, body) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`, body);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`, body);
         return replicasetsList.items;
     }
     
@@ -214,7 +175,7 @@ class ReplicasetApi extends Component {
      * @body Patch
      */
     static patchReplicaSetScale = async (namespace, name, body) => {
-        const replicasetsList = await this.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`, body);
+        const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`, body);
         return replicasetsList.items;
     }
 
