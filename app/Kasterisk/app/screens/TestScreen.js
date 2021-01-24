@@ -5,6 +5,7 @@ import { TextInput } from "react-native-paper";
 import ActionButton from "../components/ActionButton";
 import { commonStyles } from "../utils/styles.js";
 import PodApi from "../api/PodApi.js";
+import DeploymentApi from "../api/DeploymentApi.js";
 //import * as SecureStore from 'expo-secure-store';
 
 export default function TestScreen({ navigation }) {
@@ -32,7 +33,7 @@ export default function TestScreen({ navigation }) {
     const listAllNamespaceTest = async () => {
         try {
             let namespace1 = await (
-                PodApi.listAllNamespace()
+                DeploymentApi.readDeploymentScale('default','nginx-deployment')
             );
             namespace1 = JSON.stringify(namespace1);
 
