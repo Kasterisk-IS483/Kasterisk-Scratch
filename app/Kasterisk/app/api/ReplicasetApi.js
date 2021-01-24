@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import RNFetchBlob from "react-native-fetch-blob";
 
-import { refreshToken } from "../utils/constants.js";
+import { urlOptions } from "../utils/constants.js";
 
 class ReplicasetApi extends Component {
 
     static apiFetch = async ({ apiUrl, method, body="" }) => {
 
         try {
-            let callUrl = `https://small-test.run.haas-242.pez.pivotal.io:8443/${apiUrl}`;
+            let callUrl = `${urlOptions.baseUrl}/${apiUrl}`;
 
             const response = await RNFetchBlob.config({
                 trusty: true,
             }).fetch(method, callUrl, {
                 Authorization:
-                    `Bearer ${refreshToken}`,
+                    `Bearer ${urlOptions.refreshToken}`,
                 insecureSkipTLSVerify: false
             }, body);
             return response.json();
