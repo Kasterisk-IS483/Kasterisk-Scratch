@@ -1,7 +1,5 @@
 import { authorize } from "react-native-app-auth";
 import {
-  IOS_CLIENT_ID,
-  ANDROID_CLIENT_ID,
   WEB_CLIENT_ID,
   WEB_CLIENT_SECRET,
   googleConfig,

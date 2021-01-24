@@ -7,7 +7,7 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import KubeconfigUploadScreen from "./app/screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./app/screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./app/screens/AWSLoginScreen";
-import HomeScreen from "./app/screens/HomeScreen";
+import WorkloadSummaryScreen from "./app/screens/WorkloadSummaryScreen";
 import TestScreen from "./app/screens/TestScreen";
 import { colours } from "./app/utils/styles.js";
 
@@ -29,7 +29,7 @@ export default function App() {
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
         <Stack.Screen name="TestScreen" component={TestScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Workload Summary" component={WorkloadSummaryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

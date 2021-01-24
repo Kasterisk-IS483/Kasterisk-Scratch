@@ -17,29 +17,29 @@ import {
   portraitStyles,
 } from "../utils/styles.js";
 
-import { authorize } from "react-native-app-auth";
 import * as AuthSession from "expo-auth-session";
 import { openAuthSession } from "azure-ad-graph-expo";
 // import {AzureInstance, AzureLoginView} from 'react-native-azure-ad-2'
 import GoogleCloudApi from "../api/GoogleCloudApi";
+import AzureApi from "../api/AzureApi";
+
 import {
   AZURE_DOMAIN_HINT,
   AZURE_CLIENT_ID,
   AZURE_TENANT_ID,
-  AZURE_CLIENT_SECRET,
-  googleConfig,
+  AZURE_CLIENT_SECRET
 } from "../utils/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const azureConfig = {
-  clientId: AZURE_CLIENT_ID,
-  issuer: "https://login.microsoftonline.com/" + AZURE_TENANT_ID + "/v2.0",
-  scopes: ["openid", "profile", "email", "offline_access"],
-  redirectUrl: AuthSession.makeRedirectUri(),
-  clientSecret: AZURE_CLIENT_SECRET,
-  domainHint: AZURE_DOMAIN_HINT,
-  prompt: "login",
-};
+// const azureConfig = {
+//   clientId: AZURE_CLIENT_ID,
+//   issuer: "https://login.microsoftonline.com/" + AZURE_TENANT_ID + "/v2.0",
+//   scopes: ["openid", "profile", "email", "offline_access"],
+//   redirectUrl: AuthSession.makeRedirectUri(),
+//   clientSecret: AZURE_CLIENT_SECRET,
+//   domainHint: AZURE_DOMAIN_HINT,
+//   prompt: "login",
+// };
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
@@ -88,6 +88,25 @@ export default class WelcomeScreen extends Component {
       Alert.alert(
         "Invalid Credentials",
         "Please enter valid email and password for your google account."
+      );
+    }
+  };
+
+  AzureLogin = async () => {
+    try {
+      let azureLoginResult = await AzureApi.checkAzureCredentials();
+      if (azureLoginResult) {
+          let a = await AsyncStorage.getItem("@azureCredentials")
+          alert(a)
+        this.props.navigation.navigate("WorkloadSummaryScreen");
+      } else {
+        Alert.alert("Login Failed", "Please try again.");
+      }
+    } catch (e) {
+      alert(e.message);
+      Alert.alert(
+        "Invalid Credentials",
+        "Please enter valid email and password for your azure account."
       );
     }
   };
@@ -141,7 +160,7 @@ export default class WelcomeScreen extends Component {
               image={require("../assets/welcome-button-azure.png")}
               text="Log in With Azure AD"
               size="small"
-              onPress={this._handlePressAsync}
+              onPress={this.AzureLogin}
             />
             {this.state.result ? (
               <Text>{JSON.stringify(this.state.result)}</Text>

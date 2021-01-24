@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { AuthConfiguration } from 'react-native-app-auth';
 
 export const GOOGLE_IOS_CLIENT = "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt"
 export const GOOGLE_ANDROID_CLIENT = "447181180888-ker4pf1d0d16u3d8pnek049q3kdpu07k"
@@ -9,12 +10,11 @@ export const GOOGLE_IOS_REDIRECT = "com.googleusercontent.apps." + GOOGLE_IOS_CL
 // export const GOOGLE_ANDROID_REDIRECT = "com.googleusercontent.apps." + GOOGLE_ANDROID_CLIENT +":/oauth2redirect/google";
 export const GOOGLE_ANDROID_REDIRECT = "com.kasterisk.android" + ":/oauth2redirect/google";
 
-
-
 export const WEB_CLIENT_ID = "447181180888-u710h5qo7vde690vk9t2j2rrlmiq094n.apps.googleusercontent.com";
 export const WEB_CLIENT_SECRET = "zPT9I0zE2E5pNlpLW_-at593";
 
-export const AZURE_CLIENT_ID = '047ad4bd-b216-4efd-9f44-6093ec72eef6';
+//export const AZURE_CLIENT_ID = '047ad4bd-b216-4efd-9f44-6093ec72eef6';
+export const AZURE_CLIENT_ID = '519475b0-3c48-4ca5-a318-184e13dd0a77';
 export const AZURE_TENANT_ID = 'f8cdef31-a31e-4b4a-93e4-5f571e91255a';
 export const AZURE_CLIENT_SECRET = 'K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB';
 export const AZURE_DOMAIN_HINT = '';
@@ -31,13 +31,17 @@ export const googleConfig = {
   scopes: ['openid', 'email', 'profile', 'https://www.googleapis.com/auth/cloud-platform']
 };
 
-
-
-export var ClusterAuthProviderGoogle = {
-    accessToken: "",
-    expires: 0,
-    idToken: "",
-    refreshToken: "",
+export const azureConfig: AuthConfiguration = {
+  clientId: AZURE_CLIENT_ID,
+  issuer: "https://login.microsoftonline.com/" + AZURE_TENANT_ID + "/v2.0",
+  redirectUrl: Platform.OS === 'ios' ? 'urn:ietf:wg:oauth:2.0:oob' : 'kasterisk://react-native-auth',
+  scopes: ["openid", "profile", "email", "offline_access","user.read"],
+  // prompt: "login",
+  additionalParameters: { prompt: 'select_account' },
+  serviceConfiguration: {
+    authorizationEndpoint: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+    tokenEndpoint: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+  }
 };
 
 export const saveCredentials = async(storageKey, credentials) => {
