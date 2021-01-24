@@ -29,6 +29,7 @@ import {
   AZURE_CLIENT_SECRET,
   googleConfig,
 } from "../utils/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const azureConfig = {
   clientId: AZURE_CLIENT_ID,
@@ -74,20 +75,14 @@ export default class WelcomeScreen extends Component {
 
   GoogleLogin = async () => {
     try {
-      const authState = await authorize(googleConfig);
-        alert(authState.scopes);
-    //   const refreshedState = await refresh(googleConfig, {
-    //     refreshToken: authState.refreshToken,
-    //   });
-
-      // const isValidCredentials = await (
-      //     GoogleCloudApi.checkGoogleCredentials()
-      // );
-      // if (isValidCredentials) {
-      //     this.props.navigation.navigate('Home'); //after Google login redirect to Home
-      // } else {
-      //     Alert.alert('Login Cancelled', 'Please enter your email and password to sign in.');
-      // }
+      let googleLoginResult = await GoogleCloudApi.checkGoogleCredentials();
+      if (googleLoginResult) {
+          let a = await AsyncStorage.getItem("@googleCredentials")
+          alert(a)
+        this.props.navigation.navigate("WorkloadSummaryScreen");
+      } else {
+        Alert.alert("Login Failed", "Please try again.");
+      }
     } catch (e) {
       alert(e.message);
       Alert.alert(

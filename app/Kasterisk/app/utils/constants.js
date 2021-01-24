@@ -1,5 +1,5 @@
-import * as SecureStore from 'expo-secure-store';
-import { Platform, Linking } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
 export const GOOGLE_IOS_CLIENT = "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt"
 export const GOOGLE_ANDROID_CLIENT = "447181180888-ker4pf1d0d16u3d8pnek049q3kdpu07k"
@@ -40,11 +40,12 @@ export var ClusterAuthProviderGoogle = {
     refreshToken: "",
 };
 
-export const saveTemporaryCredentials = async(toSave, credentials) => {
+export const saveCredentials = async(storageKey, credentials) => {
     try {
-      await SecureStore.setItemAsync(toSave, JSON.stringify(credentials));
+      await AsyncStorage.setItem(storageKey, credentials)
+      return true
     } catch (e) {
-      console.log(e)
+      return false
     }
 };
 
