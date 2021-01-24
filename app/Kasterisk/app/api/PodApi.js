@@ -74,6 +74,20 @@ class PodApi extends Component {
         return podsList.items;
     }
 
+    /**
+     * Delete Pod Collection
+     * DELETE /api/v1/namespaces/{namespace}/pods
+     * 
+     * @param namespace 
+     * @param name
+     * @body DeleteOptions
+     */
+    static deletePodCollection = async (namespace, body) => {
+        const url = `/api/v1/namespaces/${namespace}/pods`;
+        const podsList = await CommonAPI.delete(url, body);
+        return podsList.items;
+    }
+
     /** READ **/
 
     /**
@@ -131,7 +145,7 @@ class PodApi extends Component {
      * @param name
     */
     static readPodStatus = async (namespace, name) => {
-        const podsList = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods/${name}/status`, cluster);
+        const podsList = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods/${name}/status`);
         return podsList.items;
     }
 
