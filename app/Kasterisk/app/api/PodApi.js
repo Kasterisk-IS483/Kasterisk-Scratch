@@ -38,7 +38,7 @@ class PodApi extends Component {
      * 
      * @param namespace 
      * @param name
-     * @body Pod
+     * @body patch
      */
     static patchPod = async (namespace, name, body) => {
         const url = `/api/v1/namespaces/${namespace}/pods/${name}`;
@@ -75,16 +75,15 @@ class PodApi extends Component {
     }
 
     /**
-     * Delete Pod Collection
+     * Delete Collection of Pods
      * DELETE /api/v1/namespaces/{namespace}/pods
      * 
      * @param namespace 
      * @param name
-     * @body DeleteOptions
      */
-    static deletePodCollection = async (namespace, body) => {
+    static deletePodCollection = async (namespace) => {
         const url = `/api/v1/namespaces/${namespace}/pods`;
-        const podsList = await CommonAPI.delete(url, body);
+        const podsList = await CommonAPI.delete(url);
         return podsList.items;
     }
 
