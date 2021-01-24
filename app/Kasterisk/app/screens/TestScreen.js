@@ -5,7 +5,7 @@ import { TextInput } from "react-native-paper";
 import ActionButton from "../components/ActionButton";
 import { commonStyles } from "../utils/styles.js";
 import PodApi from "../api/PodApi.js";
-import * as SecureStore from 'expo-secure-store';
+//import * as SecureStore from 'expo-secure-store';
 
 export default function TestScreen({ navigation }) {
 
@@ -13,6 +13,10 @@ export default function TestScreen({ navigation }) {
     const [namespaceState, setNamespaceState] = useState({
         namespace: ''
     });
+
+    // const [podState, setPodState] = useState({
+    //     pod: ''
+    // });
 
     // const getCert1 = async () => {
     //     cert1 = await SecureStore.getItemAsync("certificate-authority-data");
@@ -22,28 +26,24 @@ export default function TestScreen({ navigation }) {
     //     cert2 = await SecureStore.getItemAsync("client-key-data");
     // }
 
-    const test = async () => {
-        try {
 
+
+    // works
+    const listAllNamespaceTest = async () => {
+        try {
             let namespace1 = await (
                 PodApi.listAllNamespace()
             );
-
             namespace1 = JSON.stringify(namespace1);
-            // Alert.alert(namespace1);
-            Alert.alert('test',namespace1);
 
-
-            // //console.log(response);
             setNamespaceState({ ...namespaceState, namespace: namespace1 });
             Alert.alert(namespace1, namespaceState.namespace);
-
         } catch (err) {
             console.log(err);
             Alert.alert('Invalid Credentials', err.message);
         }
-
     }
+
 
     return (
         <View style={commonStyles.whiteContainer} >
@@ -51,8 +51,8 @@ export default function TestScreen({ navigation }) {
                 <Text style={commonStyles.heading}>test</Text>
 
                 <ActionButton
-                    text="test"
-                    onPress={() => test()}
+                    text="Show All Namespaces"
+                    onPress={() => listAllNamespaceTest()}
                 />
 
                 <Text style={commonStyles.heading}>
