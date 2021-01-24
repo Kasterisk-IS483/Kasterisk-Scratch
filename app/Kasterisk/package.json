@@ -18,7 +18,6 @@
     "axios": "^0.21.1",
     "azure-ad-graph-expo": "^2.0.4",
     "expo": "~40.0.0",
-    "expo-app-auth": "~9.3.0",
     "expo-google-app-auth": "^8.1.4",
     "expo-secure-store": "^9.3.0",
     "expo-splash-screen": "~0.8.0",
