@@ -42,8 +42,8 @@ class PodApi extends Component {
      */
     static patchPod = async (namespace, name, body) => {
         const url = `/api/v1/namespaces/${namespace}/pods/${name}`;
-        const patchedPod = await CommonAPI.patch(url, body);
-        return patchedPod;
+        const pod = await CommonAPI.patch(url, body);
+        return pod;
     }
 
     /**
@@ -70,8 +70,8 @@ class PodApi extends Component {
      */
     static deletePod = async (namespace, name, body) => {
         const url = `/api/v1/namespaces/${namespace}/pods/${name}`;
-        const pod = await CommonAPI.delete(url, body);
-        return pod;
+        const status = await CommonAPI.delete(url, body);
+        return status;
     }
 
     /**
@@ -79,11 +79,10 @@ class PodApi extends Component {
      * DELETE /api/v1/namespaces/{namespace}/pods
      * 
      * @param namespace 
-     * @param name
+     * @body DeleteOptions
      */
-    static deletePodCollection = async (namespace) => {
-        const url = `/api/v1/namespaces/${namespace}/pods`;
-        const status = await CommonAPI.delete(url);
+    static deletePodCollection = async (namespace, body) => {
+        const status = await CommonAPI.delete(`/api/v1/namespaces/${namespace}/pods`, body);
         return status;
     }
 
@@ -108,8 +107,8 @@ class PodApi extends Component {
     * @param namespace 
     */
     static listPod = async (namespace) => {
-        const podsList = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods`);
-        return podsList.items;
+        const podList = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods`);
+        return podList.items;
     }
 
     /**
@@ -117,8 +116,8 @@ class PodApi extends Component {
      * GET /api/v1/pods
      */
     static listAllNamespace = async () => {
-        const podsList = await CommonAPI.get(`/api/v1/pods`);
-        return podsList.items;
+        const podList = await CommonAPI.get(`/api/v1/pods`);
+        return podList.items;
     }
 
     /** STATUS **/
