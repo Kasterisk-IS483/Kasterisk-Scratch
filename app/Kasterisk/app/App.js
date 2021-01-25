@@ -33,7 +33,7 @@ export default function App() {
           options={{
             title: 'Upload Kubeconfig File',
             headerRight: () => <ActionButton
-              text="Submit"
+              text="Confirm"
               onPress={() => alert('test!')}
             />,
           }}
@@ -44,7 +44,7 @@ export default function App() {
           options={{
             title: "Add Kubeconfig Content",
             headerRight: () => <ActionButton
-              text="Submit"
+              text="Confirm"
               onPress={() => this.KubeconfigContentScreen.ContentUpload()}
             />,
           }}

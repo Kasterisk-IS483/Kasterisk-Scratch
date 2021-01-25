@@ -3,17 +3,14 @@ import { View, Text, ScrollView, Alert } from "react-native";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
 import RNFetchBlob from "react-native-fetch-blob";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
 import ActionButton from "../components/ActionButton";
 import * as KubeApi from "../api/KubeApi"
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Kubeconfig } from "../api/KubeApi/config"
 import { saveToLocal } from "../api/KubeApi/config_types"
-
-let filecontent;
 
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");
@@ -74,15 +71,10 @@ class FileUpload extends React.Component {
     return (
 
       <View style={commonStyles.whiteContainer}>
-        {/* //TODO: add confirm button at top right of toolbar */}
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
-          {/* // TODO: add div saying "Kubeconfig must contain certificate authority data, or tls insecure to be true" */}
-
-          <View>
-            <Text style={commonStyles.heading}>Kubeconfig must contain certificate authority data, or tls insecure to be true</Text>
-          </View>
+          <Text style={{fontSize: fonts.md}}>Kubeconfig must contain certificate authority data, or tls insecure to be true</Text>
 
           <ActionButton
             text="Select File"
@@ -94,8 +86,7 @@ class FileUpload extends React.Component {
 
             <CustomButton
               image={this.state.CAAImg}
-              //TODO: change this as well
-              text="certificate-authority-data"
+              text="certificate-authority-data or tls-insecure"
               type="checkbox"
               align="flex-start"
               disabled={true}

@@ -90,11 +90,11 @@ export default function KubeconfigContentScreen({ navigation }) {
                     <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
                         <View style={{marginLeft: spacings.lg, marginBottom: spacings.xs}}>
                             <View style={{flexDirection: 'row'}}>
-                                <RadioButton value="auth-unpw" color={colours.secondary}/>
+                                <RadioButton value="auth-unpw" color={colours.action}/>
                                 <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Username and Password</Text>
                             </View>
                             <View style={{flexDirection: 'row'}}>
-                                <RadioButton value="auth-token" color={colours.secondary}/>
+                                <RadioButton value="auth-token" color={colours.action}/>
                                 <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Token</Text>
                             </View>
                         </View>
