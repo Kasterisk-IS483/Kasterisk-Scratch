@@ -26,8 +26,8 @@ class DeploymentApi extends Component {
      * @body patch
      */
     static patchDeployment = async (namespace, name, body) => {
-        const deploymentsList = await CommonAPI.patch(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body);
-        return deploymentsList.items;
+        const deployment = await CommonAPI.patch(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body);
+        return deployment;
     }
 
 
@@ -40,8 +40,8 @@ class DeploymentApi extends Component {
      * @body Deployment
      */
     static replaceDeployment = async (namespace, name, body) => {
-        const deploymentsList = await CommonAPI.put(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body);
-        return deploymentsList.items;
+        const deployment = await CommonAPI.put(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body);
+        return deployment;
     }
 
 
@@ -54,8 +54,8 @@ class DeploymentApi extends Component {
      * @body DeleteOptions
      */
     static deleteDeployment = async (namespace, name, body) => {
-        const deploymentsList = await CommonAPI.delete(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body);
-        return deploymentsList.items;
+        const deployment = await CommonAPI.delete(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`, body);
+        return deployment;
     }
 
 
@@ -64,7 +64,6 @@ class DeploymentApi extends Component {
      * DELETE /apis/apps/v1/namespaces/{namespace}/deployments
      * 
      * @param namespace 
-     * @param name
      * @body DeleteOptions
      */
     static deleteDeploymentCollection = async (namespace, body) => {
@@ -81,8 +80,8 @@ class DeploymentApi extends Component {
      * 
     */
     static listAllDeployment = async () => {
-        const DeploymentsList = await CommonAPI.get(`/apis/apps/v1/deployments`);
-        return DeploymentsList.items;
+        const deploymentsList = await CommonAPI.get(`/apis/apps/v1/deployments`);
+        return deploymentsList.items;
     }
 
 
@@ -93,8 +92,8 @@ class DeploymentApi extends Component {
      * @param namespace 
     */
     static listDeployment = async (namespace) => {
-        const DeploymentsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments`);
-        return DeploymentsList.items;
+        const deploymentsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments`);
+        return deploymentsList.items;
     }
 
 
@@ -106,8 +105,8 @@ class DeploymentApi extends Component {
      * @param name
     */
     static readDeployment = async (namespace, name) => {
-        const Deployment = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`);
-        return Deployment;
+        const deployment = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}`);
+        return deployment;
     }
 
 
@@ -122,8 +121,8 @@ class DeploymentApi extends Component {
      * @body Patch
      */
     static patchDeploymentStatus = async (namespace, name, body) => {
-        const DeploymentsList = await CommonAPI.patch(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/status`, body);
-        return DeploymentsList.items;
+        const deployment = await CommonAPI.patch(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/status`, body);
+        return deployment;
     }
 
 
@@ -135,8 +134,8 @@ class DeploymentApi extends Component {
      * @param name
     */
     static readDeploymentStatus = async (namespace, name) => {
-        const DeploymentStatus = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/status`);
-        return DeploymentStatus;
+        const deploymentStatus = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/status`);
+        return deploymentStatus;
     }
 
 
@@ -149,8 +148,8 @@ class DeploymentApi extends Component {
      * @body Deployment
      */
     static replaceDeploymentStatus = async (namespace, name, body) => {
-        const DeploymentsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/status`, body);
-        return DeploymentsList.items;
+        const deployment = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/status`, body);
+        return deployment;
     }
     
     /** MISC **/
@@ -163,8 +162,8 @@ class DeploymentApi extends Component {
      * @param name
     */
     static readDeploymentScale = async (namespace, name) => {
-        const DeploymentScale = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/scale`);
-        return DeploymentScale;
+        const deploymentScale = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/scale`);
+        return deploymentScale;
     }
 
 
@@ -177,8 +176,8 @@ class DeploymentApi extends Component {
      * @body Scale
      */
     static replaceDeploymentScale = async (namespace, name, body) => {
-        const DeploymentsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/scale`, body);
-        return DeploymentsList.items;
+        const deployment = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/scale`, body);
+        return deployment;
     }
     
 
@@ -191,8 +190,8 @@ class DeploymentApi extends Component {
      * @body Patch
      */
     static patchDeploymentScale = async (namespace, name, body) => {
-        const DeploymentsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/scale`, body);
-        return DeploymentsList.items;
+        const deployment = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments/${name}/scale`, body);
+        return deployment;
     }
 
 }
