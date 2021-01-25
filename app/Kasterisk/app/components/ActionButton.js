@@ -1,9 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Colors, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 
 import { spacings, commonStyles } from "../utils/styles.js";
-
+import { colours } from "../utils/styles.js";
 export default function ActionButton({ text, onPress, }) {
 
   return (
@@ -11,7 +11,7 @@ export default function ActionButton({ text, onPress, }) {
     <Button
         style={{ marginTop: spacings.md, marginBottom: spacings.lg }}
         mode={"contained"}
-        color={Colors.blue500} 
+        color={colours.primary} 
         onPress={onPress}>
         {text}
     </Button>  

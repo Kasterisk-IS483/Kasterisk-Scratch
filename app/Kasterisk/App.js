@@ -10,6 +10,7 @@ import AWSLoginScreen from "./app/screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./app/screens/WorkloadSummaryScreen";
 import TestScreen from "./app/screens/TestScreen";
 import { colours } from "./app/utils/styles.js";
+import ActionButton from "./app/components/ActionButton";
 
 const Stack = createStackNavigator();
 
@@ -18,19 +19,40 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: { 
+          headerStyle: {
             backgroundColor: colours.primary
-          }, 
+          },
           headerTintColor: 'white'
         }}
       >
-        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
-        <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
         <Stack.Screen name="TestScreen" component={TestScreen} />
         <Stack.Screen name="Workload Summary" component={WorkloadSummaryScreen} />
+        <Stack.Screen
+          name="KubeconfigUpload"
+          component={KubeconfigUploadScreen}
+          options={{
+            title: 'Upload Kubeconfig File',
+            headerRight: () => <ActionButton
+              text="Submit"
+              onPress={() => alert('test!')}
+            />,
+          }}
+        />
+        <Stack.Screen
+          name="KubeconfigContent"
+          component={KubeconfigContentScreen}
+          options={{
+            title: "Add Kubeconfig Content",
+            headerRight: () => <ActionButton
+              text="Submit"
+              onPress={() => this.KubeconfigContentScreen.ContentUpload()}
+            />,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+

@@ -34,7 +34,7 @@ class FileUpload extends React.Component {
     if (stateKey == "clusterCheck") {
       this.setState({ isCAAccepted: stateStatus });
       this.setState({ CAAImg: checkedIcon });
-    }   else if (stateKey == "isUploaded") {
+    } else if (stateKey == "isUploaded") {
       this.setState({ isUploaded: stateStatus });
     } else if (stateKey == "text") {
       this.setState({ text: stateStatus });
@@ -72,6 +72,7 @@ class FileUpload extends React.Component {
 
   render() {
     return (
+
       <View style={commonStyles.whiteContainer}>
         {/* //TODO: add confirm button at top right of toolbar */}
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
@@ -79,9 +80,13 @@ class FileUpload extends React.Component {
           <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
           {/* // TODO: add div saying "Kubeconfig must contain certificate authority data, or tls insecure to be true" */}
 
+          <View>
+            <Text style={commonStyles.heading}>Kubeconfig must contain certificate authority data, or tls insecure to be true</Text>
+          </View>
+
           <ActionButton
-              text="Select File"
-              onPress={this.uploadFile}
+            text="Select File"
+            onPress={this.uploadFile}
           />
 
           <View>
@@ -97,7 +102,7 @@ class FileUpload extends React.Component {
             />
           </View>
 
-          <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>File preview:</Text>
+          <Text style={[{ paddingTop: spacings.xl }, commonStyles.subheading]}>File preview:</Text>
           <ScrollView style={{ marginVertical: spacings.sm, marginHorizontal: spacings.lg, backgroundColor: colours.grey }}>
             <Text style={{ padding: spacings.lg, fontSize: fonts.sm }}>{this.state.text}</Text>
           </ScrollView>
