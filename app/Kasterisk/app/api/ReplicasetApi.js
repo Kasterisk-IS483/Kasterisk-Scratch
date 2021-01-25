@@ -134,7 +134,7 @@ class ReplicasetApi extends Component {
      * @param name
      * @body ReplicaSet
      */
-    static replaceReplicaSet = async (namespace, name, body) => {
+    static replaceReplicaSetStatus = async (namespace, name, body) => {
         const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/status`, body);
         return replicasetsList.items;
     }
@@ -161,7 +161,7 @@ class ReplicasetApi extends Component {
      * @param name
      * @body Scale
      */
-    static listreplaceReplicaSetScaleAllReplicaSet = async (namespace, name, body) => {
+    static replaceReplicaSetScale = async (namespace, name, body) => {
         const replicasetsList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}/scale`, body);
         return replicasetsList.items;
     }
