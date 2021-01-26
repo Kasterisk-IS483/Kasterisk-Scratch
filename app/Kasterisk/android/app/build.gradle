@@ -138,8 +138,6 @@ android {
         versionCode 1
         versionName "1.0.0"
         manifestPlaceholders = [
-            appAuthRedirectScheme: "com.googleusercontent.apps.447181180888-ker4pf1d0d16u3d8pnek049q3kdpu07k",
-            appAuthRedirectScheme: "kasterisk",
             appAuthRedirectScheme: 'com.kasterisk.android'
         ]
     }

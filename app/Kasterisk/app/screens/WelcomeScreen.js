@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   View,
   Text,
@@ -17,29 +19,8 @@ import {
   portraitStyles,
 } from "../utils/styles.js";
 
-import * as AuthSession from "expo-auth-session";
-import { openAuthSession } from "azure-ad-graph-expo";
-// import {AzureInstance, AzureLoginView} from 'react-native-azure-ad-2'
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
-
-import {
-  AZURE_DOMAIN_HINT,
-  AZURE_CLIENT_ID,
-  AZURE_TENANT_ID,
-  AZURE_CLIENT_SECRET
-} from "../utils/constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// const azureConfig = {
-//   clientId: AZURE_CLIENT_ID,
-//   issuer: "https://login.microsoftonline.com/" + AZURE_TENANT_ID + "/v2.0",
-//   scopes: ["openid", "profile", "email", "offline_access"],
-//   redirectUrl: AuthSession.makeRedirectUri(),
-//   clientSecret: AZURE_CLIENT_SECRET,
-//   domainHint: AZURE_DOMAIN_HINT,
-//   prompt: "login",
-// };
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
@@ -111,11 +92,6 @@ export default class WelcomeScreen extends Component {
     }
   };
 
-  _handlePressAsync = async () => {
-    console.log(azureAdAppProps.redirectUrl);
-    let result = await openAuthSession(azureAdAppProps);
-    this.setState({ result });
-  };
 
   render() {
     const { navigation } = this.props;
