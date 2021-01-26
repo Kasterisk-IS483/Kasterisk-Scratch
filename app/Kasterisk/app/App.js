@@ -21,7 +21,7 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: colours.primary },
-          headerTintColor: 'white'
+          headerTintColor: "white"
       }}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
@@ -31,10 +31,10 @@ export default function App() {
           name="KubeconfigUpload"
           component={KubeconfigUploadScreen}
           options={{
-            title: 'Upload Kubeconfig File',
+            title: "Upload Kubeconfig File",
             headerRight: () => <ActionButton
-              text="Confirm"
-              onPress={() => alert('test!')}
+              text="Done"
+              onPress={() => alert("test!")}
             />,
           }}
         />
@@ -44,7 +44,7 @@ export default function App() {
           options={{
             title: "Add Kubeconfig Content",
             headerRight: () => <ActionButton
-              text="Confirm"
+              text="Done"
               onPress={() => this.KubeconfigContentScreen.ContentUpload()}
             />,
           }}

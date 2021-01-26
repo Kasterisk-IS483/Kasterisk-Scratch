@@ -73,25 +73,22 @@ class FileUpload extends React.Component {
       <View style={commonStyles.whiteContainer}>
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
-          <Text style={commonStyles.heading}>Upload Kubeconfig File Below</Text>
-          <Text style={{fontSize: fonts.md}}>Kubeconfig must contain certificate authority data, or tls insecure to be true</Text>
+          <Text style={{fontSize: fonts.md, textAlign: "center", marginHorizontal: spacings.lg}}>Choose a kubeconfig that contains 'certificate authority data' or 'tls insecure' to proceed</Text>
 
           <ActionButton
             text="Select File"
             onPress={this.uploadFile}
           />
 
-          <View>
-            <Text style={commonStyles.subheading}>Fields required:</Text>
+          <Text style={[commonStyles.subheading, {paddingTop: spacings.lg}]}>Fields required:</Text>
 
-            <CustomButton
-              image={this.state.CAAImg}
-              text="certificate-authority-data or tls-insecure"
-              type="checkbox"
-              align="flex-start"
-              disabled={true}
-            />
-          </View>
+          <CustomButton
+            image={this.state.CAAImg}
+            text="certificate-authority-data or tls-insecure"
+            type="checkbox"
+            align="flex-start"
+            disabled={true}
+          />
 
           <Text style={[{ paddingTop: spacings.xl }, commonStyles.subheading]}>File preview:</Text>
           <ScrollView style={{ marginVertical: spacings.sm, marginHorizontal: spacings.lg, backgroundColor: colours.grey }}>
