@@ -143,6 +143,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                         </View>
                         : <View>
                             <TextInput
+                                secureTextEntry={true}
                                 onChangeText={text => setData({ ...data, token: text })}
                                 style={commonStyles.textInput}
                                 label="Token"
