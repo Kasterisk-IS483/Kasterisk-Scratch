@@ -20,11 +20,6 @@ export const AZURE_DOMAIN_HINT = '';
 
 export const googleConfig = {
   issuer: 'https://accounts.google.com/',
-  // serviceConfiguration: {
-  //   authorizationEndpoint: "https://accounts.google.com/o/oauth2/v2/auth",
-  //   tokenEndpoint: "https://oauth2.googleapis.com/token",
-  //   revocationEndpoint: "https://oauth2.googleapis.com/revoke"
-  // },
   clientId: Platform.OS === 'ios' ? GOOGLE_IOS_CLIENT_ID : GOOGLE_ANDROID_CLIENT_ID,
   redirectUrl: Platform.OS === 'ios' ? GOOGLE_IOS_REDIRECT : GOOGLE_ANDROID_REDIRECT,
   scopes: ['openid', 'email', 'profile', 'https://www.googleapis.com/auth/cloud-platform']
