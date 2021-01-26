@@ -12,8 +12,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Kubeconfig } from "../api/KubeApi/config";
 import { saveToLocal } from "../api/KubeApi/config_types";
 
-let filecontent;
-
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");
 
@@ -51,66 +49,38 @@ class FileUpload extends React.Component {
         }
     }
 
-    render() {
-        return (
-            <View style={commonStyles.whiteContainer}>
-                {/* //TODO: add confirm button at top right of toolbar */}
-                <ScrollView contentContainerStyle={commonStyles.scrollView}>
-                    <Text style={commonStyles.heading}>
-                        Upload Kubeconfig File Below
-                    </Text>
-                    <View>
-                        <Text style={commonStyles.heading}>
-                            Kubeconfig must contain certificate authority data,
-                            or insecure-skip-tls-verify set to true
-                        </Text>
-                    </View>
+  render() {
+    return (
 
-                    <ActionButton
-                        text="Select File"
-                        onPress={this.uploadFile}
-                    />
+      <View style={commonStyles.whiteContainer}>
+        <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
-                    <View>
-                        <Text style={commonStyles.subheading}>
-                            Fields required:
-                        </Text>
+          <Text style={{fontSize: fonts.md, textAlign: "center", marginHorizontal: spacings.lg}}>Choose a kubeconfig that contains 'certificate authority data' or 'tls insecure' to proceed</Text>
 
-                        <CustomButton
-                            image={this.state.CAAImg}
-                            //TODO: change this as well
-                            text="certificate-authority-data / insecure-skip-tls-verify: true"
-                            type="checkbox"
-                            align="flex-start"
-                            disabled={true}
-                        />
-                    </View>
+          <ActionButton
+            text="Select File"
+            onPress={this.uploadFile}
+          />
 
-                    <Text
-                        style={[
-                            { paddingTop: spacings.xl },
-                            commonStyles.subheading,
-                        ]}
-                    >
-                        File preview:
-                    </Text>
-                    <ScrollView
-                        style={{
-                            marginVertical: spacings.sm,
-                            marginHorizontal: spacings.lg,
-                            backgroundColor: colours.grey,
-                        }}
-                    >
-                        <Text
-                            style={{ padding: spacings.lg, fontSize: fonts.sm }}
-                        >
-                            {this.state.text}
-                        </Text>
-                    </ScrollView>
-                </ScrollView>
-            </View>
-        );
-    }
+          <Text style={[commonStyles.subheading, {paddingTop: spacings.lg}]}>Fields required:</Text>
+
+          <CustomButton
+            image={this.state.CAAImg}
+            text="certificate-authority-data or tls-insecure"
+            type="checkbox"
+            align="flex-start"
+            disabled={true}
+          />
+
+          <Text style={[{ paddingTop: spacings.xl }, commonStyles.subheading]}>File preview:</Text>
+          <ScrollView style={{ marginVertical: spacings.sm, marginHorizontal: spacings.lg, backgroundColor: colours.grey }}>
+            <Text style={{ padding: spacings.lg, fontSize: fonts.sm }}>{this.state.text}</Text>
+          </ScrollView>
+
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
 export default function KubeconfigUploadScreen({ navigation }) {

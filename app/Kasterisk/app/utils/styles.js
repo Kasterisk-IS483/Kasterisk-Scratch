@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { Colors } from 'react-native-paper';
 
 export const dimensions = {
   fullHeight: Dimensions.get('window').height,
@@ -8,6 +9,7 @@ export const dimensions = {
 export const colours = { 
   primary: "#265395",
   secondary: "#b0d0ff",
+  action: Colors.blue500,
   grey: "#DCDCDC",
 }
 

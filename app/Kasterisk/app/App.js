@@ -3,14 +3,15 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-import KubeconfigUploadScreen from "./app/screens/KubeconfigUploadScreen";
-import KubeconfigContentScreen from "./app/screens/KubeconfigContentScreen";
-import AWSLoginScreen from "./app/screens/AWSLoginScreen";
-import WorkloadSummaryScreen from "./app/screens/WorkloadSummaryScreen";
-import TestScreen from "./app/screens/TestScreen";
-import { colours } from "./app/utils/styles.js";
-import ActionButton from "./app/components/ActionButton";
+import WelcomeScreen from "./screens/WelcomeScreen";
+import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
+import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
+import AWSLoginScreen from "./screens/AWSLoginScreen";
+import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
+import TestScreen from "./screens/TestScreen";
+
+import { colours } from "./utils/styles";
+import ActionButton from "./components/ActionButton";
 
 import { Appbar } from "react-native-paper";
 
@@ -24,12 +25,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerStyle: {
-            backgroundColor: colours.primary
-          },
-          headerTintColor: 'white'
-        }}
-      >
+          headerStyle: { backgroundColor: colours.primary },
+          headerTintColor: "white"
+      }}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
         <Stack.Screen name="TestScreen" component={TestScreen} />
@@ -54,4 +52,3 @@ export default function App() {
     </NavigationContainer>
   );
 };
-
