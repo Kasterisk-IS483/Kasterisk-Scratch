@@ -8,8 +8,7 @@ export const dimensions = {
 
 export const colours = { 
   primary: "#265395",
-  secondary: "#b0d0ff",
-  action: Colors.blue500,
+  secondary: Colors.blue600,
   grey: "#DCDCDC",
 }
 
@@ -37,10 +36,10 @@ export const commonStyles  = StyleSheet.create({
 
   scrollView: {
     flexGrow: 1,
-    padding: 40,
   },
   whiteContainer: {
     flex: 1,
+    padding: 40,
     backgroundColor: 'white',
   },
 

@@ -5,7 +5,7 @@ import { dimensions, fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', align = 'center', disabled = false }) {
   
-  const large = dimensions.fullWidth>dimensions.fullHeight ? (dimensions.fullWidth / 3) : 'auto'
+  const large = 'auto'
   const small = dimensions.fullWidth>dimensions.fullHeight ? (dimensions.fullWidth / 3) : (dimensions.fullWidth / 2)
   const btnSize = size === 'large' ? large : small
 
@@ -57,8 +57,14 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
   };
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.7} disabled={disabled}>
+    <TouchableOpacity 
+      onPress={onPress} 
+      activeOpacity={0.7} 
+      disabled={disabled}
+      >
+
       <View style={[containerCommonStyle, border]}>
+
         <View style={containerStyle}>
           <Image
             source={image}
@@ -71,6 +77,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
         <View style={textStyle}>
           <Text style={textCommonStyle}> {text} </Text>
         </View>
+
       </View>
     </TouchableOpacity>
   )

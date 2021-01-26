@@ -162,11 +162,11 @@ export default class WelcomeScreen extends Component {
               size="small"
               onPress={this.AzureLogin}
             />
-            {this.state.result ? (
+            {/* {this.state.result ? (
               <Text>{JSON.stringify(this.state.result)}</Text>
             ) : (
               <Text>Nothing to see here.</Text>
-            )}
+            )} */}
 
             <View style={commonStyles.divider} />
 
@@ -182,12 +182,18 @@ export default class WelcomeScreen extends Component {
               size="small"
               onPress={() => navigation.navigate("KubeconfigContent")}
             />
-            <CustomButton
+            {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
               text="Test Screen"
               size="small"
-              onPress={() => navigation.navigate("TestScreen")}
-            />
+              onPress={() => navigation.navigate("Test")}
+            /> */}
+            {/* <CustomButton
+              image={require("../assets/welcome-button-kube.png")}
+              text="Loading Screen"
+              size="small"
+              onPress={() => navigation.navigate("Loading")}
+            /> */}
           </ScrollView>
         </View>
       </View>

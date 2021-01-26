@@ -7,10 +7,10 @@ import {
     User
 } from "../api/KubeApi/config_types";
 
-import ActionButton from "../components/ActionButton";
+import SubmitButton from "../components/SubmitButton";
 import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
-export default function KubeconfigContentScreen({ navigation }) {
+export default function KubeconfigContentScreen() {
 
     const [checked, setChecked] = React.useState('auth-unpw');
 
@@ -21,6 +21,8 @@ export default function KubeconfigContentScreen({ navigation }) {
         username: '',
         password: '',
         token: '',
+        clientCert: '',
+        clientKey: '',
     });
 
     const ContentUpload = () => {
@@ -67,6 +69,7 @@ export default function KubeconfigContentScreen({ navigation }) {
             );
             return;
         }
+
         let clusterInfo = {
             name: data.name,
             caData: data.certificate,
@@ -83,6 +86,8 @@ export default function KubeconfigContentScreen({ navigation }) {
             password: data.password === "" ? null : data.password,
         }
         
+        Alert.alert("Success");
+        // this.props.navigation.navigate('Loading');
     };
 
     return (
@@ -94,14 +99,14 @@ export default function KubeconfigContentScreen({ navigation }) {
                 <TextInput 
                     onChangeText={text => setData({ ...data, name: text })}
                     style={commonStyles.textInput}
-                    label="Name"
-                    placeholder="Enter Name Here"
+                    label="Cluster Name"
+                    placeholder="Enter Cluster Name Here"
                 />
                 <TextInput
                     onChangeText={text => setData({ ...data, server: text })}
                     style={commonStyles.textInput}
                     label="Server"
-                    placeholder="Enter Server Here"
+                    placeholder="Enter Server Address Here"
                 />
                 <TextInput
                     onChangeText={text => setData({ ...data, certificate: text })}
@@ -110,23 +115,40 @@ export default function KubeconfigContentScreen({ navigation }) {
                     placeholder="Enter Certificate Here"
                 />
 
-                <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>Authentication Mode:</Text>
+
+                <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>
+                    Authentication Mode:
+                </Text>
+
                 <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
                     <View style={{marginLeft: spacings.lg, marginBottom: spacings.xs}}>
+
                         <View style={{flexDirection: 'row'}}>
-                            <RadioButton value="auth-unpw" color={colours.action}/>
-                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Username and Password</Text>
+                            <RadioButton value="auth-unpw" color={colours.primary}/>
+                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>
+                                Username and Password
+                            </Text>
                         </View>
+
                         <View style={{flexDirection: 'row'}}>
-                            <RadioButton value="auth-token" color={colours.action}/>
-                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Token</Text>
+                            <RadioButton value="auth-token" color={colours.primary}/>
+                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>
+                                Token
+                            </Text>
                         </View>
+
+                        <View style={{flexDirection: 'row'}}>
+                            <RadioButton value="auth-cert" color={colours.primary}/>
+                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>
+                                Client Certificate and Key
+                            </Text>
+                        </View>
+
                     </View>
                 </RadioButton.Group>
 
                 <View>
-                    {
-                        checked === 'auth-unpw' ?
+                    { checked === 'auth-unpw' ?
                         <View>
                             <TextInput
                                 onChangeText={text => setData({ ...data, username: text })}
@@ -141,7 +163,8 @@ export default function KubeconfigContentScreen({ navigation }) {
                                 placeholder="Enter Password Here"
                             />
                         </View>
-                        : <View>
+                        : checked === 'auth-token' ? 
+                        <View>
                             <TextInput
                                 secureTextEntry={true}
                                 onChangeText={text => setData({ ...data, token: text })}
@@ -150,13 +173,29 @@ export default function KubeconfigContentScreen({ navigation }) {
                                 placeholder="Enter Token Here"
                             />                                
                         </View>
+                        : 
+                        <View>
+                            <TextInput
+                                onChangeText={text => setData({ ...data, clientCert: text })}
+                                style={commonStyles.textInput}
+                                label="Client Certificate"
+                                placeholder="Enter Client Certificate Here"
+                            />
+                            <TextInput
+                                onChangeText={text => setData({ ...data, clientKey: text })}
+                                style={commonStyles.textInput}
+                                label="Client Key"
+                                placeholder="Enter Client Key Here"
+                            />         
+                        </View>
                     }
                 </View>
-                        {/* //TODO: submit / confirm button to be on navbar, right side */}
-                <ActionButton 
+
+                <SubmitButton 
                     text="Submit" 
                     onPress={() => ContentUpload()}
                 />
+
             </ScrollView>
         </View>
     );

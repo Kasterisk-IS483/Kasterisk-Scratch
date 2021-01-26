@@ -8,7 +8,7 @@ import PodApi from "../api/PodApi.js";
 import DeploymentApi from "../api/DeploymentApi.js";
 //import * as SecureStore from 'expo-secure-store';
 
-export default function TestScreen({ navigation }) {
+export default function TestScreen() {
 
 
     const [namespaceState, setNamespaceState] = useState({
