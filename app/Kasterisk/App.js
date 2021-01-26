@@ -12,7 +12,12 @@ import TestScreen from "./app/screens/TestScreen";
 import { colours } from "./app/utils/styles.js";
 import ActionButton from "./app/components/ActionButton";
 
+import { Appbar } from "react-native-paper";
+
 const Stack = createStackNavigator();
+
+const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
+
 
 export default function App() {
   return (
@@ -34,10 +39,7 @@ export default function App() {
           component={KubeconfigUploadScreen}
           options={{
             title: 'Upload Kubeconfig File',
-            headerRight: () => <ActionButton
-              text="Submit"
-              onPress={() => alert('test!')}
-            />,
+            headerRight: () => <Appbar.Action icon="check" color="white" onPress={() => {}} />,
           }}
         />
         <Stack.Screen
@@ -45,10 +47,7 @@ export default function App() {
           component={KubeconfigContentScreen}
           options={{
             title: "Add Kubeconfig Content",
-            headerRight: () => <ActionButton
-              text="Submit"
-              onPress={() => this.KubeconfigContentScreen.ContentUpload()}
-            />,
+            headerRight: () => <Appbar.Action icon="check" color="white" onPress={() => {}} />,
           }}
         />
       </Stack.Navigator>

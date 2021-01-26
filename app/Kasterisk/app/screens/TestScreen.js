@@ -36,6 +36,7 @@ export default function TestScreen({ navigation }) {
                 DeploymentApi.readDeploymentScale('default','nginx-deployment')
             );
             namespace1 = JSON.stringify(namespace1);
+            alert(namespace1)
 
             setNamespaceState({ ...namespaceState, namespace: namespace1 });
             Alert.alert(namespace1, namespaceState.namespace);

@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput, RadioButton } from "react-native-paper";
 
+import { 
+    Cluster,
+    User
+} from "../api/KubeApi/config_types";
+
 import ActionButton from "../components/ActionButton";
 import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
@@ -22,40 +27,62 @@ export default function KubeconfigContentScreen({ navigation }) {
         var missingData = '';
 
         if (data.name == '') {
-          missingData += "\tname\n";
+          missingData += "\tName\n";
         }
         if (data.server == '') {
-            missingData += "\tserver\n";
+            missingData += "\tServer\n";
         }
         if (data.certificate == '') {
-            missingData += "\tcertificate\n";
+            missingData += "\tCertificate Authority Data\n";
         }
 
         if (checked === 'auth-unpw') {
             if (data.username == '') {
-                missingData += "\tusername\n";
+                missingData += "\tUsername\n";
             }
             if (data.password == '') {
-                missingData += "\tpassword\n";
+                missingData += "\tPassword\n";
             }
         } 
         if (checked === 'auth-token') {
             if (data.token == '') {
-                missingData += "\ttoken\n";
+                missingData += "\tToken\n";
             }            
         }
+        if (checked === 'auth-cert') {
+            if (data.clientCert == '') {
+                missingData += "\tClient Certificate\n";
+            }
+            if (data.clientKey == '') {
+                missingData += "\tClient Key\n";
+            }
+        }
         
-        if (missingData == '') {
-            alert(data.name);
-        } else {
+        if (missingData != '') {
             Alert.alert(
                 "Submission Failed",
                 "The following data fields are missing:\n" +
                 missingData +
                 "\nPlease try again."
-            );      
+            );
+            return;
         }
-
+        let clusterInfo = {
+            name: data.name,
+            caData: data.certificate,
+            server: data.server,
+            skipTLSVerify: data.tls
+            }
+        let userInfo = {
+            name: data.name,
+            certData: data.clientCert === "" ? null : data.clientCert,
+            keyData: data.clientKey === "" ? null : data.clientKey,
+            authProvider: any,
+            token: data.token === "" ? null : data.token,
+            username: data.username === "" ? null : data.username,
+            password: data.password === "" ? null : data.password,
+        }
+        
     };
 
     return (
@@ -70,14 +97,14 @@ export default function KubeconfigContentScreen({ navigation }) {
                     <TextInput 
                         onChangeText={text => setData({ ...data, name: text })}
                         style={commonStyles.textInput}
-                        label="Name"
-                        placeholder="Enter Name Here"
+                        label="Cluster Name"
+                        placeholder="Enter Cluster Name"
                     />
                     <TextInput
                         onChangeText={text => setData({ ...data, server: text })}
                         style={commonStyles.textInput}
                         label="Server"
-                        placeholder="Enter Server Here"
+                        placeholder="Enter Server Address"
                     />
                     <TextInput
                         onChangeText={text => setData({ ...data, certificate: text })}
@@ -86,10 +113,13 @@ export default function KubeconfigContentScreen({ navigation }) {
                         placeholder="Enter Certificate Here"
                     />
 
+                    {/* //TODO: add skip tls insecure switch */}
+
                     <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>Authentication Mode:</Text>
                     <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
                         <View style={{marginLeft: spacings.lg, marginBottom: spacings.xs}}>
                             <View style={{flexDirection: 'row'}}>
+                                {/* //TODO: THe colour abit light, choose something else */}
                                 <RadioButton value="auth-unpw" color={colours.secondary}/>
                                 <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Username and Password</Text>
                             </View>
@@ -97,10 +127,15 @@ export default function KubeconfigContentScreen({ navigation }) {
                                 <RadioButton value="auth-token" color={colours.secondary}/>
                                 <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Token</Text>
                             </View>
+                            <View style={{flexDirection: 'row'}}>
+                                <RadioButton value="auth-cert" color={colours.secondary}/>
+                                <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>Client Certificate and Key</Text>
+                            </View>
                         </View>
                     </RadioButton.Group>
 
                     <View>
+                        {/* //TODO: add input field for client cert and key */}
                         {
                             checked === 'auth-unpw' ?
                             <View>
@@ -129,7 +164,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                     </View>
 
                 </View>
-
+                        {/* //TODO: submit / confirm button to be on navbar, right side */}
                 <ActionButton 
                     text="Submit" 
                     onPress={() => ContentUpload()}
