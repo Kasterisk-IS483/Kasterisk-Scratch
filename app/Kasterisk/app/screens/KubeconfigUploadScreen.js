@@ -124,10 +124,13 @@ class FileUpload extends React.Component {
                 </Text>
             </ScrollView>
 
-            <SubmitButton 
-                text="Submit" 
-                onPress={() => this.submit()}
-            />
+            { this.state.isCAAccepted ?
+                <SubmitButton 
+                    text="Submit" 
+                    onPress={() => this.submit()}
+                />
+                : null
+            }
 
         </View>
         );
