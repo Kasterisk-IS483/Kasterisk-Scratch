@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
-import RNFetchBlob from "react-native-fetch-blob";
 
 import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 import CustomButton from "../components/CustomButton";
@@ -79,60 +78,61 @@ class FileUpload extends React.Component {
 
     render() {
         return (
-            
-        <View style={commonStyles.whiteContainer}>
 
-            <Text style={{fontSize: fonts.md, textAlign: "center", marginHorizontal: spacings.lg}}>
-                Choose a kubeconfig with 'certificate-authority-data' or 'insecure-skip-tls-verify' set to true to proceed
-            </Text>
+            <View style={commonStyles.whiteContainer}>
 
-            <ActionButton
-                text="Select File"
-                onPress={this.uploadFile}
-            />
-
-            <Text style={[commonStyles.subheading, {paddingTop: spacings.lg}]}>
-                Fields required:
-            </Text>
-
-            <CustomButton
-                image={this.state.CAAImg}
-                text="certificate-authority-data or insecure-skip-tls-verify: true"
-                type="checkbox"
-                align="flex-start"
-                disabled={true}
-            />
-
-
-            <Text style={[
-                { paddingTop: spacings.xl }, 
-                commonStyles.subheading
-            ]}>
-                File preview:
-            </Text>
-
-            <ScrollView style={{ 
-                marginVertical: spacings.sm, 
-                marginHorizontal: spacings.lg, 
-                backgroundColor: colours.grey 
-            }}>
-                <Text style={{ 
-                    padding: spacings.lg, 
-                    fontSize: fonts.sm 
-                }}>
-                {this.state.text}
+                <Text style={{ fontSize: fonts.md, textAlign: "center", marginHorizontal: spacings.lg, paddingTop: spacings.md, paddingBottom: spacings.md }}>
+                    Choose a kubeconfig with 'certificate-authority-data' or 'insecure-skip-tls-verify' set to true to proceed
                 </Text>
-            </ScrollView>
 
-            { this.state.isCAAccepted ?
-                <SubmitButton 
-                    text="Submit" 
-                    onPress={() => this.submit()}
+                <ActionButton
+                    text="Select File"
+                    onPress={this.uploadFile}
                 />
-                : null
-            }
 
-        </View>
+                <Text style={[commonStyles.subheading, { paddingTop: spacings.lg }]}>
+                    Fields required:
+                </Text>
+
+                <CustomButton
+                    image={this.state.CAAImg}
+                    text="certificate-authority-data or insecure-skip-tls-verify: true"
+                    type="checkbox"
+                    align="flex-start"
+                    disabled={true}
+                />
+
+
+                <Text style={[
+                    { paddingTop: spacings.xl },
+                    commonStyles.subheading
+                ]}>
+                    File preview:
+            </Text>
+
+                <ScrollView style={{
+                    marginVertical: spacings.sm,
+                    marginHorizontal: spacings.lg,
+                    backgroundColor: colours.grey
+                }}>
+                    <Text style={{
+                        padding: spacings.lg,
+                        fontSize: fonts.sm
+                    }}>
+                        {this.state.text}
+                    </Text>
+                </ScrollView>
+
+                {
+                    this.state.isCAAccepted ?
+                        <SubmitButton
+                            text="Submit"
+                            onPress={() => this.submit()}
+                        />
+                        : null
+                }
+
+            </View >
         );
     }
 }
