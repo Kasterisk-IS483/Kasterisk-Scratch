@@ -8,7 +8,7 @@ export default function SubmitButton({ text, onPress }) {
   return (
     <Button
         style={{ 
-          marginVertical: spacings.md,
+          marginVertical: spacings.lg,
           marginHorizontal: spacings.lg,
         }}
         color={colours.secondary}

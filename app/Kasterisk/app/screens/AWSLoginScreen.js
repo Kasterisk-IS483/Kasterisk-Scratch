@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
 import { TextInput } from "react-native-paper";
 
-import ActionButton from "../components/ActionButton";
+import SubmitButton from "../components/SubmitButton";
 import { commonStyles } from "../utils/styles.js";
 import { checkAwsCredentials } from "../api/AwsApi.js"
 
@@ -52,7 +52,7 @@ const AWSLoginScreen = ({ navigation }) => {
                     />
                 </View>
 
-                <ActionButton
+                <SubmitButton
                     text="Sign In"
                     onPress={() => AwsLogin()}
                 />
