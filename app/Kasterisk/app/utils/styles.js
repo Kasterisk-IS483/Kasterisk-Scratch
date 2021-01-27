@@ -36,10 +36,11 @@ export const commonStyles  = StyleSheet.create({
 
   scrollView: {
     flexGrow: 1,
+    paddingVertical: 10,
   },
   whiteContainer: {
     flex: 1,
-    padding: 40,
+    padding: 30,
     backgroundColor: 'white',
   },
 

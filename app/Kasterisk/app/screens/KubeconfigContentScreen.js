@@ -157,6 +157,7 @@ export default function KubeconfigContentScreen() {
                                 placeholder="Enter Username Here"
                             />
                             <TextInput
+                                secureTextEntry={true}
                                 onChangeText={text => setData({ ...data, password: text })}
                                 style={commonStyles.textInput}
                                 label="Password"
