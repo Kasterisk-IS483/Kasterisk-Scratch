@@ -1,4 +1,15 @@
 {
+  "name": "Kasterisk",
+  "displayName": "Kasterisk",
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.kasterisk.ios",
+    "config": {
+      "googleSignIn": {
+        "reservedClientId": "com.googleusercontent.apps.447181180888-bou5e3olte901t7srk0e1mv3c413g0lt"
+      }
+    }
+  },
   "expo": {
     "name": "Kasterisk",
     "slug": "Kasterisk",
