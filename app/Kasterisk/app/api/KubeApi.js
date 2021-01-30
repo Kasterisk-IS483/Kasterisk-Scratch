@@ -1,10 +1,10 @@
 import { LexRuntime } from "aws-sdk";
-import * as SecureStore from "expo-secure-store";
-import RNFetchBlob from "react-native-fetch-blob";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import RNFetchBlob from "rn-fetch-blob";
 
 async function getStored(key) {
   try {
-    return await SecureStore.getItemAsync(key);
+    return await AsyncStorage.getItem(key);
   } catch (e) {
     return false;
   }

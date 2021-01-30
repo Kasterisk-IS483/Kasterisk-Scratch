@@ -3,7 +3,7 @@ import { Text, View, ScrollView } from "react-native";
 
 import { commonStyles } from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
-import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Home extends Component {
 
@@ -11,7 +11,7 @@ export default class Home extends Component {
 
   async getGoogle(){
     try{
-      let google1 = await SecureStore.getItemAsync("ClusterAuthProviderGoogle");
+      let google1 = await AsyncStorage.getItem("ClusterAuthProviderGoogle");
       google1 = JSON.parse(google1);
       return google1;
     } catch (error) {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RNFetchBlob from "react-native-fetch-blob";
+import RNFetchBlob from "rn-fetch-blob";
 
 import { urlOptions } from "../utils/constants.js";
 
