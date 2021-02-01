@@ -4,4 +4,9 @@
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:drawable="@color/splashscreen_background"/>
+  <item
+    android:width="834dp"
+    android:height="1194dp"
+    android:drawable="@mipmap/splashscreen_image"
+    android:gravity="center" />
 </layer-list>

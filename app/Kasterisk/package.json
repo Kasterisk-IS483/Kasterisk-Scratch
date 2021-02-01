@@ -2,7 +2,8 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator='iPad Pro (11-inch) (2nd generation)'"
+    "ios": "react-native run-ios --simulator='iPad Pro (11-inch) (2nd generation)'",
+    "gradlew-clean": "cd android && gradlew clean && cd .."
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.3",
