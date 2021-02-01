@@ -29,7 +29,7 @@ export default class Home extends Component {
   render() {
     
     return (
-      <View style={commonStyles.whiteContainer}>
+      <View style={[commonStyles.container, {backgroundColor: colours.secondary}]}>
         <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
           <Text style={commonStyles.heading}>

@@ -27,11 +27,12 @@ export default function App() {
       }}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
-        <Stack.Screen name="Test" component={TestScreen} />
-        <Stack.Screen name="Workload Summary" component={WorkloadSummaryScreen} />
         <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{title: "Upload Kubeconfig File"}} />
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{title: "Add Kubeconfig Content"}} />
+        {/* Testing Screens */}
+        <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{title: "Workloads"}} />
         <Stack.Screen name="Loading" component={LoadingScreen} options={{title: "Loading"}} />
+        <Stack.Screen name="Test" component={TestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
