@@ -195,8 +195,6 @@ PODS:
     - React-Core
   - react-native-document-picker (4.2.0):
     - React-Core
-  - react-native-fetch-blob (0.10.6):
-    - React-Core
   - react-native-netinfo (5.9.10):
     - React-Core
   - react-native-safe-area-context (3.1.9):
@@ -261,7 +259,9 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - RNCAsyncStorage (1.13.3):
+  - rn-fetch-blob (0.12.0):
+    - React-Core
+  - RNCAsyncStorage (1.13.4):
     - React-Core
   - RNCMaskedView (0.1.10):
     - React
@@ -271,7 +271,9 @@ PODS:
     - React
   - RNReanimated (1.13.2):
     - React-Core
-  - RNScreens (2.15.0):
+  - RNScreens (2.15.2):
+    - React-Core
+  - RNVectorIcons (8.0.0):
     - React-Core
   - Yoga (1.14.0)
 
@@ -295,7 +297,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-app-auth (from `../node_modules/react-native-app-auth`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
-  - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -308,12 +309,14 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -356,8 +359,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-app-auth"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
-  react-native-fetch-blob:
-    :path: "../node_modules/react-native-fetch-blob"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
@@ -382,6 +383,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  rn-fetch-blob:
+    :path: "../node_modules/rn-fetch-blob"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
@@ -394,6 +397,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -417,7 +422,6 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-app-auth: 771f5c7801912e2f6ce5e05d7164185137a1ed12
   react-native-document-picker: 44ecae7103090b6789cca010f06f5205fd1cb66e
-  react-native-fetch-blob: 0cbdf9764c75d9438c162427395f4bc35a857d5a
   react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
@@ -430,14 +434,16 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  RNCAsyncStorage: da95b83e241a7f5efe3da1a949b3ec3175380be0
+  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
+  RNCAsyncStorage: 44539979e1f234262d64d3ce86ec21cceb1b2c5e
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
-  RNScreens: 2ad555d4d9fa10b91bb765ca07fe9b29d59573f0
+  RNScreens: 3d682bcaba69a4f8e55543d90818704f34338db1
+  RNVectorIcons: f67a1abce2ec73e62fe4606e8110e95a832bc859
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: 42dc22e536c1499b979f504f9b4dac9897f09dcd
+PODFILE CHECKSUM: 94f9457e90f1d912d807366838d77e0382708de9
 
 COCOAPODS: 1.10.1

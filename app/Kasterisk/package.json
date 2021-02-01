@@ -2,9 +2,7 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator='iPad Pro (11-inch) (2nd generation)'",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "ios": "react-native run-ios --simulator='iPad Pro (11-inch) (2nd generation)'"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.3",
