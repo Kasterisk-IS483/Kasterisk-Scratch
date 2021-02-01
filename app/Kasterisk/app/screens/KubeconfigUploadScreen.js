@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
@@ -15,17 +15,21 @@ import { saveToLocal } from "../api/KubeApi/config_types";
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");
 
-class FileUpload extends React.Component {
-    state = {
-        isUploaded: false,
-        text: "Contents of file will be shown here upon successful upload",
-        isCAAccepted: false,
-        isCCAccepted: false,
-        isCKAccepted: false,
-        CAAImg: uncheckedIcon,
-        CCAImg: uncheckedIcon,
-        CKImg: uncheckedIcon,
-    };
+export default class KubeconfigUploadScreen  extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isUploaded: false,
+            text: "Contents of file will be shown here upon successful upload",
+            isCAAccepted: false,
+            isCCAccepted: false,
+            isCKAccepted: false,
+            CAAImg: uncheckedIcon,
+            CCAImg: uncheckedIcon,
+            CKImg: uncheckedIcon,
+        };
+    }
+
 
     updateState(stateKey, stateStatus) {
         if (stateKey == "clusterCheck") {
@@ -70,13 +74,15 @@ class FileUpload extends React.Component {
     submit = async () => {
         if (this.state.isCAAccepted) {
             Alert.alert("Success");
-            // this.props.navigation.navigate('Loading');
+            this.props.navigation.navigate("WorkloadSummary");
         } else {
             Alert.alert("File Submission Failed");
         }
     };
 
     render() {
+
+        const { navigation } = this.props;
         return (
 
             <View style={commonStyles.whiteContainer}>
@@ -127,7 +133,7 @@ class FileUpload extends React.Component {
                     this.state.isCAAccepted ?
                         <SubmitButton
                             text="Submit"
-                            onPress={() => this.submit()}
+                            onPress={this.submit}
                         />
                         : null
                 }
@@ -137,6 +143,3 @@ class FileUpload extends React.Component {
     }
 }
 
-export default function KubeconfigUploadScreen() {
-    return <FileUpload></FileUpload>;
-}
