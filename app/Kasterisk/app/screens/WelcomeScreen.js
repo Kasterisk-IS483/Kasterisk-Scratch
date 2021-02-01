@@ -60,16 +60,16 @@ export default class WelcomeScreen extends Component {
       if (googleLoginResult) {
           let a = await AsyncStorage.getItem("@googleCredentials")
           alert(a)
-        this.props.navigation.navigate("WorkloadSummaryScreen");
+        this.props.navigation.navigate("WorkloadSummary");
       } else {
         Alert.alert("Login Failed", "Please try again.");
       }
     } catch (e) {
-      alert(e.message);
-      Alert.alert(
-        "Invalid Credentials",
-        "Please enter valid email and password for your google account."
-      );
+      Alert.alert(e.message);
+      // Alert.alert(
+      //   "Invalid Credentials",
+      //   "Please enter valid email and password for your google account."
+      // );
     }
   };
 
@@ -79,7 +79,7 @@ export default class WelcomeScreen extends Component {
       if (azureLoginResult) {
           let a = await AsyncStorage.getItem("@azureCredentials")
           alert(a)
-        this.props.navigation.navigate("WorkloadSummaryScreen");
+        this.props.navigation.navigate("WorkloadSummary");
       } else {
         Alert.alert("Login Failed", "Please try again.");
       }
@@ -164,12 +164,12 @@ export default class WelcomeScreen extends Component {
               size="small"
               onPress={() => navigation.navigate("Test")}
             /> */}
-            {/* <CustomButton
+            <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="Loading Screen"
+              text="workload summary"
               size="small"
-              onPress={() => navigation.navigate("Loading")}
-            /> */}
+              onPress={() => navigation.navigate("WorkloadSummary")}
+            />
           </ScrollView>
         </View>
       </View>
