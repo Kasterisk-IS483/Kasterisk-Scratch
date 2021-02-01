@@ -1,13 +1,61 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView } from "react-native";
+import { Text, Image, View, ScrollView, Dimensions } from "react-native";
 
-import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
+import {
+  commonStyles,
+  landscapeStyles,
+  portraitStyles,
+} from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
+const CustomCard = () => (
+  <Card>    
+    {/* <Card.Cover source={require("../assets/deployment-card.png")} /> */}
+    <Card.Content>
+      <Title>Ready</Title>
+    </Card.Content>
+    <Card.Content>
+      <Title>Not Ready</Title>
+    </Card.Content>
+  </Card>
+);
 export default class Home extends Component {
 
-  state = {credentials : []};
+  constructor(props) {
+    super(props);
+    this.state = {
+      orientation: "",
+      result: null,
+    };
+    Dimensions.addEventListener("change", (e) => {
+      this.setState(e.window);
+    });
+  }
+
+  getOrientation() {
+    if (Dimensions.get("window").width > Dimensions.get("window").height) {
+      return "LANDSCAPE";
+    } else {
+      return "PORTRAIT";
+    }
+  }
+
+  getStyle() {
+    if (this.getOrientation() === "LANDSCAPE") {
+      return landscapeStyles;
+    } else {
+      return portraitStyles;
+    }
+  }
+
+  onLayout() {
+    this.setState({ orientation: this.getOrientation() });
+  }
+
+  //state = { credentials: [] };
 
   // async getGoogle(){
   //   try{
@@ -16,7 +64,7 @@ export default class Home extends Component {
   //     return google1;
   //   } catch (error) {
   //     // Error retrieving data
-    
+
   //     console.log(error.message);
   //   }
   // }
@@ -26,23 +74,50 @@ export default class Home extends Component {
   //     this.setState({credentials : response});
   // }
 
-
   render() {
-    
+
     return (
-      <View style={[commonStyles.container, {backgroundColor: colours.secondary}]}>
-        <ScrollView contentContainerStyle={commonStyles.scrollView}>
+      // <View style={commonStyles.workloadSummaryMainContainer}>
+      //   <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
-          <Text style={commonStyles.heading}>
-            Welcome
-          </Text>
+      //     {/* <View style={commonStyles.fillContainer}></View> */}
 
-          <ActionButton
-              text="Sign out"
-              onPress={() => this.props.navigation.navigate("Welcome")}
-          />
+      //     <View style={commonStyles.workloadSummarySecondaryContainer}>
+      //       <CustomCard></CustomCard>
+      //     </View>
 
-        </ScrollView>
+      //     {/* <View style={commonStyles.fillContainer}></View> */}
+
+      //     <View style={commonStyles.workloadSummarySecondaryContainer}>
+      //       <CustomCard></CustomCard>
+      //     </View>
+
+      //     {/* <View style={commonStyles.fillContainer}></View> */}
+
+      //     <View style={commonStyles.workloadSummarySecondaryContainer}>
+      //       <CustomCard></CustomCard>
+      //     </View>
+
+      //   </ScrollView>
+      // </View>
+
+      <View style={this.getStyle().workloadSummaryMainContainer}>
+
+
+        <View style={this.getStyle().workloadSummaryRowContainer}>
+          <View style={this.getStyle().workloadSummaryColumnContainer}>
+            <CustomCard></CustomCard>
+          </View>
+
+          <View style={this.getStyle().workloadSummaryColumnContainer}>
+            <CustomCard></CustomCard>
+          </View>
+
+          <View style={this.getStyle().workloadSummaryColumnContainer}>
+            <CustomCard></CustomCard>
+          </View>
+        </View>
+
       </View>
     );
   }

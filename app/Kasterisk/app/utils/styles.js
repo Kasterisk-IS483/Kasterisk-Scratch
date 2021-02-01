@@ -6,7 +6,7 @@ export const dimensions = {
   fullWidth: Dimensions.get('window').width,
 }
 
-export const colours = { 
+export const colours = {
   primary: "#265395",
   secondary: "#CDDAED",
   cta: Colors.blue600,
@@ -28,10 +28,10 @@ export const spacings = {
   xl: 25,
 }
 
-export const commonStyles  = StyleSheet.create({
+export const commonStyles = StyleSheet.create({
 
   centralise: {
-    alignItems: "center", 
+    alignItems: "center",
     justifyContent: "center",
   },
 
@@ -66,15 +66,15 @@ export const commonStyles  = StyleSheet.create({
     marginVertical: spacings.s,
   },
   subheading: {
-    paddingLeft: spacings.xl, 
-    paddingBottom: spacings.sm, 
-    fontSize: fonts.md, 
+    paddingLeft: spacings.xl,
+    paddingBottom: spacings.sm,
+    fontSize: fonts.md,
     fontWeight: 'bold',
   },
 
 });
 
-export const landscapeStyles  = StyleSheet.create({
+export const landscapeStyles = StyleSheet.create({
 
   logo: {
     position: "absolute",
@@ -104,7 +104,22 @@ export const landscapeStyles  = StyleSheet.create({
     flex: 1,
     backgroundColor: colours.primary,
   },
-
+  workloadSummaryMainContainer: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: colours.secondary,
+  },
+  workloadSummaryColumnContainer: {
+    flex: 1,
+    backgroundColor: colours.secondary,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  workloadSummaryRowContainer: {
+    flex: 1,
+    paddingTop: 150,
+    flexDirection: "row",
+  },
 });
 
 export const portraitStyles = StyleSheet.create({
