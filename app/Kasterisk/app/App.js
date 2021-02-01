@@ -1,7 +1,8 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import SplashScreen from 'react-native-splash-screen'
 
 import WelcomeScreen from "./screens/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
@@ -18,6 +19,11 @@ const Stack = createStackNavigator();
 const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 
 export default function App() {
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
