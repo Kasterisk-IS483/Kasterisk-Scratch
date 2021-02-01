@@ -8,20 +8,8 @@ import {
 } from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+import CustomCard from "../components/CustomCard";
 
-const CustomCard = () => (
-  <Card>    
-    <Card.Cover source={require("../assets/deployment.png")} />
-    <Card.Content>
-      <Title>Ready</Title>
-    </Card.Content>
-    <Card.Content>
-      <Title>Not Ready</Title>
-    </Card.Content>
-  </Card>
-);
 export default class Home extends Component {
 
   constructor(props) {
@@ -77,44 +65,20 @@ export default class Home extends Component {
   render() {
 
     return (
-      // <View style={commonStyles.workloadSummaryMainContainer}>
-      //   <ScrollView contentContainerStyle={commonStyles.scrollView}>
-
-      //     {/* <View style={commonStyles.fillContainer}></View> */}
-
-      //     <View style={commonStyles.workloadSummarySecondaryContainer}>
-      //       <CustomCard></CustomCard>
-      //     </View>
-
-      //     {/* <View style={commonStyles.fillContainer}></View> */}
-
-      //     <View style={commonStyles.workloadSummarySecondaryContainer}>
-      //       <CustomCard></CustomCard>
-      //     </View>
-
-      //     {/* <View style={commonStyles.fillContainer}></View> */}
-
-      //     <View style={commonStyles.workloadSummarySecondaryContainer}>
-      //       <CustomCard></CustomCard>
-      //     </View>
-
-      //   </ScrollView>
-      // </View>
 
       <View style={this.getStyle().workloadSummaryMainContainer}>
 
-
         <View style={this.getStyle().workloadSummaryRowContainer}>
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard></CustomCard>
+            <CustomCard  image={require("../assets/deployment.png")}></CustomCard>
           </View>
 
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard></CustomCard>
+            <CustomCard  image={require("../assets/replicaset.png")}></CustomCard>
           </View>
 
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard></CustomCard>
+            <CustomCard  image={require("../assets/pod.png")}></CustomCard>
           </View>
         </View>
 
