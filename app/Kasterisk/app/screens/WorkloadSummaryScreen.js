@@ -13,7 +13,7 @@ const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
 const CustomCard = () => (
   <Card>    
-    {/* <Card.Cover source={require("../assets/deployment-card.png")} /> */}
+    <Card.Cover source={require("../assets/deployment.png")} />
     <Card.Content>
       <Title>Ready</Title>
     </Card.Content>
