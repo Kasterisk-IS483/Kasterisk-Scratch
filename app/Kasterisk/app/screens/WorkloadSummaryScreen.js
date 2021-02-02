@@ -70,15 +70,15 @@ export default class Home extends Component {
 
         <View style={this.getStyle().workloadSummaryRowContainer}>
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard  image={require("../assets/deployment.png")}></CustomCard>
+            <CustomCard  image={require("../assets/deployment.png")} type="Deployments" ></CustomCard>
           </View>
 
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard  image={require("../assets/replicaset.png")}></CustomCard>
+            <CustomCard  image={require("../assets/replicaset.png")}  type="ReplicaSet" ></CustomCard>
           </View>
 
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard  image={require("../assets/pod.png")}></CustomCard>
+            <CustomCard  image={require("../assets/pod.png")}  type="Pods" ></CustomCard>
           </View>
         </View>
 

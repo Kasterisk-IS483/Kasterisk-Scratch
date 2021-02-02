@@ -17,6 +17,7 @@ export const fonts = {
   sm: 16,
   md: 18,
   lg: 22,
+  xl: 30,
 }
 
 export const spacings = {
@@ -71,6 +72,22 @@ export const commonStyles = StyleSheet.create({
     fontSize: fonts.md,
     fontWeight: 'bold',
   },
+  workloadType: {
+    position: "absolute",
+    fontSize: fonts.lg,
+    left: "5%",
+    top: "55%",
+    textAlign: "left",
+    color:"white",
+    fontSize: fonts.xl,
+    fontWeight: "bold",
+  },
+  // card:{
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   marginBottom: 300,
+  //   display: "flex",
+  // }
 
 });
 
@@ -92,7 +109,6 @@ export const landscapeStyles = StyleSheet.create({
     top: "50%",
     textAlign: "center",
   },
-
   container: {
     flex: 1,
     flexDirection: "row",
@@ -117,9 +133,9 @@ export const landscapeStyles = StyleSheet.create({
   },
   workloadSummaryRowContainer: {
     flex: 1,
-    paddingTop: 150,
+    paddingTop: 100,
     flexDirection: "row",
-  },
+  }
 });
 
 export const portraitStyles = StyleSheet.create({

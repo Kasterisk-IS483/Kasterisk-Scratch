@@ -73,6 +73,14 @@ export default class WelcomeScreen extends Component {
     }
   };
 
+  errorCheck = async () => {
+    try {
+      this.props.navigation.navigate("WorkloadSummary");
+    } catch (e) {
+      Alert.alert(e.message);  
+    }
+  };
+
   AzureLogin = async () => {
     try {
       let azureLoginResult = await AzureApi.checkAzureCredentials();
@@ -168,7 +176,7 @@ export default class WelcomeScreen extends Component {
               image={require("../assets/welcome-button-kube.png")}
               text="workload summary"
               size="small"
-              onPress={() => navigation.navigate("WorkloadSummary")}
+              onPress={this.errorCheck}
             />
           </ScrollView>
         </View>
