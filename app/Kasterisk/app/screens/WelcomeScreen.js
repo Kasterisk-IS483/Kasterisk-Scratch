@@ -168,13 +168,13 @@ export default class WelcomeScreen extends Component {
             />
             {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="Test Screen"
+              text="Deployment Screen"
               size="small"
-              onPress={() => navigation.navigate("Test")}
+              onPress={() => navigation.navigate("Deployment")}
             /> */}
             <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="workload summary"
+              text="Workload summary"
               size="small"
               onPress={this.errorCheck}
             />

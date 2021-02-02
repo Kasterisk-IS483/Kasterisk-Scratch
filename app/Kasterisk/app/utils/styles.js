@@ -78,15 +78,15 @@ export const commonStyles = StyleSheet.create({
     left: "5%",
     top: "55%",
     textAlign: "left",
-    color:"white",
+    color: "white",
     fontSize: fonts.xl,
     fontWeight: "bold",
   },
   // card:{
   //   alignItems: "center",
   //   justifyContent: "center",
-  //   marginBottom: 300,
-  //   display: "flex",
+  //   // marginBottom: 300,
+  //   // display: "flex",
   // }
 
 });

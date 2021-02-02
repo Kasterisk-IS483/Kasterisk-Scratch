@@ -8,9 +8,9 @@ import {
 } from "../utils/styles.js";
 import ActionButton from "../components/ActionButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CustomCard from "../components/CustomCard";
+import OverviewCard from "../components/OverviewCard";
 
-export default class Home extends Component {
+export default class WorkloadSummaryScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -70,15 +70,15 @@ export default class Home extends Component {
 
         <View style={this.getStyle().workloadSummaryRowContainer}>
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard  image={require("../assets/deployment.png")} type="Deployments" ></CustomCard>
+            <OverviewCard image={require("../assets/deployment.png")} type="Deployments" ></OverviewCard>
           </View>
 
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard  image={require("../assets/replicaset.png")}  type="ReplicaSet" ></CustomCard>
+            <OverviewCard image={require("../assets/replicaset.png")} type="ReplicaSet" ></OverviewCard>
           </View>
 
           <View style={this.getStyle().workloadSummaryColumnContainer}>
-            <CustomCard  image={require("../assets/pod.png")}  type="Pods" ></CustomCard>
+            <OverviewCard image={require("../assets/pod.png")} type="Pods" ></OverviewCard>
           </View>
         </View>
 
