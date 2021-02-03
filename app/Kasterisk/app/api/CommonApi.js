@@ -6,7 +6,9 @@ import { urlOptions } from "../utils/constants.js";
 class CommonAPI extends Component {
     static apiFetch = async ({ apiUrl, method, body = "" }) => {
 
-        let callUrl = `${AsyncStorage.getItem("baseURL")}${apiUrl}`;
+        let baseURL = await AsyncStorage.getItem("baseURL");
+        let callUrl = `${baseURL}${`/apis/apps/v1/deployments`}`;
+        let refreshToken = await AsyncStorage.getItem("refreshToken");
 
         return RNFetchBlob.config({
             trusty: true,
@@ -14,7 +16,7 @@ class CommonAPI extends Component {
             method,
             callUrl,
             {
-                Authorization: `Bearer ${AsyncStorage.getItem("refreshToken")}`,
+                Authorization: `Bearer ${refreshToken}`,
                 insecureSkipTLSVerify: false,
             },
             body
