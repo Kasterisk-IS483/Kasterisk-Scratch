@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Text, Image, View, ScrollView, Dimensions } from "react-native";
+import { Card, Title, Paragraph } from 'react-native-paper';
+import DeploymentCard from "../components/DeploymentCard";
 
 import {
     commonStyles,
@@ -45,9 +47,30 @@ export default class Deployment extends Component {
     render() {
 
         return (
-
             <View style={this.getStyle().workloadSummaryMainContainer}>
-                <Text>deployment</Text>
+
+                <View style={this.getStyle().workloadSummaryRowContainer}>
+                    <View style={this.getStyle().deploymentCard}>
+                        <View>
+                            <DeploymentCard status="ready" name="hello-node" ></DeploymentCard>
+                        </View>
+                    </View>
+                    {/* <View style={this.getStyle().deploymentCard}>
+                        <DeploymentCard status="notReady" name="test"></DeploymentCard>
+                    </View> */}
+                </View>
+
+                <View style={this.getStyle().workloadSummaryRowContainer}>
+                    <View style={this.getStyle().deploymentCard}>
+                        <View>
+                            <DeploymentCard status="ready" name="hello-node" ></DeploymentCard>
+                        </View>
+                    </View>
+                    {/* <View style={this.getStyle().deploymentCard}>
+                        <DeploymentCard status="notReady" name="test"></DeploymentCard>
+                    </View> */}
+                </View>
+
             </View>
         );
     }

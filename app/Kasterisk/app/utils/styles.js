@@ -120,6 +120,7 @@ export const landscapeStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colours.primary,
   },
+  //workload summary screen
   workloadSummaryMainContainer: {
     flex: 1,
     flexDirection: "column",
@@ -132,10 +133,18 @@ export const landscapeStyles = StyleSheet.create({
     paddingRight: 20,
   },
   workloadSummaryRowContainer: {
+    backgroundColor: colours.secondary,
     flex: 1,
-    paddingTop: 100,
+    paddingTop: 50,
     flexDirection: "row",
-  }
+  },
+
+  //deployment screen
+  deploymentCard: {
+    flex: 1,
+    backgroundColor: colours.secondary,
+    paddingHorizontal: 20
+  },
 });
 
 export const portraitStyles = StyleSheet.create({
