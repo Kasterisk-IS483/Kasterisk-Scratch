@@ -10,7 +10,7 @@ import SubmitButton from "../components/SubmitButton";
 import * as KubeApi from "../api/KubeApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Kubeconfig } from "../api/KubeApi/config";
-import { saveToLocal } from "../api/KubeApi/config_types";
+import { saveToLocal, saveURLToken } from "../api/KubeApi/config_types";
 
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");
@@ -50,6 +50,7 @@ export default class KubeconfigUploadScreen  extends React.Component {
             try {
                 k8s.loadFromFile(filecontent);
                 await saveToLocal(k8s.getClusters(), k8s.getUsers())
+                await saveURLToken()
             } catch (e) {
                 Alert.alert("File Upload Failed", e.message)
                 return

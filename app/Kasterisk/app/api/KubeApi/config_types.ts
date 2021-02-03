@@ -242,3 +242,20 @@ export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<voi
     
 
 }
+
+export async function saveURLToken(): Promise<void> {
+
+    let clusters = JSON.parse(await AsyncStorage.getItem("@clusters") || '{}');
+    let firstCluster = JSON.parse(await AsyncStorage.getItem(clusters[0]) || '{}');
+    let url = firstCluster['cluster']['server']
+
+    let users = JSON.parse(await AsyncStorage.getItem("@users") || '{}');
+    let firstUser = JSON.parse(await AsyncStorage.getItem(users[0]) || '{}');
+    let refreshToken = firstUser['user']['auth-provider']['config']['refresh-token'];
+
+    await Promise.all([
+        saveCredentials("baseURL", url), 
+        saveCredentials("refreshToken",refreshToken)
+    ]);
+
+}
