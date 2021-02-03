@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import RNFetchBlob from "rn-fetch-blob";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { urlOptions } from "../utils/constants.js";
 
 class CommonAPI extends Component {
     static apiFetch = async ({ apiUrl, method, body = "" }) => {
 
-        let callUrl = `${urlOptions.baseUrl}${apiUrl}`;
+        let callUrl = `${AsyncStorage.getItem("baseURL")}${apiUrl}`;
 
         return RNFetchBlob.config({
             trusty: true,
@@ -14,7 +14,7 @@ class CommonAPI extends Component {
             method,
             callUrl,
             {
-                Authorization: `Bearer ${urlOptions.refreshToken}`,
+                Authorization: `Bearer ${AsyncStorage.getItem("refreshToken")}`,
                 insecureSkipTLSVerify: false,
             },
             body

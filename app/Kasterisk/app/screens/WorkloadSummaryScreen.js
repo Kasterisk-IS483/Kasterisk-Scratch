@@ -9,6 +9,7 @@ import {
 import ActionButton from "../components/ActionButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import OverviewCard from "../components/OverviewCard";
+import DeploymentApi from "../api/DeploymentApi.js";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -62,12 +63,26 @@ export default class WorkloadSummaryScreen extends Component {
   //     this.setState({credentials : response});
   // }
 
+listAllTest = async () => {
+    try {
+        let namespace1 = await (
+            DeploymentApi.listAllDeployment()
+        );
+        namespace1 = JSON.stringify(namespace1);
+        alert(namespace1)
+
+    } catch (err) {
+        console.log(err);
+        Alert.alert('Invalid Credentials', err.message);
+    }
+}
+
   async test(){
     alert(await AsyncStorage.getItem("baseURL")+" "+await AsyncStorage.getItem("refreshToken"));
   }
 
   async componentDidMount(){
-    await this.test();
+    await this.listAllTest();
   }
 
   render() {
