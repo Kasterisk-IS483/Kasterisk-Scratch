@@ -13,8 +13,6 @@ export const WEB_CLIENT_SECRET = "zPT9I0zE2E5pNlpLW_-at593";
 
 export const AZURE_CLIENT_ID = '519475b0-3c48-4ca5-a318-184e13dd0a77';
 export const AZURE_TENANT_ID = 'f8cdef31-a31e-4b4a-93e4-5f571e91255a';
-export const AZURE_CLIENT_SECRET = 'K0Hsw1-jnPb5iQ7~5S9V.q3zID7fg5~.lB';
-export const AZURE_DOMAIN_HINT = '';
 
 export const googleConfig = {
   issuer: 'https://accounts.google.com/',

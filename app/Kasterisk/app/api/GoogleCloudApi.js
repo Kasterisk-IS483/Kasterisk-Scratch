@@ -10,11 +10,6 @@ class GoogleCloudApi {
   static checkGoogleCredentials = async () => {
     try {
       const authState = await authorize(googleConfig);
-      let accessToken = authState.accessToken;
-      let tokenExpiry = authState.accessTokenExpirationDate;
-      let idToken = authState.idToken;
-      let refreshToken = authState.refreshToken;
-      let tokenType = authState.tokenType;
 
       let storageString = JSON.stringify({
         accessToken: authState.accessToken,

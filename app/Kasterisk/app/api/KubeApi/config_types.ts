@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as _ from 'underscore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { saveCredentials } from "../../utils/constants";
 
 export enum ActionOnInvalid {
     THROW = 'throw',
@@ -203,15 +204,37 @@ function contextIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, C
     };
 }
 
-export async function saveToLocal(cluster: Cluster[]): Promise<void> {
+export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<void> {
+    var clusters = [];
+    var users = [];
     for (const aCluster of cluster) {
-        let cluserName = "@".concat(aCluster.name)
+        let clusterName = "@".concat(aCluster.name)
         let clusterData = exportCluster(aCluster)
         try {
-            await AsyncStorage.setItem(cluserName, JSON.stringify(clusterData))
+            await AsyncStorage.setItem(clusterName, JSON.stringify(clusterData))
+            clusters.push(clusterName);
         }
         catch (e) {
-            throw new Error("Failed to save cluster \"" + cluserName + "\" data to storage")
+            throw new Error("Failed to save cluster \"" + clusterName + "\" data to storage")
         }
     }
+    for (const aUser of user) {
+        let userName = "@".concat(aUser.name)
+        let userData = exportUser(aUser)
+        try {
+            await AsyncStorage.setItem(userName, JSON.stringify(userData))
+            users.push(userName);
+        }
+        catch (e) {
+            throw new Error("Failed to save user \"" + userName + "\" data to storage")
+        }
+    }
+
+    await Promise.all([
+        saveCredentials("@clusters", JSON.stringify(clusters)), 
+        saveCredentials("@users",JSON.stringify(users)
+    )]);
+
+    
+
 }

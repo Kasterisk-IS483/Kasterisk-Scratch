@@ -8,12 +8,6 @@ class AzureApi {
     static checkAzureCredentials = async () => {
         try {
           const authState = await authorize(azureConfig);
-          alert(authState);
-          let accessToken = authState.accessToken;
-          let tokenExpiry = authState.accessTokenExpirationDate;
-          let idToken = authState.idToken;
-          let refreshToken = authState.refreshToken;
-          let tokenType = authState.tokenType;
     
           let storageString = JSON.stringify({
             accessToken: authState.accessToken,

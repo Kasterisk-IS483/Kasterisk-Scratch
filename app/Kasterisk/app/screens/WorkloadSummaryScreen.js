@@ -62,6 +62,19 @@ export default class WorkloadSummaryScreen extends Component {
   //     this.setState({credentials : response});
   // }
 
+  async test(){
+    let clusters = await AsyncStorage.getItem("@clusters")
+    clusters = JSON.parse(clusters)
+    let first = await AsyncStorage.getItem(clusters[0])
+    first = JSON.parse(first);
+    let url = first['cluster']['server']
+    alert(url);
+  }
+
+  async componentDidMount(){
+    await this.test();
+  }
+
   render() {
 
     return (
