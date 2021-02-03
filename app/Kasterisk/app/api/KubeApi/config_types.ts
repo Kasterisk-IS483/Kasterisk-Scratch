@@ -211,6 +211,7 @@ export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<voi
         let clusterName = "@".concat(aCluster.name)
         let clusterData = exportCluster(aCluster)
         try {
+            //Saves each cluster's data using cluster name as key
             await AsyncStorage.setItem(clusterName, JSON.stringify(clusterData))
             clusters.push(clusterName);
         }
@@ -222,6 +223,7 @@ export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<voi
         let userName = "@".concat(aUser.name)
         let userData = exportUser(aUser)
         try {
+            //Saves each user's data using user name as key
             await AsyncStorage.setItem(userName, JSON.stringify(userData))
             users.push(userName);
         }
@@ -230,6 +232,8 @@ export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<voi
         }
     }
 
+    //Saves all cluster names under key @clusters
+    // and all user names under key @users
     await Promise.all([
         saveCredentials("@clusters", JSON.stringify(clusters)), 
         saveCredentials("@users",JSON.stringify(users)
