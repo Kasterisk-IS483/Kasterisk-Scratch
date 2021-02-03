@@ -11,6 +11,8 @@ export const colours = {
   secondary: "#CDDAED",
   cta: Colors.blue600,
   grey: "#DCDCDC",
+  orange:'#ED952F',
+  green: "#20B408"
 }
 
 export const fonts = {

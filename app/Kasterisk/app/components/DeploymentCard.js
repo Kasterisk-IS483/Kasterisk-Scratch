@@ -6,12 +6,13 @@ import ProgressCircle from 'react-native-progress-circle'
 
 import {
     commonStyles,
+    colours
 } from "../utils/styles.js";
 export default function DeploymentCard({healthReady = "1", healthTotal = "1", name = "cluster", label = "label", age = "0", container = "container" }) {
    
     const deloymentDisplay = healthReady + "/" + healthTotal
     const percentage = healthReady / healthTotal * 100
-    const statusColorCode = percentage<100 ? '#20B408' : '#ED952F'
+    const statusColorCode = percentage==100 ? colours.green : colours.orange
 
     return (
         <View>
@@ -26,9 +27,9 @@ export default function DeploymentCard({healthReady = "1", healthTotal = "1", na
                             percent={percentage}
                             radius={60}
                             borderWidth={8}
-                            color="#20B408"
-                            shadowColor="#ED952F"
-                            bgColor="#CDDAED"
+                            color={colours.green}
+                            shadowColor={colours.orange}
+                            bgColor={colours.secondary}
                         >
                             <Text style={{ fontSize: 18 }}>{deloymentDisplay}</Text>
                         </ProgressCircle>
