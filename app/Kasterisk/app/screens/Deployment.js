@@ -52,23 +52,23 @@ export default class Deployment extends Component {
                 <View style={this.getStyle().workloadSummaryRowContainer}>
                     <View style={this.getStyle().deploymentCard}>
                         <View>
-                            <DeploymentCard status="ready" name="hello-node" ></DeploymentCard>
+                            <DeploymentCard healthReady="4" healthTotal="4" label="app:hellonode" name="hello-node" ></DeploymentCard>
                         </View>
                     </View>
-                    {/* <View style={this.getStyle().deploymentCard}>
-                        <DeploymentCard status="notReady" name="test"></DeploymentCard>
-                    </View> */}
+                    <View style={this.getStyle().deploymentCard}>
+                        <DeploymentCard healthReady="3" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
+                    </View>
                 </View>
 
                 <View style={this.getStyle().workloadSummaryRowContainer}>
                     <View style={this.getStyle().deploymentCard}>
                         <View>
-                            <DeploymentCard status="ready" name="hello-node" ></DeploymentCard>
+                            <DeploymentCard healthReady="3" healthTotal="3" label="app:hellonode" name="hello-node2" ></DeploymentCard>
                         </View>
                     </View>
-                    {/* <View style={this.getStyle().deploymentCard}>
-                        <DeploymentCard status="notReady" name="test"></DeploymentCard>
-                    </View> */}
+                    <View style={this.getStyle().deploymentCard}>
+                        <DeploymentCard healthReady="2" healthTotal="4" label="app:hellonode" name="test2"></DeploymentCard>
+                    </View>
                 </View>
 
             </View>

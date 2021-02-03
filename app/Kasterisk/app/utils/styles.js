@@ -89,6 +89,19 @@ export const commonStyles = StyleSheet.create({
   //   // display: "flex",
   // }
 
+  //deployment card
+  circle: {
+    justifyContent: 'flex-end',
+    paddingBottom: 20
+  },
+  cardInfoText: {
+    paddingLeft: 35
+  },
+  card: {
+    paddingLeft: 15,
+    flexDirection: 'row',
+  }
+
 });
 
 export const landscapeStyles = StyleSheet.create({
