@@ -134,8 +134,8 @@ export const landscapeStyles = StyleSheet.create({
   },
   workloadSummaryColumnContainer: {
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   workloadSummaryRowContainer: {
     flex: 1,

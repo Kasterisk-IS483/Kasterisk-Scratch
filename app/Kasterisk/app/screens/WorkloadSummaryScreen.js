@@ -13,6 +13,7 @@ import DeploymentApi from "../api/DeploymentApi.js";
 import OverviewCard from "../components/Cards/OverviewCard";
 import DeploymentCard from "../components/Cards/DeploymentCard";
 import PodCard from "../components/Cards/PodCard.js";
+import ReplicasetCard from "../components/Cards/ReplicasetCard.js";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -188,13 +189,44 @@ export default class WorkloadSummaryScreen extends Component {
               <PodCard status="Pending" label="app:hellonode" age="34" name="test2"></PodCard>
             </View>
             <View style={this.getStyle().workloadCard}>
-              <PodCard status="Pending" label="app:hellonode"  name="test"></PodCard>
+              <PodCard status="Pending" label="app:hellonode" name="test"></PodCard>
             </View>
           </View>
 
         </View>;
       case 'fourth':
-        return <View />;
+        return <View style={this.getStyle().workloadSummaryMainContainer}>
+
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().workloadCard}>
+              <View>
+                <ReplicasetCard healthReady="4" healthTotal="4" label="app:hellonode" name="hello-node" ></ReplicasetCard>
+              </View>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <ReplicasetCard healthReady="3" healthTotal="4" label="app:hellonode" name="test"></ReplicasetCard>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <ReplicasetCard healthReady="0" healthTotal="2" label="app:hellonode" name="test"></ReplicasetCard>
+            </View>
+          </View>
+
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().workloadCard}>
+              <View>
+                <ReplicasetCard healthReady="3" healthTotal="3" label="app:hellonode" name="hello-node2" ></ReplicasetCard>
+              </View>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <ReplicasetCard healthReady="2" healthTotal="4" label="app:hellonode" name="test2"></ReplicasetCard>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <ReplicasetCard healthReady="1" healthTotal="4" label="app:hellonode" name="test"></ReplicasetCard>
+            </View>
+          </View>
+
+        </View>;
+
 
       default:
         return null;

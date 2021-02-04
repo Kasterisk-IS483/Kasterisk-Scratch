@@ -10,7 +10,7 @@ export default function OverviewCard({ image, name, ready = 0, notReady = 0 }) {
     return (
         <View style={{ paddingVertical: spacings.sm }}>
             {/* <Card button={true} onPress={() => navigation.navigate(screen)}> */}
-            <Card>
+            <Card elevation={10}>
                 <Card.Cover source={image} />
 
                 <Text style={{

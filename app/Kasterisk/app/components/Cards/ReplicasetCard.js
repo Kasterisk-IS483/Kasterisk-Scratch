@@ -8,10 +8,11 @@ import {
     commonStyles,
     colours
 } from "../../utils/styles.js";
-export default function PodCard({status= "Running", name = "cluster", label = "label", age = "1", restart = "0" }) {
-   
-    const statusColorCode = status.toLowerCase()=="running" ? colours.green : colours.orange
-    const statusDisplay = status.toLowerCase()=="running" ? "Running" : "Pending"
+export default function ReplicasetCard({ healthReady = "1", healthTotal = "1", name = "cluster", label = "label", age = "0", container = "container" }) {
+
+    const deloymentDisplay = healthReady + "/" + healthTotal
+    const percentage = healthReady / healthTotal * 100
+    const statusColorCode = percentage == 100 ? colours.green : colours.orange
     const days = age<=1 ? "Day" : "Days"
 
     return (
@@ -24,24 +25,24 @@ export default function PodCard({status= "Running", name = "cluster", label = "l
                 <Card.Content style={commonStyles.card}>
                     <View style={commonStyles.circle}>
                         <ProgressCircle
-                            percent={100}
+                            percent={percentage}
                             radius={60}
                             borderWidth={8}
-                            color={statusColorCode}
-                            shadowColor={statusColorCode}
-                            bgColor={statusColorCode}
+                            color={colours.green}
+                            shadowColor={colours.orange}
+                            bgColor={colours.secondary}
                         >
-                            <Text style={{ fontSize: 18, color:"white", fontWeight:"bold"}}>{statusDisplay}</Text>
+                            <Text style={{ fontSize: 18 }}>{deloymentDisplay}</Text>
                         </ProgressCircle>
                     </View>
 
 
-                    <View style = {commonStyles.cardInfo}>
+                    <View style={commonStyles.cardInfo}>
                         <Title style={commonStyles.cardInfoText}>{name}</Title>
                         <Title style={commonStyles.cardInfoText}>Labels:</Title>
                         <Title style={commonStyles.cardInfoText}>{label}</Title>
                         <Title style={commonStyles.cardInfoText}>Age: {age} {days}</Title>
-                        <Title style={commonStyles.cardInfoText}>Restarts: {restart} </Title>
+                        <Title style={commonStyles.cardInfoText}>Containers: {container}</Title>
                     </View>
 
                 </Card.Content>

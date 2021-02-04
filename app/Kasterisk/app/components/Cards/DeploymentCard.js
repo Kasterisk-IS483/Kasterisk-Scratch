@@ -8,15 +8,16 @@ import {
     commonStyles,
     colours
 } from "../../utils/styles.js";
-export default function DeploymentCard({healthReady = "1", healthTotal = "1", name = "cluster", label = "label", age = "0", container = "container" }) {
-   
+export default function DeploymentCard({ healthReady = "1", healthTotal = "1", name = "cluster", label = "label", age = "0", container = "container" }) {
+
     const deloymentDisplay = healthReady + "/" + healthTotal
     const percentage = healthReady / healthTotal * 100
-    const statusColorCode = percentage==100 ? colours.green : colours.orange
+    const statusColorCode = percentage == 100 ? colours.green : colours.orange
+    const days = age<=1 ? "Day" : "Days"
 
     return (
         <View>
-            <Card style={{
+            <Card elevation={10} style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,
                 width: 380,
@@ -36,11 +37,11 @@ export default function DeploymentCard({healthReady = "1", healthTotal = "1", na
                     </View>
 
 
-                    <View style = {commonStyles.cardInfo}>
+                    <View style={commonStyles.cardInfo}>
                         <Title style={commonStyles.cardInfoText}>{name}</Title>
-                        <Title style={commonStyles.cardInfoText}>Label:</Title>
+                        <Title style={commonStyles.cardInfoText}>Labels:</Title>
                         <Title style={commonStyles.cardInfoText}>{label}</Title>
-                        <Title style={commonStyles.cardInfoText}>Age: {age}</Title>
+                        <Title style={commonStyles.cardInfoText}>Age: {age} {days}</Title>
                         <Title style={commonStyles.cardInfoText}>Containers: {container}</Title>
                     </View>
 
