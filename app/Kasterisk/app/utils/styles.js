@@ -1,10 +1,10 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { Colors } from 'react-native-paper';
 
-export const dimensions = {
-  fullHeight: Dimensions.get('window').height,
-  fullWidth: Dimensions.get('window').width,
-}
+// export const dimensions = {
+//   fullHeight: Dimensions.get('window').height,
+//   fullWidth: Dimensions.get('window').width,
+// }
 
 export const colours = {
   primary: "#265395",
@@ -40,18 +40,22 @@ export const commonStyles = StyleSheet.create({
 
   scrollView: {
     flexGrow: 1,
-    paddingVertical: 10,
+    paddingVertical: spacings.sm,
   },
   whiteContainer: {
     flex: 1,
-    padding: 30,
+    padding: spacings.xl,
     backgroundColor: 'white',
+  },
+  secondaryContainer: {
+    flex: 1,
+    backgroundColor: colours.secondary,
   },
 
   divider: {
     borderWidth: 0.5,
     borderColor: 'white',
-    width: dimensions.fullWidth * 0.3,
+    width: Dimensions.get('window').width * 0.3,
     margin: spacings.sm,
   },
   heading: {
@@ -59,10 +63,6 @@ export const commonStyles = StyleSheet.create({
     textAlign: "center",
     marginBottom: spacings.lg,
     color: 'black',
-  },
-  actionButton: {
-    width: "auto",
-    marginVertical: spacings.sm,
   },
   textInput: {
     marginHorizontal: spacings.lg,
@@ -74,16 +74,6 @@ export const commonStyles = StyleSheet.create({
     fontSize: fonts.md,
     fontWeight: 'bold',
   },
-  workloadType: {
-    position: "absolute",
-    fontSize: fonts.lg,
-    left: "5%",
-    top: "55%",
-    textAlign: "left",
-    color: "white",
-    fontSize: fonts.xl,
-    fontWeight: "bold",
-  },
   // card:{
   //   alignItems: "center",
   //   justifyContent: "center",
@@ -91,7 +81,7 @@ export const commonStyles = StyleSheet.create({
   //   // display: "flex",
   // }
 
-  //deployment card
+  //workload card
   circle: {
     justifyContent: 'flex-end',
     paddingBottom: 20
@@ -135,6 +125,7 @@ export const landscapeStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colours.primary,
   },
+
   //workload summary screen
   workloadSummaryMainContainer: {
     flex: 1,
@@ -143,22 +134,19 @@ export const landscapeStyles = StyleSheet.create({
   },
   workloadSummaryColumnContainer: {
     flex: 1,
-    backgroundColor: colours.secondary,
     paddingLeft: 20,
     paddingRight: 20,
   },
   workloadSummaryRowContainer: {
-    backgroundColor: colours.secondary,
     flex: 1,
     paddingTop: 50,
     flexDirection: "row",
   },
 
-  //deployment screen
-  deploymentCard: {
-    flex: 1,
-    backgroundColor: colours.secondary,
-    paddingHorizontal: 20
+  // individual screens
+  workloadCard: {
+    paddingHorizontal: 20,
+    paddingVertical: spacings.sm,
   },
 });
 

@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 
-import { dimensions, fonts, spacings, commonStyles } from "../utils/styles.js";
+import { fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', align = 'center', disabled = false }) {
   
   const large = 'auto'
-  const small = dimensions.fullWidth>dimensions.fullHeight ? (dimensions.fullWidth / 3) : (dimensions.fullWidth / 2)
+  const small = Dimensions.get('window').width>Dimensions.get('window').height ? (Dimensions.get('window').width / 3) : (Dimensions.get('window').width / 2)
   const btnSize = size === 'large' ? large : small
 
   const btnBgColor = type === 'filled' ? 'white' : 'transparent'

@@ -11,7 +11,6 @@ import AWSLoginScreen from "./screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
 import TestScreen from "./screens/TestScreen";
 import LoadingScreen from "./screens/LoadingScreen";
-import Deployment from "./screens/Deployment";
 
 import { colours } from "./utils/styles";
 
@@ -40,7 +39,6 @@ export default function App() {
         <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{title: "Workloads"}} />
         <Stack.Screen name="Loading" component={LoadingScreen} options={{title: "Loading"}} />
         <Stack.Screen name="Test" component={TestScreen} />
-        <Stack.Screen name="Deployment" component={Deployment} />
       </Stack.Navigator>
     </NavigationContainer>
   );
