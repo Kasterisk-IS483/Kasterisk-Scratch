@@ -12,7 +12,7 @@ import {
   Linking,
 } from "react-native";
 
-import CustomButton from "../components/CustomButton";
+import CustomButton from "../components/Buttons/CustomButton";
 import {
   commonStyles,
   landscapeStyles,

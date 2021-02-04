@@ -4,9 +4,9 @@ import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
 
 import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
-import CustomButton from "../components/CustomButton";
-import ActionButton from "../components/ActionButton";
-import SubmitButton from "../components/SubmitButton";
+import CustomButton from "../components/Buttons/CustomButton";
+import ActionButton from "../components/Buttons/ActionButton";
+import SubmitButton from "../components/Buttons/SubmitButton";
 import * as KubeApi from "../api/KubeApi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Kubeconfig } from "../api/KubeApi/config";

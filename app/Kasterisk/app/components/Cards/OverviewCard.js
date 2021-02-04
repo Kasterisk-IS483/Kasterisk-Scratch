@@ -3,7 +3,7 @@ import { View, Text } from "react-native"
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-import { fonts, spacings } from "../utils/styles.js";
+import { fonts, spacings } from "../../utils/styles.js";
 
 export default function OverviewCard({ image, name, ready = 0, notReady = 0 }) {
 

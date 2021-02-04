@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 
-import { fonts, spacings, commonStyles } from "../utils/styles.js";
+import { fonts, spacings, commonStyles } from "../../utils/styles.js";
 
 export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', align = 'center', disabled = false }) {
   

@@ -7,7 +7,7 @@ import ProgressCircle from 'react-native-progress-circle'
 import {
     commonStyles,
     colours
-} from "../utils/styles.js";
+} from "../../utils/styles.js";
 export default function DeploymentCard({healthReady = "1", healthTotal = "1", name = "cluster", label = "label", age = "0", container = "container" }) {
    
     const deloymentDisplay = healthReady + "/" + healthTotal

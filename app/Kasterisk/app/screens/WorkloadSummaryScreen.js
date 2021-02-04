@@ -10,8 +10,8 @@ import {
   portraitStyles,
 } from "../utils/styles.js";
 import DeploymentApi from "../api/DeploymentApi.js";
-import OverviewCard from "../components/OverviewCard";
-import DeploymentCard from "../components/DeploymentCard";
+import OverviewCard from "../components/Cards/OverviewCard";
+import DeploymentCard from "../components/Cards/DeploymentCard";
 
 export default class WorkloadSummaryScreen extends Component {
 
