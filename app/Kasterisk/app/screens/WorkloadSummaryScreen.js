@@ -4,7 +4,7 @@ import { TabView, TabBar } from 'react-native-tab-view';
 
 import {
   colours,
-  spacings,  
+  spacings,
   commonStyles,
   landscapeStyles,
   portraitStyles,
@@ -12,6 +12,7 @@ import {
 import DeploymentApi from "../api/DeploymentApi.js";
 import OverviewCard from "../components/Cards/OverviewCard";
 import DeploymentCard from "../components/Cards/DeploymentCard";
+import PodCard from "../components/Cards/PodCard.js";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -72,25 +73,25 @@ export default class WorkloadSummaryScreen extends Component {
   //     this.setState({credentials : response});
   // }
 
-listAllTest = async () => {
+  listAllTest = async () => {
     try {
-        let namespace1 = await (
-            DeploymentApi.listAllDeployment()
-        );
-        namespace1 = JSON.stringify(namespace1);
-        alert(namespace1)
+      let namespace1 = await (
+        DeploymentApi.listAllDeployment()
+      );
+      namespace1 = JSON.stringify(namespace1);
+      alert(namespace1)
 
     } catch (err) {
-        console.log(err);
-        Alert.alert('Invalid Credentials', err.message);
+      console.log(err);
+      Alert.alert('Invalid Credentials', err.message);
     }
-}
-
-  async test(){
-    alert(await AsyncStorage.getItem("baseURL")+" "+await AsyncStorage.getItem("refreshToken"));
   }
 
-  async componentDidMount(){
+  async test() {
+    alert(await AsyncStorage.getItem("baseURL") + " " + await AsyncStorage.getItem("refreshToken"));
+  }
+
+  async componentDidMount() {
     await this.listAllTest();
   }
 
@@ -115,54 +116,83 @@ listAllTest = async () => {
             <View style={this.getStyle().workloadSummaryColumnContainer}>
               <OverviewCard image={require("../assets/deployment.png")} name="Deployment" ></OverviewCard>
             </View>
-        
+
             <View style={this.getStyle().workloadSummaryColumnContainer}>
               <OverviewCard image={require("../assets/replicaset.png")} name="ReplicaSet" ></OverviewCard>
             </View>
-        
+
             <View style={this.getStyle().workloadSummaryColumnContainer}>
               <OverviewCard image={require("../assets/pod.png")} name="Pod" ></OverviewCard>
             </View>
           </View>
-        
+
         </View>;
 
       case 'second':
         return <View style={this.getStyle().workloadSummaryMainContainer}>
 
-        <View style={this.getStyle().deploymentRowContainer}>
+          <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().workloadCard}>
-                <View>
-                    <DeploymentCard healthReady="4" healthTotal="4" label="app:hellonode" name="hello-node" ></DeploymentCard>
-                </View>
+              <View>
+                <DeploymentCard healthReady="4" healthTotal="4" label="app:hellonode" name="hello-node" ></DeploymentCard>
+              </View>
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard healthReady="3" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
+              <DeploymentCard healthReady="3" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard healthReady="0" healthTotal="2" label="app:hellonode" name="test"></DeploymentCard>
+              <DeploymentCard healthReady="0" healthTotal="2" label="app:hellonode" name="test"></DeploymentCard>
             </View>
-        </View>
+          </View>
 
-        <View style={this.getStyle().deploymentRowContainer}>
+          <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().workloadCard}>
-                <View>
-                    <DeploymentCard healthReady="3" healthTotal="3" label="app:hellonode" name="hello-node2" ></DeploymentCard>
-                </View>
+              <View>
+                <DeploymentCard healthReady="3" healthTotal="3" label="app:hellonode" name="hello-node2" ></DeploymentCard>
+              </View>
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard healthReady="2" healthTotal="4" label="app:hellonode" name="test2"></DeploymentCard>
+              <DeploymentCard healthReady="2" healthTotal="4" label="app:hellonode" name="test2"></DeploymentCard>
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard healthReady="1" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
+              <DeploymentCard healthReady="1" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
             </View>
-        </View>
+          </View>
 
-    </View>;
+        </View>;
 
       case 'third':
-        return <View />;
+        return <View style={this.getStyle().workloadSummaryMainContainer}>
 
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().workloadCard}>
+              <View>
+                <PodCard status="Running" label="app:hellonode" name="hello-node" ></PodCard>
+              </View>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <PodCard status="running" healthTotal="4" label="app:hellonode" name="test"></PodCard>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <PodCard status="running" healthTotal="2" label="app:hellonode" name="test"></PodCard>
+            </View>
+          </View>
+
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().workloadCard}>
+              <View>
+                <PodCard status="Pending" label="app:hellonode" name="hello-node2" ></PodCard>
+              </View>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <PodCard status="Pending" label="app:hellonode" age="34" name="test2"></PodCard>
+            </View>
+            <View style={this.getStyle().workloadCard}>
+              <PodCard status="Pending" label="app:hellonode"  name="test"></PodCard>
+            </View>
+          </View>
+
+        </View>;
       case 'fourth':
         return <View />;
 

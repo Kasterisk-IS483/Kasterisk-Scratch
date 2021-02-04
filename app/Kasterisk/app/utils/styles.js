@@ -148,7 +148,7 @@ export const landscapeStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: spacings.sm,
   },
-  deploymentRowContainer: {
+  rowContainer: {
     flex: 1,
     paddingTop: 50,
     flexDirection: "row",
