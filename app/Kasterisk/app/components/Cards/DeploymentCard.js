@@ -19,7 +19,7 @@ export default function DeploymentCard({healthReady = "1", healthTotal = "1", na
             <Card style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,
-                width: 600,
+                width: 380,
             }}>
                 <Card.Content style={commonStyles.card}>
                     <View style={commonStyles.circle}>

@@ -11,7 +11,7 @@ export const colours = {
   secondary: "#CDDAED",
   cta: Colors.blue600,
   grey: "#DCDCDC",
-  orange:'#ED952F',
+  orange: '#ED952F',
   green: "#20B408"
 }
 
@@ -87,7 +87,7 @@ export const commonStyles = StyleSheet.create({
     paddingBottom: 20
   },
   cardInfoText: {
-    paddingLeft: 35
+    paddingLeft: 25
   },
   card: {
     paddingLeft: 15,
@@ -148,6 +148,13 @@ export const landscapeStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: spacings.sm,
   },
+  deploymentRowContainer: {
+    flex: 1,
+    paddingTop: 50,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 export const portraitStyles = StyleSheet.create({
