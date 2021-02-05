@@ -12,12 +12,13 @@ import {
   Linking,
 } from "react-native";
 
-import CustomButton from "../components/Buttons/CustomButton";
 import {
   commonStyles,
   landscapeStyles,
   portraitStyles,
 } from "../utils/styles.js";
+
+import CustomButton from "../components/Buttons/CustomButton";
 
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
@@ -105,7 +106,7 @@ export default class WelcomeScreen extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={this.getStyle().container}>
+      <View style={this.getStyle().panelContainer}>
         <View style={this.getStyle().fillContainer}>
           <ImageBackground
             style={this.getStyle().fillContainer}

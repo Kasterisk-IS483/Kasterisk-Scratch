@@ -74,26 +74,18 @@ export const commonStyles = StyleSheet.create({
     fontSize: fonts.md,
     fontWeight: 'bold',
   },
-  // card:{
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   // marginBottom: 300,
-  //   // display: "flex",
-  // }
 
   //workload card
-  circle: {
-    justifyContent: 'flex-end',
-    paddingBottom: 20
+  cardInfo: {
+    flex: 1,
+    marginLeft: spacings.sm,
   },
-  cardInfoText: {
-    paddingLeft: 25
+  cardInfoLeftText: {
+    flex: 2,
   },
-  card: {
-    paddingLeft: 15,
-    flexDirection: 'row',
-  }
-
+  cardInfoRightText: {
+    flex: 1,
+  },
 });
 
 export const landscapeStyles = StyleSheet.create({
@@ -114,10 +106,7 @@ export const landscapeStyles = StyleSheet.create({
     top: "50%",
     textAlign: "center",
   },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-  },
+
   fillContainer: {
     flex: 1,
   },
@@ -126,35 +115,32 @@ export const landscapeStyles = StyleSheet.create({
     backgroundColor: colours.primary,
   },
 
-  //workload summary screen
-  workloadSummaryMainContainer: {
+  panelContainer: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: colours.secondary,
-  },
-  workloadSummaryColumnContainer: {
-    flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  workloadSummaryRowContainer: {
-    flex: 1,
-    paddingTop: 50,
     flexDirection: "row",
   },
-
-  // individual screens
-  workloadCard: {
-    paddingHorizontal: 20,
-    paddingVertical: spacings.sm,
+  //workload summary screen
+  dashboardContainer: {
+    flex: 1,
+    flexDirection: "column",
   },
-  rowContainer: {
+  dashboardRowContainer: {
     flex: 1,
     paddingTop: 50,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center"    
+  },
+  dashboardCardColumnContainer: {
+    flex: 1,
+    paddingHorizontal: spacings.sm,
+  },
+
+  // individual screens
+  workloadCard: {
+    paddingHorizontal: spacings.sm,
+    paddingVertical: spacings.sm,
+  },
 });
 
 export const portraitStyles = StyleSheet.create({
@@ -176,10 +162,6 @@ export const portraitStyles = StyleSheet.create({
     textAlign: "center",
   },
 
-  container: {
-    flex: 1,
-    flexDirection: "column",
-  },
   fillContainer: {
     flex: 2,
     flexDirection: "column",
@@ -189,5 +171,11 @@ export const portraitStyles = StyleSheet.create({
     backgroundColor: colours.primary,
     flexDirection: "column",
   },
+
+  panelContainer: {
+    flex: 1,
+    flexDirection: "column",
+  },
+
 
 });

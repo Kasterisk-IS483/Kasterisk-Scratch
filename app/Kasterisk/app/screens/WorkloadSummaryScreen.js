@@ -9,11 +9,10 @@ import {
   landscapeStyles,
   portraitStyles,
 } from "../utils/styles.js";
+
 import DeploymentApi from "../api/DeploymentApi.js";
 import OverviewCard from "../components/Cards/OverviewCard";
 import DeploymentCard from "../components/Cards/DeploymentCard";
-import PodCard from "../components/Cards/PodCard.js";
-import ReplicasetCard from "../components/Cards/ReplicasetCard.js";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -80,7 +79,7 @@ export default class WorkloadSummaryScreen extends Component {
         DeploymentApi.listAllDeployment()
       );
       namespace1 = JSON.stringify(namespace1);
-      alert(namespace1)
+      alert(namespace1);
 
     } catch (err) {
       console.log(err);
@@ -111,122 +110,269 @@ export default class WorkloadSummaryScreen extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'first':
-        return <View style={this.getStyle().workloadSummaryMainContainer}>
+        return <View style={this.getStyle().dashboardContainer}>
 
-          <View style={this.getStyle().workloadSummaryRowContainer}>
-            <View style={this.getStyle().workloadSummaryColumnContainer}>
-              <OverviewCard image={require("../assets/deployment.png")} name="Deployment" ></OverviewCard>
+          <View style={this.getStyle().dashboardRowContainer}>
+            <View style={this.getStyle().dashboardCardColumnContainer}>
+              <OverviewCard 
+                image={require("../assets/deployment.png")} 
+                name="Deployment" 
+                text1="Ready"
+                text2="Not Ready"
+                no1="2"
+                no2="0"
+              />
             </View>
 
-            <View style={this.getStyle().workloadSummaryColumnContainer}>
-              <OverviewCard image={require("../assets/replicaset.png")} name="ReplicaSet" ></OverviewCard>
+            <View style={this.getStyle().dashboardCardColumnContainer}>
+              <OverviewCard 
+                image={require("../assets/replicaset.png")} 
+                name="ReplicaSet"
+                text1="Ready"
+                text2="Not Ready"
+                no1="2"
+                no2="1"
+              />
             </View>
 
-            <View style={this.getStyle().workloadSummaryColumnContainer}>
-              <OverviewCard image={require("../assets/pod.png")} name="Pod" ></OverviewCard>
+            <View style={this.getStyle().dashboardCardColumnContainer}>
+              <OverviewCard 
+                image={require("../assets/pod.png")} 
+                name="Pod" 
+                text1="Running"
+                text2="Pending"
+                no1="3"
+                no2="1"
+              />
             </View>
           </View>
 
         </View>;
 
       case 'second':
-        return <View style={this.getStyle().workloadSummaryMainContainer}>
+        return <View style={this.getStyle().dashboardContainer}>
 
-          <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <View>
-                <DeploymentCard healthReady="4" healthTotal="4" label="app:hellonode" name="hello-node" ></DeploymentCard>
-              </View>
+                <DeploymentCard 
+                  name="test" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="4"
+                  total="4"
+                  variableField="Containers"
+                  variableFieldVal="echoserver"
+                />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard healthReady="3" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
+                <DeploymentCard 
+                  name="test2" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="3"
+                  total="4"
+                  variableField="Containers"
+                  variableFieldVal="container"
+                />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard healthReady="0" healthTotal="2" label="app:hellonode" name="test"></DeploymentCard>
+              <DeploymentCard 
+                name="test3" 
+                label="app:hellonode" 
+                age="0"
+                status="0"
+                total="2"
+                variableField="Containers"
+                variableFieldVal="test"
+              />
             </View>
           </View>
 
-          <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <View>
-                <DeploymentCard healthReady="3" healthTotal="3" label="app:hellonode" name="hello-node2" ></DeploymentCard>
-              </View>
+              <DeploymentCard 
+                name="test4" 
+                label="app:hellonode" 
+                age="0"
+                status="3"
+                total="3"
+                variableField="Containers"
+                variableFieldVal="test2"
+              />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard healthReady="2" healthTotal="4" label="app:hellonode" name="test2"></DeploymentCard>
+                <DeploymentCard 
+                  name="test5" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="2" 
+                  total="4" 
+                  variableField="Containers"
+                  variableFieldVal="test3"
+                />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard healthReady="1" healthTotal="4" label="app:hellonode" name="test"></DeploymentCard>
+            <DeploymentCard 
+                  name="test6" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="1" 
+                  total="4" 
+                  variableField="Containers"
+                  variableFieldVal="test4"
+                />
             </View>
           </View>
 
         </View>;
 
       case 'third':
-        return <View style={this.getStyle().workloadSummaryMainContainer}>
+        return <View style={this.getStyle().dashboardContainer}>
 
-          <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <View>
-                <PodCard status="Running" label="app:hellonode" name="hello-node" ></PodCard>
-              </View>
+              <DeploymentCard 
+                name="hello-node" 
+                label="app:hellonode" 
+                age="0"
+                status="Running" 
+                variableField="Restarts"
+                variableFieldVal="0"
+              />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <PodCard status="running" healthTotal="4" label="app:hellonode" name="test"></PodCard>
+              <DeploymentCard 
+                name="hello-node" 
+                label="app:hellonode" 
+                age="0"
+                status="Running" 
+                variableField="Restarts"
+                variableFieldVal="0"
+              />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <PodCard status="running" healthTotal="2" label="app:hellonode" name="test"></PodCard>
+              <DeploymentCard 
+                name="hello-node" 
+                label="app:hellonode" 
+                age="0"
+                status="Running" 
+                variableField="Restarts"
+                variableFieldVal="0"
+              />
             </View>
           </View>
 
-          <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <View>
-                <PodCard status="Pending" label="app:hellonode" name="hello-node2" ></PodCard>
-              </View>
+              <DeploymentCard 
+                name="hello-node" 
+                label="app:hellonode" 
+                age="0"
+                status="Pending" 
+                variableField="Restarts"
+                variableFieldVal="0"
+              />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <PodCard status="Pending" label="app:hellonode" age="34" name="test2"></PodCard>
+             <DeploymentCard 
+                name="hello-node" 
+                label="app:hellonode" 
+                age="0"
+                status="Pending" 
+                variableField="Restarts"
+                variableFieldVal="0"
+              />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <PodCard status="Pending" label="app:hellonode" name="test"></PodCard>
+              <DeploymentCard 
+                name="hello-node" 
+                label="app:hellonode" 
+                age="0"
+                status="Pending" 
+                variableField="Restarts"
+                variableFieldVal="0"
+              />
             </View>
           </View>
 
         </View>;
+
       case 'fourth':
-        return <View style={this.getStyle().workloadSummaryMainContainer}>
+        return <View style={this.getStyle().dashboardContainer}>
 
-          <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <View>
-                <ReplicasetCard healthReady="4" healthTotal="4" label="app:hellonode" name="hello-node" ></ReplicasetCard>
-              </View>
+                <DeploymentCard 
+                  name="hello-node" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="4"
+                  total="4"
+                  variableField="Containers"
+                  variableFieldVal="echoserver"
+                />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <ReplicasetCard healthReady="3" healthTotal="4" label="app:hellonode" name="test"></ReplicasetCard>
+                <DeploymentCard 
+                  name="test" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="3"
+                  total="4"
+                  variableField="Containers"
+                  variableFieldVal="container"
+                />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <ReplicasetCard healthReady="0" healthTotal="2" label="app:hellonode" name="test"></ReplicasetCard>
+              <DeploymentCard 
+                name="test" 
+                label="app:hellonode" 
+                age="0"
+                status="0"
+                total="2"
+                variableField="Containers"
+                variableFieldVal="test"
+              />
             </View>
           </View>
 
-          <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <View>
-                <ReplicasetCard healthReady="3" healthTotal="3" label="app:hellonode" name="hello-node2" ></ReplicasetCard>
-              </View>
+              <DeploymentCard 
+                name="hello-node2" 
+                label="app:hellonode" 
+                age="0"
+                status="3"
+                total="3"
+                variableField="Containers"
+                variableFieldVal="test2"
+              />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <ReplicasetCard healthReady="2" healthTotal="4" label="app:hellonode" name="test2"></ReplicasetCard>
+                <DeploymentCard 
+                  name="test" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="2" 
+                  total="4" 
+                  variableField="Containers"
+                  variableFieldVal="test3"
+                />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <ReplicasetCard healthReady="1" healthTotal="4" label="app:hellonode" name="test"></ReplicasetCard>
+            <DeploymentCard 
+                  name="test" 
+                  label="app:hellonode" 
+                  age="0"
+                  status="1" 
+                  total="4" 
+                  variableField="Containers"
+                  variableFieldVal="test4"
+                />
             </View>
           </View>
 
         </View>;
-
 
       default:
         return null;
