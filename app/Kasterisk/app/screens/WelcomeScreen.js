@@ -18,7 +18,7 @@ import {
   portraitStyles,
 } from "../utils/styles.js";
 
-import CustomButton from "../components/Buttons/CustomButton";
+import CustomButton from "../components/buttons/CustomButton";
 
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";

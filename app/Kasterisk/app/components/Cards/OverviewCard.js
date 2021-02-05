@@ -10,7 +10,7 @@ import {
     commonStyles 
 } from "../../utils/styles.js";
 
-import StatusCircle from "../Elements/StatusCircle";
+import StatusCircle from "../elements/StatusCircle";
 
 export default function OverviewCard({ 
     image, 

@@ -11,8 +11,8 @@ import {
 } from "../utils/styles.js";
 
 import DeploymentApi from "../api/DeploymentApi.js";
-import OverviewCard from "../components/Cards/OverviewCard";
-import DeploymentCard from "../components/Cards/DeploymentCard";
+import OverviewCard from "../components/cards/OverviewCard";
+import WorkloadCard from "../components/cards/WorkloadCard";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -154,7 +154,7 @@ export default class WorkloadSummaryScreen extends Component {
 
           <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard 
+                <WorkloadCard 
                   name="test" 
                   label="app:hellonode" 
                   age="0"
@@ -165,7 +165,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard 
+                <WorkloadCard 
                   name="test2" 
                   label="app:hellonode" 
                   age="0"
@@ -176,7 +176,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="test3" 
                 label="app:hellonode" 
                 age="0"
@@ -190,7 +190,7 @@ export default class WorkloadSummaryScreen extends Component {
 
           <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="test4" 
                 label="app:hellonode" 
                 age="0"
@@ -201,7 +201,7 @@ export default class WorkloadSummaryScreen extends Component {
               />
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard 
+                <WorkloadCard 
                   name="test5" 
                   label="app:hellonode" 
                   age="0"
@@ -212,7 +212,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
             </View>
             <View style={this.getStyle().workloadCard}>
-            <DeploymentCard 
+            <WorkloadCard 
                   name="test6" 
                   label="app:hellonode" 
                   age="0"
@@ -231,7 +231,7 @@ export default class WorkloadSummaryScreen extends Component {
 
           <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="hello-node" 
                 label="app:hellonode" 
                 age="0"
@@ -241,7 +241,7 @@ export default class WorkloadSummaryScreen extends Component {
               />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="hello-node" 
                 label="app:hellonode" 
                 age="0"
@@ -251,7 +251,7 @@ export default class WorkloadSummaryScreen extends Component {
               />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="hello-node" 
                 label="app:hellonode" 
                 age="0"
@@ -264,7 +264,7 @@ export default class WorkloadSummaryScreen extends Component {
 
           <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="hello-node" 
                 label="app:hellonode" 
                 age="0"
@@ -274,7 +274,7 @@ export default class WorkloadSummaryScreen extends Component {
               />
             </View>
             <View style={this.getStyle().workloadCard}>
-             <DeploymentCard 
+             <WorkloadCard 
                 name="hello-node" 
                 label="app:hellonode" 
                 age="0"
@@ -284,7 +284,7 @@ export default class WorkloadSummaryScreen extends Component {
               />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="hello-node" 
                 label="app:hellonode" 
                 age="0"
@@ -302,7 +302,7 @@ export default class WorkloadSummaryScreen extends Component {
 
           <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard 
+                <WorkloadCard 
                   name="hello-node" 
                   label="app:hellonode" 
                   age="0"
@@ -313,7 +313,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard 
+                <WorkloadCard 
                   name="test" 
                   label="app:hellonode" 
                   age="0"
@@ -324,7 +324,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
             </View>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="test" 
                 label="app:hellonode" 
                 age="0"
@@ -338,7 +338,7 @@ export default class WorkloadSummaryScreen extends Component {
 
           <View style={this.getStyle().dashboardRowContainer}>
             <View style={this.getStyle().workloadCard}>
-              <DeploymentCard 
+              <WorkloadCard 
                 name="hello-node2" 
                 label="app:hellonode" 
                 age="0"
@@ -349,7 +349,7 @@ export default class WorkloadSummaryScreen extends Component {
               />
             </View>
             <View style={this.getStyle().workloadCard}>
-                <DeploymentCard 
+                <WorkloadCard 
                   name="test" 
                   label="app:hellonode" 
                   age="0"
@@ -360,7 +360,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
             </View>
             <View style={this.getStyle().workloadCard}>
-            <DeploymentCard 
+            <WorkloadCard 
                   name="test" 
                   label="app:hellonode" 
                   age="0"

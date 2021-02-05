@@ -9,10 +9,10 @@ import {
     commonStyles,
 } from "../../utils/styles.js";
 
-import StatusCircle from "../Elements/StatusCircle";
-import LabelButton from "../Buttons/LabelButton";
+import StatusCircle from "../elements/StatusCircle";
+import LabelButton from "../buttons/LabelButton";
 
-export default function DeploymentCard({ 
+export default function Workkladrd({ 
     name, 
     label, 
     age, 
