@@ -11,8 +11,8 @@ import {
 } from "../utils/styles.js";
 
 import DeploymentApi from "../api/DeploymentApi.js";
-import OverviewCard from "../components/cards/OverviewCard";
-import WorkloadCard from "../components/cards/WorkloadCard";
+import OverviewCard from "../components/Cards/OverviewCard";
+import WorkloadCard from "../components/Cards/WorkloadCard";
 
 export default class WorkloadSummaryScreen extends Component {
 
