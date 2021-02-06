@@ -9,8 +9,8 @@ import {
     commonStyles,
 } from "../../utils/styles.js";
 
-import StatusCircle from "../elements/StatusCircle";
-import LabelButton from "../buttons/LabelButton";
+import StatusCircle from "../Elements/StatusCircle";
+import LabelButton from "../Buttons/LabelButton";
 
 export default function Workkladrd({ 
     name, 

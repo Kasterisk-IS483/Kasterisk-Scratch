@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
 import { TextInput } from "react-native-paper";
 
-import SubmitButton from "../components/buttons/SubmitButton";
+import SubmitButton from "../components/Buttons/SubmitButton";
 import { commonStyles } from "../utils/styles.js";
 import { checkAwsCredentials } from "../api/AwsApi.js"
 

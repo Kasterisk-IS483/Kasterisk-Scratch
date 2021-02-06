@@ -7,7 +7,7 @@ import {
     User
 } from "../api/KubeApi/config_types";
 
-import SubmitButton from "../components/buttons/SubmitButton";
+import SubmitButton from "../components/Buttons/SubmitButton";
 import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen() {
