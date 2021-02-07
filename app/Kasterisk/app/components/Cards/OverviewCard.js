@@ -14,11 +14,12 @@ import StatusCircle from "../Elements/StatusCircle";
 
 export default function OverviewCard({ 
     image, 
-    name, 
+    name = "", 
     text1 = "Ready", 
     text2 = "Not Ready", 
     no1 = "0", 
     no2 = "0",
+    onPress = null,
 }) {
 
     let col2;
@@ -32,7 +33,7 @@ export default function OverviewCard({
     return (
         <View style={{ paddingVertical: spacings.sm }}>
             {/* <Card button={true} onPress={() => navigation.navigate(screen)}> */}
-            <Card elevation={10}>
+            <Card elevation={10} onPress={onPress}>
                 <Card.Cover source={image} />
 
                 <Text style={{

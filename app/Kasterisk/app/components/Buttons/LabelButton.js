@@ -3,7 +3,7 @@ import { Button } from "react-native-paper";
 
 import { colours } from "../../utils/styles.js";
 
-export default function LabelButton({ text }) {
+export default function LabelButton({ text="" }) {
 
   return (
     <Button 
