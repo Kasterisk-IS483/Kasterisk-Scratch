@@ -15,6 +15,4 @@ export default function LoadingScreen({ navigation }) {
             </ScrollView>
         </View>
     );
-
 }
-

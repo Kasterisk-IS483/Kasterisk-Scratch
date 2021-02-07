@@ -14,11 +14,15 @@ import LoadingScreen from "./screens/LoadingScreen";
 
 import { colours } from "./utils/styles";
 
+const AuthContext = React.createContext();
+
+
 const Stack = createStackNavigator();
 
 const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 
-export default function App() {
+export default function App({ navigation }) {
+  const AuthContext = 
 
   useEffect(() => {
     SplashScreen.hide();
@@ -31,7 +35,7 @@ export default function App() {
           headerStyle: { backgroundColor: colours.primary },
           headerTintColor: "white"
       }}>
-        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
         <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{title: "Upload Kubeconfig File"}} />
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{title: "Add Kubeconfig Content"}} />
