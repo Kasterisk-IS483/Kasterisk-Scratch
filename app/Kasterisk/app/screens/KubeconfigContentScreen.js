@@ -121,25 +121,25 @@ export default function KubeconfigContentScreen() {
                 </Text>
 
                 <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
-                    <View style={{marginLeft: spacings.lg, marginBottom: spacings.xs}}>
+                    <View style={{marginLeft: spacings.lg, marginBottom: spacings.xxs}}>
 
                         <View style={{flexDirection: 'row'}}>
                             <RadioButton value="auth-unpw" color={colours.primary}/>
-                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>
+                            <Text style={{marginTop: spacings.xs, fontSize: fonts.sm}}>
                                 Username and Password
                             </Text>
                         </View>
 
                         <View style={{flexDirection: 'row'}}>
                             <RadioButton value="auth-token" color={colours.primary}/>
-                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>
+                            <Text style={{marginTop: spacings.xs, fontSize: fonts.sm}}>
                                 Token
                             </Text>
                         </View>
 
                         <View style={{flexDirection: 'row'}}>
                             <RadioButton value="auth-cert" color={colours.primary}/>
-                            <Text style={{marginTop: spacings.s, fontSize: fonts.sm}}>
+                            <Text style={{marginTop: spacings.xs, fontSize: fonts.sm}}>
                                 Client Certificate and Key
                             </Text>
                         </View>

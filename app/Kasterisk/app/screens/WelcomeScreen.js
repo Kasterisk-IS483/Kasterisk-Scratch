@@ -107,22 +107,22 @@ export default class WelcomeScreen extends Component {
 
     return (
       <View style={this.getStyle().panelContainer}>
-        <View style={this.getStyle().fillContainer}>
+        <View style={this.getStyle().welcomeBannerContainer}>
           <ImageBackground
-            style={this.getStyle().fillContainer}
+            style={this.getStyle().welcomeBannerContainer}
             source={require("../assets/welcome-bg.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={this.getStyle().logo}
+            style={this.getStyle().welcomeBannerLogo}
             source={require("../assets/kasterisk-logo.png")}
           />
-          <Text style={this.getStyle().description}>
+          <Text style={this.getStyle().welcomeBannerDescription}>
             Access, manage and monitor your Kubernetes clusters.
           </Text>
         </View>
 
-        <View style={this.getStyle().primaryContainer}>
+        <View style={this.getStyle().welcomeButtonsContainer}>
           <ScrollView
             contentContainerStyle={[
               commonStyles.scrollView,

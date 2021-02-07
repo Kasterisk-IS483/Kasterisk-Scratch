@@ -23,12 +23,13 @@ export const fonts = {
 }
 
 export const spacings = {
-  xs: 5,
-  s: 8,
+  xxs: 5,
+  xs: 8,
   sm: 10,
   md: 15,
   lg: 20,
   xl: 25,
+  xxl: 30,
 }
 
 export const commonStyles = StyleSheet.create({
@@ -40,16 +41,21 @@ export const commonStyles = StyleSheet.create({
 
   scrollView: {
     flexGrow: 1,
-    paddingVertical: spacings.sm,
+    paddingVertical: spacings.md,
   },
   whiteContainer: {
     flex: 1,
-    padding: spacings.xl,
     backgroundColor: 'white',
+    padding: spacings.xl,
   },
   secondaryContainer: {
     flex: 1,
     backgroundColor: colours.secondary,
+  },
+  dashboardContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: spacings.md, 
   },
 
   divider: {
@@ -64,18 +70,18 @@ export const commonStyles = StyleSheet.create({
     marginBottom: spacings.lg,
     color: 'black',
   },
-  textInput: {
-    marginHorizontal: spacings.lg,
-    marginVertical: spacings.s,
-  },
   subheading: {
     paddingLeft: spacings.xl,
     paddingBottom: spacings.sm,
     fontSize: fonts.md,
     fontWeight: 'bold',
   },
+  textInput: {
+    marginHorizontal: spacings.lg,
+    marginVertical: spacings.xs,
+  },
 
-  //workload card
+  // WorkloadCard
   cardInfo: {
     flex: 1,
     marginLeft: spacings.sm,
@@ -85,12 +91,26 @@ export const commonStyles = StyleSheet.create({
   },
   cardInfoRightText: {
     flex: 1,
+    paddingTop: spacings.sm,
   },
+
 });
 
 export const landscapeStyles = StyleSheet.create({
 
-  logo: {
+  // Welcome
+  panelContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  welcomeBannerContainer: {
+    flex: 1,
+  },
+  welcomeButtonsContainer: {
+    flex: 1,
+    backgroundColor: colours.primary,
+  },
+  welcomeBannerLogo: {
     position: "absolute",
     width: "50%",
     height: "50%",
@@ -98,7 +118,7 @@ export const landscapeStyles = StyleSheet.create({
     left: "25%",
     top: "15%",
   },
-  description: {
+  welcomeBannerDescription: {
     position: "absolute",
     width: "50%",
     fontSize: fonts.lg,
@@ -107,45 +127,36 @@ export const landscapeStyles = StyleSheet.create({
     textAlign: "center",
   },
 
-  fillContainer: {
-    flex: 1,
-  },
-  primaryContainer: {
-    flex: 1,
-    backgroundColor: colours.primary,
-  },
-
-  panelContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  //workload summary screen
-  dashboardContainer: {
-    flex: 1,
-    flexDirection: "column",
-  },
+  // WorkloadSummary
   dashboardRowContainer: {
-    flex: 1,
-    paddingTop: 50,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"    
+    justifyContent: "center",
+    marginHorizontal: spacings.xxl,
   },
   dashboardCardColumnContainer: {
     flex: 1,
     paddingHorizontal: spacings.sm,
-  },
+  }
 
-  // individual screens
-  workloadCard: {
-    paddingHorizontal: spacings.sm,
-    paddingVertical: spacings.sm,
-  },
 });
 
 export const portraitStyles = StyleSheet.create({
 
-  logo: {
+  // Welcome
+  panelContainer: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  welcomeBannerContainer: {
+    flex: 2,
+    flexDirection: "column",
+  },
+  welcomeButtonsContainer: {
+    flex: 3,
+    backgroundColor: colours.primary,
+    flexDirection: "column",
+  },
+  welcomeBannerLogo: {
     position: "absolute",
     width: "50%",
     height: "55%",
@@ -153,7 +164,7 @@ export const portraitStyles = StyleSheet.create({
     left: "25%",
     top: "15%",
   },
-  description: {
+  welcomeBannerDescription: {
     position: "absolute",
     width: "50%",
     fontSize: fonts.md,
@@ -162,20 +173,9 @@ export const portraitStyles = StyleSheet.create({
     textAlign: "center",
   },
 
-  fillContainer: {
-    flex: 2,
+  // WorkloadSummary
+  dashboardRowContainer: {
     flexDirection: "column",
   },
-  primaryContainer: {
-    flex: 3,
-    backgroundColor: colours.primary,
-    flexDirection: "column",
-  },
-
-  panelContainer: {
-    flex: 1,
-    flexDirection: "column",
-  },
-
 
 });

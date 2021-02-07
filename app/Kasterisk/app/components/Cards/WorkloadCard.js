@@ -12,14 +12,14 @@ import {
 import StatusCircle from "../Elements/StatusCircle";
 import LabelButton from "../Buttons/LabelButton";
 
-export default function Workkladrd({ 
-    name, 
-    label, 
-    age, 
-    status,
+export default function WorkloadCard({ 
+    name = "", 
+    label = "", 
+    age = "0", 
+    status = "0",
     total = null,
-    variableField, 
-    variableFieldVal,
+    variableField = "", 
+    variableFieldVal = "0",
 }) {
 
     let percent;
@@ -55,7 +55,7 @@ export default function Workkladrd({
     }
 
     return (
-        <View>
+        <View style={{ padding: spacings.sm }}>
             <Card elevation={10} style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,
@@ -101,7 +101,6 @@ export default function Workkladrd({
                 </Card.Content>
             </Card>
         </View>
-
     )
 
 }

@@ -3,7 +3,16 @@ import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
 
 import { fonts, spacings, commonStyles } from "../../utils/styles.js";
 
-export default function CustomButton({ image, text, onPress, type = 'filled', bordered = false, size = 'large', align = 'center', disabled = false }) {
+export default function CustomButton({ 
+  image, 
+  text = "", 
+  onPress = null, 
+  type = 'filled', 
+  bordered = false, 
+  size = 'large', 
+  align = 'center', 
+  disabled = false 
+}) {
   
   const large = 'auto'
   const small = Dimensions.get('window').width>Dimensions.get('window').height ? (Dimensions.get('window').width / 3) : (Dimensions.get('window').width / 2)
@@ -43,7 +52,7 @@ export default function CustomButton({ image, text, onPress, type = 'filled', bo
   const iconStyle = {
     imageIcon: {
       padding: spacings.sm,
-      margin: spacings.xs,
+      margin: spacings.xxs,
       height: 25,
       width: 25,
       resizeMode: 'stretch',
