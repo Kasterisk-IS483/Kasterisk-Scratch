@@ -19,7 +19,8 @@ export const fonts = {
   sm: 16,
   md: 18,
   lg: 22,
-  xl: 30,
+  xl:26,
+  xxl: 30,
 }
 
 export const spacings = {
