@@ -4,7 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import SplashScreen from 'react-native-splash-screen'
+import {
+  View,
+  Image,
+  SafeAreaView
+} from "react-native";
 
+import { DrawerItemList } from '@react-navigation/drawer';
 import WelcomeScreen from "./screens/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
@@ -13,7 +19,11 @@ import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
 import LoadingScreen from "./screens/LoadingScreen";
 import TestScreen from "./screens/TestScreen";
 
-import { colours } from "./utils/styles";
+import {
+  spacings,
+  colours,
+  fonts
+} from "./utils/styles.js";
 
 const AuthContext = React.createContext();
 
@@ -29,8 +39,44 @@ const screenOptions = {
 }
 
 function Home() {
+
+
   return (
-    <Drawer.Navigator initialRouteName="Welcome" screenOptions={screenOptions} >
+    <Drawer.Navigator initialRouteName="Welcome" screenOptions={screenOptions}
+      drawerStyle={{
+        backgroundColor: "white",
+      }}
+      drawerContentOptions={{
+        activeTintColor: colours.primary, /* font color for active screen label */
+        activeBackgroundColor: colours.secondary, /* bg color for active screen */
+        inactiveTintColor: 'black', /* Font color for inactive screens' labels */
+      }}
+      drawerContent={(props) => {
+        return (
+          <SafeAreaView style={{ flex: 1 }}>
+            <View
+              style={{
+                height: 150,
+                alignItems: "center",
+                justifyContent: "center",
+                paddingHorizontal: spacings.sm
+              }}
+            >
+              <Image
+                source={require("./assets/kasterisk-logo.png")}
+                style={{
+                  alignSelf: 'center',
+                  height: '40%',
+                  width: '100%'
+                }}
+
+              />
+            </View>
+            <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
+          </SafeAreaView>
+        );
+      }}
+    >
       <Drawer.Screen name="Home" component={WelcomeScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
       <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
