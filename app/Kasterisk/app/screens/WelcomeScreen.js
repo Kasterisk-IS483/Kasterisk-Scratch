@@ -74,13 +74,13 @@ export default class WelcomeScreen extends Component {
     }
   };
 
-  errorCheck = async () => {
-    try {
-      this.props.navigation.navigate("WorkloadSummary");
-    } catch (e) {
-      Alert.alert(e.message);  
-    }
-  };
+  // errorCheck = async () => {
+  //   try {
+  //     this.props.navigation.navigate("Home");
+  //   } catch (e) {
+  //     Alert.alert(e.message);  
+  //   }
+  // };
 
   AzureLogin = async () => {
     try {
@@ -167,6 +167,9 @@ export default class WelcomeScreen extends Component {
               size="small"
               onPress={() => navigation.navigate("KubeconfigContent")}
             />
+
+            <View style={commonStyles.divider} />
+
             {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
               text="Test Screen"
@@ -175,9 +178,10 @@ export default class WelcomeScreen extends Component {
             /> */}
             <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="Workload summary"
+              text="Workload Summary"
               size="small"
-              onPress={this.errorCheck}
+              onPress={() => navigation.navigate("WorkloadSummary")}
+              // onPress={this.errorCheck}
             />
           </ScrollView>
         </View>

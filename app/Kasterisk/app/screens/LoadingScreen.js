@@ -7,10 +7,13 @@ import { colours, commonStyles } from "../utils/styles.js";
 export default function LoadingScreen({ navigation }) {
 
     return (
-        <View style={commonStyles.whiteContainer} >
-            <ScrollView contentContainerStyle={commonStyles.scrollView}>
+        <View style={commonStyles.secondaryContainer} >
+            <ScrollView contentContainerStyle={[commonStyles.scrollView, {...commonStyles.centralise}]}>
 
-                <ActivityIndicator animating={true} color={colours.primary} />
+                <ActivityIndicator 
+                    animating={true} 
+                    color={colours.primary}
+                />
 
             </ScrollView>
         </View>

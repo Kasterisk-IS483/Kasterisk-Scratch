@@ -7,7 +7,8 @@ import {
     colours,
     fonts,
     spacings,
-    commonStyles
+    cardsOuterPadding,
+    commonStyles,
 } from "../../utils/styles.js";
 
 import StatusCircle from "../Elements/StatusCircle";
@@ -30,8 +31,11 @@ export default function OverviewCard({
         col2 = colours.orange;
     }
 
+    const statusCircleBorderWidth = 4;
+    const statusCircleRadius = 30;
+
     return (
-        <View style={{ paddingVertical: spacings.sm }}>
+        <View style={{ paddingVertical: cardsOuterPadding }}>
             {/* <Card button={true} onPress={() => navigation.navigate(screen)}> */}
             <Card elevation={10} onPress={onPress}>
                 <Card.Cover source={image} />
@@ -42,35 +46,35 @@ export default function OverviewCard({
                     top: "36%",
                     textAlign: "left",
                     color: "white",
-                    fontSize: fonts.xxl,
                     fontWeight: "bold",
+                    fontSize: fonts.xxl,
                 }}>
                     {name}
                 </Text>
 
                 <View style={{ paddingVertical: spacings.lg }}>
 
-                    <Card.Content style={{ flexDirection: 'row', alignItems: "center", marginLeft: "15%" }}>
+                    <Card.Content style={commonStyles.overviewCardContent}>
                         <StatusCircle
-                            borderWidth={4}
-                            radius={30}
+                            borderWidth={statusCircleBorderWidth}
+                            radius={statusCircleRadius}
                             progressColor={colours.green}
                             fontColor={colours.green}
                             text={no1}
                         />
-                        <Title style={{ fontSize: fonts.xl, textAlign: "center", paddingBottom: spacings.sm }}>{text1}</Title>
+                        <Title style={commonStyles.overviewCardLabel}>{text1}</Title>
                     </Card.Content>
 
-                    <Card.Content style={{ flexDirection: 'row', alignItems: "center", marginLeft: "15%" }}>
+                    <Card.Content style={commonStyles.overviewCardContent}>
 
                         <StatusCircle
-                            borderWidth={4}
-                            radius={30}
+                            borderWidth={statusCircleBorderWidth}
+                            radius={statusCircleRadius}
                             progressColor={col2}
                             fontColor={col2}
                             text={no2}
                         />
-                        <Title style={{ fontSize: fonts.xl, textAlign: "center", paddingBottom: spacings.sm }}>{text2}</Title>
+                        <Title style={commonStyles.overviewCardLabel}>{text2}</Title>
 
 
                     </Card.Content>

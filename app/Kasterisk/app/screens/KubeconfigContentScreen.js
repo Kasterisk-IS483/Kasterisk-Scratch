@@ -10,7 +10,7 @@ import {
 import SubmitButton from "../components/Buttons/SubmitButton";
 import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
-export default function KubeconfigContentScreen() {
+export default function KubeconfigContentScreen({ navigation }) {
 
     const [checked, setChecked] = React.useState('auth-unpw');
 
@@ -80,14 +80,14 @@ export default function KubeconfigContentScreen() {
             name: data.name,
             certData: data.clientCert === "" ? null : data.clientCert,
             keyData: data.clientKey === "" ? null : data.clientKey,
-            authProvider: any,
+            // authProvider: any,
             token: data.token === "" ? null : data.token,
             username: data.username === "" ? null : data.username,
             password: data.password === "" ? null : data.password,
         }
         
         Alert.alert("Success");
-        // this.props.navigation.navigate('Loading');
+        navigation.navigate('WorkloadSummary');
     };
 
     return (
@@ -123,23 +123,23 @@ export default function KubeconfigContentScreen() {
                 <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
                     <View style={{marginLeft: spacings.lg, marginBottom: spacings.xxs}}>
 
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={commonStyles.fieldsContainer}>
                             <RadioButton value="auth-unpw" color={colours.primary}/>
-                            <Text style={{marginTop: spacings.xs, fontSize: fonts.sm}}>
+                            <Text style={commonStyles.radioText}>
                                 Username and Password
                             </Text>
                         </View>
 
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={commonStyles.fieldsContainer}>
                             <RadioButton value="auth-token" color={colours.primary}/>
-                            <Text style={{marginTop: spacings.xs, fontSize: fonts.sm}}>
+                            <Text style={commonStyles.radioText}>
                                 Token
                             </Text>
                         </View>
 
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={commonStyles.fieldsContainer}>
                             <RadioButton value="auth-cert" color={colours.primary}/>
-                            <Text style={{marginTop: spacings.xs, fontSize: fonts.sm}}>
+                            <Text style={commonStyles.radioText}>
                                 Client Certificate and Key
                             </Text>
                         </View>

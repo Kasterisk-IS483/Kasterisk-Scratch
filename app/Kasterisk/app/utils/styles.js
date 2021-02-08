@@ -1,11 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { Colors } from 'react-native-paper';
 
-// export const dimensions = {
-//   fullHeight: Dimensions.get('window').height,
-//   fullWidth: Dimensions.get('window').width,
-// }
-
 export const colours = {
   primary: "#265395",
   secondary: "#CDDAED",
@@ -33,6 +28,8 @@ export const spacings = {
   xxl: 30,
 }
 
+export const cardsOuterPadding = spacings.sm;
+
 export const commonStyles = StyleSheet.create({
 
   centralise: {
@@ -57,6 +54,9 @@ export const commonStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingHorizontal: spacings.md, 
+  },  
+  fieldsContainer: {
+    flexDirection: 'row',
   },
 
   divider: {
@@ -66,33 +66,50 @@ export const commonStyles = StyleSheet.create({
     margin: spacings.sm,
   },
   heading: {
-    fontSize: fonts.lg,
     textAlign: "center",
+    fontSize: fonts.lg,
     marginBottom: spacings.lg,
-    color: 'black',
   },
   subheading: {
+    fontWeight: 'bold',
+    fontSize: fonts.md,
     paddingLeft: spacings.xl,
     paddingBottom: spacings.sm,
-    fontSize: fonts.md,
-    fontWeight: 'bold',
   },
   textInput: {
     marginHorizontal: spacings.lg,
     marginVertical: spacings.xs,
   },
+  radioText: {
+    marginTop: spacings.xs, 
+    fontSize: fonts.sm,
+  },
 
   // WorkloadCard
-  cardInfo: {
+  workloadCardInfo: {
     flex: 1,
     marginLeft: spacings.sm,
   },
-  cardInfoLeftText: {
+
+  workloadCardInfoLeftText: {
     flex: 2,
   },
-  cardInfoRightText: {
+  workloadCardInfoRightText: {
     flex: 1,
     paddingTop: spacings.sm,
+  },
+
+  // OverviewCard
+  overviewCardContent: {
+    flexDirection: 'row', 
+    alignItems: "center", 
+    marginLeft: "15%"
+  },
+  overviewCardLabel: {
+    flex: 1,
+    fontSize: fonts.xl, 
+    textAlign: "center", 
+    marginRight: "20%",
   },
 
 });
@@ -122,10 +139,10 @@ export const landscapeStyles = StyleSheet.create({
   welcomeBannerDescription: {
     position: "absolute",
     width: "50%",
-    fontSize: fonts.lg,
     left: "25%",
     top: "50%",
     textAlign: "center",
+    fontSize: fonts.lg,
   },
 
   // WorkloadSummary

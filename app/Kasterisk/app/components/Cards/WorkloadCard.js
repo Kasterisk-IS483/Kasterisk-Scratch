@@ -4,8 +4,10 @@ import { Card, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import {
+    fonts,
     colours,
     spacings,
+    cardsOuterPadding,
     commonStyles,
 } from "../../utils/styles.js";
 
@@ -20,6 +22,7 @@ export default function WorkloadCard({
     total = null,
     variableField = "", 
     variableFieldVal = "0",
+    onPress = null,
 }) {
 
     let percent;
@@ -55,7 +58,7 @@ export default function WorkloadCard({
     }
 
     return (
-        <View style={{ padding: spacings.sm }}>
+        <View style={{ padding: cardsOuterPadding }} onPress={onPress}>
             <Card elevation={10} style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,
@@ -68,8 +71,8 @@ export default function WorkloadCard({
 
                     <StatusCircle
                         borderWidth={8}
-                        percent={percent} 
                         radius={60}
+                        percent={percent} 
                         progressColor={progressColor}
                         progressShadowColor={progressShadowColor}
                         progressBgColor={progressBgColor}
@@ -77,25 +80,24 @@ export default function WorkloadCard({
                         text={statusDisplay}
                     />
 
-                    <View style={commonStyles.cardInfo}>
-                        <Title style={commonStyles.cardInfoLeftText}>{name}</Title>
+                    <View style={commonStyles.workloadCardInfo}>
+                        <Title style={{ paddingBottom: spacings.sm, fontSize: fonts.lg, fontWeight: 'bold' }}>{name}</Title>
 
-                        <Title style={commonStyles.cardInfoLeftText}>Labels:</Title>
-                        <View style={commonStyles.cardInfoLeftText}>
-                            <LabelButton text={label} />
-                        </View>
-
-                        <View style={{flexDirection: 'row'}}>
-                            <Title style={commonStyles.cardInfoLeftText}>Age:</Title>
-                            <Text style={commonStyles.cardInfoRightText}>
+                        <View style={commonStyles.fieldsContainer}>
+                            <Title style={commonStyles.workloadCardInfoLeftText}>Age:</Title>
+                            <Text style={commonStyles.workloadCardInfoRightText}>
                                 {age} {age<=1 ? "Day" : "Days"}
                             </Text>
                         </View>
 
-                        <View style={{flexDirection: 'row'}}>
-                            <Title style={commonStyles.cardInfoLeftText}>{variableField}:</Title>
-                            <Text style={commonStyles.cardInfoRightText}>{variableFieldVal}</Text>
+                        <View style={commonStyles.fieldsContainer}>
+                            <Title style={commonStyles.workloadCardInfoLeftText}>{variableField}:</Title>
+                            <Text style={commonStyles.workloadCardInfoRightText}>{variableFieldVal}</Text>
                         </View>
+
+                        <Title style={{ paddingBottom: spacings.xxs }}>Labels:</Title>
+                        <LabelButton text={label} /> 
+
                     </View>
 
                 </Card.Content>

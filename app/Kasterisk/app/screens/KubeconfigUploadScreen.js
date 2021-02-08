@@ -77,13 +77,16 @@ export default class KubeconfigUploadScreen  extends React.Component {
     };
 
     render() {
-
-        const { navigation } = this.props;
         return (
-
             <View style={commonStyles.whiteContainer}>
 
-                <Text style={{ fontSize: fonts.md, textAlign: "center", marginHorizontal: spacings.lg, paddingTop: spacings.md, paddingBottom: spacings.md }}>
+                <Text style={{ 
+                    fontSize: fonts.md, 
+                    textAlign: "center", 
+                    marginHorizontal: spacings.lg, 
+                    paddingTop: spacings.md, 
+                    paddingBottom: spacings.md,
+                }}>
                     Choose a kubeconfig with 'certificate-authority-data' or 'insecure-skip-tls-verify' set to true to proceed
                 </Text>
 
@@ -92,7 +95,10 @@ export default class KubeconfigUploadScreen  extends React.Component {
                     onPress={this.uploadFile}
                 />
 
-                <Text style={[commonStyles.subheading, { paddingTop: spacings.lg }]}>
+                <Text style={[
+                    commonStyles.subheading, 
+                    { paddingTop: spacings.lg }
+                ]}>
                     Fields required:
                 </Text>
 

@@ -20,7 +20,7 @@ const AWSLoginScreen = ({ navigation }) => {
                     checkAwsCredentials(loginState)
                 );
                 if (isValidCredentials) {
-                    navigation.navigate('Home');
+                    navigation.navigate('WorkloadSummary');
                 } else {
                     Alert.alert('Invalid Credentials', 'Please enter valid access keys and ensure you have correct permissions.');
                 }
@@ -38,7 +38,7 @@ const AWSLoginScreen = ({ navigation }) => {
                 <Text style={commonStyles.heading}>AWS Login</Text>
                 <View>
                     <TextInput
-                        onChangeText={text => setLoginState({ ...loginState, accessKeyId: text })                }
+                        onChangeText={text => setLoginState({ ...loginState, accessKeyId: text })}
                         style={commonStyles.textInput}
                         label="Access Key ID"
                         placeholder="Enter Access Key ID Here"

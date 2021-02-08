@@ -9,8 +9,8 @@ import {
 } from "../../utils/styles.js";
 
 export default function StatusCircle({ 
-    borderWidth,
     percent = 100,
+    borderWidth,
     radius,
     progressColor,
     progressShadowColor = "white",
@@ -22,7 +22,7 @@ export default function StatusCircle({
     return (
         <View style={{
             ...commonStyles.centralise,
-            paddingBottom: spacings.md,
+            paddingVertical: spacings.sm,
             paddingRight: spacings.md,
         }}>
             <ProgressCircle
