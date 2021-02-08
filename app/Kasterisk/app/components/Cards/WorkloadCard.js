@@ -14,13 +14,13 @@ import {
 import StatusCircle from "../Elements/StatusCircle";
 import LabelButton from "../Buttons/LabelButton";
 
-export default function WorkloadCard({ 
-    name = "", 
-    label = "", 
-    age = "0", 
+export default function WorkloadCard({
+    name = "",
+    label = "",
+    age = "0",
     status = "0",
     total = null,
-    variableField = "", 
+    variableField = "",
     variableFieldVal = "0",
     onPress = null,
 }) {
@@ -43,7 +43,7 @@ export default function WorkloadCard({
         progressColor = colours.green;
         progressShadowColor = colours.orange;
         progressBgColor = "white";
-        fontColor = "black" 
+        fontColor = "black"
 
     } else if (variableField == "Restarts") {
         percent = 100;
@@ -54,7 +54,7 @@ export default function WorkloadCard({
         progressColor = statusColorCode;
         progressShadowColor = statusColorCode;
         progressBgColor = statusColorCode;
-        fontColor = "white" 
+        fontColor = "white"
     }
 
     return (
@@ -72,7 +72,7 @@ export default function WorkloadCard({
                     <StatusCircle
                         borderWidth={8}
                         radius={60}
-                        percent={percent} 
+                        percent={percent}
                         progressColor={progressColor}
                         progressShadowColor={progressShadowColor}
                         progressBgColor={progressBgColor}
@@ -86,7 +86,7 @@ export default function WorkloadCard({
                         <View style={commonStyles.fieldsContainer}>
                             <Title style={commonStyles.workloadCardInfoLeftText}>Age:</Title>
                             <Text style={commonStyles.workloadCardInfoRightText}>
-                                {age} {age<=1 ? "Day" : "Days"}
+                                {age} {age <= 1 ? "Day" : "Days"}
                             </Text>
                         </View>
 
@@ -95,8 +95,36 @@ export default function WorkloadCard({
                             <Text style={commonStyles.workloadCardInfoRightText}>{variableFieldVal}</Text>
                         </View>
 
-                        <Title style={{ paddingBottom: spacings.xxs }}>Labels:</Title>
-                        <LabelButton text={label} /> 
+
+                    </View>
+
+                </Card.Content>
+
+                <Card.Content style={[commonStyles.centralise, {
+                    paddingLeft: spacings.md,
+                    flexDirection: 'row',
+                }]}>
+
+                    <View style={commonStyles.workloadCardLabelContainer}>
+                        <View style={commonStyles.workloadCardLabelOuter}>
+                            <View style={commonStyles.workloadCardLabel}>
+                                <LabelButton text="test" />
+                            </View>
+
+                            <View style={commonStyles.workloadCardLabel}>
+                                <LabelButton text="testinglongnameabcde" />
+                            </View>
+                        </View>
+
+                        <View style={commonStyles.workloadCardLabelOuter}>
+                            <View style={commonStyles.workloadCardLabel}>
+                                <LabelButton text={label} />
+                            </View>
+
+                            <View style={commonStyles.workloadCardLabel}>
+                                <LabelButton text="ab" />
+                            </View>
+                        </View>
 
                     </View>
 

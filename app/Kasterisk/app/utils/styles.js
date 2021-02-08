@@ -14,7 +14,7 @@ export const fonts = {
   sm: 16,
   md: 18,
   lg: 22,
-  xl:26,
+  xl: 26,
   xxl: 30,
 }
 
@@ -53,8 +53,8 @@ export const commonStyles = StyleSheet.create({
   dashboardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: spacings.md, 
-  },  
+    paddingHorizontal: spacings.md,
+  },
   fieldsContainer: {
     flexDirection: 'row',
   },
@@ -81,7 +81,7 @@ export const commonStyles = StyleSheet.create({
     marginVertical: spacings.xs,
   },
   radioText: {
-    marginTop: spacings.xs, 
+    marginTop: spacings.xs,
     fontSize: fonts.sm,
   },
 
@@ -98,17 +98,31 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     paddingTop: spacings.sm,
   },
+  workloadCardLabel: {
+    marginBottom: 10
+  },
+  workloadCardLabelOuter: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  },
+  workloadCardLabelContainer: {
+    flex: 1,
+    justifyContent: 'center'
+  },
 
   // OverviewCard
   overviewCardContent: {
-    flexDirection: 'row', 
-    alignItems: "center", 
+    flexDirection: 'row',
+    alignItems: "center",
     marginLeft: "15%"
   },
   overviewCardLabel: {
     flex: 1,
-    fontSize: fonts.xl, 
-    textAlign: "center", 
+    fontSize: fonts.xl,
+    textAlign: "center",
     marginRight: "20%",
   },
 

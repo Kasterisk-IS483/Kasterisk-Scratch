@@ -14,8 +14,8 @@ export default function LabelButton({ text="" }) {
       style={{ 
         borderRadius: 40,
         borderColor: colours.cta,
-        marginBottom: spacings.sm,
-        marginRight: spacings.sm,
+        marginBottom: spacings.xxs,
+        marginHorizontal: spacings.sm,
       }}
     >
         {text}
