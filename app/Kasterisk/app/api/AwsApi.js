@@ -1,5 +1,8 @@
 import { Base64 } from 'react-native-base64';
 import { sign } from 'aws-sdk';
+import {
+  saveCredentials,
+} from "../utils/constants";
 
 class AwsApi {
 
@@ -55,9 +58,13 @@ class AwsApi {
     }
   };
 
-  static fetchEksClusters = async (region, AwsCredentials) => {
+  static fetchEksClusterNames = async (region, AwsCredentials) => {
     try {
       const clusters = await this.eksFetch(region, '/clusters', AwsCredentials);
+      await saveCredentials(
+        "@awsCredentials",
+        JSON.stringify(clusters.clusters)
+      );
       return clusters.clusters;
     }
     catch (err) {
@@ -86,9 +93,10 @@ class AwsApi {
       return Promise.reject(err);
     }
   };
+
   static checkAwsCredentials = async (credentials) => {
     try {
-      const data = await AwsApi.fetchEksClusterNames('us-west-2', credentials);
+      const data = await this.fetchEksClusterNames('us-west-2', credentials);
       if (data) {
         return true;
       } else {

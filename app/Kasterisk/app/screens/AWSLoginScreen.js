@@ -4,7 +4,9 @@ import { TextInput } from "react-native-paper";
 
 import SubmitButton from "../components/Buttons/SubmitButton";
 import { commonStyles } from "../utils/styles.js";
-import { checkAwsCredentials } from "../api/AwsApi.js"
+import AwsApi from "../api/AwsApi.js";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AWSLoginScreen = ({ navigation }) => {
 
@@ -17,9 +19,12 @@ const AWSLoginScreen = ({ navigation }) => {
         if (loginState.accessKeyId !== '' && loginState.secretAccessKey !== '') {
             try {
                 const isValidCredentials = await (
-                    checkAwsCredentials(loginState)
+                    AwsApi.checkAwsCredentials(loginState)
                 );
                 if (isValidCredentials) {
+                    let a = await AsyncStorage.getItem("@awsCredentials")
+                    alert(a);
+                    console.log(a);
                     navigation.navigate('WorkloadSummary');
                 } else {
                     Alert.alert('Invalid Credentials', 'Please enter valid access keys and ensure you have correct permissions.');
