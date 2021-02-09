@@ -1,5 +1,5 @@
-import base64 from 'react-native-base64'
 import { sign } from 'aws4-react-native';
+import { Base64 } from 'js-base64';
 
 class AwsApi {
 
@@ -29,16 +29,14 @@ class AwsApi {
       
       /* Pull out signed host & path */
       const signedURL = `https://${signedQuery.host}${signedQuery.path}`;
-      console.log(signedURL);
       /* Base64 encode signed URL */
-      const encodedURL = base64.encode(signedURL);
+      const encodedURL = Base64.encodeURI(signedURL);
       /* Remove any Base64 encoding padding */
       const token = encodedURL.replace(/=+$/, '');
       /* Prepend result with required string */
       const authToken = `k8s-aws-v1.${token}`;
       return authToken;
     } catch (err) {
-      console.log(err);
       return Promise.reject(err);
     }
   };

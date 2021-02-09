@@ -31,10 +31,12 @@ const AWSLoginScreen = ({ navigation }) => {
                     loginState, region
                 );
                 if (isValidCredentials) {
-                    const b = await (AwsApi.eksFetch('ap-southeast-1', '/clusters', loginState));
-                    alert(JSON.stringify(b));
-                    const c = AwsApi.getAuthToken('asterisk',loginState, region);
-                    console.log(c);
+                    
+                    let allClusters = await (AwsApi.describeAllEksClusters(region, loginState));
+                    console.log("url : " + allClusters[0].url);
+                    const authToken = AwsApi.getAuthToken(allClusters[0].name,loginState, region);
+                    console.log("authToken : " + authToken);
+
                     navigation.navigate("WorkloadSummary");
                 } else {
                     alert("1");
