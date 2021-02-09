@@ -1,8 +1,5 @@
 import { Base64 } from 'react-native-base64';
-import { sign } from 'aws-sdk';
-import {
-  saveCredentials,
-} from "../utils/constants";
+import { sign } from 'aws4-react-native';
 
 class AwsApi {
 
@@ -61,10 +58,6 @@ class AwsApi {
   static fetchEksClusterNames = async (region, AwsCredentials) => {
     try {
       const clusters = await this.eksFetch(region, '/clusters', AwsCredentials);
-      await saveCredentials(
-        "@awsCredentials",
-        JSON.stringify(clusters.clusters)
-      );
       return clusters.clusters;
     }
     catch (err) {
@@ -74,7 +67,7 @@ class AwsApi {
 
   static describeAllEksClusters = async (region, AwsCredentials) => {
     try {
-      const clusterNameList = await this.fetchEksClusters(region, AwsCredentials);
+      const clusterNameList = await this.fetchEksClusterNames(region, AwsCredentials);
       const clusterList = await Promise.all(clusterNameList.map(async clusterName => {
         const cluster = await this.eksFetch(region, `/clusters/${clusterName}`, AwsCredentials);
         const newCluster = {
@@ -95,7 +88,7 @@ class AwsApi {
   };
   static checkAwsCredentials = async (credentials, region) => {
     try {
-      const data = await this.fetchEksClusters(region, credentials);
+      const data = await this.fetchEksClusterNames(region, credentials);
       if (data) {
         return true;
       } else {

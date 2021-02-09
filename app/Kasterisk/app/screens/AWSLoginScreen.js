@@ -6,7 +6,6 @@ import { Picker } from "@react-native-picker/picker";
 import SubmitButton from "../components/Buttons/SubmitButton";
 import { commonStyles } from "../utils/styles.js";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import AwsApi from "../api/AwsApi";
 import { AWSRegions } from "../utils/constants";
 
@@ -26,12 +25,11 @@ const AWSLoginScreen = ({ navigation }) => {
         ) {
             try {
                 const isValidCredentials = await AwsApi.checkAwsCredentials(
-                    loginState
+                    loginState, region
                 );
                 if (isValidCredentials) {
-                    let a = await AsyncStorage.getItem("@awsCredentials");
-                    alert(a);
-                    console.log(a);
+                    const b = await (AwsApi.eksFetch('ap-southeast-1', '/clusters', loginState));
+                    alert(JSON.stringify(b));
                     navigation.navigate("WorkloadSummary");
                 } else {
                     alert("1");
