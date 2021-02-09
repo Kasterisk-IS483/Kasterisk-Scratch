@@ -9,6 +9,8 @@ import { commonStyles } from "../utils/styles.js";
 
 import AwsApi from "../api/AwsApi";
 import { AWSRegions } from "../utils/constants";
+import { saveCredentials } from "./../utils/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AWSLoginScreen = ({ navigation }) => {
     const [loginState, setLoginState] = useState({
@@ -23,17 +25,60 @@ const AWSLoginScreen = ({ navigation }) => {
             loginState.accessKeyId !== "" &&
             loginState.secretAccessKey !== ""
         ) {
-            setSpinner(true)
+            setSpinner(true);
             try {
                 const isValidCredentials = await AwsApi.checkAwsCredentials(
-                    loginState, region
+                    loginState,
+                    region
                 );
                 if (isValidCredentials) {
-                    
-                    let allClusters = await (AwsApi.describeAllEksClusters(region, loginState));
-                    console.log("url : " + allClusters[0].url);
-                    const authToken = AwsApi.getAuthToken(allClusters[0].name,loginState, region);
-                    console.log("authToken : " + authToken);
+                    let allClusters = await AwsApi.describeAllEksClusters(
+                        region,
+                        loginState
+                    );
+                    let clusterData = {
+                        name: allClusters[0].name,
+                        cluster: {
+                            server: allClusters[0].url,
+                            skipTLSVerify: false,
+                        },
+                    };
+                    let userData = {
+                        name: loginState.accessKeyId,
+                        user: {
+                            awsCredentials: loginState,
+                        },
+                    };
+                    let mergeData = {
+                        clusterData: clusterData,
+                        userData: userData,
+                        authType: "aws",
+                    };
+                    let contextName = allClusters[0].name;
+                    try {
+                        await AsyncStorage.setItem(
+                            contextName,
+                            JSON.stringify(mergeData)
+                        );
+                    } catch (e) {
+                        throw new Error(
+                            'Failed to save context "' +
+                                contextName +
+                                '" data to storage'
+                        );
+                    }
+                    let contexts = [contextName];
+                    let storedContexts = await AsyncStorage.getItem(
+                        "@contexts"
+                    );
+                    if (storedContexts != null) {
+                        let contextArray = JSON.parse(storedContexts);
+                        contexts.concat(contextArray);
+                    }
+                    await Promise.all([
+                        await saveCredentials("@defaultContext", contextName),
+                        saveCredentials("@contexts", JSON.stringify(contexts)),
+                    ]);
 
                     navigation.navigate("WorkloadSummary");
                 } else {
@@ -56,7 +101,7 @@ const AWSLoginScreen = ({ navigation }) => {
                 "Please enter Access Key ID and Secret Access Key."
             );
         }
-        setSpinner(false)
+        setSpinner(false);
     };
 
     const AWSRegionList = () => {
@@ -80,10 +125,10 @@ const AWSLoginScreen = ({ navigation }) => {
     return (
         <View style={commonStyles.whiteContainer}>
             <Spinner
-                    visible={spinner}
-                    textContent={"Loading..."}
-                    textStyle={{color: '#FFF'}}
-                />
+                visible={spinner}
+                textContent={"Loading..."}
+                textStyle={{ color: "#FFF" }}
+            />
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
                 <Text style={commonStyles.heading}>AWS Login</Text>
                 <View>

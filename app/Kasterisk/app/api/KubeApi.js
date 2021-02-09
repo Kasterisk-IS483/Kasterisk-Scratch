@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Alert } from "react-native";
-import AwsApi from './AwsApi';
+import AwsApi from "./AwsApi";
 
 export async function checkServerStatus() {
     let defaultContext = await AsyncStorage.getItem("@defaultContext");
@@ -29,9 +29,11 @@ export async function checkServerStatus() {
     } catch (err) {
         throw new Error("Error retrieving auth type");
     }
-    let awsToken;
+    let token;
     if (authType == "aws") {
-        awsToken = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials)
+        token = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials);
+    } else if (authType == "token") {
+        token = "Bearer ".concat(userData.user.token);
     }
 
     Alert.alert("asd", JSON.stringify(userData));
@@ -54,9 +56,7 @@ export async function checkServerStatus() {
         username: userData.user.username ? userData.user.username : "",
         password: userData.user.password ? userData.user.password : "",
         token: userData.user.token ? userData.user.token : "",
-        Authorization: userData.user["id-token"]
-            ? "Bearer " + userData.user["id-token"]
-            : "",
+        Authorization: token ? token : "",
     });
     return response.json();
 }
