@@ -15,6 +15,7 @@ import DeploymentApi from "../api/DeploymentApi";
 import { checkServerStatus } from '../api/KubeApi'
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
+import LabelButton from "../components/Buttons/LabelButton";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -164,69 +165,106 @@ export default class WorkloadSummaryScreen extends Component {
         return <View style={commonStyles.dashboardContainer}>
           <WorkloadCard 
             name="test" 
-            label="app:hellonode" 
             age="0"
             status="4"
             total="4"
             variableField="Containers"
             variableFieldVal="echoserve"
-          />
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+            <LabelButton text="ab" />
+          </WorkloadCard>
           <WorkloadCard 
             name="test2" 
-            label="app:hellonode" 
             age="0"
             status="3"
             total="4"
             variableField="Containers"
             variableFieldVal="container"
-          />
-
+          >
+            <LabelButton text="test" />
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="testinge" />
+            <LabelButton text="ab" />
+          </WorkloadCard>
           <WorkloadCard 
             name="test3" 
-            label="app:hellonode" 
             age="0"
             status="0"
             total="2"
             variableField="Containers"
             variableFieldVal="test"
-          />
-
+          >
+            <LabelButton text="testinge" />
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="ab" />
+          </WorkloadCard>
           <WorkloadCard 
             name="test4" 
-            label="app:hellonode" 
             age="0"
             status="3"
             total="3"
             variableField="Containers"
             variableFieldVal="test2"
-          />
-
+          >
+            <LabelButton text="ab" />
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+          </WorkloadCard>
           <WorkloadCard 
             name="test5" 
-            label="app:hellonode" 
             age="0"
             status="2" 
             total="4" 
             variableField="Containers"
             variableFieldVal="test3"
-          />
-
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+          </WorkloadCard>
           <WorkloadCard 
               name="test6" 
-              label="app:hellonode" 
               age="0"
               status="1" 
               total="4" 
               variableField="Containers"
               variableFieldVal="test4"
-            />
-        </View>;
+            >
+              <LabelButton text="app:hellonode" />
+              <LabelButton text="test" />
+              <LabelButton text="testinge" />
+              <LabelButton text="abcde" />
+            </WorkloadCard>
+          </View>;
 
       case 'third':
         return <View style={commonStyles.dashboardContainer}>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
+            age="0"
+            status="Running" 
+            variableField="Restarts"
+            variableFieldVal="0"
+          >
+            <LabelButton text="app:hellonode" />
+          </WorkloadCard>
+          <WorkloadCard 
+            name="hello-node" 
+            age="0"
+            status="Running" 
+            variableField="Restarts"
+            variableFieldVal="0"
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+          </WorkloadCard>
+          <WorkloadCard 
+            name="hello-node" 
             age="0"
             status="Running" 
             variableField="Restarts"
@@ -234,92 +272,93 @@ export default class WorkloadSummaryScreen extends Component {
           />
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Running" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Running" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+            <LabelButton text="abcde" />
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Running" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+            <LabelButton text="abcde" />
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
-            age="0"
-            status="Running" 
-            variableField="Restarts"
-            variableFieldVal="0"
-          />
-          <WorkloadCard 
-            name="hello-node" 
-            label="app:hellonode" 
-            age="0"
-            status="Running" 
-            variableField="Restarts"
-            variableFieldVal="0"
-          />
-          <WorkloadCard 
-            name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+            <LabelButton text="app:hellonode" />
+            <LabelButton text="test" />
+            <LabelButton text="testinge" />
+            <LabelButton text="abcde" />
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
-          <WorkloadCard 
+          >
+          </WorkloadCard>
+            <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node" 
-            label="app:hellonode" 
             age="0"
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          />
+          >
+          </WorkloadCard>
         </View>;
 
       case 'fourth':
@@ -332,7 +371,8 @@ export default class WorkloadSummaryScreen extends Component {
             total="4"
             variableField="Containers"
             variableFieldVal="echoserve"
-          />
+            >
+          </WorkloadCard>
           <WorkloadCard 
             name="test" 
             label="app:hellonode" 
@@ -341,7 +381,8 @@ export default class WorkloadSummaryScreen extends Component {
             total="4"
             variableField="Containers"
             variableFieldVal="container"
-          />
+          >
+          </WorkloadCard>
           <WorkloadCard 
             name="test" 
             label="app:hellonode" 
@@ -350,7 +391,8 @@ export default class WorkloadSummaryScreen extends Component {
             total="2"
             variableField="Containers"
             variableFieldVal="test"
-          />
+          >
+          </WorkloadCard>
           <WorkloadCard 
             name="hello-node2" 
             label="app:hellonode" 
@@ -359,7 +401,8 @@ export default class WorkloadSummaryScreen extends Component {
             total="3"
             variableField="Containers"
             variableFieldVal="test2"
-          />
+          >
+          </WorkloadCard>
           <WorkloadCard 
             name="test" 
             label="app:hellonode" 
@@ -368,7 +411,8 @@ export default class WorkloadSummaryScreen extends Component {
             total="4" 
             variableField="Containers"
             variableFieldVal="test3"
-          />
+          >
+          </WorkloadCard>
         </View>;
 
       default:
@@ -380,10 +424,10 @@ export default class WorkloadSummaryScreen extends Component {
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
         <Spinner
-                    visible={this.state.spinner}
-                    textContent={"Loading..."}
-                    textStyle={{color: '#FFF'}}
-                />
+            visible={this.state.spinner}
+            textContent={"Loading..."}
+            textStyle={{ color: '#FFF' }}
+        />
         <TabView
           navigationState={this.state}
           onIndexChange={this._handleIndexChange}

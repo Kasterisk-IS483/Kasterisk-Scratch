@@ -94,11 +94,6 @@ export const commonStyles = StyleSheet.create({
   },
 
   // WorkloadCard
-  workloadCardInfo: {
-    flex: 1,
-    marginLeft: spacings.sm,
-  },
-
   workloadCardInfoLeftText: {
     flex: 2,
   },

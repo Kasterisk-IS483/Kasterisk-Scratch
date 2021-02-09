@@ -12,18 +12,8 @@ import {
 } from "../../utils/styles.js";
 
 import StatusCircle from "../Elements/StatusCircle";
-import LabelButton from "../Buttons/LabelButton";
 
-export default function WorkloadCard({
-    name = "",
-    label = "",
-    age = "0",
-    status = "0",
-    total = null,
-    variableField = "",
-    variableFieldVal = "0",
-    onPress = null,
-}) {
+export default function WorkloadCard(props) {
 
     let percent;
     let statusCondition;
@@ -34,10 +24,10 @@ export default function WorkloadCard({
     let progressBgColor;
     let fontColor;
 
-    if (variableField == "Containers") {
-        percent = status / total * 100;    // healthReady / healthTotal * 100
+    if (props.variableField == "Containers") {
+        percent = props.status / props.total * 100;    // healthReady / healthTotal * 100
         statusCondition = percent == 100;
-        statusDisplay = status + "/" + total;
+        statusDisplay = props.status + "/" + props.total;
         statusColorCode = statusCondition ? colours.green : colours.orange;
 
         progressColor = colours.green;
@@ -45,9 +35,9 @@ export default function WorkloadCard({
         progressBgColor = "white";
         fontColor = "black"
 
-    } else if (variableField == "Restarts") {
+    } else if (props.variableField == "Restarts") {
         percent = 100;
-        statusCondition = status.toLowerCase() == "running";
+        statusCondition = props.status.toLowerCase() == "running";
         statusDisplay = statusCondition ? "Running" : "Pending";
         statusColorCode = statusCondition ? colours.green : colours.orange;
 
@@ -58,7 +48,11 @@ export default function WorkloadCard({
     }
 
     return (
-        <View style={{ padding: cardsOuterPadding }} onPress={onPress}>
+        <View style={{ 
+                flexGrow: 1,
+                flexDirection: 'row', 
+                padding: cardsOuterPadding, 
+            }} onPress={props.onPress}>
             <Card elevation={10} style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,
@@ -80,31 +74,38 @@ export default function WorkloadCard({
                         text={statusDisplay}
                     />
 
-                    <View style={commonStyles.workloadCardInfo}>
-                        <Title style={{ paddingBottom: spacings.sm, fontSize: fonts.lg, fontWeight: 'bold' }}>{name}</Title>
+                    <View style={{    
+                        flex: 1,
+                        marginLeft: spacings.sm,
+                        marginBottom: spacings.sm,
+                        justifyContent: 'center',
+                    }}>
+                        <Title style={{
+                            paddingBottom: spacings.sm, 
+                            fontSize: fonts.lg, 
+                            fontWeight: 'bold',
+                        }}>
+                            {props.name}
+                        </Title>
 
                         <View style={commonStyles.fieldsContainer}>
                             <Title style={commonStyles.workloadCardInfoLeftText}>Age:</Title>
                             <Text style={commonStyles.workloadCardInfoRightText}>
-                                {age} {age <= 1 ? "Day" : "Days"}
+                                {props.age} {props.age <= 1 ? "Day" : "Days"}
                             </Text>
                         </View>
 
                         <View style={commonStyles.fieldsContainer}>
-                            <Title style={commonStyles.workloadCardInfoLeftText}>{variableField}:</Title>
-                            <Text style={commonStyles.workloadCardInfoRightText}>{variableFieldVal}</Text>
+                            <Title style={commonStyles.workloadCardInfoLeftText}>{props.variableField}:</Title>
+                            <Text style={commonStyles.workloadCardInfoRightText}>{props.variableFieldVal}</Text>
                         </View>
-
 
                     </View>
 
                 </Card.Content>
 
                 <Card.Content style={commonStyles.workloadCardLabelContainer}>
-                    <LabelButton text={label} />
-                    <LabelButton text="test" />
-                    <LabelButton text="testinge" />
-                    <LabelButton text="ab" />
+                    {props.children}
                 </Card.Content>
             </Card>
         </View>
