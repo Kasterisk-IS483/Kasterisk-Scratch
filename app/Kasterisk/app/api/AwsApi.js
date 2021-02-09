@@ -74,7 +74,7 @@ class AwsApi {
 
   static describeAllEksClusters = async (region, AwsCredentials) => {
     try {
-      const clusterNameList = await this.fetchEksClusterNames(region, AwsCredentials);
+      const clusterNameList = await this.fetchEksClusters(region, AwsCredentials);
       const clusterList = await Promise.all(clusterNameList.map(async clusterName => {
         const cluster = await this.eksFetch(region, `/clusters/${clusterName}`, AwsCredentials);
         const newCluster = {
@@ -93,10 +93,9 @@ class AwsApi {
       return Promise.reject(err);
     }
   };
-
-  static checkAwsCredentials = async (credentials) => {
+  static checkAwsCredentials = async (credentials, region) => {
     try {
-      const data = await this.fetchEksClusterNames('us-west-2', credentials);
+      const data = await this.fetchEksClusters(region, credentials);
       if (data) {
         return true;
       } else {
