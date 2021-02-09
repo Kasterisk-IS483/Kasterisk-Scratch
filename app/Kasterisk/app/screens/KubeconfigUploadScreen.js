@@ -69,10 +69,9 @@ export default class KubeconfigUploadScreen extends React.Component {
             spinner: true
         })
         try {
-            await saveToLocal(this.k8s.getClusters(), this.k8s.getUsers());
+            await saveToLocal(this.k8s.getClusters(), this.k8s.getUsers(), this.k8s.getContexts());
             this.props.navigation.navigate("WorkloadSummary");
         } catch (err) {
-            
             Alert.alert("File Submission Failed", err.message);
         }
         this.setState({

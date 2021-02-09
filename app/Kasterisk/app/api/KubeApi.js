@@ -1,19 +1,19 @@
-import { LexRuntime } from "aws-sdk";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Alert } from "react-native";
+import AwsApi from './AwsApi';
 
 export async function checkServerStatus() {
-    let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-    if (defaultCluster == null) {
+    let defaultContext = await AsyncStorage.getItem("@defaultContext");
+    if (defaultContext == null) {
         throw new Error("Default cluster not assigned");
     }
-    let mergeData = await AsyncStorage.getItem(defaultCluster);
+    let mergeData = await AsyncStorage.getItem(defaultContext);
     if (mergeData == null) {
         throw new Error("Default cluster not found");
     }
     mergeData = JSON.parse(mergeData);
-    let clusterData, userData;
+    let clusterData, userData, authType;
     try {
         clusterData = mergeData["clusterData"];
     } catch (err) {
@@ -24,8 +24,17 @@ export async function checkServerStatus() {
     } catch (err) {
         throw new Error("Error retrieving user info");
     }
+    try {
+        authType = mergeData["authType"];
+    } catch (err) {
+        throw new Error("Error retrieving auth type");
+    }
+    let awsToken;
+    if (authType == "aws") {
+        awsToken = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials)
+    }
 
-    Alert.alert("asd", JSON.stringify(clusterData));
+    Alert.alert("asd", JSON.stringify(userData));
     let serverUrl =
         clusterData.cluster.server.replace(/^"+|"+$/gm, "") + "/livez";
     const response = await RNFetchBlob.config({

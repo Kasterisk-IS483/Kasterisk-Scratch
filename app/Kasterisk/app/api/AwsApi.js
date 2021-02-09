@@ -1,5 +1,6 @@
 import base64 from 'react-native-base64'
 import { sign } from 'aws4-react-native';
+import { Alert } from 'react-native';
 
 class AwsApi {
 

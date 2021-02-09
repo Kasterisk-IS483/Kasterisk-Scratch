@@ -1,12 +1,12 @@
-import * as fs from 'fs';
-import * as _ from 'underscore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as fs from "fs";
+import * as _ from "underscore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { saveCredentials } from "../../utils/constants";
-import { Alert } from 'react-native';
+import { Alert } from "react-native";
 
 export enum ActionOnInvalid {
-    THROW = 'throw',
-    FILTER = 'filter',
+    THROW = "throw",
+    FILTER = "filter",
 }
 
 export interface ConfigOptions {
@@ -25,8 +25,6 @@ export interface Cluster {
     caFile?: string;
     readonly server: string;
     readonly skipTLSVerify: boolean;
-
-
 }
 
 export function newClusters(a: any, opts?: Partial<ConfigOptions>): Cluster[] {
@@ -47,7 +45,9 @@ export function exportCluster(cluster: Cluster): any {
     };
 }
 
-function clusterIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, Cluster | null> {
+function clusterIterator(
+    onInvalidEntry: ActionOnInvalid
+): _.ListIterator<any, Cluster | null> {
     return (elt: any, i: number, list: _.List<any>): Cluster | null => {
         try {
             if (!elt.name) {
@@ -59,15 +59,23 @@ function clusterIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, C
             if (!elt.cluster.server) {
                 throw new Error(`clusters[${i}].cluster.server is missing`);
             }
-            if ((!elt.cluster['certificate-authority-data']) && ((!elt.cluster['insecure-skip-tls-verify']) || elt.cluster['insecure-skip-tls-verify'] === false)) {
-                throw new Error(`clusters[${i}].cluster has missing certificate authority data or TLS is set to true`)
+            if (
+                !elt.cluster["certificate-authority-data"] &&
+                (!elt.cluster["insecure-skip-tls-verify"] ||
+                    elt.cluster["insecure-skip-tls-verify"] === false)
+            ) {
+                throw new Error(
+                    `clusters[${i}].cluster has missing certificate authority data or TLS is set to true`
+                );
             }
             return {
-                caData: elt.cluster['certificate-authority-data'],
-                caFile: elt.cluster['certificate-authority'],
+                caData: elt.cluster["certificate-authority-data"],
+                caFile: elt.cluster["certificate-authority"],
                 name: elt.name,
                 server: elt.cluster.server,
-                skipTLSVerify: elt.cluster['insecure-skip-tls-verify'] ? elt.cluster['insecure-skip-tls-verify'] : true,
+                skipTLSVerify: elt.cluster["insecure-skip-tls-verify"]
+                    ? elt.cluster["insecure-skip-tls-verify"]
+                    : true,
             };
         } catch (err) {
             switch (onInvalidEntry) {
@@ -104,12 +112,12 @@ export function exportUser(user: User): any {
     return {
         name: user.name,
         user: {
-            'auth-provider': user.authProvider,
+            "auth-provider": user.authProvider,
             clientCertificateData: user.certData,
-            'client-certificate': user.certFile,
+            "client-certificate": user.certFile,
             exec: user.exec,
             clientKeyData: user.keyData,
-            'client-key': user.keyFile,
+            "client-key": user.keyFile,
             token: user.token,
             password: user.password,
             username: user.username,
@@ -117,19 +125,21 @@ export function exportUser(user: User): any {
     };
 }
 
-function userIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, User | null> {
+function userIterator(
+    onInvalidEntry: ActionOnInvalid
+): _.ListIterator<any, User | null> {
     return (elt: any, i: number, list: _.List<any>): User | null => {
         try {
             if (!elt.name) {
                 throw new Error(`users[${i}].name is missing`);
             }
             return {
-                authProvider: elt.user ? elt.user['auth-provider'] : null,
-                certData: elt.user ? elt.user['client-certificate-data'] : null,
-                certFile: elt.user ? elt.user['client-certificate'] : null,
+                authProvider: elt.user ? elt.user["auth-provider"] : null,
+                certData: elt.user ? elt.user["client-certificate-data"] : null,
+                certFile: elt.user ? elt.user["client-certificate"] : null,
                 exec: elt.user ? elt.user.exec : null,
-                keyData: elt.user ? elt.user['client-key-data'] : null,
-                keyFile: elt.user ? elt.user['client-key'] : null,
+                keyData: elt.user ? elt.user["client-key-data"] : null,
+                keyFile: elt.user ? elt.user["client-key"] : null,
                 name: elt.name,
                 token: findToken(elt.user),
                 password: elt.user ? elt.user.password : null,
@@ -175,7 +185,9 @@ export function exportContext(ctx: Context): any {
     };
 }
 
-function contextIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, Context | null> {
+function contextIterator(
+    onInvalidEntry: ActionOnInvalid
+): _.ListIterator<any, Context | null> {
     return (elt: any, i: number, list: _.List<any>): Context | null => {
         try {
             if (!elt.name) {
@@ -205,60 +217,80 @@ function contextIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, C
     };
 }
 
-export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<void> {
-    var clusters = [];
-    for (const aCluster of cluster) {
-        let clusterName = "@".concat(aCluster.name)
-        let clusterData = exportCluster(aCluster)
-        for (const aUser of user) {
-            let userName = "@".concat(aUser.name)
-            if (userName != clusterName) {
-                continue
+export async function saveToLocal(
+    cluster: Cluster[],
+    user: User[],
+    context: Context[]
+): Promise<void> {
+    var contexts = [];
+    for (const aContext of context) {
+        let contextName = "@".concat(aContext.name);
+        let clusterName = aContext.cluster;
+        let userName = aContext.user;
+        let mergeData, clusterData, userData, authType;
+        for (const aCluster of cluster) {
+            if (aCluster.name != clusterName) {
+                continue;
             }
-            let userData = exportUser(aUser);
-            let mergeData = {
-                clusterData: clusterData,
-                userData: userData
-            }
-            try {
-                //Saves each user's data using user name as key
-                await AsyncStorage.setItem(userName, JSON.stringify(mergeData))
-            }
-            catch (e) {
-                throw new Error("Failed to save cluster \"" + clusterName + "\" data to storage")
-            }
-            clusters.push(clusterName)
+            clusterName = "@".concat(clusterName);
+            clusterData = exportCluster(aCluster);
+            break;
         }
+        for (const aUser of user) {
+            if (aUser.name != userName) {
+                continue;
+            }
+            userName = "@".concat(userName);
+            userData = exportUser(aUser);
+            if (userData.user.clientCertificateData != null) {
+                authType = "cert"
+            } else if (userData.user.token != null) {
+                authType = "token"
+            } else {
+                authType = "username"
+            }
+            break;
+        }
+        mergeData = {
+            clusterData: clusterData,
+            userData: userData,
+            authType: authType
+        };
+        try {
+            await AsyncStorage.setItem(contextName, JSON.stringify(mergeData));
+        } catch (e) {
+            throw new Error(
+                'Failed to save context "' + contextName + '" data to storage'
+            );
+        }
+        contexts.push(contextName);
     }
-    // check if clusters exist
-    let storedClusters = await AsyncStorage.getItem("@clusters")
-    if (storedClusters != null) {
-        let clusterArray = <Array<string>> JSON.parse(storedClusters)
-        clusters.concat(clusterArray)
-        await saveCredentials("@defaultCluster", clusters[0])
-    }
-
-    //Saves all cluster names under key @clusters
-    // and all user names under key @users
     
-    await Promise.all([
-        saveCredentials("@clusters", JSON.stringify(clusters))
-    ]);
+    let storedContexts = await AsyncStorage.getItem("@contexts");
+    if (storedContexts != null) {
+        let contextArray = <Array<string>>JSON.parse(storedContexts);
+        contexts.concat(contextArray);
+        await saveCredentials("@defaultContext", contexts[0]);
+    }
+    await Promise.all([saveCredentials("@contexts", JSON.stringify(contexts))]);
 }
 
 export async function saveURLToken(): Promise<void> {
+    let clusters = JSON.parse(
+        (await AsyncStorage.getItem("@clusters")) || "{}"
+    );
+    let firstCluster = JSON.parse(
+        (await AsyncStorage.getItem(clusters[0])) || "{}"
+    );
+    let url = firstCluster["cluster"]["server"];
 
-    let clusters = JSON.parse(await AsyncStorage.getItem("@clusters") || '{}');
-    let firstCluster = JSON.parse(await AsyncStorage.getItem(clusters[0]) || '{}');
-    let url = firstCluster['cluster']['server']
-
-    let users = JSON.parse(await AsyncStorage.getItem("@users") || '{}');
-    let firstUser = JSON.parse(await AsyncStorage.getItem(users[0]) || '{}');
-    let refreshToken = firstUser['user']['auth-provider']['config']['refresh-token'];
+    let users = JSON.parse((await AsyncStorage.getItem("@users")) || "{}");
+    let firstUser = JSON.parse((await AsyncStorage.getItem(users[0])) || "{}");
+    let refreshToken =
+        firstUser["user"]["auth-provider"]["config"]["refresh-token"];
 
     await Promise.all([
-        saveCredentials("baseURL", url), 
-        saveCredentials("refreshToken",refreshToken)
+        saveCredentials("baseURL", url),
+        saveCredentials("refreshToken", refreshToken),
     ]);
-
 }

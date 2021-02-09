@@ -18,8 +18,6 @@ const AWSLoginScreen = ({ navigation }) => {
     const [region, setRegion] = useState();
     const [spinner, setSpinner] = useState(false);
 
-    let awsApi = new AwsApi();
-
     const AwsLogin = async () => {
         if (
             loginState.accessKeyId !== "" &&
