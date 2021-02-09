@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions } from "react-native";
+import { View, ScrollView, Dimensions, Alert } from "react-native";
 import { TabView, TabBar } from 'react-native-tab-view';
+import Spinner from "react-native-loading-spinner-overlay";
 
 import {
   colours,
@@ -10,7 +11,8 @@ import {
   portraitStyles,
 } from "../utils/styles.js";
 
-import DeploymentApi from "../api/DeploymentApi.js";
+import DeploymentApi from "../api/DeploymentApi";
+import { checkServerStatus } from '../api/KubeApi'
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 
@@ -28,6 +30,7 @@ export default class WorkloadSummaryScreen extends Component {
         { key: 'third', title: 'Replicaset' },
         { key: 'fourth', title: 'Pod' },
       ],
+      spinner: false
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -92,7 +95,21 @@ export default class WorkloadSummaryScreen extends Component {
   }
 
   async componentDidMount() {
-    await this.listAllTest();
+    this.setState({
+      spinner: true
+    })
+    try {
+      let serverStatus = await checkServerStatus();
+      Alert.alert("Server Status", JSON.stringify(serverStatus))
+    } catch (err) {
+      Alert.alert("Server Check Failed", err.message)
+    }
+    
+    this.setState({
+      spinner: false
+    })
+    // await this.listAllTest();
+    
   }
 
 
@@ -362,6 +379,11 @@ export default class WorkloadSummaryScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
+        <Spinner
+                    visible={this.state.spinner}
+                    textContent={"Loading..."}
+                    textStyle={{color: '#FFF'}}
+                />
         <TabView
           navigationState={this.state}
           onIndexChange={this._handleIndexChange}

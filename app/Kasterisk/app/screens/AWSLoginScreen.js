@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import SubmitButton from "../components/Buttons/SubmitButton";
 import { commonStyles } from "../utils/styles.js";
@@ -15,6 +16,7 @@ const AWSLoginScreen = ({ navigation }) => {
         secretAccessKey: "",
     });
     const [region, setRegion] = useState();
+    const [spinner, setSpinner] = useState(false);
 
     let awsApi = new AwsApi();
 
@@ -23,6 +25,7 @@ const AWSLoginScreen = ({ navigation }) => {
             loginState.accessKeyId !== "" &&
             loginState.secretAccessKey !== ""
         ) {
+            setSpinner(true)
             try {
                 const isValidCredentials = await AwsApi.checkAwsCredentials(
                     loginState, region
@@ -51,6 +54,7 @@ const AWSLoginScreen = ({ navigation }) => {
                 "Please enter Access Key ID and Secret Access Key."
             );
         }
+        setSpinner(false)
     };
 
     const AWSRegionList = () => {
@@ -73,6 +77,11 @@ const AWSLoginScreen = ({ navigation }) => {
 
     return (
         <View style={commonStyles.whiteContainer}>
+            <Spinner
+                    visible={spinner}
+                    textContent={"Loading..."}
+                    textStyle={{color: '#FFF'}}
+                />
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
                 <Text style={commonStyles.heading}>AWS Login</Text>
                 <View>

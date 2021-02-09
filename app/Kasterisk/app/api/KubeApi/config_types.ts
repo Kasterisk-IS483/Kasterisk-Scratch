@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as _ from 'underscore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { saveCredentials } from "../../utils/constants";
+import { Alert } from 'react-native';
 
 export enum ActionOnInvalid {
     THROW = 'throw',
@@ -39,9 +40,9 @@ export function exportCluster(cluster: Cluster): any {
         name: cluster.name,
         cluster: {
             server: cluster.server,
-            'certificate-authority-data': cluster.caData,
-            'certificate-authority': cluster.caFile,
-            'insecure-skip-tls-verify': cluster.skipTLSVerify,
+            certificateAuthorityData: cluster.caData,
+            caFile: cluster.caFile,
+            insecureSkipTLSVerify: cluster.skipTLSVerify,
         },
     };
 }
@@ -66,7 +67,7 @@ function clusterIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, C
                 caFile: elt.cluster['certificate-authority'],
                 name: elt.name,
                 server: elt.cluster.server,
-                skipTLSVerify: elt.cluster['insecure-skip-tls-verify'] === true,
+                skipTLSVerify: elt.cluster['insecure-skip-tls-verify'] ? elt.cluster['insecure-skip-tls-verify'] : true,
             };
         } catch (err) {
             switch (onInvalidEntry) {
@@ -104,10 +105,10 @@ export function exportUser(user: User): any {
         name: user.name,
         user: {
             'auth-provider': user.authProvider,
-            'client-certificate-data': user.certData,
+            clientCertificateData: user.certData,
             'client-certificate': user.certFile,
             exec: user.exec,
-            'client-key-data': user.keyData,
+            clientKeyData: user.keyData,
             'client-key': user.keyFile,
             token: user.token,
             password: user.password,
@@ -206,41 +207,43 @@ function contextIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, C
 
 export async function saveToLocal(cluster: Cluster[], user: User[]): Promise<void> {
     var clusters = [];
-    var users = [];
     for (const aCluster of cluster) {
         let clusterName = "@".concat(aCluster.name)
         let clusterData = exportCluster(aCluster)
-        try {
-            //Saves each cluster's data using cluster name as key
-            await AsyncStorage.setItem(clusterName, JSON.stringify(clusterData))
-            clusters.push(clusterName);
-        }
-        catch (e) {
-            throw new Error("Failed to save cluster \"" + clusterName + "\" data to storage")
+        for (const aUser of user) {
+            let userName = "@".concat(aUser.name)
+            if (userName != clusterName) {
+                continue
+            }
+            let userData = exportUser(aUser);
+            let mergeData = {
+                clusterData: clusterData,
+                userData: userData
+            }
+            try {
+                //Saves each user's data using user name as key
+                await AsyncStorage.setItem(userName, JSON.stringify(mergeData))
+            }
+            catch (e) {
+                throw new Error("Failed to save cluster \"" + clusterName + "\" data to storage")
+            }
+            clusters.push(clusterName)
         }
     }
-    for (const aUser of user) {
-        let userName = "@".concat(aUser.name)
-        let userData = exportUser(aUser)
-        try {
-            //Saves each user's data using user name as key
-            await AsyncStorage.setItem(userName, JSON.stringify(userData))
-            users.push(userName);
-        }
-        catch (e) {
-            throw new Error("Failed to save user \"" + userName + "\" data to storage")
-        }
+    // check if clusters exist
+    let storedClusters = await AsyncStorage.getItem("@clusters")
+    if (storedClusters != null) {
+        let clusterArray = <Array<string>> JSON.parse(storedClusters)
+        clusters.concat(clusterArray)
+        await saveCredentials("@defaultCluster", clusters[0])
     }
 
     //Saves all cluster names under key @clusters
     // and all user names under key @users
-    await Promise.all([
-        saveCredentials("@clusters", JSON.stringify(clusters)), 
-        saveCredentials("@users",JSON.stringify(users)
-    )]);
-
     
-
+    await Promise.all([
+        saveCredentials("@clusters", JSON.stringify(clusters))
+    ]);
 }
 
 export async function saveURLToken(): Promise<void> {
