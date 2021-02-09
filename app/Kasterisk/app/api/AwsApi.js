@@ -1,4 +1,4 @@
-import { Base64 } from 'react-native-base64';
+import base64 from 'react-native-base64'
 import { sign } from 'aws4-react-native';
 
 class AwsApi {
@@ -10,30 +10,35 @@ class AwsApi {
    *
    */
 
-  static getAuthToken = (clusterName, AwsCredentials) => {
+  static getAuthToken = (clusterName, AwsCredentials, region) => {
     /* Declare options for STS API Query */
     try {
       const queryOptions = {
-        host: 'sts.amazonaws.com',
+        host: `sts.${region}.amazonaws.com`,
         service: 'sts',
         path: '/?Action=GetCallerIdentity&Version=2011-06-15&X-Amz-Expires=60',
         headers: {
           'x-k8s-aws-id': clusterName,
         },
         signQuery: true,
+        region: region,
       };
       /* Sign STS API Query with AWS4 Signature */
+      
       const signedQuery = sign(queryOptions, AwsCredentials);
+      
       /* Pull out signed host & path */
       const signedURL = `https://${signedQuery.host}${signedQuery.path}`;
+      console.log(signedURL);
       /* Base64 encode signed URL */
-      const encodedURL = Base64.encodeURI(signedURL);
+      const encodedURL = base64.encode(signedURL);
       /* Remove any Base64 encoding padding */
       const token = encodedURL.replace(/=+$/, '');
       /* Prepend result with required string */
       const authToken = `k8s-aws-v1.${token}`;
       return authToken;
     } catch (err) {
+      console.log(err);
       return Promise.reject(err);
     }
   };

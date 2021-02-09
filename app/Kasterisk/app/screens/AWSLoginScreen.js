@@ -33,6 +33,8 @@ const AWSLoginScreen = ({ navigation }) => {
                 if (isValidCredentials) {
                     const b = await (AwsApi.eksFetch('ap-southeast-1', '/clusters', loginState));
                     alert(JSON.stringify(b));
+                    const c = AwsApi.getAuthToken('asterisk',loginState, region);
+                    console.log(c);
                     navigation.navigate("WorkloadSummary");
                 } else {
                     alert("1");
