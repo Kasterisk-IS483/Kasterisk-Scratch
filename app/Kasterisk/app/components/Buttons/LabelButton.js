@@ -11,10 +11,11 @@ export default function LabelButton({ text="" }) {
       // compact={true}
       uppercase={false}
       color={colours.cta}
+      icon="label"
       style={{ 
         borderRadius: 40,
         borderColor: colours.cta,
-        marginBottom: spacings.xxs,
+        marginBottom: spacings.md,
         marginHorizontal: spacings.sm,
       }}
     >

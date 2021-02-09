@@ -100,34 +100,11 @@ export default function WorkloadCard({
 
                 </Card.Content>
 
-                <Card.Content style={[commonStyles.centralise, {
-                    paddingLeft: spacings.md,
-                    flexDirection: 'row',
-                }]}>
-
-                    <View style={commonStyles.workloadCardLabelContainer}>
-                        <View style={commonStyles.workloadCardLabelOuter}>
-                            <View style={commonStyles.workloadCardLabel}>
-                                <LabelButton text="test" />
-                            </View>
-
-                            <View style={commonStyles.workloadCardLabel}>
-                                <LabelButton text="testinglongnameabcde" />
-                            </View>
-                        </View>
-
-                        <View style={commonStyles.workloadCardLabelOuter}>
-                            <View style={commonStyles.workloadCardLabel}>
-                                <LabelButton text={label} />
-                            </View>
-
-                            <View style={commonStyles.workloadCardLabel}>
-                                <LabelButton text="ab" />
-                            </View>
-                        </View>
-
-                    </View>
-
+                <Card.Content style={commonStyles.workloadCardLabelContainer}>
+                    <LabelButton text={label} />
+                    <LabelButton text="test" />
+                    <LabelButton text="testinge" />
+                    <LabelButton text="ab" />
                 </Card.Content>
             </Card>
         </View>

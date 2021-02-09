@@ -35,7 +35,11 @@ export default function OverviewCard({
     const statusCircleRadius = 30;
 
     return (
-        <View style={{ paddingVertical: cardsOuterPadding }}>
+        <View style={{ 
+            paddingVertical: cardsOuterPadding, 
+            borderColor: 'grey',
+            minWidth: 300,
+        }}>
             {/* <Card button={true} onPress={() => navigation.navigate(screen)}> */}
             <Card elevation={10} onPress={onPress}>
                 <Card.Cover source={image} />
@@ -75,7 +79,6 @@ export default function OverviewCard({
                             text={no2}
                         />
                         <Title style={commonStyles.overviewCardLabel}>{text2}</Title>
-
 
                     </Card.Content>
 

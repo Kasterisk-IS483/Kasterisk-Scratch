@@ -36,11 +36,20 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  scrollView: {
-    flexGrow: 1,
-    paddingVertical: spacings.md,
+  dashboardContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: spacings.md,
   },
+
+  workloadCardLabelContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: spacings.md,
+  },
+
   whiteContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -50,10 +59,9 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colours.secondary,
   },
-  dashboardContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingHorizontal: spacings.md,
+  scrollView: {
+    flexGrow: 1,
+    paddingVertical: spacings.md,
   },
   fieldsContainer: {
     flexDirection: 'row',
@@ -97,20 +105,6 @@ export const commonStyles = StyleSheet.create({
   workloadCardInfoRightText: {
     flex: 1,
     paddingTop: spacings.sm,
-  },
-  workloadCardLabel: {
-    marginBottom: 10
-  },
-  workloadCardLabelOuter: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap'
-  },
-  workloadCardLabelContainer: {
-    flex: 1,
-    justifyContent: 'center'
   },
 
   // OverviewCard

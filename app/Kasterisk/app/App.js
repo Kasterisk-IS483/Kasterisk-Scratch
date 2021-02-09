@@ -4,11 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import SplashScreen from 'react-native-splash-screen'
-import {
-  View,
-  Image,
-  SafeAreaView
-} from "react-native";
+import { View, Image, SafeAreaView } from "react-native";
 
 import { DrawerItemList } from '@react-navigation/drawer';
 import WelcomeScreen from "./screens/WelcomeScreen";
@@ -22,7 +18,8 @@ import TestScreen from "./screens/TestScreen";
 import {
   spacings,
   colours,
-  fonts
+  fonts,
+  commonStyles,
 } from "./utils/styles.js";
 
 const AuthContext = React.createContext();
@@ -43,9 +40,7 @@ function Home() {
 
   return (
     <Drawer.Navigator initialRouteName="Welcome" screenOptions={screenOptions}
-      drawerStyle={{
-        backgroundColor: "white",
-      }}
+      drawerStyle={{ backgroundColor: "white" }}
       drawerContentOptions={{
         activeTintColor: colours.primary, /* font color for active screen label */
         activeBackgroundColor: colours.secondary, /* bg color for active screen */
@@ -57,15 +52,13 @@ function Home() {
             <View
               style={{
                 height: 150,
-                alignItems: "center",
-                justifyContent: "center",
-                paddingHorizontal: spacings.sm
+                margin: spacings.sm,
+                ...commonStyles.centralise, 
               }}
             >
               <Image
                 source={require("./assets/kasterisk-logo.png")}
                 style={{
-                  alignSelf: 'center',
                   height: '40%',
                   width: '100%'
                 }}
