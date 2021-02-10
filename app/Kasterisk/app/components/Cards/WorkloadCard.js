@@ -49,7 +49,6 @@ export default function WorkloadCard(props) {
 
     return (
         <View style={{ 
-                flexGrow: 1,
                 flexDirection: 'row', 
                 padding: cardsOuterPadding, 
             }} onPress={props.onPress}>
