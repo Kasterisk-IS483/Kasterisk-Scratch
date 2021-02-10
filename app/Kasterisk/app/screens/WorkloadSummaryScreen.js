@@ -246,6 +246,60 @@ export default class WorkloadSummaryScreen extends Component {
         return <View style={commonStyles.dashboardContainer}>
           <WorkloadCard 
             name="hello-node" 
+            label="app:hellonode" 
+            age="0"
+            status="4"
+            total="4"
+            variableField="Containers"
+            variableFieldVal="echoserve"
+            >
+          </WorkloadCard>
+          <WorkloadCard 
+            name="test" 
+            label="app:hellonode" 
+            age="0"
+            status="3"
+            total="4"
+            variableField="Containers"
+            variableFieldVal="container"
+          >
+          </WorkloadCard>
+          <WorkloadCard 
+            name="test" 
+            label="app:hellonode" 
+            age="0"
+            status="0"
+            total="2"
+            variableField="Containers"
+            variableFieldVal="test"
+          >
+          </WorkloadCard>
+          <WorkloadCard 
+            name="hello-node2" 
+            label="app:hellonode" 
+            age="0"
+            status="3"
+            total="3"
+            variableField="Containers"
+            variableFieldVal="test2"
+          >
+          </WorkloadCard>
+          <WorkloadCard 
+            name="test" 
+            label="app:hellonode" 
+            age="0"
+            status="2" 
+            total="4" 
+            variableField="Containers"
+            variableFieldVal="test3"
+          >
+          </WorkloadCard>
+        </View>;
+
+      case 'fourth':
+        return <View style={commonStyles.dashboardContainer}>
+          <WorkloadCard 
+            name="hello-node" 
             age="0"
             status="Running" 
             variableField="Restarts"
@@ -357,60 +411,6 @@ export default class WorkloadSummaryScreen extends Component {
             status="Pending" 
             variableField="Restarts"
             variableFieldVal="0"
-          >
-          </WorkloadCard>
-        </View>;
-
-      case 'fourth':
-        return <View style={commonStyles.dashboardContainer}>
-          <WorkloadCard 
-            name="hello-node" 
-            label="app:hellonode" 
-            age="0"
-            status="4"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="echoserve"
-            >
-          </WorkloadCard>
-          <WorkloadCard 
-            name="test" 
-            label="app:hellonode" 
-            age="0"
-            status="3"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="container"
-          >
-          </WorkloadCard>
-          <WorkloadCard 
-            name="test" 
-            label="app:hellonode" 
-            age="0"
-            status="0"
-            total="2"
-            variableField="Containers"
-            variableFieldVal="test"
-          >
-          </WorkloadCard>
-          <WorkloadCard 
-            name="hello-node2" 
-            label="app:hellonode" 
-            age="0"
-            status="3"
-            total="3"
-            variableField="Containers"
-            variableFieldVal="test2"
-          >
-          </WorkloadCard>
-          <WorkloadCard 
-            name="test" 
-            label="app:hellonode" 
-            age="0"
-            status="2" 
-            total="4" 
-            variableField="Containers"
-            variableFieldVal="test3"
           >
           </WorkloadCard>
         </View>;
