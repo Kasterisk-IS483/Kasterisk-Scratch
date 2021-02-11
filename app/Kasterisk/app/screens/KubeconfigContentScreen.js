@@ -12,14 +12,12 @@ import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
 
-    const [checked, setChecked] = React.useState('auth-unpw');
+    const [checked, setChecked] = React.useState('auth-token');
 
     const [data, setData] = useState({
         name: '',
         server: '',
         certificate: '',
-        username: '',
-        password: '',
         token: '',
         clientCert: '',
         clientKey: '',
@@ -38,14 +36,6 @@ export default function KubeconfigContentScreen({ navigation }) {
             missingData += "\tCertificate Authority Data\n";
         }
 
-        if (checked === 'auth-unpw') {
-            if (data.username == '') {
-                missingData += "\tUsername\n";
-            }
-            if (data.password == '') {
-                missingData += "\tPassword\n";
-            }
-        } 
         if (checked === 'auth-token') {
             if (data.token == '') {
                 missingData += "\tToken\n";
@@ -82,8 +72,6 @@ export default function KubeconfigContentScreen({ navigation }) {
             keyData: data.clientKey === "" ? null : data.clientKey,
             // authProvider: any,
             token: data.token === "" ? null : data.token,
-            username: data.username === "" ? null : data.username,
-            password: data.password === "" ? null : data.password,
         }
         
         Alert.alert("Success");
@@ -124,13 +112,6 @@ export default function KubeconfigContentScreen({ navigation }) {
                     <View style={{marginLeft: spacings.lg, marginBottom: spacings.xxs}}>
 
                         <View style={commonStyles.fieldsContainer}>
-                            <RadioButton value="auth-unpw" color={colours.primary}/>
-                            <Text style={commonStyles.radioText}>
-                                Username and Password
-                            </Text>
-                        </View>
-
-                        <View style={commonStyles.fieldsContainer}>
                             <RadioButton value="auth-token" color={colours.primary}/>
                             <Text style={commonStyles.radioText}>
                                 Token
@@ -148,23 +129,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                 </RadioButton.Group>
 
                 <View>
-                    { checked === 'auth-unpw' ?
-                        <View>
-                            <TextInput
-                                onChangeText={text => setData({ ...data, username: text })}
-                                style={commonStyles.textInput}
-                                label="Username"
-                                placeholder="Enter Username Here"
-                            />
-                            <TextInput
-                                secureTextEntry={true}
-                                onChangeText={text => setData({ ...data, password: text })}
-                                style={commonStyles.textInput}
-                                label="Password"
-                                placeholder="Enter Password Here"
-                            />
-                        </View>
-                        : checked === 'auth-token' ? 
+                    { checked === 'auth-token' ? 
                         <View>
                             <TextInput
                                 secureTextEntry={true}
@@ -192,10 +157,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                     }
                 </View>
 
-                <SubmitButton 
-                    text="Submit" 
-                    onPress={() => ContentUpload()}
-                />
+                <SubmitButton text="Submit" onPress={() => ContentUpload()} />
 
             </ScrollView>
         </View>
