@@ -3,6 +3,8 @@ import { View, ScrollView, Dimensions, Alert } from "react-native";
 import { TabView, TabBar } from 'react-native-tab-view';
 import Spinner from "react-native-loading-spinner-overlay";
 
+import { checkServerStatus } from '../api/KubeApi'
+import DeploymentApi from "../api/DeploymentApi";
 import {
   colours,
   spacings,
@@ -10,9 +12,6 @@ import {
   landscapeStyles,
   portraitStyles,
 } from "../utils/styles.js";
-
-import DeploymentApi from "../api/DeploymentApi";
-import { checkServerStatus } from '../api/KubeApi'
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 import LabelButton from "../components/Buttons/LabelButton";

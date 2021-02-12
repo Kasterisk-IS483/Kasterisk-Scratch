@@ -7,7 +7,7 @@ export const colours = {
   cta: Colors.blue600,
   grey: "#DCDCDC",
   orange: '#ED952F',
-  green: "#20B408"
+  green: "#20B408",
 }
 
 export const fonts = {
@@ -36,20 +36,15 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  scrollView: {
+    flexGrow: 1,
+    marginVertical: spacings.md,
+  },
   dashboardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     paddingHorizontal: spacings.md,
   },
-
-  workloadCardLabelContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingHorizontal: spacings.md,
-  },
-
   whiteContainer: {
     flex: 1,
     backgroundColor: 'white',
@@ -59,38 +54,30 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colours.secondary,
   },
-  scrollView: {
-    flexGrow: 1,
-    paddingVertical: spacings.md,
-  },
   fieldsContainer: {
     flexDirection: 'row',
   },
 
+  formSectionHeaader: {
+    fontWeight: 'bold',
+    fontSize: fonts.md,
+    marginHorizontal: spacings.lg,
+    marginVertical: spacings.xs,
+  }, 
+  formContent: {
+    marginHorizontal: spacings.lg,
+    marginVertical: spacings.xs,
+  },
+
+  radioText: {
+    marginTop: spacings.xs,
+    fontSize: fonts.sm,
+  },
   divider: {
     borderWidth: 0.5,
     borderColor: 'white',
     width: Dimensions.get('window').width * 0.3,
     margin: spacings.sm,
-  },
-  heading: {
-    textAlign: "center",
-    fontSize: fonts.lg,
-    marginBottom: spacings.lg,
-  },
-  subheading: {
-    fontWeight: 'bold',
-    fontSize: fonts.md,
-    paddingLeft: spacings.xl,
-    paddingBottom: spacings.sm,
-  },
-  textInput: {
-    marginHorizontal: spacings.lg,
-    marginVertical: spacings.xs,
-  },
-  radioText: {
-    marginTop: spacings.xs,
-    fontSize: fonts.sm,
   },
 
   // WorkloadCard
@@ -100,6 +87,13 @@ export const commonStyles = StyleSheet.create({
   workloadCardInfoRightText: {
     flex: 1,
     paddingTop: spacings.sm,
+  },
+  workloadCardLabelContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: spacings.md,
   },
 
   // OverviewCard
@@ -157,7 +151,7 @@ export const landscapeStyles = StyleSheet.create({
   dashboardCardColumnContainer: {
     flex: 1,
     paddingHorizontal: spacings.sm,
-  }
+  },
 
 });
 

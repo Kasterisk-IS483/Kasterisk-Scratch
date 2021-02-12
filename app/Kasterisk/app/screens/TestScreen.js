@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { View, Text, ScrollView, Alert } from 'react-native'
 import { TextInput } from "react-native-paper";
 
-import ActionButton from "../components/Buttons/ActionButton";
-import { commonStyles } from "../utils/styles.js";
-import PodApi from "../api/PodApi.js";
 import DeploymentApi from "../api/DeploymentApi.js";
-//import * as SecureStore from 'expo-secure-store';
+import { commonStyles } from "../utils/styles.js";
+import ActionButton from "../components/Buttons/ActionButton";
 
 export default function TestScreen() {
 

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
-import Spinner from "react-native-loading-spinner-overlay";
 
 import { Kubeconfig } from "../api/KubeApi/config";
 import { saveToLocal, saveURLToken } from "../api/KubeApi/config_types";
+import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 import CustomButton from "../components/Buttons/CustomButton";
 import ActionButton from "../components/Buttons/ActionButton";
 import SubmitButton from "../components/Buttons/SubmitButton";
-import { fonts, spacings, commonStyles, colours } from "../utils/styles.js";
 
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");
@@ -89,8 +89,8 @@ export default class KubeconfigUploadScreen extends React.Component {
                 />
                 <Text
                     style={{
-                        fontSize: fonts.md,
                         textAlign: "center",
+                        fontSize: fonts.md,
                         marginHorizontal: spacings.lg,
                         paddingTop: spacings.md,
                         paddingBottom: spacings.md,
@@ -100,12 +100,10 @@ export default class KubeconfigUploadScreen extends React.Component {
                     'insecure-skip-tls-verify' set to true to proceed
                 </Text>
                 <ActionButton text="Select File" onPress={this.uploadFile} />
-                <Text
-                    style={[
-                        commonStyles.subheading,
-                        { paddingTop: spacings.lg },
-                    ]}
-                >
+                <Text style={[
+                    commonStyles.formSectionHeaader, { 
+                    paddingTop: spacings.lg,
+                }]}>
                     Fields required:
                 </Text>
                 <CustomButton
@@ -115,12 +113,10 @@ export default class KubeconfigUploadScreen extends React.Component {
                     align="flex-start"
                     disabled={true}
                 />
-                <Text
-                    style={[
-                        { paddingTop: spacings.xl },
-                        commonStyles.subheading,
-                    ]}
-                >
+                <Text style={[
+                    commonStyles.formSectionHeaader, { 
+                    paddingTop: spacings.xl 
+                }]}>
                     File preview:
                 </Text>
                 <ScrollView

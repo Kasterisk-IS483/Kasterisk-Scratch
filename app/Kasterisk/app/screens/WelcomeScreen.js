@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import {
   View,
   Text,
@@ -12,16 +11,14 @@ import {
   Linking,
 } from "react-native";
 
+import GoogleCloudApi from "../api/GoogleCloudApi";
+import AzureApi from "../api/AzureApi";
 import {
   commonStyles,
   landscapeStyles,
   portraitStyles,
 } from "../utils/styles.js";
-
 import CustomButton from "../components/Buttons/CustomButton";
-
-import GoogleCloudApi from "../api/GoogleCloudApi";
-import AzureApi from "../api/AzureApi";
 
 export default class WelcomeScreen extends Component {
   constructor(props) {

@@ -3,14 +3,13 @@ import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import Spinner from "react-native-loading-spinner-overlay";
-
-import SubmitButton from "../components/Buttons/SubmitButton";
-import { commonStyles } from "../utils/styles.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AwsApi from "../api/AwsApi";
 import { AWSRegions } from "../utils/constants";
 import { saveCredentials } from "./../utils/constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { colours, spacings, commonStyles } from "../utils/styles.js";
+import SubmitButton from "../components/Buttons/SubmitButton";
 
 const AWSLoginScreen = ({ navigation }) => {
     const [loginState, setLoginState] = useState({
@@ -108,7 +107,6 @@ const AWSLoginScreen = ({ navigation }) => {
         return (
             <Picker
                 selectedValue={region}
-                style={{ height: 50, width: 500 }}
                 onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}
             >
                 {AWSRegions.map((_item, _index) => (
@@ -126,31 +124,39 @@ const AWSLoginScreen = ({ navigation }) => {
         <View style={commonStyles.whiteContainer}>
             <Spinner
                 visible={spinner}
-                textContent={"Loading..."}
+                textContent="Loading..."
                 textStyle={{ color: "#FFF" }}
             />
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
-                <Text style={commonStyles.heading}>AWS Login</Text>
-                <View>
-                    <TextInput
-                        onChangeText={(text) =>
-                            setLoginState({ ...loginState, accessKeyId: text })
-                        }
-                        style={commonStyles.textInput}
-                        label="Access Key ID"
-                        placeholder="Enter Access Key ID Here"
-                    />
-                    <TextInput
-                        onChangeText={(text) =>
-                            setLoginState({
-                                ...loginState,
-                                secretAccessKey: text,
-                            })
-                        }
-                        label="Secret Access Key"
-                        style={commonStyles.textInput}
-                        placeholder="Enter Secret Access Key Here"
-                    />
+                <Text style={commonStyles.formSectionHeaader}>
+                    Access Key Information:
+                </Text>
+                <TextInput
+                    onChangeText={(text) => setLoginState({ ...loginState, accessKeyId: text })}
+                    style={commonStyles.formContent}
+                    label="Access Key ID"
+                    placeholder="Enter Access Key ID Here"
+                />
+                <TextInput
+                    onChangeText={(text) => setLoginState({ ...loginState, secretAccessKey: text })}
+                    label="Secret Access Key"
+                    style={commonStyles.formContent}
+                    placeholder="Enter Secret Access Key Here"
+                />
+
+                <Text style={[
+                    commonStyles.formSectionHeaader, { 
+                    marginHorizontal: spacings.lg, 
+                    paddingTop: spacings.lg 
+                }]}>
+                    Region Information:
+                </Text>
+                <View style={[
+                    commonStyles.formContent, { 
+                    borderWidth: 1, 
+                    borderColor: colours.grey,
+                    marginTop: spacings.md, 
+                }]}>
                     {AWSRegionList()}
                 </View>
                 <SubmitButton text="Sign In" onPress={() => AwsLogin()} />

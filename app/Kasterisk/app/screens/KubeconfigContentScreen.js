@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput, RadioButton } from "react-native-paper";
 
-import { 
-    Cluster,
-    User
-} from "../api/KubeApi/config_types";
-
+import { Cluster, User } from "../api/KubeApi/config_types";
+import { colours, spacings, commonStyles } from "../utils/styles.js";
 import SubmitButton from "../components/Buttons/SubmitButton";
-import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
 
 export default function KubeconfigContentScreen({ navigation }) {
 
@@ -82,42 +78,38 @@ export default function KubeconfigContentScreen({ navigation }) {
         <View style={commonStyles.whiteContainer}>
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
-                <Text style={commonStyles.subheading}>General Information:</Text>
+                <Text style={commonStyles.formSectionHeaader}>General Information:</Text>
 
                 <TextInput 
                     onChangeText={text => setData({ ...data, name: text })}
-                    style={commonStyles.textInput}
+                    style={commonStyles.formContent}
                     label="Cluster Name"
                     placeholder="Enter Cluster Name Here"
                 />
                 <TextInput
                     onChangeText={text => setData({ ...data, server: text })}
-                    style={commonStyles.textInput}
+                    style={commonStyles.formContent}
                     label="Server"
                     placeholder="Enter Server Address Here"
                 />
                 <TextInput
                     onChangeText={text => setData({ ...data, certificate: text })}
-                    style={commonStyles.textInput}
+                    style={commonStyles.formContent}
                     label="Certificate Authority Data"
                     placeholder="Enter Certificate Here"
                 />
 
-
-                <Text style={[ {paddingTop: spacings.xl}, commonStyles.subheading ]}>
+                <Text style={[commonStyles.formSectionHeaader, { paddingTop: spacings.sm } ]}>
                     Authentication Mode:
                 </Text>
-
                 <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
-                    <View style={{marginLeft: spacings.lg, marginBottom: spacings.xxs}}>
-
+                    <View style={{ marginLeft: spacings.lg, marginBottom: spacings.xxs }}>
                         <View style={commonStyles.fieldsContainer}>
                             <RadioButton value="auth-token" color={colours.primary}/>
                             <Text style={commonStyles.radioText}>
                                 Token
                             </Text>
                         </View>
-
                         <View style={commonStyles.fieldsContainer}>
                             <RadioButton value="auth-cert" color={colours.primary}/>
                             <Text style={commonStyles.radioText}>
@@ -134,7 +126,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                             <TextInput
                                 secureTextEntry={true}
                                 onChangeText={text => setData({ ...data, token: text })}
-                                style={commonStyles.textInput}
+                                style={commonStyles.formContent}
                                 label="Token"
                                 placeholder="Enter Token Here"
                             />                                
@@ -143,13 +135,13 @@ export default function KubeconfigContentScreen({ navigation }) {
                         <View>
                             <TextInput
                                 onChangeText={text => setData({ ...data, clientCert: text })}
-                                style={commonStyles.textInput}
+                                style={commonStyles.formContent}
                                 label="Client Certificate"
                                 placeholder="Enter Client Certificate Here"
                             />
                             <TextInput
                                 onChangeText={text => setData({ ...data, clientKey: text })}
-                                style={commonStyles.textInput}
+                                style={commonStyles.formContent}
                                 label="Client Key"
                                 placeholder="Enter Client Key Here"
                             />         
