@@ -5,6 +5,7 @@ import { TabView, TabBar } from 'react-native-tab-view';
 import Spinner from "react-native-loading-spinner-overlay";
 
 import { checkServerStatus } from '../api/KubeApi'
+import AwsApi from "../api/AwsApi";
 import DeploymentApi from "../api/DeploymentApi";
 import PodApi from "../api/PodApi";
 import {
@@ -100,6 +101,30 @@ export default class WorkloadSummaryScreen extends Component {
     try {
       let serverStatus = await checkServerStatus();
       Alert.alert("Server Status", JSON.stringify(serverStatus));
+      
+      if (serverStatus){
+        let defaultContext = await AsyncStorage.getItem("@defaultContext");
+        let contextInfo = JSON.parse(await AsyncStorage.getItem(defaultContext));
+        if (contextInfo.authType == "aws"){
+          let clusterName = contextInfo.clusterData.name;
+          let baseUrl = contextInfo.clusterData.cluster.server;
+          let region = contextInfo.userData.user.region;
+          let token = AwsApi.getAuthToken(clusterName, baseURL, region);
+          console.log("authToken : " + token);
+
+          await Promise.all([
+            saveCredentials("baseUrl", baseUrl),
+            saveCredentials("token", token),
+          ]);
+
+          let namespace1 = await (
+            DeploymentApi.listAllDeployment()
+          );
+          console.log(namespace1);
+          console.log('test');
+        }
+      }
+
       console.log(await DeploymentApi.listAllDeployment());
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);

@@ -46,6 +46,7 @@ const AWSLoginScreen = ({ navigation }) => {
                         name: loginState.accessKeyId,
                         user: {
                             awsCredentials: loginState,
+                            region: region,
                         },
                     };
                     let mergeData = {
