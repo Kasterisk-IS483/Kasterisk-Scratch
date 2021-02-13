@@ -6,9 +6,9 @@ import { urlOptions } from "../utils/constants.js";
 class CommonAPI extends Component {
     static apiFetch = async ({ apiUrl, method, body = "" }) => {
 
-        let baseURL = await AsyncStorage.getItem("baseURL");
+        let baseURL = await AsyncStorage.getItem("baseUrl");
         let callUrl = `${baseURL}${`/apis/apps/v1/deployments`}`;
-        let refreshToken = await AsyncStorage.getItem("refreshToken");
+        let token = await AsyncStorage.getItem("token");
 
         return RNFetchBlob.config({
             trusty: true,
@@ -16,15 +16,16 @@ class CommonAPI extends Component {
             method,
             callUrl,
             {
-                Authorization: `Bearer ${refreshToken}`,
+                Authorization: `Bearer ${token}`,
                 insecureSkipTLSVerify: false,
             },
             body
         ).then(response => {
             const statusCode = response.info().status;
             const data = response.json();
+            console.log(data);
             const all = JSON.stringify(response)
-            return Promise.all([statusCode, all]);
+            return data;
         })
         .catch(error => {
             console.error(error);

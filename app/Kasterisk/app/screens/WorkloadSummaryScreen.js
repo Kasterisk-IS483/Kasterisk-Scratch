@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -5,6 +6,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 import { checkServerStatus } from '../api/KubeApi'
 import DeploymentApi from "../api/DeploymentApi";
+import PodApi from "../api/PodApi";
 import {
   colours,
   spacings,
@@ -78,11 +80,11 @@ export default class WorkloadSummaryScreen extends Component {
 
   listAllTest = async () => {
     try {
+      console.log(await DeploymentApi.listAllDeployment());
       let namespace1 = await (
         DeploymentApi.listAllDeployment()
       );
       namespace1 = JSON.stringify(namespace1);
-      // alert(namespace1);
 
     } catch (err) {
       console.log(err);
@@ -90,9 +92,6 @@ export default class WorkloadSummaryScreen extends Component {
     }
   }
 
-  async test() {
-    alert(await AsyncStorage.getItem("baseURL") + " " + await AsyncStorage.getItem("refreshToken"));
-  }
 
   async componentDidMount() {
     this.setState({
@@ -100,9 +99,10 @@ export default class WorkloadSummaryScreen extends Component {
     })
     try {
       let serverStatus = await checkServerStatus();
-      Alert.alert("Server Status", JSON.stringify(serverStatus))
+      Alert.alert("Server Status", JSON.stringify(serverStatus));
+      console.log(await DeploymentApi.listAllDeployment());
     } catch (err) {
-      Alert.alert("Server Check Failed", err.message)
+      Alert.alert("Server Check Failed", err.message);
     }
     
     this.setState({
