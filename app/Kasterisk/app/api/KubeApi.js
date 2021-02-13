@@ -36,10 +36,11 @@ export async function checkServerStatus() {
         token = "Bearer ".concat(userData.user.token);
     }
 
-    Alert.alert("asd", JSON.stringify(userData));
+    // Alert.alert("asd", JSON.stringify(userData));
     let serverUrl =
         clusterData.cluster.server.replace(/^"+|"+$/gm, "") + "/livez";
-    const response = await RNFetchBlob.config({
+        
+    return RNFetchBlob.config({
         trusty: clusterData.cluster.insecureSkipTLSVerify
             ? clusterData.cluster.insecureSkipTLSVerify
             : true,
@@ -57,6 +58,16 @@ export async function checkServerStatus() {
         password: userData.user.password ? userData.user.password : "",
         token: userData.user.token ? userData.user.token : "",
         Authorization: token ? token : "",
+    }, "")
+    .then(response => {
+        const statusCode = response.info().status;
+        console.log(statusCode);
+        console.log(response.data);
+        return Promise.all([statusCode, response.data]);
+    })
+    .catch(error => {
+        console.error(error);
+        return { name: "network error", description: "API Call Failed" };
     });
-    return response.json();
+
 }
