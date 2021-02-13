@@ -47,7 +47,6 @@ export default class KubeconfigUploadScreen extends React.Component {
             // let k8s = new Kubeconfig();
             try {
                 this.k8s.loadFromFile(filecontent);
-                // await saveURLToken()
             } catch (e) {
                 Alert.alert("File Upload Failed", e.message);
                 return;

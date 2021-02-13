@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Alert } from "react-native";
 import AwsApi from "./AwsApi";
+import { saveCredentials } from "../utils/constants";
 
 export async function checkServerStatus() {
     let defaultContext = await AsyncStorage.getItem("@defaultContext");
@@ -37,9 +38,18 @@ export async function checkServerStatus() {
     }
 
     // Alert.alert("asd", JSON.stringify(userData));
+    let baseUrl =
+        clusterData.cluster.server.replace(/^"+|"+$/gm, "");
+
     let serverUrl =
-        clusterData.cluster.server.replace(/^"+|"+$/gm, "") + "/livez";
-        
+        baseUrl + "/livez";
+
+    await Promise.all([
+        saveCredentials("baseUrl", baseUrl),
+        saveCredentials("token", userData.user.token),
+    ]);    
+
+    // console.log(await AsyncStorage.getItem("baseUrl") + " " + await AsyncStorage.getItem("token"));
     return RNFetchBlob.config({
         trusty: clusterData.cluster.insecureSkipTLSVerify
             ? clusterData.cluster.insecureSkipTLSVerify
