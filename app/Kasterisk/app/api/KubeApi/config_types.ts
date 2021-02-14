@@ -270,9 +270,11 @@ export async function saveToLocal(
     if (storedContexts != null) {
         let contextArray = <Array<string>>JSON.parse(storedContexts);
         contexts.concat(contextArray);
-        await saveCredentials("@defaultContext", contexts[0]);
     }
-    await Promise.all([saveCredentials("@contexts", JSON.stringify(contexts))]);
+    await Promise.all([
+        await saveCredentials("@defaultContext", contexts[0]),
+        saveCredentials("@contexts", JSON.stringify(contexts))
+    ]);
 }
 
 // export async function saveURLToken(): Promise<void> {
