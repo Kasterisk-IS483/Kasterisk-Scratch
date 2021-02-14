@@ -127,14 +127,16 @@ export default class WorkloadSummaryScreen extends Component {
         }
       }
 
-      console.log(await DeploymentApi.listAllDeployment());
-      console.log(await WorkloadSummaryApi.totalDeployments());
+      // console.log(await DeploymentApi.listAllDeployment());
 
       // console.log(await ReplicasetApi.listAllReplicaSet());
-      // console.log(await WorkloadSummaryApi.totalReplicasets());
+      // // console.log(await WorkloadSummaryApi.totalReplicasets());
+      // console.log(await WorkloadSummaryApi.readyReplicaSets());
 
-      // console.log(await PodApi.listAllNamespace());
+      console.log(await PodApi.listAllPod());
       // console.log(await WorkloadSummaryApi.totalPods());
+      // console.log(await WorkloadSummaryApi.notReadyPods());
+
 
 
     } catch (err) {
