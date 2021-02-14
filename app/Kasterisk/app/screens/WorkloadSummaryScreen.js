@@ -7,7 +7,9 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { checkServerStatus } from '../api/KubeApi'
 import AwsApi from "../api/AwsApi";
 import DeploymentApi from "../api/DeploymentApi";
+import ReplicasetApi from "../api/ReplicasetApi";
 import PodApi from "../api/PodApi";
+import WorkloadSummaryApi from "../api/WorkloadSummaryApi";
 import {
   colours,
   spacings,
@@ -126,6 +128,15 @@ export default class WorkloadSummaryScreen extends Component {
       }
 
       console.log(await DeploymentApi.listAllDeployment());
+      console.log(await WorkloadSummaryApi.totalDeployments());
+
+      // console.log(await ReplicasetApi.listAllReplicaSet());
+      // console.log(await WorkloadSummaryApi.totalReplicasets());
+
+      // console.log(await PodApi.listAllNamespace());
+      // console.log(await WorkloadSummaryApi.totalPods());
+
+
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
