@@ -17,7 +17,7 @@ class WorkloadSummaryApi extends Component {
     }
 
     static totalPods = async () => {
-        let pods = await PodApi.listAllNamespace();
+        let pods = await PodApi.listAllPod();
         return pods.length;
     }
 

@@ -115,7 +115,7 @@ class PodApi extends Component {
      * List All Pods
      * GET /api/v1/pods
      */
-    static listAllNamespace = async () => {
+    static listAllPod = async () => {
         const podList = await CommonAPI.get(`/api/v1/pods`);
         return podList.items;
     }

@@ -7,7 +7,7 @@ class CommonAPI extends Component {
     static apiFetch = async ({ apiUrl, method, body = "" }) => {
 
         let baseURL = await AsyncStorage.getItem("baseUrl");
-        let callUrl = `${baseURL}${`/apis/apps/v1/deployments`}`;
+        let callUrl = `${baseURL}${apiUrl}`;
         let token = await AsyncStorage.getItem("token");
 
         return RNFetchBlob.config({
