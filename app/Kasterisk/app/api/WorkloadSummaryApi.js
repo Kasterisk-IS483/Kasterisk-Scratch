@@ -3,6 +3,7 @@ import CommonAPI from "./CommonApi.js";
 import DeploymentApi from "./DeploymentApi.js";
 import ReplicasetApi from "./ReplicasetApi.js";
 import PodApi from "./PodApi.js";
+import NodeApi from "./NodeApi.js";
 
 class WorkloadSummaryApi extends Component {
 
@@ -11,7 +12,7 @@ class WorkloadSummaryApi extends Component {
         return deployments.length;
     }
 
-    static totalReplicasets = async () => {
+    static totalReplicaSets = async () => {
         let replicasets = await ReplicasetApi.listAllReplicaSet();
         return replicasets.length;
     }
@@ -20,7 +21,6 @@ class WorkloadSummaryApi extends Component {
         let pods = await PodApi.listAllPod();
         return pods.length;
     }
-
 
     static readyPods = async () => {
         let pods = await PodApi.listAllPod();
@@ -53,6 +53,29 @@ class WorkloadSummaryApi extends Component {
             }
         } 
         return readyDeploymentsCnt;
+    }
+
+    static notReadyDeployments = async () => {
+        let totalDeployments = await WorkloadSummaryApi.totalDeployments();
+        let readyDeployments = await WorkloadSummaryApi.readyDeployments();
+        return totalDeployments - readyDeployments;
+    }
+
+    // static notReadyReplicaSets = async () => {
+    //     let totalReplicaSets = await WorkloadSummaryApi.totalReplicaSets();
+    //     let readyReplicaSets = await WorkloadSummaryApi.readyReplicaSets();
+    //     return totalReplicaSets - readyReplicaSets;
+    // }
+
+    // static notReadyPods = async () => {
+    //     let totalPods = await WorkloadSummaryApi.totalPods();
+    //     let readyPods = await WorkloadSummaryApi.readyPods();
+    //     return totalPods - readyPods;
+    // }
+
+    static nodesInfo = async () => {
+        let nodes = await NodeApi.listAllNode();
+        return nodes;
     }
 
 
