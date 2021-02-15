@@ -167,12 +167,12 @@ export default class WelcomeScreen extends Component {
 
             <View style={commonStyles.divider} />
 
-            {/* <CustomButton
+            <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="Test Screen"
+              text="Cluster"
               size="small"
-              onPress={() => navigation.navigate("Test")}
-            /> */}
+              onPress={() => navigation.navigate("Cluster")}
+            />
             <CustomButton
               image={require("../assets/welcome-button-kube.png")}
               text="Workload Summary"
