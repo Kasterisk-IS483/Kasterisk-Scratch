@@ -1,6 +1,6 @@
 import React from "react";
 import "react-native-gesture-handler";
-import { View, SafeAreaView, Text } from "react-native";
+import { View, SafeAreaView, Text, Alert } from "react-native";
 import { Button, List } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -17,6 +17,7 @@ class ClusterScreen extends React.Component {
   }
 
   async componentDidMount() {
+    Alert.alert("Mounted");
     let allClusters = await AsyncStorage.getItem("@clusters");
 
     if (allClusters == null) {

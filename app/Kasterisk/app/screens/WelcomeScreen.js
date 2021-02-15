@@ -19,6 +19,8 @@ import {
   portraitStyles,
 } from "../utils/styles.js";
 import CustomButton from "../components/Buttons/CustomButton";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
@@ -97,6 +99,19 @@ export default class WelcomeScreen extends Component {
       );
     }
   };
+
+  componentDidMount() {
+    this.props.navigation.dispatch(state => {
+      // Remove the home route from the stack
+      const routes = state.routes.filter(r => r.name !== 'Cluster');
+    
+      return CommonActions.reset({
+        ...state,
+        routes,
+        index: routes.length - 1,
+      });
+    });
+  }
 
 
   render() {
