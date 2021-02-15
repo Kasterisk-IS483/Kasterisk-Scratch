@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RNFetchBlob from "rn-fetch-blob";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { urlOptions } from "../utils/constants.js";
+import AwsApi from "./AwsApi";
 
 class CommonAPI extends Component {
   static apiFetch = async ({ apiUrl, method, body = "" }) => {
@@ -29,9 +30,9 @@ class CommonAPI extends Component {
     }
     let token;
     if (authType == "aws") {
-      token = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials);
+      token = AwsApi.getAuthToken(clusterData.name, userData.user.awsCredentials, userData.user.region);
     } else if (authType == "token") {
-      token = "Bearer ".concat(userData.user.token);
+      token = userData.user.token;
     }
 
     let baseUrl = clusterData.cluster.server.replace(/^"+|"+$/gm, "");
