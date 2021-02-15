@@ -1,11 +1,10 @@
-import React, { useEffect, createContext } from "react";
+import React, { useEffect } from "react";
 import "react-native-gesture-handler";
-import SplashScreen from "react-native-splash-screen";
+import SplashScreen from 'react-native-splash-screen';
 import { View, Image, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 
 import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
 import WelcomeScreen from "./screens/WelcomeScreen";
@@ -15,7 +14,8 @@ import AWSLoginScreen from "./screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
 import LoadingScreen from "./screens/LoadingScreen";
 import TestScreen from "./screens/TestScreen";
-import ClusterScreen from "./screens/ClusterScreen";
+
+const AuthContext = React.createContext();
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -26,18 +26,18 @@ const screenOptions = {
   headerTintColor: "white",
   headerStyle: { backgroundColor: colours.primary },
   headerShown: true,
-};
+}
 
-function HomeDrawer({ navigation }) {
+function Home() {
+
+
   return (
-    <Drawer.Navigator
-      initialRouteName="WorkloadSummary"
-      screenOptions={screenOptions}
+    <Drawer.Navigator initialRouteName="Welcome" screenOptions={screenOptions}
       drawerStyle={{ backgroundColor: "white" }}
       drawerContentOptions={{
-        activeTintColor: colours.primary /* font color for active screen label */,
-        activeBackgroundColor: colours.secondary /* bg color for active screen */,
-        inactiveTintColor: "black" /* Font color for inactive screens' labels */,
+        activeTintColor: colours.primary, /* font color for active screen label */
+        activeBackgroundColor: colours.secondary, /* bg color for active screen */
+        inactiveTintColor: 'black', /* Font color for inactive screens' labels */
       }}
       drawerContent={(props) => {
         return (
@@ -46,29 +46,24 @@ function HomeDrawer({ navigation }) {
               style={{
                 height: 150,
                 margin: spacings.sm,
-                ...commonStyles.centralise,
+                ...commonStyles.centralise, 
               }}
             >
               <Image
                 source={require("./assets/kasterisk-logo.png")}
                 style={{
-                  height: "40%",
-                  width: "100%",
+                  height: '40%',
+                  width: '100%'
                 }}
+
               />
             </View>
-            <DrawerItem
-              label="Change Cluster"
-              onPress={async () => {
-                await AsyncStorage.removeItem("@defaultCluster");
-                navigation.navigate("Cluster");
-              }}
-            />
             <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
           </SafeAreaView>
         );
       }}
     >
+      <Drawer.Screen name="Home" component={WelcomeScreen} options={{ headerShown: false }} />
       <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
       <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
     </Drawer.Navigator>
@@ -76,26 +71,25 @@ function HomeDrawer({ navigation }) {
 }
 
 export default function App() {
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-        <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
+      <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
 
-        <Stack.Screen name="HomeDrawer" component={HomeDrawer} options={{ headerShown: false }} />
-        <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
         {/* Welcome Screen Buttons */}
         <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
         <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
 
         {/* Misc */}
-
+        {/* <Stack.Screen name="Loading" component={LoadingScreen} options={{ title: "Loading" }} /> */}
         {/* <Stack.Screen name="Test" component={TestScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};

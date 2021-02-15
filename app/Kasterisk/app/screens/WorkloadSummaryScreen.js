@@ -101,28 +101,23 @@ export default class WorkloadSummaryScreen extends Component {
       spinner: true
     })
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", 'Default cluster not found')
-        this.setState({
-          spinner: false
-        })
-        this.props.navigation.navigate('Cluster')
-        return;
-      }
-
-      let serverStatus = await checkServerStatus(defaultCluster);
+      let serverStatus = await checkServerStatus();
+      Alert.alert("Server Status", JSON.stringify(serverStatus));
       
-      if (serverStatus[0] == 200){
-        let clusterInfo = JSON.parse(await AsyncStorage.getItem(defaultCluster));
-        let clusterName = clusterInfo.clusterData.name;
-        Alert.alert('a', JSON.stringify(clusterInfo))
-        if (clusterInfo.authType == "aws"){
-          let baseUrl = clusterInfo.clusterData.cluster.server;
-          let region = clusterInfo.userData.user.region;
-          let awsCredentials = clusterInfo.userData.user.awsCredentials;
-          let token = AwsApi.getAuthToken(clusterName, awsCredentials, region);
+      if (serverStatus){
+        let defaultContext = await AsyncStorage.getItem("@defaultContext");
+        let contextInfo = JSON.parse(await AsyncStorage.getItem(defaultContext));
+        if (contextInfo.authType == "aws"){
+          let clusterName = contextInfo.clusterData.name;
+          let baseUrl = contextInfo.clusterData.cluster.server;
+          let region = contextInfo.userData.user.region;
+          let token = AwsApi.getAuthToken(clusterName, baseURL, region);
+          console.log("authToken : " + token);
+
+          await Promise.all([
+            saveCredentials("baseUrl", baseUrl),
+            saveCredentials("token", token),
+          ]);
 
           let namespace1 = await (
             DeploymentApi.listAllDeployment()
@@ -130,8 +125,6 @@ export default class WorkloadSummaryScreen extends Component {
           console.log(namespace1);
           console.log('test');
         }
-      } else {
-        Alert.alert("Error", "Failed to contact cluster")
       }
 
       // console.log(await DeploymentApi.listAllDeployment());

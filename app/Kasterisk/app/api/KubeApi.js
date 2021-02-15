@@ -4,61 +4,80 @@ import { Alert } from "react-native";
 import AwsApi from "./AwsApi";
 import { saveCredentials } from "../utils/constants";
 
-export async function checkServerStatus(clusterKey) {
-  let mergeData = await AsyncStorage.getItem(clusterKey);
-  if (mergeData == null) {
-    throw new Error("Default cluster not found");
-  }
-  mergeData = JSON.parse(mergeData);
-  let clusterData, userData, authType;
-  try {
-    clusterData = mergeData["clusterData"];
-  } catch (err) {
-    throw new Error("Error retrieving cluster info");
-  }
-  try {
-    userData = mergeData["userData"];
-  } catch (err) {
-    throw new Error("Error retrieving user info");
-  }
-  try {
-    authType = mergeData["authType"];
-  } catch (err) {
-    throw new Error("Error retrieving auth type");
-  }
-  let token;
-  if (authType == "aws") {
-    token = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials);
-  } else if (authType == "token") {
-    token = "Bearer ".concat(userData.user.token);
-  }
+export async function checkServerStatus() {
+    let defaultContext = await AsyncStorage.getItem("@defaultContext");
+    if (defaultContext == null) {
+        throw new Error("Default cluster not assigned");
+    }
+    let mergeData = await AsyncStorage.getItem(defaultContext);
+    if (mergeData == null) {
+        throw new Error("Default cluster not found");
+    }
+    mergeData = JSON.parse(mergeData);
+    let clusterData, userData, authType;
+    try {
+        clusterData = mergeData["clusterData"];
+    } catch (err) {
+        throw new Error("Error retrieving cluster info");
+    }
+    try {
+        userData = mergeData["userData"];
+    } catch (err) {
+        throw new Error("Error retrieving user info");
+    }
+    try {
+        authType = mergeData["authType"];
+    } catch (err) {
+        throw new Error("Error retrieving auth type");
+    }
+    let token;
+    if (authType == "aws") {
+        token = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials);
+    } else if (authType == "token") {
+        token = "Bearer ".concat(userData.user.token);
+    }
 
-  let baseUrl = clusterData.cluster.server.replace(/^"+|"+$/gm, "");
+    // Alert.alert("asd", JSON.stringify(userData));
+    let baseUrl =
+        clusterData.cluster.server.replace(/^"+|"+$/gm, "");
 
-  let serverUrl = baseUrl + "/livez";
+    let serverUrl =
+        baseUrl + "/livez";
 
-  return RNFetchBlob.config({
-    trusty: clusterData.cluster.insecureSkipTLSVerify ? clusterData.cluster.insecureSkipTLSVerify : true,
-  })
-    .fetch(
-      "GET",
-      serverUrl,
-      {
-        certificateAuthorityData: clusterData.cluster.certificateAuthorityData ? clusterData.cluster.certificateAuthorityData : "",
-        clientCertificateData: userData.user.clientCertificateData ? userData.user.clientCertificateData : "",
-        clientKeyData: userData.user.clientKeyData ? userData.user.clientKeyData : "",
+    await Promise.all([
+        saveCredentials("baseUrl", baseUrl),
+        saveCredentials("token", userData.user.token),
+    ]);    
+
+    // console.log(await AsyncStorage.getItem("baseUrl") + " " + await AsyncStorage.getItem("token"));
+    return RNFetchBlob.config({
+        trusty: clusterData.cluster.insecureSkipTLSVerify
+            ? clusterData.cluster.insecureSkipTLSVerify
+            : true,
+    }).fetch("GET", serverUrl, {
+        certificateAuthorityData: clusterData.cluster.certificateAuthorityData
+            ? clusterData.cluster.certificateAuthorityData
+            : "",
+        clientCertificateData: userData.user.clientCertificateData
+            ? userData.user.clientCertificateData
+            : "",
+        clientKeyData: userData.user.clientKeyData
+            ? userData.user.clientKeyData
+            : "",
         username: userData.user.username ? userData.user.username : "",
         password: userData.user.password ? userData.user.password : "",
         token: userData.user.token ? userData.user.token : "",
         Authorization: token ? token : "",
-      }
-    )
-    .then((response) => {
-      const statusCode = response.info().status;
-      return Promise.all([statusCode, response.data]);
+    }, "")
+    .then(response => {
+        const statusCode = response.info().status;
+        console.log(statusCode);
+        console.log(response.data);
+        return Promise.all([statusCode, response.data]);
     })
-    .catch((error) => {
-      console.error(error);
-      return { name: "network error", description: "API Call Failed" };
+    .catch(error => {
+        console.error(error);
+        return { name: "network error", description: "API Call Failed" };
     });
+
 }
