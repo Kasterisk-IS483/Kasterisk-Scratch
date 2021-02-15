@@ -21,7 +21,7 @@ class ClusterScreen extends React.Component {
 
     if (allClusters == null) {
       this.setState({ spinner: false });
-      this.props.navigation.navigate("App", { screen: "Add Cluster" });
+      this.props.navigation.navigate("Add Cluster");
       return;
     }
     let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
