@@ -79,7 +79,5 @@ class WorkloadSummaryApi extends Component {
     }
 
 
-
-
 }
 export default WorkloadSummaryApi;

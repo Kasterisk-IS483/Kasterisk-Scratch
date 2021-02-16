@@ -7,11 +7,15 @@ import AwsApi from "./AwsApi";
 class CommonAPI extends Component {
   static apiFetch = async ({ apiUrl, method, body = "" }) => {
 
-    let mergeData = await AsyncStorage.getItem('@defaultCluster');
-    if (mergeData == null) {
+    let defaultCluster = await AsyncStorage.getItem('@defaultCluster');
+    if (defaultCluster == null) {
       throw new Error("Default cluster not found");
     }
+    let mergeData = await AsyncStorage.getItem(defaultCluster);
+    console.log(mergeData);
+    
     mergeData = JSON.parse(mergeData);
+
     let clusterData, userData, authType;
     try {
       clusterData = mergeData["clusterData"];
