@@ -39,6 +39,9 @@ function HomeDrawer({ navigation }) {
         activeBackgroundColor: colours.secondary /* bg color for active screen */,
         inactiveTintColor: "black" /* Font color for inactive screens' labels */,
       }}
+      contentOptions={{
+        labelStyle: fonts.md
+      }}
       drawerContent={(props) => {
         return (
           <SafeAreaView style={{ flex: 1 }}>
@@ -58,13 +61,14 @@ function HomeDrawer({ navigation }) {
               />
             </View>
             <DrawerItem
+              labelStyle={{ fontSize: fonts.md, color:"black" }}
               label="Change Cluster"
               onPress={async () => {
                 await AsyncStorage.removeItem("@defaultCluster");
                 navigation.navigate("Cluster");
               }}
             />
-            <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
+            <DrawerItemList {...props}  labelStyle={{ fontSize: fonts.md}}/>
           </SafeAreaView>
         );
       }}
