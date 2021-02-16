@@ -12,7 +12,6 @@ class CommonAPI extends Component {
       throw new Error("Default cluster not found");
     }
     let mergeData = await AsyncStorage.getItem(defaultCluster);
-    console.log(mergeData);
     
     mergeData = JSON.parse(mergeData);
 
@@ -58,7 +57,7 @@ class CommonAPI extends Component {
       .then((response) => {
         const statusCode = response.info().status;
         const data = response.json();
-        console.log(data);
+        // console.log(data);
         const all = JSON.stringify(response);
         return data;
       })

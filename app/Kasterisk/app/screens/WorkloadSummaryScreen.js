@@ -102,6 +102,7 @@ export default class WorkloadSummaryScreen extends Component {
     })
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      console.log(defaultCluster);
 
       if (defaultCluster == null) {
         Alert.alert("Error", 'Default cluster not found')
@@ -113,38 +114,34 @@ export default class WorkloadSummaryScreen extends Component {
       }
 
       let serverStatus = await checkServerStatus(defaultCluster);
-      
+      console.log(serverStatus);
       if (serverStatus[0] == 200){
         let clusterInfo = JSON.parse(await AsyncStorage.getItem(defaultCluster));
         let clusterName = clusterInfo.clusterData.name;
-        Alert.alert('a', JSON.stringify(clusterInfo))
+        // Alert.alert('a', JSON.stringify(clusterInfo))
         if (clusterInfo.authType == "aws"){
           let baseUrl = clusterInfo.clusterData.cluster.server;
           let region = clusterInfo.userData.user.region;
           let awsCredentials = clusterInfo.userData.user.awsCredentials;
           let token = AwsApi.getAuthToken(clusterName, awsCredentials, region);
-
-          let namespace1 = await (
-            DeploymentApi.listAllDeployment()
-          );
-          console.log(namespace1);
-          console.log('test');
         }
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
 
       // console.log(await DeploymentApi.listAllDeployment());
+      // console.log(await WorkloadSummaryApi.readyDeployments());
+      // console.log(await WorkloadSummaryApi.notReadyDeployments());
 
       // console.log(await ReplicasetApi.listAllReplicaSet());
-      // // console.log(await WorkloadSummaryApi.totalReplicasets());
       // console.log(await WorkloadSummaryApi.readyReplicaSets());
+      // console.log(await WorkloadSummaryApi.notReadyReplicaSets());
 
-      console.log(await PodApi.listAllPod());
-      // console.log(await WorkloadSummaryApi.totalPods());
+      // console.log(await PodApi.listAllPod());
+      // console.log(await WorkloadSummaryApi.readyPods());
       // console.log(await WorkloadSummaryApi.notReadyPods());
 
-
+      // console.log(await WorkloadSummaryApi.nodesInfo());
 
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);

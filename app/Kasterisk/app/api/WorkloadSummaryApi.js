@@ -7,6 +7,7 @@ import NodeApi from "./NodeApi.js";
 
 class WorkloadSummaryApi extends Component {
 
+    /** TOTAL **/
     static totalDeployments = async () => {
         let deployments = await DeploymentApi.listAllDeployment();
         return deployments.length;
@@ -22,10 +23,11 @@ class WorkloadSummaryApi extends Component {
         return pods.length;
     }
 
+    /** READY **/
     static readyPods = async () => {
         let pods = await PodApi.listAllPod();
         let readyPodsCnt = 0;
-        for (i = 0; i < deployments.length; i++) {
+        for (i = 0; i < pods.length; i++) {
             if(pods[i].status.phase == "Running"){
                 readyPodsCnt+=1;
             }
@@ -55,24 +57,26 @@ class WorkloadSummaryApi extends Component {
         return readyDeploymentsCnt;
     }
 
+    /** NOT READY **/
     static notReadyDeployments = async () => {
         let totalDeployments = await WorkloadSummaryApi.totalDeployments();
         let readyDeployments = await WorkloadSummaryApi.readyDeployments();
         return totalDeployments - readyDeployments;
     }
 
-    // static notReadyReplicaSets = async () => {
-    //     let totalReplicaSets = await WorkloadSummaryApi.totalReplicaSets();
-    //     let readyReplicaSets = await WorkloadSummaryApi.readyReplicaSets();
-    //     return totalReplicaSets - readyReplicaSets;
-    // }
+    static notReadyReplicaSets = async () => {
+        let totalReplicaSets = await WorkloadSummaryApi.totalReplicaSets();
+        let readyReplicaSets = await WorkloadSummaryApi.readyReplicaSets();
+        return totalReplicaSets - readyReplicaSets;
+    }
 
-    // static notReadyPods = async () => {
-    //     let totalPods = await WorkloadSummaryApi.totalPods();
-    //     let readyPods = await WorkloadSummaryApi.readyPods();
-    //     return totalPods - readyPods;
-    // }
+    static notReadyPods = async () => {
+        let totalPods = await WorkloadSummaryApi.totalPods();
+        let readyPods = await WorkloadSummaryApi.readyPods();
+        return totalPods - readyPods;
+    }
 
+    /** NODE INFO **/
     static nodesInfo = async () => {
         let nodes = await NodeApi.listAllNode();
         return nodes;
