@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import moment from 'moment';
+
 import CommonAPI from "./CommonApi.js";
 import DeploymentApi from "./DeploymentApi.js";
 import ReplicasetApi from "./ReplicasetApi.js";
@@ -81,6 +83,37 @@ class WorkloadSummaryApi extends Component {
         let nodes = await NodeApi.listAllNode();
         return nodes;
     }
+
+    static calculateAge = async (creationDT) => {
+        var current = new Date();
+        // To calculate the time difference of two dates 
+        let differenceInTime = current.getTime() - creationDT.getTime(); 
+        // To calculate the no. of days between two dates 
+        let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+        return differenceInDays;
+    }
+
+    /** DEPLOYMENT INFO **/
+    static deploymentsInfo = async () => {
+        let deploymentsInfo = [];
+        let deployments = await DeploymentApi.listAllDeployment();
+        
+        for (const deployment of deployments){
+            let creationDT = new Date(deployment.metadata.creationTimestamp);
+            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let deploymentInfo = {
+                name: deployment.metadata.name,
+                age: Math.floor(difference),
+                labels: deployment.metadata.labels,
+                containers: 'test',
+                status: deployment.status.readyReplicas,
+                total: deployment.status.replicas,
+            };
+            deploymentsInfo.push(deploymentInfo);
+        }
+        return deploymentsInfo;
+    }
+
 
 
 }
