@@ -108,7 +108,7 @@ class WorkloadSummaryApi extends Component {
         return differenceInDays;
     }
 
-    /** DEPLOYMENT INFO **/
+    /** DEPLOYMENT TAB INFO **/
     static deploymentsInfo = async () => {
         let deploymentsInfo = [];
         let deployments = await DeploymentApi.listAllDeployment();
@@ -127,6 +127,27 @@ class WorkloadSummaryApi extends Component {
             deploymentsInfo.push(deploymentInfo);
         }
         return deploymentsInfo;
+    }
+
+    /** REPLICASET TAB INFO **/
+    static replicasetsInfo = async () => {
+        let replicasetsInfo = [];
+        let replicasets = await ReplicasetApi.listAllReplicaSet();
+        
+        for (const replicaset of replicasets){
+            let creationDT = new Date(replicaset.metadata.creationTimestamp);
+            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let replicasetInfo = {
+                name: replicaset.metadata.name,
+                age: Math.floor(difference),
+                labels: replicaset.metadata.labels,
+                containers: 'test',
+                status: replicaset.status.readyReplicas,
+                total: replicaset.status.replicas,
+            };
+            replicasetsInfo.push(replicasetInfo);
+        }
+        return replicasetsInfo;
     }
 
     /** POD TAB INFO **/

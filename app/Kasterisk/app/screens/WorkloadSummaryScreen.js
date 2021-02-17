@@ -6,8 +6,6 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { Picker } from "@react-native-picker/picker";
 
 import { checkServerStatus } from '../api/KubeApi'
-import AwsApi from "../api/AwsApi";
-import { AWSRegions } from "../utils/constants";
 import DeploymentApi from "../api/DeploymentApi";
 import ReplicasetApi from "../api/ReplicasetApi";
 import PodApi from "../api/PodApi";
@@ -47,6 +45,9 @@ export default class WorkloadSummaryScreen extends Component {
       notReadyReplicaSets: 0,
       readyPods: 0,
       notReadyPods: 0,
+      deploymentsInfo: [],
+      replicasetsInfo: [],
+      podsInfo: [],
     };
     this.updateState = this.updateState.bind(this);
     Dimensions.addEventListener("change", (e) => {
@@ -54,8 +55,13 @@ export default class WorkloadSummaryScreen extends Component {
     });
   }
 
-  updateState(value) {
-    this.setState({namespace: value});
+  updateState(stateKey, value) {
+    if (stateKey == "namespace"){
+      this.setState({ namespace: value });
+    }
+    else if (stateKey == "deploymentsInfo"){
+      this.setState({ deploymentsInfo: value });
+    }
   }
 
   getOrientation() {
@@ -81,7 +87,7 @@ export default class WorkloadSummaryScreen extends Component {
   NamespaceList() {
     return (
       <Picker 
-        selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState(itemValue)} >
+        selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState("namespace", itemValue)} >
         {this.state.namespaceLabels.map((_item, _index) => (
           <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
         ))}
@@ -149,11 +155,12 @@ export default class WorkloadSummaryScreen extends Component {
           readyReplicaSets: await WorkloadSummaryApi.readyReplicaSets(),
           notReadyReplicaSets: await WorkloadSummaryApi.notReadyReplicaSets(),
           readyPods: await WorkloadSummaryApi.readyPods(),
-          notReadyPods: await WorkloadSummaryApi.notReadyPods()
+          notReadyPods: await WorkloadSummaryApi.notReadyPods(),
+          deploymentsInfo: await WorkloadSummaryApi.deploymentsInfo(),
+          replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(),
+          podsInfo: await WorkloadSummaryApi.podInfoList(),
         })
 
-        console.log(await WorkloadSummaryApi.deploymentsInfo());
-        
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
@@ -184,26 +191,67 @@ export default class WorkloadSummaryScreen extends Component {
   }
 
   DeploymentTab = () => {
-
-    let views = [];
-    for (var i = 0; i < 2; i++) {
-      views.push(<WorkloadCard 
-        name="test" 
-        age="0"
-        status="4"
-        total="4"
+    return (
+    this.state.deploymentsInfo.map((item, index) => (
+      <WorkloadCard 
+        key={index}
+        name={item.name}
+        age={item.age}
+        status={item.status}
+        total={item.total}
         variableField="Containers"
         variableFieldVal="echoserve"
       >
-        <LabelButton text="app:hellonode" />
-        <LabelButton text="test" />
-        <LabelButton text="testinge" />
-        <LabelButton text="ab" />
-      </WorkloadCard>
-      );
-    };
-    return views;
+      {Object.keys(item.labels).map((labelItem, labelIndex) => (
+        <LabelButton 
+          key={labelIndex}
+          text={labelItem + ":"+ item.labels[labelItem]} />
+        ))}
+      </WorkloadCard>))
+    )
   };
+
+  ReplicasetTab = () => {
+    return (
+      this.state.replicasetsInfo.map((item, index) => (
+        <WorkloadCard 
+          key={index}
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          total={item.total}
+          variableField="Containers"
+          variableFieldVal="echoserve"
+        >
+        {Object.keys(item.labels).map((labelItem, labelIndex) => (
+          <LabelButton 
+            key={labelIndex}
+            text={labelItem + ":"+ item.labels[labelItem]} />
+          ))}
+        </WorkloadCard>))
+    )
+  };
+
+  PodTab = () => {
+    return (
+      this.state.podsInfo.map((item, index) => (
+        <WorkloadCard 
+          key={index}
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          variableField="Restarts"
+          variableFieldVal={item.restarts}
+        >
+        {Object.keys(item.labels).map((labelItem, labelIndex) => (
+          <LabelButton 
+            key={labelIndex}
+            text={labelItem + ":"+ item.labels[labelItem]} />
+          ))}
+        </WorkloadCard>))
+    )
+  };
+
 
 
   _handleIndexChange = index => this.setState({ index });
@@ -279,257 +327,17 @@ export default class WorkloadSummaryScreen extends Component {
 
       case 'second':
         return <View style={commonStyles.dashboardContainer}>
-          <WorkloadCard
-            name="test"
-            age="0"
-            status="4"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="echoserve"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-            <LabelButton text="ab" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="test2"
-            age="0"
-            status="3"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="container"
-          >
-            <LabelButton text="test" />
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="testinge" />
-            <LabelButton text="ab" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="test3"
-            age="0"
-            status="0"
-            total="2"
-            variableField="Containers"
-            variableFieldVal="test"
-          >
-            <LabelButton text="testinge" />
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="ab" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="test4"
-            age="0"
-            status="3"
-            total="3"
-            variableField="Containers"
-            variableFieldVal="test2"
-          >
-            <LabelButton text="ab" />
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="test5"
-            age="0"
-            status="2"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="test3"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="test6"
-            age="0"
-            status="1"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="test4"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-            <LabelButton text="abcde" />
-          </WorkloadCard>
           {this.DeploymentTab()}
         </View>;
 
       case 'third':
         return <View style={commonStyles.dashboardContainer}>
-          <WorkloadCard
-            name="hello-node"
-            label="app:hellonode"
-            age="0"
-            status="4"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="echoserve"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="test"
-            label="app:hellonode"
-            age="0"
-            status="3"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="container"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="test"
-            label="app:hellonode"
-            age="0"
-            status="0"
-            total="2"
-            variableField="Containers"
-            variableFieldVal="test"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node2"
-            label="app:hellonode"
-            age="0"
-            status="3"
-            total="3"
-            variableField="Containers"
-            variableFieldVal="test2"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="test"
-            label="app:hellonode"
-            age="0"
-            status="2"
-            total="4"
-            variableField="Containers"
-            variableFieldVal="test3"
-          >
-          </WorkloadCard>
+          {this.ReplicasetTab()}
         </View>;
 
       case 'fourth':
         return <View style={commonStyles.dashboardContainer}>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Running"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Running"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Running"
-            variableField="Restarts"
-            variableFieldVal="0"
-          />
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Running"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Running"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-            <LabelButton text="abcde" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Running"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-            <LabelButton text="abcde" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Pending"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Pending"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-            <LabelButton text="app:hellonode" />
-            <LabelButton text="test" />
-            <LabelButton text="testinge" />
-            <LabelButton text="abcde" />
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Pending"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Pending"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Pending"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-          </WorkloadCard>
-          <WorkloadCard
-            name="hello-node"
-            age="0"
-            status="Pending"
-            variableField="Restarts"
-            variableFieldVal="0"
-          >
-          </WorkloadCard>
+          {this.PodTab()}
         </View>;
 
       default:
