@@ -39,14 +39,24 @@ export default class WorkloadSummaryScreen extends Component {
         { key: 'fourth', title: 'Pod' },
       ],
       spinner: false,
-      region: ""
+      namespaceLabels: [],
+      namespace: "",
+      readyDeployments: 0,
+      notReadyDeployments: 0,
+      readyReplicaSets: 0,
+      notReadyReplicaSets: 0,
+      readyPods: 0,
+      notReadyPods: 0,
     };
+    this.updateState = this.updateState.bind(this);
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
     });
   }
 
-
+  updateState(value) {
+    this.setState({namespace: value});
+  }
 
   getOrientation() {
     if (Dimensions.get("window").width > Dimensions.get("window").height) {
@@ -71,8 +81,8 @@ export default class WorkloadSummaryScreen extends Component {
   NamespaceList() {
     return (
       <Picker 
-        selectedValue={this.region} onValueChange={(itemValue, itemIndex) => setRegion(itemValue)} >
-        {AWSRegions.map((_item, _index) => (
+        selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState(itemValue)} >
+        {this.state.namespaceLabels.map((_item, _index) => (
           <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
         ))}
       </Picker>
@@ -132,15 +142,18 @@ export default class WorkloadSummaryScreen extends Component {
       let serverStatus = await checkServerStatus(defaultCluster);
       console.log(serverStatus);
       if (serverStatus[0] == 200){
-        let clusterInfo = JSON.parse(await AsyncStorage.getItem(defaultCluster));
-        let clusterName = clusterInfo.clusterData.name;
-        // Alert.alert('a', JSON.stringify(clusterInfo))
-        if (clusterInfo.authType == "aws"){
-          let baseUrl = clusterInfo.clusterData.cluster.server;
-          let region = clusterInfo.userData.user.region;
-          let awsCredentials = clusterInfo.userData.user.awsCredentials;
-          let token = AwsApi.getAuthToken(clusterName, awsCredentials, region);
-        }
+        this.setState({
+          namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
+          readyDeployments: await WorkloadSummaryApi.readyDeployments(),
+          notReadyDeployments: await WorkloadSummaryApi.notReadyDeployments(),
+          readyReplicaSets: await WorkloadSummaryApi.readyReplicaSets(),
+          notReadyReplicaSets: await WorkloadSummaryApi.notReadyReplicaSets(),
+          readyPods: await WorkloadSummaryApi.readyPods(),
+          notReadyPods: await WorkloadSummaryApi.notReadyPods()
+        })
+
+        console.log(await WorkloadSummaryApi.deploymentsInfo());
+        
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
@@ -169,6 +182,28 @@ export default class WorkloadSummaryScreen extends Component {
     // await this.listAllTest();
 
   }
+
+  DeploymentTab = () => {
+
+    let views = [];
+    for (var i = 0; i < 2; i++) {
+      views.push(<WorkloadCard 
+        name="test" 
+        age="0"
+        status="4"
+        total="4"
+        variableField="Containers"
+        variableFieldVal="echoserve"
+      >
+        <LabelButton text="app:hellonode" />
+        <LabelButton text="test" />
+        <LabelButton text="testinge" />
+        <LabelButton text="ab" />
+      </WorkloadCard>
+      );
+    };
+    return views;
+  };
 
 
   _handleIndexChange = index => this.setState({ index });
@@ -216,8 +251,8 @@ export default class WorkloadSummaryScreen extends Component {
                 name="Deployment"
                 text1="Ready"
                 text2="Not Ready"
-                no1="2"
-                no2="0"
+                no1={this.state.readyDeployments}
+                no2={this.state.notReadyDeployments}
               />
             </View>
             <View style={this.getStyle().dashboardCardColumnContainer}>
@@ -226,8 +261,8 @@ export default class WorkloadSummaryScreen extends Component {
                 name="ReplicaSet"
                 text1="Ready"
                 text2="Not Ready"
-                no1="2"
-                no2="1"
+                no1={this.state.readyReplicaSets}
+                no2={this.state.notReadyReplicaSets}
               />
             </View>
             <View style={this.getStyle().dashboardCardColumnContainer}>
@@ -236,8 +271,8 @@ export default class WorkloadSummaryScreen extends Component {
                 name="Pod"
                 text1="Running"
                 text2="Pending"
-                no1="3"
-                no2="1"
+                no1={this.state.readyPods}
+                no2={this.state.notReadyPods}
               />
             </View>
           </View></View>;
@@ -321,6 +356,7 @@ export default class WorkloadSummaryScreen extends Component {
             <LabelButton text="testinge" />
             <LabelButton text="abcde" />
           </WorkloadCard>
+          {this.DeploymentTab()}
         </View>;
 
       case 'third':

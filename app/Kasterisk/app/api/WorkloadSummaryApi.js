@@ -1,12 +1,27 @@
 import React, { Component } from "react";
 
 import CommonAPI from "./CommonApi.js";
+import NamespaceApi from "./NamespaceApi.js";
 import DeploymentApi from "./DeploymentApi.js";
 import ReplicasetApi from "./ReplicasetApi.js";
 import PodApi from "./PodApi.js";
 import NodeApi from "./NodeApi.js";
 
 class WorkloadSummaryApi extends Component {
+
+    /** NAMESPACES **/
+    static namespaceLabels = async () => {
+        let namespaces = await NamespaceApi.listAllNamespace();
+        const namespaceLabels = [];
+        for (const namespace of namespaces){
+            let namespaceLabel = {
+                label: namespace.metadata.name,
+                value: namespace.metadata.name
+            }
+            namespaceLabels.push(namespaceLabel);
+        }
+        return namespaceLabels;
+    }
 
     /** TOTAL **/
     static totalDeployments = async () => {
@@ -83,6 +98,7 @@ class WorkloadSummaryApi extends Component {
         return nodes;
     }
 
+    /** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/
     static calculateAge = async (creationDT) => {
         var current = new Date();
         // To calculate the time difference of two dates 
