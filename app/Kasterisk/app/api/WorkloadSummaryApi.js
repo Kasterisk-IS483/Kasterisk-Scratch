@@ -129,7 +129,32 @@ class WorkloadSummaryApi extends Component {
         return deploymentsInfo;
     }
 
+    /** POD TAB INFO **/
+    static podInfoList = async () => {
+        let pods = await PodApi.listAllPod();
+        var podInfoList = [];
+        
+        for (const pod of pods){
+            let creationDT = new Date(pod.metadata.creationTimestamp);
+            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let podInfo = {
+                name: pod.metadata.name,
+                age: Math.floor(difference),
+                status: pod.status.phase,
+                restarts: pod.status.containerStatuses[0].restartCount,
+                labels: pod.metadata.labels,
+            };
+            podInfoList.push(podInfo);
+        } 
+        return podInfoList;
+    }
 
+
+// // Array of Objects in form {element: {id: 10, quantity: 10} }
+// var element = {}, cart = [];
+// element.id = id;
+// element.quantity = quantity;
+// cart.push({element: element});
 
 }
 export default WorkloadSummaryApi;
