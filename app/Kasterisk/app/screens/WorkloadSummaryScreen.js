@@ -39,12 +39,18 @@ export default class WorkloadSummaryScreen extends Component {
       spinner: false,
       namespaceLabels: [],
       namespace: "",
-      readyDeployments: 0,
-      notReadyDeployments: 0,
-      readyReplicaSets: 0,
-      notReadyReplicaSets: 0,
-      readyPods: 0,
-      notReadyPods: 0,
+      deploymentSummary: {
+        readyDeployments: 0,
+        notReadyDeployments: 0,
+      },
+      replicasetSummary: {
+        readyReplicaSets: 0,
+        notReadyReplicaSets: 0,
+      },
+      podSummary: {
+        readyPods: 0,
+        notReadyPods: 0,
+      },
       deploymentsInfo: [],
       replicasetsInfo: [],
       podsInfo: [],
@@ -150,17 +156,13 @@ export default class WorkloadSummaryScreen extends Component {
       if (serverStatus[0] == 200){
         this.setState({
           namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
-          readyDeployments: await WorkloadSummaryApi.readyDeployments(),
-          notReadyDeployments: await WorkloadSummaryApi.notReadyDeployments(),
-          readyReplicaSets: await WorkloadSummaryApi.readyReplicaSets(),
-          notReadyReplicaSets: await WorkloadSummaryApi.notReadyReplicaSets(),
-          readyPods: await WorkloadSummaryApi.readyPods(),
-          notReadyPods: await WorkloadSummaryApi.notReadyPods(),
+          deploymentSummary: await WorkloadSummaryApi.deploymentSummary(),
+          replicasetSummary: await WorkloadSummaryApi.replicasetSummary(),
+          podSummary: await WorkloadSummaryApi.podSummary(),
           deploymentsInfo: await WorkloadSummaryApi.deploymentsInfo(),
           replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(),
           podsInfo: await WorkloadSummaryApi.podInfoList(),
         })
-
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
@@ -252,8 +254,6 @@ export default class WorkloadSummaryScreen extends Component {
     )
   };
 
-
-
   _handleIndexChange = index => this.setState({ index });
   _renderTabBar = props => {
     return (
@@ -299,8 +299,8 @@ export default class WorkloadSummaryScreen extends Component {
                 name="Deployment"
                 text1="Ready"
                 text2="Not Ready"
-                no1={this.state.readyDeployments}
-                no2={this.state.notReadyDeployments}
+                no1={this.state.deploymentSummary.readyDeployments}
+                no2={this.state.deploymentSummary.notReadyDeployments}
               />
             </View>
             <View style={this.getStyle().dashboardCardColumnContainer}>
@@ -309,8 +309,8 @@ export default class WorkloadSummaryScreen extends Component {
                 name="ReplicaSet"
                 text1="Ready"
                 text2="Not Ready"
-                no1={this.state.readyReplicaSets}
-                no2={this.state.notReadyReplicaSets}
+                no1={this.state.replicasetSummary.readyReplicaSets}
+                no2={this.state.replicasetSummary.notReadyReplicaSets}
               />
             </View>
             <View style={this.getStyle().dashboardCardColumnContainer}>
@@ -319,8 +319,8 @@ export default class WorkloadSummaryScreen extends Component {
                 name="Pod"
                 text1="Running"
                 text2="Pending"
-                no1={this.state.readyPods}
-                no2={this.state.notReadyPods}
+                no1={this.state.podSummary.readyPods}
+                no2={this.state.podSummary.notReadyPods}
               />
             </View>
           </View></View>;
