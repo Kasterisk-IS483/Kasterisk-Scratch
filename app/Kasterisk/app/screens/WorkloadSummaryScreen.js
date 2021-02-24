@@ -61,9 +61,17 @@ export default class WorkloadSummaryScreen extends Component {
     });
   }
 
-  updateState(stateKey, value) {
+  async updateState(stateKey, value) {
     if (stateKey == "namespace"){
-      this.setState({ namespace: value });
+      let deployments = await WorkloadSummaryApi.deploymentSummary(value);
+      let replicaSets = await WorkloadSummaryApi.replicasetSummary(value);
+      let pods = await WorkloadSummaryApi.podSummary(value);
+      this.setState({
+        namespace: value,
+        deploymentSummary: deployments,
+        replicasetSummary: replicaSets,
+        podSummary: pods,
+      })
     }
     else if (stateKey == "deploymentsInfo"){
       this.setState({ deploymentsInfo: value });
@@ -94,12 +102,14 @@ export default class WorkloadSummaryScreen extends Component {
     return (
       <Picker 
         selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState("namespace", itemValue)} >
+        {console.log(this.state)}
         {this.state.namespaceLabels.map((_item, _index) => (
           <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
         ))}
       </Picker>
     );
   };
+
   //state = { credentials: [] };
 
   // async getGoogle(){
@@ -118,20 +128,6 @@ export default class WorkloadSummaryScreen extends Component {
   //   let response = await this.getGoogle()
   //     this.setState({credentials : response});
   // }
-
-  listAllTest = async () => {
-    try {
-      console.log(await DeploymentApi.listAllDeployment());
-      let namespace1 = await (
-        DeploymentApi.listAllDeployment()
-      );
-      namespace1 = JSON.stringify(namespace1);
-
-    } catch (err) {
-      console.log(err);
-      Alert.alert('Invalid Credentials', err.message);
-    }
-  }
 
 
   async componentDidMount() {
@@ -167,19 +163,7 @@ export default class WorkloadSummaryScreen extends Component {
         Alert.alert("Error", "Failed to contact cluster")
       }
 
-      // console.log(await DeploymentApi.listAllDeployment());
-      // console.log(await WorkloadSummaryApi.readyDeployments());
-      // console.log(await WorkloadSummaryApi.notReadyDeployments());
-
-      // console.log(await ReplicasetApi.listAllReplicaSet());
-      // console.log(await WorkloadSummaryApi.readyReplicaSets());
-      // console.log(await WorkloadSummaryApi.notReadyReplicaSets());
-
-      // console.log(await PodApi.listAllPod());
-      // console.log(await WorkloadSummaryApi.readyPods());
-      // console.log(await WorkloadSummaryApi.notReadyPods());
-
-      // console.log(await WorkloadSummaryApi.nodesInfo());
+      console.log(await ReplicasetApi.listAllReplicaSet());
 
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);

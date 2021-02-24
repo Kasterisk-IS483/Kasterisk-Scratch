@@ -13,6 +13,10 @@ class WorkloadSummaryApi extends Component {
     static namespaceLabels = async () => {
         let namespaces = await NamespaceApi.listAllNamespace();
         const namespaceLabels = [];
+        namespaceLabels.push({
+            label: "",
+            value: ""
+        });
         for (const namespace of namespaces){
             let namespaceLabel = {
                 label: namespace.metadata.name,
@@ -56,8 +60,41 @@ class WorkloadSummaryApi extends Component {
         }
     }
 
+    static deploymentSummary = async (namespace) => {
+        let deployments = await DeploymentApi.listDeployment(namespace);
+        let totalDeployments = deployments.length;
+        let readyDeploymentsCnt = 0;
+        for (i = 0; i < deployments.length; i++) {
+            if(deployments[i].status.readyReplicas == deployments[i].status.replicas){
+                readyDeploymentsCnt+=1;
+            }
+        }
+        let notReadyDeploymentsCnt = totalDeployments - readyDeploymentsCnt;
+        return {
+            readyDeployments: readyDeploymentsCnt,
+            notReadyDeployments: notReadyDeploymentsCnt
+        }
+    }
+
     static replicasetSummary = async () => {
         let replicasets = await ReplicasetApi.listAllReplicaSet();
+        let totalReplicaSets = replicasets.length;
+        console.log(totalReplicaSets);
+        let readyReplicaSetsCnt = 0;
+        for (var i = 0; i < replicasets.length; i++) {
+            if(replicasets[i].status.readyReplicas == replicasets[i].status.replicas){
+                readyReplicaSetsCnt+=1;
+            }
+        } 
+        let notReadyReplicaSetsCnt = totalReplicaSets - readyReplicaSetsCnt;
+        return {
+            readyReplicaSets: readyReplicaSetsCnt,
+            notReadyReplicaSets: notReadyReplicaSetsCnt
+        }
+    }
+
+    static replicasetSummary = async (namespace) => {
+        let replicasets = await ReplicasetApi.listReplicaSet(namespace);
         let totalReplicaSets = replicasets.length;
         let readyReplicaSetsCnt = 0;
         for (var i = 0; i < replicasets.length; i++) {
@@ -74,6 +111,23 @@ class WorkloadSummaryApi extends Component {
 
     static podSummary = async () => {
         let pods = await PodApi.listAllPod();
+        let totalPods = pods.length;
+        let readyPodsCnt = 0;
+        for (i = 0; i < pods.length; i++) {
+            if(pods[i].status.phase == "Running"){
+                readyPodsCnt+=1;
+            }
+        } 
+        let notReadyPodsCnt = totalPods - readyPodsCnt;
+        return {
+            readyPods: readyPodsCnt,
+            notReadyPods: notReadyPodsCnt
+        }
+    }
+
+    static podSummary = async (namespace) => {
+        let pods = await PodApi.listPod(namespace);
+        console.log(pods);
         let totalPods = pods.length;
         let readyPodsCnt = 0;
         for (i = 0; i < pods.length; i++) {
