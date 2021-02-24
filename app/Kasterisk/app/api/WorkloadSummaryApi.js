@@ -127,7 +127,6 @@ class WorkloadSummaryApi extends Component {
 
     static podSummary = async (namespace) => {
         let pods = await PodApi.listPod(namespace);
-        console.log(pods);
         let totalPods = pods.length;
         let readyPodsCnt = 0;
         for (i = 0; i < pods.length; i++) {
@@ -179,6 +178,26 @@ class WorkloadSummaryApi extends Component {
         return deploymentsInfo;
     }
 
+    static deploymentsInfo = async (namespace) => {
+        let deploymentsInfo = [];
+        let deployments = await DeploymentApi.listDeployment(namespace);
+        
+        for (const deployment of deployments){
+            let creationDT = new Date(deployment.metadata.creationTimestamp);
+            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let deploymentInfo = {
+                name: deployment.metadata.name,
+                age: Math.floor(difference),
+                labels: deployment.metadata.labels,
+                containers: 'test',
+                status: deployment.status.readyReplicas,
+                total: deployment.status.replicas,
+            };
+            deploymentsInfo.push(deploymentInfo);
+        }
+        return deploymentsInfo;
+    }
+
     /** REPLICASET TAB INFO **/
     static replicasetsInfo = async () => {
         let replicasetsInfo = [];
@@ -200,9 +219,48 @@ class WorkloadSummaryApi extends Component {
         return replicasetsInfo;
     }
 
+    static replicasetsInfo = async (namespace) => {
+        let replicasetsInfo = [];
+        let replicasets = await ReplicasetApi.listReplicaSet(namespace);
+        
+        for (const replicaset of replicasets){
+            let creationDT = new Date(replicaset.metadata.creationTimestamp);
+            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let replicasetInfo = {
+                name: replicaset.metadata.name,
+                age: Math.floor(difference),
+                labels: replicaset.metadata.labels,
+                containers: 'test',
+                status: replicaset.status.readyReplicas,
+                total: replicaset.status.replicas,
+            };
+            replicasetsInfo.push(replicasetInfo);
+        }
+        return replicasetsInfo;
+    }
+
     /** POD TAB INFO **/
     static podInfoList = async () => {
         let pods = await PodApi.listAllPod();
+        var podInfoList = [];
+        
+        for (const pod of pods){
+            let creationDT = new Date(pod.metadata.creationTimestamp);
+            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let podInfo = {
+                name: pod.metadata.name,
+                age: Math.floor(difference),
+                status: pod.status.phase,
+                restarts: pod.status.containerStatuses[0].restartCount,
+                labels: pod.metadata.labels,
+            };
+            podInfoList.push(podInfo);
+        } 
+        return podInfoList;
+    }
+
+    static podInfoList = async (namespace) => {
+        let pods = await PodApi.listPod(namespace);
         var podInfoList = [];
         
         for (const pod of pods){

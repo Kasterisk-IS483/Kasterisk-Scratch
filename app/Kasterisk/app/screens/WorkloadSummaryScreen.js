@@ -66,11 +66,17 @@ export default class WorkloadSummaryScreen extends Component {
       let deployments = await WorkloadSummaryApi.deploymentSummary(value);
       let replicaSets = await WorkloadSummaryApi.replicasetSummary(value);
       let pods = await WorkloadSummaryApi.podSummary(value);
+      let deploymentsInfo = await WorkloadSummaryApi.deploymentsInfo(value);
+      let replicasetsInfo = await WorkloadSummaryApi.replicasetsInfo(value);
+      let podsInfo =  await WorkloadSummaryApi.podInfoList(value);
       this.setState({
         namespace: value,
         deploymentSummary: deployments,
         replicasetSummary: replicaSets,
         podSummary: pods,
+        deploymentsInfo: deploymentsInfo,
+        replicasetsInfo: replicasetsInfo,
+        podsInfo: podsInfo
       })
     }
     else if (stateKey == "deploymentsInfo"){
@@ -102,7 +108,7 @@ export default class WorkloadSummaryScreen extends Component {
     return (
       <Picker 
         selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState("namespace", itemValue)} >
-        {console.log(this.state)}
+        {/* {console.log(this.state)} */}
         {this.state.namespaceLabels.map((_item, _index) => (
           <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
         ))}
