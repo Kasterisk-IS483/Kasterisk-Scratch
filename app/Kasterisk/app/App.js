@@ -97,8 +97,7 @@ export default function App() {
         <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
 
         {/* Misc */}
-
-        {/* <Stack.Screen name="Test" component={TestScreen} /> */}
+        <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
