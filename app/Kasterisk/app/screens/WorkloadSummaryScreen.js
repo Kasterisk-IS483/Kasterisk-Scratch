@@ -68,7 +68,7 @@ export default class WorkloadSummaryScreen extends Component {
       let pods = await WorkloadSummaryApi.podSummary(value);
       let deploymentsInfo = await WorkloadSummaryApi.deploymentsInfo(value);
       let replicasetsInfo = await WorkloadSummaryApi.replicasetsInfo(value);
-      let podsInfo =  await WorkloadSummaryApi.podInfoList(value);
+      let podsInfo =  await WorkloadSummaryApi.podsInfo(value);
       this.setState({
         namespace: value,
         deploymentSummary: deployments,
@@ -108,7 +108,6 @@ export default class WorkloadSummaryScreen extends Component {
     return (
       <Picker 
         selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState("namespace", itemValue)} >
-        {/* {console.log(this.state)} */}
         {this.state.namespaceLabels.map((_item, _index) => (
           <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
         ))}
@@ -158,19 +157,16 @@ export default class WorkloadSummaryScreen extends Component {
       if (serverStatus[0] == 200){
         this.setState({
           namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
-          deploymentSummary: await WorkloadSummaryApi.deploymentSummary(),
-          replicasetSummary: await WorkloadSummaryApi.replicasetSummary(),
-          podSummary: await WorkloadSummaryApi.podSummary(),
-          deploymentsInfo: await WorkloadSummaryApi.deploymentsInfo(),
-          replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(),
-          podsInfo: await WorkloadSummaryApi.podInfoList(),
+          deploymentSummary: await WorkloadSummaryApi.deploymentSummary(this.state.namespace),
+          replicasetSummary: await WorkloadSummaryApi.replicasetSummary(this.state.namespace),
+          podSummary: await WorkloadSummaryApi.podSummary(this.state.namespace),
+          deploymentsInfo: await WorkloadSummaryApi.deploymentsInfo(this.state.namespace),
+          replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(this.state.namespace),
+          podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
         })
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
-
-      console.log(await ReplicasetApi.listAllReplicaSet());
-
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
@@ -178,28 +174,28 @@ export default class WorkloadSummaryScreen extends Component {
     this.setState({
       spinner: false
     })
-    // await this.listAllTest();
 
   }
 
   DeploymentTab = () => {
     return (
-    this.state.deploymentsInfo.map((item, index) => (
-      <WorkloadCard 
-        key={index}
-        name={item.name}
-        age={item.age}
-        status={item.status}
-        total={item.total}
-        variableField="Containers"
-        variableFieldVal="echoserve"
-      >
-      {Object.keys(item.labels).map((labelItem, labelIndex) => (
-        <LabelButton 
-          key={labelIndex}
-          text={labelItem + ":"+ item.labels[labelItem]} />
-        ))}
-      </WorkloadCard>))
+      this.state.deploymentsInfo.map((item, index) => (
+        <WorkloadCard 
+          key={index}
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          total={item.total}
+          variableField="Containers"
+          variableFieldVal={item.containers}
+        >
+        {Object.keys(item.labels).map((labelItem, labelIndex) => (
+          <LabelButton 
+            key={labelIndex}
+            text={labelItem + ":"+ item.labels[labelItem]} />
+          ))}
+        </WorkloadCard>)
+      )
     )
   };
 
@@ -213,14 +209,15 @@ export default class WorkloadSummaryScreen extends Component {
           status={item.status}
           total={item.total}
           variableField="Containers"
-          variableFieldVal="echoserve"
+          variableFieldVal={item.containers}
         >
         {Object.keys(item.labels).map((labelItem, labelIndex) => (
           <LabelButton 
             key={labelIndex}
             text={labelItem + ":"+ item.labels[labelItem]} />
           ))}
-        </WorkloadCard>))
+        </WorkloadCard>)
+      )
     )
   };
 
@@ -240,7 +237,8 @@ export default class WorkloadSummaryScreen extends Component {
             key={labelIndex}
             text={labelItem + ":"+ item.labels[labelItem]} />
           ))}
-        </WorkloadCard>))
+        </WorkloadCard>)
+      )
     )
   };
 

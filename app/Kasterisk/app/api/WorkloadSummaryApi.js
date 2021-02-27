@@ -44,24 +44,11 @@ class WorkloadSummaryApi extends Component {
     }
 
     /** ALL TAB INFO **/
-    static deploymentSummary = async () => {
-        let deployments = await DeploymentApi.listAllDeployment();
-        let totalDeployments = deployments.length;
-        let readyDeploymentsCnt = 0;
-        for (i = 0; i < deployments.length; i++) {
-            if(deployments[i].status.readyReplicas == deployments[i].status.replicas){
-                readyDeploymentsCnt+=1;
-            }
-        }
-        let notReadyDeploymentsCnt = totalDeployments - readyDeploymentsCnt;
-        return {
-            readyDeployments: readyDeploymentsCnt,
-            notReadyDeployments: notReadyDeploymentsCnt
-        }
-    }
-
     static deploymentSummary = async (namespace) => {
-        let deployments = await DeploymentApi.listDeployment(namespace);
+        let deployments = await DeploymentApi.listAllDeployment();
+        if (namespace != ""){
+            deployments = await DeploymentApi.listDeployment(namespace);
+        }
         let totalDeployments = deployments.length;
         let readyDeploymentsCnt = 0;
         for (i = 0; i < deployments.length; i++) {
@@ -73,28 +60,14 @@ class WorkloadSummaryApi extends Component {
         return {
             readyDeployments: readyDeploymentsCnt,
             notReadyDeployments: notReadyDeploymentsCnt
-        }
-    }
-
-    static replicasetSummary = async () => {
-        let replicasets = await ReplicasetApi.listAllReplicaSet();
-        let totalReplicaSets = replicasets.length;
-        console.log(totalReplicaSets);
-        let readyReplicaSetsCnt = 0;
-        for (var i = 0; i < replicasets.length; i++) {
-            if(replicasets[i].status.readyReplicas == replicasets[i].status.replicas){
-                readyReplicaSetsCnt+=1;
-            }
-        } 
-        let notReadyReplicaSetsCnt = totalReplicaSets - readyReplicaSetsCnt;
-        return {
-            readyReplicaSets: readyReplicaSetsCnt,
-            notReadyReplicaSets: notReadyReplicaSetsCnt
         }
     }
 
     static replicasetSummary = async (namespace) => {
-        let replicasets = await ReplicasetApi.listReplicaSet(namespace);
+        let replicasets = await ReplicasetApi.listAllReplicaSet();
+        if (namespace != ""){
+            replicasets = await ReplicasetApi.listReplicaSet(namespace);
+        }
         let totalReplicaSets = replicasets.length;
         let readyReplicaSetsCnt = 0;
         for (var i = 0; i < replicasets.length; i++) {
@@ -109,24 +82,11 @@ class WorkloadSummaryApi extends Component {
         }
     }
 
-    static podSummary = async () => {
-        let pods = await PodApi.listAllPod();
-        let totalPods = pods.length;
-        let readyPodsCnt = 0;
-        for (i = 0; i < pods.length; i++) {
-            if(pods[i].status.phase == "Running"){
-                readyPodsCnt+=1;
-            }
-        } 
-        let notReadyPodsCnt = totalPods - readyPodsCnt;
-        return {
-            readyPods: readyPodsCnt,
-            notReadyPods: notReadyPodsCnt
-        }
-    }
-
     static podSummary = async (namespace) => {
-        let pods = await PodApi.listPod(namespace);
+        let pods = await PodApi.listAllPod();
+        if (namespace != ""){
+            pods = await PodApi.listPod(namespace);
+        }
         let totalPods = pods.length;
         let readyPodsCnt = 0;
         for (i = 0; i < pods.length; i++) {
@@ -158,30 +118,12 @@ class WorkloadSummaryApi extends Component {
     }
 
     /** DEPLOYMENT TAB INFO **/
-    static deploymentsInfo = async () => {
-        let deploymentsInfo = [];
-        let deployments = await DeploymentApi.listAllDeployment();
-        
-        for (const deployment of deployments){
-            let creationDT = new Date(deployment.metadata.creationTimestamp);
-            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
-            let deploymentInfo = {
-                name: deployment.metadata.name,
-                age: Math.floor(difference),
-                labels: deployment.metadata.labels,
-                containers: 'test',
-                status: deployment.status.readyReplicas,
-                total: deployment.status.replicas,
-            };
-            deploymentsInfo.push(deploymentInfo);
-        }
-        return deploymentsInfo;
-    }
-
     static deploymentsInfo = async (namespace) => {
         let deploymentsInfo = [];
-        let deployments = await DeploymentApi.listDeployment(namespace);
-        
+        let deployments = await DeploymentApi.listAllDeployment();
+        if (namespace != ""){
+            deployments = await DeploymentApi.listDeployment(namespace);
+        }
         for (const deployment of deployments){
             let creationDT = new Date(deployment.metadata.creationTimestamp);
             let difference = await WorkloadSummaryApi.calculateAge(creationDT);
@@ -189,7 +131,7 @@ class WorkloadSummaryApi extends Component {
                 name: deployment.metadata.name,
                 age: Math.floor(difference),
                 labels: deployment.metadata.labels,
-                containers: 'test',
+                containers: deployment.spec.template.spec.containers[0].name,
                 status: deployment.status.readyReplicas,
                 total: deployment.status.replicas,
             };
@@ -199,30 +141,12 @@ class WorkloadSummaryApi extends Component {
     }
 
     /** REPLICASET TAB INFO **/
-    static replicasetsInfo = async () => {
-        let replicasetsInfo = [];
-        let replicasets = await ReplicasetApi.listAllReplicaSet();
-        
-        for (const replicaset of replicasets){
-            let creationDT = new Date(replicaset.metadata.creationTimestamp);
-            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
-            let replicasetInfo = {
-                name: replicaset.metadata.name,
-                age: Math.floor(difference),
-                labels: replicaset.metadata.labels,
-                containers: 'test',
-                status: replicaset.status.readyReplicas,
-                total: replicaset.status.replicas,
-            };
-            replicasetsInfo.push(replicasetInfo);
-        }
-        return replicasetsInfo;
-    }
-
     static replicasetsInfo = async (namespace) => {
         let replicasetsInfo = [];
-        let replicasets = await ReplicasetApi.listReplicaSet(namespace);
-        
+        let replicasets = await ReplicasetApi.listAllReplicaSet();
+        if (namespace != ""){
+            replicasets = await ReplicasetApi.listReplicaSet(namespace);
+        }
         for (const replicaset of replicasets){
             let creationDT = new Date(replicaset.metadata.creationTimestamp);
             let difference = await WorkloadSummaryApi.calculateAge(creationDT);
@@ -230,7 +154,7 @@ class WorkloadSummaryApi extends Component {
                 name: replicaset.metadata.name,
                 age: Math.floor(difference),
                 labels: replicaset.metadata.labels,
-                containers: 'test',
+                containers: replicaset.spec.template.spec.containers[0].name,
                 status: replicaset.status.readyReplicas,
                 total: replicaset.status.replicas,
             };
@@ -240,10 +164,12 @@ class WorkloadSummaryApi extends Component {
     }
 
     /** POD TAB INFO **/
-    static podInfoList = async () => {
+    static podsInfo = async (namespace) => {
+        var podInfoList = [];
         let pods = await PodApi.listAllPod();
-        var podInfoList = [];
-        
+        if (namespace != ""){
+            pods = await PodApi.listPod(namespace);
+        }
         for (const pod of pods){
             let creationDT = new Date(pod.metadata.creationTimestamp);
             let difference = await WorkloadSummaryApi.calculateAge(creationDT);
@@ -258,32 +184,6 @@ class WorkloadSummaryApi extends Component {
         } 
         return podInfoList;
     }
-
-    static podInfoList = async (namespace) => {
-        let pods = await PodApi.listPod(namespace);
-        var podInfoList = [];
-        
-        for (const pod of pods){
-            let creationDT = new Date(pod.metadata.creationTimestamp);
-            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
-            let podInfo = {
-                name: pod.metadata.name,
-                age: Math.floor(difference),
-                status: pod.status.phase,
-                restarts: pod.status.containerStatuses[0].restartCount,
-                labels: pod.metadata.labels,
-            };
-            podInfoList.push(podInfo);
-        } 
-        return podInfoList;
-    }
-
-
-// // Array of Objects in form {element: {id: 10, quantity: 10} }
-// var element = {}, cart = [];
-// element.id = id;
-// element.quantity = quantity;
-// cart.push({element: element});
 
 }
 export default WorkloadSummaryApi;
