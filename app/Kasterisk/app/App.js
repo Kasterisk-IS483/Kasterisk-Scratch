@@ -13,9 +13,10 @@ import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
-import LoadingScreen from "./screens/LoadingScreen";
-import TestScreen from "./screens/TestScreen";
 import ClusterScreen from "./screens/ClusterScreen";
+
+import LoadingScreen from "./screens-backup/LoadingScreen";
+import TestScreen from "./screens-backup/TestScreen";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -74,7 +75,7 @@ function HomeDrawer({ navigation }) {
       }}
     >
       <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
-      <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
+      {/* <Drawer.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} /> */}
     </Drawer.Navigator>
   );
 }

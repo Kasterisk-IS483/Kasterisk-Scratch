@@ -54,24 +54,24 @@ export default class WelcomeScreen extends Component {
     this.setState({ orientation: this.getOrientation() });
   }
 
-  GoogleLogin = async () => {
-    try {
-      let googleLoginResult = await GoogleCloudApi.checkGoogleCredentials();
-      if (googleLoginResult) {
-          let a = await AsyncStorage.getItem("@googleCredentials")
-          alert(a)
-        this.props.navigation.navigate("WorkloadSummary");
-      } else {
-        Alert.alert("Login Failed", "Please try again.");
-      }
-    } catch (e) {
-      Alert.alert(e.message);
-      // Alert.alert(
-      //   "Invalid Credentials",
-      //   "Please enter valid email and password for your google account."
-      // );
-    }
-  };
+  // GoogleLogin = async () => {
+  //   try {
+  //     let googleLoginResult = await GoogleCloudApi.checkGoogleCredentials();
+  //     if (googleLoginResult) {
+  //         let a = await AsyncStorage.getItem("@googleCredentials")
+  //         alert(a)
+  //       this.props.navigation.navigate("WorkloadSummary");
+  //     } else {
+  //       Alert.alert("Login Failed", "Please try again.");
+  //     }
+  //   } catch (e) {
+  //     Alert.alert(e.message);
+  //     // Alert.alert(
+  //     //   "Invalid Credentials",
+  //     //   "Please enter valid email and password for your google account."
+  //     // );
+  //   }
+  // };
 
   // errorCheck = async () => {
   //   try {
@@ -81,24 +81,24 @@ export default class WelcomeScreen extends Component {
   //   }
   // };
 
-  AzureLogin = async () => {
-    try {
-      let azureLoginResult = await AzureApi.checkAzureCredentials();
-      if (azureLoginResult) {
-          let a = await AsyncStorage.getItem("@azureCredentials")
-          alert(a)
-        this.props.navigation.navigate("WorkloadSummary");
-      } else {
-        Alert.alert("Login Failed", "Please try again.");
-      }
-    } catch (e) {
-      alert(e.message);
-      Alert.alert(
-        "Invalid Credentials",
-        "Please enter valid email and password for your azure account."
-      );
-    }
-  };
+  // AzureLogin = async () => {
+  //   try {
+  //     let azureLoginResult = await AzureApi.checkAzureCredentials();
+  //     if (azureLoginResult) {
+  //         let a = await AsyncStorage.getItem("@azureCredentials")
+  //         alert(a)
+  //       this.props.navigation.navigate("WorkloadSummary");
+  //     } else {
+  //       Alert.alert("Login Failed", "Please try again.");
+  //     }
+  //   } catch (e) {
+  //     alert(e.message);
+  //     Alert.alert(
+  //       "Invalid Credentials",
+  //       "Please enter valid email and password for your azure account."
+  //     );
+  //   }
+  // };
 
   componentDidMount() {
     this.props.navigation.dispatch(state => {
@@ -141,31 +141,31 @@ export default class WelcomeScreen extends Component {
               commonStyles.centralise,
             ]}
           >
-            <CustomButton
+            {/* <CustomButton
               image={require("../assets/welcome-button-google.png")}
               text="Log in With Google"
               size="small"
               onPress={this.GoogleLogin}
-            />
+            /> */}
             <CustomButton
               image={require("../assets/welcome-button-aws.png")}
               text="Log in With Amazon"
               size="small"
               onPress={() => navigation.navigate("AWS Login")}
             />
-            <CustomButton
+            {/* <CustomButton
               image={require("../assets/welcome-button-azure.png")}
               text="Log in With Azure AD"
               size="small"
               onPress={this.AzureLogin}
-            />
+            /> */}
             {/* {this.state.result ? (
               <Text>{JSON.stringify(this.state.result)}</Text>
             ) : (
               <Text>Nothing to see here.</Text>
             )} */}
 
-            <View style={commonStyles.divider} />
+            {/* <View style={commonStyles.divider} /> */}
 
             <CustomButton
               image={require("../assets/welcome-button-kube.png")}

@@ -81,10 +81,10 @@ export const commonStyles = StyleSheet.create({
   },
 
   // WorkloadCard
-  workloadCardInfoLeftText: {
+  cardInfoLeftText: {
     flex: 2,
   },
-  workloadCardInfoRightText: {
+  cardInfoRightText: {
     flex: 1,
     paddingTop: spacings.sm,
   },

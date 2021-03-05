@@ -88,15 +88,15 @@ export default function WorkloadCard(props) {
                         </Title>
 
                         <View style={commonStyles.fieldsContainer}>
-                            <Title style={commonStyles.workloadCardInfoLeftText}>Age:</Title>
-                            <Text style={commonStyles.workloadCardInfoRightText}>
+                            <Title style={commonStyles.cardInfoLeftText}>Age:</Title>
+                            <Text style={commonStyles.cardInfoRightText}>
                                 {props.age} {props.age <= 1 ? "Day" : "Days"}
                             </Text>
                         </View>
 
                         <View style={commonStyles.fieldsContainer}>
-                            <Title style={commonStyles.workloadCardInfoLeftText}>{props.variableField}:</Title>
-                            <Text style={commonStyles.workloadCardInfoRightText}>{props.variableFieldVal}</Text>
+                            <Title style={commonStyles.cardInfoLeftText}>{props.variableField}:</Title>
+                            <Text style={commonStyles.cardInfoRightText}>{props.variableFieldVal}</Text>
                         </View>
 
                     </View>

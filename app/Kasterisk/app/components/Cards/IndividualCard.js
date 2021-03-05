@@ -23,11 +23,11 @@ export default function IndividualCard(props) {
     let cardWidth;
 
     if (props.type == "Deployment") {
-        cardHeight=280;
+        // cardHeight=280;
         cardWidth= 550;
         if (props.header == "Configuration") {
             isDeploymentConfiguration = true;
-                    } else if (props.header == "Status") {
+        } else if (props.header == "Status") {
             isDeploymentStatus = true;
         }
     } 
@@ -39,7 +39,7 @@ export default function IndividualCard(props) {
     //     }
     // } 
     else if (props.type == "Pods") {
-        cardHeight=220;
+        // cardHeight=220;
         cardWidth= 550;
         if (props.header == "Configuration") {
             isPodsConfiguration = true;
@@ -55,7 +55,7 @@ export default function IndividualCard(props) {
         }} onPress={props.onPress}>
             <Card elevation={10} style={{
                 width: cardWidth,
-                height: cardHeight
+                // height: cardHeight
             }}>
                 <Card.Content style={{
                     paddingLeft: spacings.md,
@@ -77,38 +77,38 @@ export default function IndividualCard(props) {
                         {isDeploymentConfiguration &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Deployment Strategy</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Deployment Strategy</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.priority}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Rolling Update Strategy</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Rolling Update Strategy</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.rollingUpdate}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Selectors</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Selectors</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.selectors}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Min Ready Seconds</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Min Ready Seconds</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.minReadySec}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Revision History Limit</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Revision History Limit</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.historyLimit}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Replicas</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.replicas}
                                     </Text>
                                 </View>
@@ -118,32 +118,32 @@ export default function IndividualCard(props) {
                         {isDeploymentStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Available Replicas</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Available Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.availableReplicas}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Ready Replicas</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Ready Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.readyReplicas}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Total Replicas</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Total Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.totalReplicas}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Unavailable Replicas</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Unavailable Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.unavailableReplicas}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Updated Replicas</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Updated Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.updatedReplicas}
                                     </Text>
                                 </View>
@@ -153,20 +153,20 @@ export default function IndividualCard(props) {
                         {isPodsConfiguration &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Priority</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Priority</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.priority}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Node</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Node</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.node}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Service Account</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Service Account</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.serviceAccount}
                                     </Text>
                                 </View>
@@ -176,26 +176,26 @@ export default function IndividualCard(props) {
                         {isPodsStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>QoS</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>QoS</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.qos}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Phase</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Phase</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.phase}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Pod IP</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Pod IP</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.podIP}
                                     </Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.workloadCardInfoLeftText}>Host IP</Title>
-                                    <Text style={commonStyles.workloadCardInfoRightText}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Host IP</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
                                         {props.hostIP}
                                     </Text>
                                 </View>
