@@ -16,7 +16,7 @@ import {
 
 import IndividualCard from "../components/Cards/IndividualCard";
 
-export default class WorkloadReplicasetScreen extends Component {
+export default class WorkloadPodsScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -57,8 +57,8 @@ export default class WorkloadReplicasetScreen extends Component {
           textStyle={{ color: '#FFF' }}
         /> */}
         <View style={commonStyles.dashboardContainer}>
-          <IndividualCard type="Replicaset" header="Configuration"></IndividualCard>
-          <IndividualCard type="Replicaset" header="Status"></IndividualCard>
+          <IndividualCard type="Pods" header="Configuration"></IndividualCard>
+          <IndividualCard type="Pods" header="Status"></IndividualCard>
         </View>
 
       </ScrollView>

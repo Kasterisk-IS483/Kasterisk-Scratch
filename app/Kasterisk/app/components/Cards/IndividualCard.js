@@ -15,8 +15,8 @@ export default function IndividualCard(props) {
 
     let isDeploymentConfiguration = false;
     let isDeploymentStatus = false;
-    // let isReplicasetConfiguration = false;
-    // let isReplicasetStatus = false;
+    let isReplicasetConfiguration = false;
+    let isReplicasetStatus = false;
     let isPodsConfiguration = false;
     let isPodsStatus = false;
     let cardHeight;
@@ -24,23 +24,21 @@ export default function IndividualCard(props) {
 
     if (props.type == "Deployment") {
         // cardHeight=280;
-        cardWidth= 550;
+        cardWidth = 550;
         if (props.header == "Configuration") {
             isDeploymentConfiguration = true;
         } else if (props.header == "Status") {
             isDeploymentStatus = true;
         }
-    } 
-    // else if (props.type == "Replicaset") {
-    //     if (props.header == "Configuration") {
-    //         isReplicasetConfiguration = true;
-    //     } else if (props.header == "Status") {
-    //         isReplicasetStatus = true;
-    //     }
-    // } 
-    else if (props.type == "Pods") {
+    } else if (props.type == "Replicaset") {
+        if (props.header == "Configuration") {
+            isReplicasetConfiguration = true;
+        } else if (props.header == "Status") {
+            isReplicasetStatus = true;
+        }
+    } else if (props.type == "Pods") {
         // cardHeight=220;
-        cardWidth= 550;
+        cardWidth = 550;
         if (props.header == "Configuration") {
             isPodsConfiguration = true;
         } else if (props.header == "Status") {
@@ -201,6 +199,55 @@ export default function IndividualCard(props) {
                                 </View>
                             </View>
                         }
+
+                        {isReplicasetConfiguration &&
+                            <View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Controlled by</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
+                                        {props.control}
+                                    </Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Replica Status</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
+                                        {props.status}
+                                    </Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
+                                        {props.numberReplica}
+                                    </Text>
+                                </View>
+                            </View>
+                        }
+
+                        {isReplicasetStatus &&
+                            <View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Controlled by</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
+                                        {props.control}
+                                    </Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Replica Status</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
+                                        {props.status}
+                                    </Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.cardInfoLeftText}>Replicas</Title>
+                                    <Text style={commonStyles.cardInfoRightText}>
+                                        {props.numberReplica}
+                                    </Text>
+                                </View>
+                            </View>
+                        }
+
+
+
                     </View>
                 </Card.Content>
             </Card>

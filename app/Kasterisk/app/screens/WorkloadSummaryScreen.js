@@ -233,9 +233,10 @@ export default class WorkloadSummaryScreen extends Component {
   };
 
   PodTab = () => {
+    const { navigation } = this.props;
     return (
       this.state.podsInfo.map((item, index) => (
-        <TouchableOpacity style={{
+        <TouchableOpacity onPress={() => navigation.navigate("WorkloadPods")} style={{
           flexDirection: 'row'
         }} >
           <WorkloadCard

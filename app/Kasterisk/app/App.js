@@ -16,6 +16,7 @@ import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
 import ClusterScreen from "./screens/ClusterScreen";
 import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
+import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
 
 import LoadingScreen from "./screens-backup/LoadingScreen";
 import TestScreen from "./screens-backup/TestScreen";
@@ -108,6 +109,7 @@ export default function App() {
         <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
         <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }}/>
         <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }}/>
+        <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pods" }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
