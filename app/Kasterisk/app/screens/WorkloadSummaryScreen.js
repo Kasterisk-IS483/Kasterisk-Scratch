@@ -20,8 +20,6 @@ import {
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 import LabelButton from "../components/Buttons/LabelButton";
-import IndividualCard from "../components/Cards/IndividualCard";
-
 
 export default class WorkloadSummaryScreen extends Component {
 

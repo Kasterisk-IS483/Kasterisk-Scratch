@@ -10,7 +10,6 @@ import {
     commonStyles,
 } from "../../utils/styles.js";
 
-
 export default function IndividualCard(props) {
 
     let isDeploymentConfiguration = false;

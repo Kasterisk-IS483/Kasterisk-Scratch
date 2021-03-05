@@ -2,19 +2,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
 import { View, ScrollView, Dimensions, Alert, Text, Icon } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
-import { Picker } from "@react-native-picker/picker";
 
 import { checkServerStatus } from '../api/KubeApi'
 import DeploymentApi from "../api/DeploymentApi";
 import {
-  colours,
-  spacings,
   commonStyles,
   landscapeStyles,
   portraitStyles,
 } from "../utils/styles.js";
 
 import IndividualCard from "../components/Cards/IndividualCard";
+import TableCard from "../components/Cards/TableCard";
 
 export default class WorkloadDeploymentScreen extends Component {
 
@@ -59,8 +57,8 @@ export default class WorkloadDeploymentScreen extends Component {
         <View style={commonStyles.dashboardContainer}>
           <IndividualCard type="Deployment" header="Configuration"></IndividualCard>
           <IndividualCard type="Deployment" header="Status"></IndividualCard>
+          <TableCard header="Conditions" />
         </View>
-
       </ScrollView>
     );
   }
