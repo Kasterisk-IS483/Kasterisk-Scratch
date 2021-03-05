@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions, Alert, Text, Icon } from "react-native";
+import { View, ScrollView, Dimensions } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 import { checkServerStatus } from '../api/KubeApi'
@@ -55,9 +55,11 @@ export default class WorkloadDeploymentScreen extends Component {
           textStyle={{ color: '#FFF' }}
         /> */}
         <View style={commonStyles.dashboardContainer}>
-          <IndividualCard type="Deployment" header="Configuration"></IndividualCard>
-          <IndividualCard type="Deployment" header="Status"></IndividualCard>
+          <IndividualCard header="Configuration" type="Deployment"></IndividualCard>
+          <IndividualCard header="Status" type="Deployment"></IndividualCard>
+          <TableCard header="Pods" />
           <TableCard header="Conditions" />
+          <IndividualCard header="Metadata" type="Deployment" />
         </View>
       </ScrollView>
     );

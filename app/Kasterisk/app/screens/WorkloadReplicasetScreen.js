@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions, Alert, Text, Icon } from "react-native";
+import { View, ScrollView, Dimensions } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 import { checkServerStatus } from '../api/KubeApi'
@@ -54,9 +54,10 @@ export default class WorkloadReplicasetScreen extends Component {
           textStyle={{ color: '#FFF' }}
         /> */}
         <View style={commonStyles.dashboardContainer}>
-          <IndividualCard type="Replicaset" header="Configuration"></IndividualCard>
-          <IndividualCard type="Replicaset" header="Status"></IndividualCard>
+          <IndividualCard header="Configuration" type="Replicaset"></IndividualCard>
+          <IndividualCard header="Status" type="Replicaset"></IndividualCard>
           <TableCard header="Conditions" />
+          <IndividualCard header="Metadata" type="Replicaset" />
         </View>
 
       </ScrollView>

@@ -78,11 +78,6 @@ function HomeDrawer({ navigation }) {
       }}
     >
       <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
-
-      {/* temporary */}
-      {/* <Drawer.Screen name="DeploymentDetails" component={WorkloadDeploymentScreen} options={{ title: "Deployment Details" }} />
-      <Drawer.Screen name="ReplicasetDetails" component={WorkloadReplicasetScreen} options={{ title: "Replicaset Details" }} /> */}
-
       {/* <Drawer.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} /> */}
     </Drawer.Navigator>
   );

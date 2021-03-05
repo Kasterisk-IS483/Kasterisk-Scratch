@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions, Alert, Text, Icon, TouchableOpacity } from "react-native";
+import { View, ScrollView, Dimensions, Alert, Text, TouchableOpacity } from "react-native";
 import { TabView, TabBar } from 'react-native-tab-view';
 import Spinner from "react-native-loading-spinner-overlay";
 import { Picker } from "@react-native-picker/picker";
