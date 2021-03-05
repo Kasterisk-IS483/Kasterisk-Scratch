@@ -79,8 +79,8 @@ function HomeDrawer({ navigation }) {
       <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
 
       {/* temporary */}
-      {/* <Drawer.Screen name="DeploymentDetails" component={WorkloadDeploymentScreen} options={{ title: "Deployment Details" }} /> */}
-      {/* <Drawer.Screen name="ReplicasetDetails" component={WorkloadReplicasetScreen} options={{ title: "Replicaset Details" }} /> */}
+      {/* <Drawer.Screen name="DeploymentDetails" component={WorkloadDeploymentScreen} options={{ title: "Deployment Details" }} />
+      <Drawer.Screen name="ReplicasetDetails" component={WorkloadReplicasetScreen} options={{ title: "Replicaset Details" }} /> */}
 
       {/* <Drawer.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} /> */}
     </Drawer.Navigator>
@@ -106,6 +106,8 @@ export default function App() {
 
         {/* Misc */}
         <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
+        <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }}/>
+        <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

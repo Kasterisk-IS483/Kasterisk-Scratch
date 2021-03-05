@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions, Alert, Text, Icon } from "react-native";
+import { View, ScrollView, Dimensions, Alert, Text, Icon, TouchableOpacity } from "react-native";
 import { TabView, TabBar } from 'react-native-tab-view';
 import Spinner from "react-native-loading-spinner-overlay";
 import { Picker } from "@react-native-picker/picker";
@@ -179,45 +179,55 @@ export default class WorkloadSummaryScreen extends Component {
   }
 
   DeploymentTab = () => {
+    const { navigation } = this.props;
     return (
       this.state.deploymentsInfo.map((item, index) => (
-        <WorkloadCard
-          key={index}
-          name={item.name}
-          age={item.age}
-          status={item.status}
-          total={item.total}
-          variableField="Containers"
-          variableFieldVal={item.containers}
-        >
-          {Object.keys(item.labels).map((labelItem, labelIndex) => (
-            <LabelButton
-              key={labelIndex}
-              text={labelItem + ":" + item.labels[labelItem]} />
-          ))}
-        </WorkloadCard>)
+        <TouchableOpacity onPress={() => navigation.navigate("WorkloadDeployment")} style={{
+          flexDirection: 'row'
+        }} >
+          <WorkloadCard
+            key={index}
+            name={item.name}
+            age={item.age}
+            status={item.status}
+            total={item.total}
+            variableField="Containers"
+            variableFieldVal={item.containers}
+          >
+            {Object.keys(item.labels).map((labelItem, labelIndex) => (
+              <LabelButton
+                key={labelIndex}
+                text={labelItem + ":" + item.labels[labelItem]} />
+            ))}
+          </WorkloadCard>
+        </TouchableOpacity>)
       )
     )
   };
 
   ReplicasetTab = () => {
+    const { navigation } = this.props;
     return (
       this.state.replicasetsInfo.map((item, index) => (
-        <WorkloadCard
-          key={index}
-          name={item.name}
-          age={item.age}
-          status={item.status}
-          total={item.total}
-          variableField="Containers"
-          variableFieldVal={item.containers}
-        >
-          {Object.keys(item.labels).map((labelItem, labelIndex) => (
-            <LabelButton
-              key={labelIndex}
-              text={labelItem + ":" + item.labels[labelItem]} />
-          ))}
-        </WorkloadCard>)
+        <TouchableOpacity onPress={() => navigation.navigate("WorkloadReplicaset")} style={{
+          flexDirection: 'row'
+        }} >
+          <WorkloadCard
+            key={index}
+            name={item.name}
+            age={item.age}
+            status={item.status}
+            total={item.total}
+            variableField="Containers"
+            variableFieldVal={item.containers}
+          >
+            {Object.keys(item.labels).map((labelItem, labelIndex) => (
+              <LabelButton
+                key={labelIndex}
+                text={labelItem + ":" + item.labels[labelItem]} />
+            ))}
+          </WorkloadCard>
+        </TouchableOpacity>)
       )
     )
   };
@@ -225,20 +235,24 @@ export default class WorkloadSummaryScreen extends Component {
   PodTab = () => {
     return (
       this.state.podsInfo.map((item, index) => (
-        <WorkloadCard
-          key={index}
-          name={item.name}
-          age={item.age}
-          status={item.status}
-          variableField="Restarts"
-          variableFieldVal={item.restarts}
-        >
-          {Object.keys(item.labels).map((labelItem, labelIndex) => (
-            <LabelButton
-              key={labelIndex}
-              text={labelItem + ":" + item.labels[labelItem]} />
-          ))}
-        </WorkloadCard>)
+        <TouchableOpacity style={{
+          flexDirection: 'row'
+        }} >
+          <WorkloadCard
+            key={index}
+            name={item.name}
+            age={item.age}
+            status={item.status}
+            variableField="Restarts"
+            variableFieldVal={item.restarts}
+          >
+            {Object.keys(item.labels).map((labelItem, labelIndex) => (
+              <LabelButton
+                key={labelIndex}
+                text={labelItem + ":" + item.labels[labelItem]} />
+            ))}
+          </WorkloadCard>
+        </TouchableOpacity>)
       )
     )
   };
