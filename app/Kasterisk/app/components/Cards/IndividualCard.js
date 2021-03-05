@@ -218,17 +218,25 @@ export default function IndividualCard(props) {
 
                         {isReplicasetStatus &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.cardInfoLeftText}>Controlled By</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.control}</Text>
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1,borderBottomWidth:1, borderRightWidth:1,borderColor:"black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.waiting}</Text>
+                                        <Title style={commonStyles.cardInfoLeftText}>waiting</Title>
+                                    </View>
+                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1,borderColor:"black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.running}</Text>
+                                        <Title style={commonStyles.cardInfoLeftText}>Running</Title>
+                                    </View>
                                 </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.cardInfoLeftText}>Replica Status</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.status}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.cardInfoLeftText}>Replicas</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.numberReplica}</Text>
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor:"black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.failed}</Text>
+                                        <Title style={commonStyles.cardInfoLeftText}>Failed</Title>
+                                    </View>
+                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1, borderLeftWidth:1,borderColor:"black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.succeeded}</Text>
+                                        <Title style={commonStyles.cardInfoLeftText}>Succeeded</Title>
+                                    </View>
                                 </View>
                             </View>
                         }
