@@ -19,11 +19,10 @@ export default function IndividualCard(props) {
     let isPodsConfiguration = false;
     let isPodsStatus = false;
     let cardHeight;
-    let cardWidth;
+    let cardWidth=550;
 
     if (props.type == "Deployment") {
         // cardHeight=280;
-        cardWidth = 550;
         if (props.header == "Configuration") {
             isDeploymentConfiguration = true;
         } else if (props.header == "Status") {
@@ -37,7 +36,6 @@ export default function IndividualCard(props) {
         }
     } else if (props.type == "Pods") {
         // cardHeight=220;
-        cardWidth = 550;
         if (props.header == "Configuration") {
             isPodsConfiguration = true;
         } else if (props.header == "Status") {
