@@ -14,6 +14,8 @@ import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
 import ClusterScreen from "./screens/ClusterScreen";
+import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
+import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 
 import LoadingScreen from "./screens-backup/LoadingScreen";
 import TestScreen from "./screens-backup/TestScreen";
@@ -75,6 +77,11 @@ function HomeDrawer({ navigation }) {
       }}
     >
       <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
+
+      {/* temporary */}
+      {/* <Drawer.Screen name="DeploymentDetails" component={WorkloadDeploymentScreen} options={{ title: "Deployment Details" }} /> */}
+      {/* <Drawer.Screen name="ReplicasetDetails" component={WorkloadReplicasetScreen} options={{ title: "Replicaset Details" }} /> */}
+
       {/* <Drawer.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} /> */}
     </Drawer.Navigator>
   );

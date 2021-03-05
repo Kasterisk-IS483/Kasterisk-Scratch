@@ -44,6 +44,7 @@ export const commonStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     paddingHorizontal: spacings.md,
+    paddingVertical: spacings.xl,
   },
   whiteContainer: {
     flex: 1,
@@ -147,6 +148,7 @@ export const landscapeStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginHorizontal: spacings.xxl,
+    paddingVertical: spacings.xl,
   },
   dashboardCardColumnContainer: {
     flex: 1,

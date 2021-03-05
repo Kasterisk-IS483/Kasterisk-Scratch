@@ -20,6 +20,7 @@ import {
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 import LabelButton from "../components/Buttons/LabelButton";
+import IndividualCard from "../components/Cards/IndividualCard";
 
 
 export default class WorkloadSummaryScreen extends Component {
@@ -62,13 +63,13 @@ export default class WorkloadSummaryScreen extends Component {
   }
 
   async updateState(stateKey, value) {
-    if (stateKey == "namespace"){
+    if (stateKey == "namespace") {
       let deployments = await WorkloadSummaryApi.deploymentSummary(value);
       let replicaSets = await WorkloadSummaryApi.replicasetSummary(value);
       let pods = await WorkloadSummaryApi.podSummary(value);
       let deploymentsInfo = await WorkloadSummaryApi.deploymentsInfo(value);
       let replicasetsInfo = await WorkloadSummaryApi.replicasetsInfo(value);
-      let podsInfo =  await WorkloadSummaryApi.podsInfo(value);
+      let podsInfo = await WorkloadSummaryApi.podsInfo(value);
       this.setState({
         namespace: value,
         deploymentSummary: deployments,
@@ -79,7 +80,7 @@ export default class WorkloadSummaryScreen extends Component {
         podsInfo: podsInfo
       })
     }
-    else if (stateKey == "deploymentsInfo"){
+    else if (stateKey == "deploymentsInfo") {
       this.setState({ deploymentsInfo: value });
     }
   }
@@ -106,7 +107,7 @@ export default class WorkloadSummaryScreen extends Component {
 
   NamespaceList() {
     return (
-      <Picker 
+      <Picker
         selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState("namespace", itemValue)} >
         {this.state.namespaceLabels.map((_item, _index) => (
           <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
@@ -154,7 +155,7 @@ export default class WorkloadSummaryScreen extends Component {
 
       let serverStatus = await checkServerStatus(defaultCluster);
       console.log(serverStatus);
-      if (serverStatus[0] == 200){
+      if (serverStatus[0] == 200) {
         this.setState({
           namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
           deploymentSummary: await WorkloadSummaryApi.deploymentSummary(this.state.namespace),
@@ -180,7 +181,7 @@ export default class WorkloadSummaryScreen extends Component {
   DeploymentTab = () => {
     return (
       this.state.deploymentsInfo.map((item, index) => (
-        <WorkloadCard 
+        <WorkloadCard
           key={index}
           name={item.name}
           age={item.age}
@@ -189,10 +190,10 @@ export default class WorkloadSummaryScreen extends Component {
           variableField="Containers"
           variableFieldVal={item.containers}
         >
-        {Object.keys(item.labels).map((labelItem, labelIndex) => (
-          <LabelButton 
-            key={labelIndex}
-            text={labelItem + ":"+ item.labels[labelItem]} />
+          {Object.keys(item.labels).map((labelItem, labelIndex) => (
+            <LabelButton
+              key={labelIndex}
+              text={labelItem + ":" + item.labels[labelItem]} />
           ))}
         </WorkloadCard>)
       )
@@ -202,7 +203,7 @@ export default class WorkloadSummaryScreen extends Component {
   ReplicasetTab = () => {
     return (
       this.state.replicasetsInfo.map((item, index) => (
-        <WorkloadCard 
+        <WorkloadCard
           key={index}
           name={item.name}
           age={item.age}
@@ -211,10 +212,10 @@ export default class WorkloadSummaryScreen extends Component {
           variableField="Containers"
           variableFieldVal={item.containers}
         >
-        {Object.keys(item.labels).map((labelItem, labelIndex) => (
-          <LabelButton 
-            key={labelIndex}
-            text={labelItem + ":"+ item.labels[labelItem]} />
+          {Object.keys(item.labels).map((labelItem, labelIndex) => (
+            <LabelButton
+              key={labelIndex}
+              text={labelItem + ":" + item.labels[labelItem]} />
           ))}
         </WorkloadCard>)
       )
@@ -224,7 +225,7 @@ export default class WorkloadSummaryScreen extends Component {
   PodTab = () => {
     return (
       this.state.podsInfo.map((item, index) => (
-        <WorkloadCard 
+        <WorkloadCard
           key={index}
           name={item.name}
           age={item.age}
@@ -232,10 +233,10 @@ export default class WorkloadSummaryScreen extends Component {
           variableField="Restarts"
           variableFieldVal={item.restarts}
         >
-        {Object.keys(item.labels).map((labelItem, labelIndex) => (
-          <LabelButton 
-            key={labelIndex}
-            text={labelItem + ":"+ item.labels[labelItem]} />
+          {Object.keys(item.labels).map((labelItem, labelIndex) => (
+            <LabelButton
+              key={labelIndex}
+              text={labelItem + ":" + item.labels[labelItem]} />
           ))}
         </WorkloadCard>)
       )
@@ -311,7 +312,9 @@ export default class WorkloadSummaryScreen extends Component {
                 no2={this.state.podSummary.notReadyPods}
               />
             </View>
-          </View></View>;
+          </View>
+        </View>
+          ;
 
       case 'second':
         return <View style={commonStyles.dashboardContainer}>
@@ -347,7 +350,6 @@ export default class WorkloadSummaryScreen extends Component {
           renderScene={this._renderScene}
           renderTabBar={this._renderTabBar}
           initialLayout={{ width: Dimensions.get('window').width }}
-          sceneContainerStyle={{ paddingVertical: spacings.xl }}
         />
       </ScrollView>
     );
