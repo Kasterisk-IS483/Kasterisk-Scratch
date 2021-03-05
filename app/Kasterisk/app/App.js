@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
 import WelcomeScreen from "./screens/WelcomeScreen";
@@ -31,6 +32,8 @@ const screenOptions = {
   headerStyle: { backgroundColor: colours.primary },
   headerShown: true,
 };
+
+const menuArray = ["test 1", "test 2"]
 
 function HomeDrawer({ navigation }) {
   return (
@@ -77,8 +80,14 @@ function HomeDrawer({ navigation }) {
         );
       }}
     >
-      <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
-      {/* <Drawer.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} /> */}
+      <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" , headerRight:() =>	<ModalDropdown options={menuArray} 
+			dropdownStyle={{height: 40 * menuArray.length, alignItems: 'center'}} 
+			dropdownTextStyle={{fontSize: 16, color: 'black'}}
+			textStyle={{fontSize: 20, marginRight: 5, color: 'white'}}
+			customButton="⋮"
+      defaultValue="All Namespaces"
+			 />  }} />
+      <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
     </Drawer.Navigator>
   );
 }
