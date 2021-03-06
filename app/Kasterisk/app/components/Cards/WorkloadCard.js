@@ -75,7 +75,7 @@ export default function WorkloadCard(props) {
                         marginBottom: spacings.sm,
                         justifyContent: 'center',
                     }}>
-                        <Title style={commonStyles.title}>
+                        <Title style={commonStyles.cardTitle}>
                             {props.name}
                         </Title>
 

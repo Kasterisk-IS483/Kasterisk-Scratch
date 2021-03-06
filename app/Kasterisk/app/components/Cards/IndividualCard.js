@@ -53,7 +53,7 @@ export default function IndividualCard(props) {
             <Card elevation={10} style={{ width: 605 }}>
                 <Card.Content style={commonStyles.cardContent}>
                     <View style={{ flex: 1 }}>
-                        <Title style={commonStyles.title}>
+                        <Title style={commonStyles.cardTitle}>
                             {props.header}
                         </Title>
 

@@ -42,7 +42,7 @@ export default function TableCard(props) {
       <Card elevation={10}>
 
         <Card.Content style={commonStyles.cardContent}>
-          <Title style={commonStyles.title}>
+          <Title style={commonStyles.cardTitle}>
             {props.header}
           </Title>
         </Card.Content>
