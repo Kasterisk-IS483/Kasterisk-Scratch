@@ -1,4 +1,4 @@
-import React, { useEffect, createContext } from "react";
+import React, { Component, useEffect, createContext } from "react";
 import "react-native-gesture-handler";
 import SplashScreen from "react-native-splash-screen";
 import { View, Image, SafeAreaView } from "react-native";
@@ -21,6 +21,7 @@ import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
 
 import LoadingScreen from "./screens-backup/LoadingScreen";
 import TestScreen from "./screens-backup/TestScreen";
+import { render } from "react-dom";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -96,13 +97,52 @@ function HomeDrawer({ navigation }) {
   );
 }
 
-export default function App() {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
+export default class App extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      spinner: false,
+      namespaceLabels: [],
+      namespace: "",
+    };
+  }
 
-  return (
-    <NavigationContainer>
+  async componentDidMount() {
+    SplashScreen.hide();
+
+    this.setState({
+      spinner: true
+    })
+
+    try {
+      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      console.log(defaultCluster);
+      let serverStatus = await checkServerStatus(defaultCluster);
+      console.log(serverStatus);
+      if (serverStatus[0] == 200) {
+        this.setState({
+          namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
+        })
+      } else {
+        Alert.alert("Error", "Failed to contact cluster")
+      }
+    } catch (err) {
+      Alert.alert("Server Check Failed", err.message);
+    }
+    console.log(namespaceLabels);
+    this.setState({
+      spinner: false
+    })
+
+  }
+
+  // useEffect(() => {
+  //   SplashScreen.hide();
+  // }, []);
+
+  render(){
+    return (
+      <NavigationContainer>
       <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
         <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
 
@@ -119,6 +159,7 @@ export default function App() {
         <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }}/>
         <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pods" }}/>
       </Stack.Navigator>
-    </NavigationContainer>
-  );
+      </NavigationContainer>
+    );
+  }
 }
