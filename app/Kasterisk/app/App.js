@@ -80,13 +80,16 @@ function HomeDrawer({ navigation }) {
         );
       }}
     >
-      <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" , headerRight:() =>	<ModalDropdown options={menuArray} 
-			dropdownStyle={{height: 40 * menuArray.length, alignItems: 'center'}} 
-			dropdownTextStyle={{fontSize: 16, color: 'black'}}
-			textStyle={{fontSize: 20, marginRight: 5, color: 'white'}}
-			customButton="⋮"
-      defaultValue="All Namespaces"
-			 />  }} />
+      <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ 
+        title: "Workloads" , 
+        headerRight:() =>	<ModalDropdown options={menuArray} 
+          dropdownStyle={{ height: 40 * menuArray.length, alignItems: 'center' }}
+          dropdownTextStyle={{ fontSize: 16, color: 'black' }}
+          textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: 'white' }}
+          customButton="⋮"
+          defaultValue="All Namespaces"
+			  />
+       }} />
       <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
     </Drawer.Navigator>
   );

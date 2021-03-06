@@ -58,8 +58,12 @@ export const commonStyles = StyleSheet.create({
   fieldsContainer: {
     flexDirection: 'row',
   },
+  cardContent: {
+    paddingLeft: spacings.lg,
+    flexDirection: 'row',
+  },
 
-  formSectionHeaader: {
+  formSectionHeader: {
     fontWeight: 'bold',
     fontSize: fonts.md,
     marginHorizontal: spacings.lg,
@@ -70,6 +74,11 @@ export const commonStyles = StyleSheet.create({
     marginVertical: spacings.xs,
   },
 
+  title: {
+    paddingBottom: spacings.sm, 
+    fontSize: fonts.lg, 
+    fontWeight: 'bold',
+  },
   radioText: {
     marginTop: spacings.xs,
     fontSize: fonts.sm,

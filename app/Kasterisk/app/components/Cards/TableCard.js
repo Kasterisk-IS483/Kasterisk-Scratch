@@ -7,6 +7,7 @@ import {
   fonts,
   spacings,
   cardsOuterPadding,
+  commonStyles,
 } from '../../utils/styles.js';
 
 export default function TableCard(props) {
@@ -17,6 +18,7 @@ export default function TableCard(props) {
   let title4;
   let title5;
   let title6;
+
   if (props.header == 'Pods') {
     title1 = 'Name';
     title2 = 'Ready';
@@ -38,22 +40,14 @@ export default function TableCard(props) {
       padding: cardsOuterPadding,
     }} onPress={props.onPress}>
       <Card elevation={10}>
-        <Card.Content style={{
-          paddingLeft: spacings.md,
-          flexDirection: 'row'
-        }}>
-          <Title style={{
-            paddingBottom: spacings.sm,
-            fontSize: fonts.lg,
-            fontWeight: 'bold',
-          }}>
+
+        <Card.Content style={commonStyles.cardContent}>
+          <Title style={commonStyles.title}>
             {props.header}
           </Title>
         </Card.Content>
-        <Card.Content style={{
-          paddingLeft: spacings.md,
-          flexDirection: 'row',
-        }}>
+
+        <Card.Content style={commonStyles.cardContent}>
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>{title1}</DataTable.Title>
@@ -81,10 +75,10 @@ export default function TableCard(props) {
               <DataTable.Cell>B</DataTable.Cell>
               <DataTable.Cell>B</DataTable.Cell>
             </DataTable.Row>
-
           </DataTable>
 
         </Card.Content>
+
       </Card>
     </View>
   )

@@ -57,11 +57,7 @@ export default function WorkloadCard(props) {
                 borderLeftWidth: 5,
                 width: 380,
             }}>
-                <Card.Content style={{
-                    paddingLeft: spacings.md,
-                    flexDirection: 'row',
-                }}>
-
+                <Card.Content style={commonStyles.cardContent}>
                     <StatusCircle
                         borderWidth={8}
                         radius={60}
@@ -79,11 +75,7 @@ export default function WorkloadCard(props) {
                         marginBottom: spacings.sm,
                         justifyContent: 'center',
                     }}>
-                        <Title style={{
-                            paddingBottom: spacings.sm, 
-                            fontSize: fonts.lg, 
-                            fontWeight: 'bold',
-                        }}>
+                        <Title style={commonStyles.title}>
                             {props.name}
                         </Title>
 

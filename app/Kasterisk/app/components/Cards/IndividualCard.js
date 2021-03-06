@@ -3,8 +3,6 @@ import { View, Text } from "react-native"
 import { Card, Title } from 'react-native-paper';
 
 import {
-    fonts,
-    spacings,
     cardsOuterPadding,
     commonStyles,
 } from "../../utils/styles.js";
@@ -52,24 +50,10 @@ export default function IndividualCard(props) {
             flexDirection: 'row',
             padding: cardsOuterPadding,
         }} onPress={props.onPress}>
-            <Card elevation={10} style={{
-                width: 605,
-            }}>
-                <Card.Content style={{
-                    paddingLeft: spacings.md,
-                    flexDirection: 'row',
-                }}>
-                    <View style={{
-                        flex: 1,
-                        marginLeft: spacings.sm,
-                        marginBottom: spacings.sm,
-                        justifyContent: 'center',
-                    }}>
-                        <Title style={{
-                            paddingBottom: spacings.sm,
-                            fontSize: fonts.lg,
-                            fontWeight: 'bold',
-                        }}>
+            <Card elevation={10} style={{ width: 605 }}>
+                <Card.Content style={commonStyles.cardContent}>
+                    <View style={{ flex: 1 }}>
+                        <Title style={commonStyles.title}>
                             {props.header}
                         </Title>
 
@@ -218,23 +202,23 @@ export default function IndividualCard(props) {
 
                         {isReplicasetStatus &&
                             <View>
-                                <View style={{ flexDirection: "row" }}>
-                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1,borderBottomWidth:1, borderRightWidth:1,borderColor:"black" }]}>
-                                        <Text style={commonStyles.cardInfoRightText}>{props.waiting}</Text>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.waiting | 0}</Text>
                                         <Title style={commonStyles.cardInfoLeftText}>waiting</Title>
                                     </View>
-                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1,borderColor:"black" }]}>
-                                        <Text style={commonStyles.cardInfoRightText}>{props.running}</Text>
+                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.running | 0}</Text>
                                         <Title style={commonStyles.cardInfoLeftText}>Running</Title>
                                     </View>
                                 </View>
-                                <View style={{ flexDirection: "row" }}>
-                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor:"black" }]}>
-                                        <Text style={commonStyles.cardInfoRightText}>{props.failed}</Text>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black" }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.failed | 0}</Text>
                                         <Title style={commonStyles.cardInfoLeftText}>Failed</Title>
                                     </View>
-                                    <View style={[commonStyles.fieldsContainer, commonStyles.centralise, { flexDirection: "column", flex: 1, borderLeftWidth:1,borderColor:"black" }]}>
-                                        <Text style={commonStyles.cardInfoRightText}>{props.succeeded}</Text>
+                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black", borderLeftWidth: 1 }]}>
+                                        <Text style={commonStyles.cardInfoRightText}>{props.succeeded | 0}</Text>
                                         <Title style={commonStyles.cardInfoLeftText}>Succeeded</Title>
                                     </View>
                                 </View>

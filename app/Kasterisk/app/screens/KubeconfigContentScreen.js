@@ -78,7 +78,7 @@ export default function KubeconfigContentScreen({ navigation }) {
         <View style={commonStyles.whiteContainer}>
             <ScrollView contentContainerStyle={commonStyles.scrollView}>
 
-                <Text style={commonStyles.formSectionHeaader}>General Information:</Text>
+                <Text style={commonStyles.formSectionHeader}>General Information:</Text>
 
                 <TextInput 
                     onChangeText={text => setData({ ...data, name: text })}
@@ -99,7 +99,7 @@ export default function KubeconfigContentScreen({ navigation }) {
                     placeholder="Enter Certificate Here"
                 />
 
-                <Text style={[commonStyles.formSectionHeaader, { paddingTop: spacings.sm } ]}>
+                <Text style={[commonStyles.formSectionHeader, { paddingTop: spacings.sm } ]}>
                     Authentication Mode:
                 </Text>
                 <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>

@@ -100,7 +100,7 @@ export default class KubeconfigUploadScreen extends React.Component {
                 </Text>
                 <ActionButton text="Select File" onPress={this.uploadFile} />
                 <Text style={[
-                    commonStyles.formSectionHeaader, { 
+                    commonStyles.formSectionHeader, { 
                     paddingTop: spacings.lg,
                 }]}>
                     Fields required:
@@ -113,7 +113,7 @@ export default class KubeconfigUploadScreen extends React.Component {
                     disabled={true}
                 />
                 <Text style={[
-                    commonStyles.formSectionHeaader, { 
+                    commonStyles.formSectionHeader, { 
                     paddingTop: spacings.xl 
                 }]}>
                     File preview:

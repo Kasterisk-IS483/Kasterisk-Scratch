@@ -274,7 +274,7 @@ export default class WorkloadSummaryScreen extends Component {
           <View>
             <Text
               style={[
-                commonStyles.formSectionHeaader,
+                commonStyles.formSectionHeader,
                 {
                   marginHorizontal: spacings.xxl,
                   paddingHorizontal: spacings.sm,
