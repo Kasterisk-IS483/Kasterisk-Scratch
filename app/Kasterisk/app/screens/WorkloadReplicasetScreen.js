@@ -27,9 +27,12 @@ export default class WorkloadReplicasetScreen extends Component {
   }
 
   render() {
-    console.log(this.state.replicaset);
-    console.log(this.state.podstatus);
     let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(this.state.replicaset.metadata.annotations)[0];
+    let annotations = this.state.replicaset.metadata.annotations;
+    let stringAnnotations = "";
+    Object.keys(annotations).forEach(function(key) {
+      stringAnnotations += key + "      " + annotations[key] + "\n";
+    });
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
         {/* <Spinner
@@ -57,6 +60,8 @@ export default class WorkloadReplicasetScreen extends Component {
           <TableCard header="Conditions" />
           <IndividualCard header="Metadata" type="Replicaset" 
             age={this.state.age}
+            control={this.state.replicaset.metadata.ownerReferences[0].name}
+            annotations={stringAnnotations}
           />
         </View>
 

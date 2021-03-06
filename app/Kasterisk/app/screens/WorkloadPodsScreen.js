@@ -54,7 +54,7 @@ export default class WorkloadPodsScreen extends Component {
           <TableCard header="Conditions" />
           <IndividualCard header="Metadata" type="Pods"
             age={this.state.age}
-            control={this.state.pod.status.phase === "Running" ? this.state.pod.metadata.ownerReferences[0].name : "null"}
+            control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
           />
         </View>
 
