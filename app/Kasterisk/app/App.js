@@ -71,8 +71,9 @@ function HomeDrawer({ navigation }) {
               labelStyle={{ fontSize: fonts.md, color:"black" }}
               label="Change Cluster"
               onPress={async () => {
+                let previousCluster = await AsyncStorage.getItem('@defaultCluster');
                 await AsyncStorage.removeItem("@defaultCluster");
-                navigation.navigate("Cluster");
+                navigation.replace("Cluster", {previous: previousCluster});
               }}
             />
             <DrawerItemList {...props}  labelStyle={{ fontSize: fonts.md}}/>

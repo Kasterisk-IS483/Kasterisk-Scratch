@@ -17,7 +17,7 @@
     },
     "package": "com.kasterisk.android"
   },
-  "expo": {
+  "expo_ignored": {
     "name": "Kasterisk",
     "slug": "Kasterisk",
     "version": "1.0.0",

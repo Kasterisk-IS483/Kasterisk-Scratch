@@ -1,8 +1,6 @@
-import * as fs from "fs";
 import * as _ from "underscore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { saveCredentials } from "../../utils/constants";
-import { Alert } from "react-native";
 
 export enum ActionOnInvalid {
     THROW = "throw",

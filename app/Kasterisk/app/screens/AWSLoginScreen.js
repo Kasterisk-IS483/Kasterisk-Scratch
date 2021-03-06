@@ -61,26 +61,25 @@ const AWSLoginScreen = ({ navigation }) => {
         authType: "aws",
       };
       let clusterName = aCluster.name;
+      let clusterIdentifier = clusterName + "::" + userData.name + "::" + mergeData.authType;
       try {
-        let check = await AsyncStorage.getItem("@" + clusterName);
+        let check = await AsyncStorage.getItem("@" + clusterIdentifier);
         if (check != null) {
-          Alert.alert('Storage Error', "Cluster with name " + clusterName + " already exists in storage, skipping.");
+          Alert.alert('Storage Error', "Cluster with name " + clusterName + " belonging to user " + userData.name + " already exists in storage, skipping.");
           continue;
         }
-        await AsyncStorage.setItem('@' + clusterName, JSON.stringify(mergeData));
+        await AsyncStorage.setItem('@' + clusterIdentifier, JSON.stringify(mergeData));
       } catch (e) {
         Alert.alert('Storage Error', "Failed to save cluster with name " + clusterName + " to storage");
       }
-      newClusters.push('@' + clusterName)
+      newClusters.push('@' + clusterIdentifier)
     }
     let storedClusters = await AsyncStorage.getItem("@clusters");
     if (storedClusters != null) {
       let clusterArray = JSON.parse(storedClusters);
       newClusters.concat(clusterArray);
     }
-    await Promise.all([
-      await saveCredentials("@clusters", JSON.stringify(newClusters))
-    ]);
+    await saveCredentials("@clusters", JSON.stringify(newClusters));
     setSpinner(false);
     navigation.navigate("Cluster");
     }

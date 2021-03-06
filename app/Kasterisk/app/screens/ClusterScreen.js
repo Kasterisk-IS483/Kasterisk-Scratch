@@ -17,18 +17,25 @@ class ClusterScreen extends React.Component {
   }
 
   async componentDidMount() {
-    Alert.alert("Mounted");
+    let previousCluster = this.props.route.previous;
+    Alert.alert(previousCluster)
+    
     let allClusters = await AsyncStorage.getItem("@clusters");
 
     if (allClusters == null) {
       this.setState({ spinner: false });
-      this.props.navigation.navigate("Add Cluster");
+      this.props.navigation.replace("Add Cluster");
       return;
     }
     let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+    Alert.alert(defaultCluster)
     if (defaultCluster != null) {
       this.setState({ spinner: false });
-      this.props.navigation.navigate("HomeDrawer", { screen: "WorkloadSummary" });
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeDrawer', params: { screen: "WorkloadSummary" } }],
+      });
+      // this.props.navigation.pushToTop("HomeDrawer", { screen: "WorkloadSummary" });
       return;
     }
     allClusters = JSON.parse(allClusters);
