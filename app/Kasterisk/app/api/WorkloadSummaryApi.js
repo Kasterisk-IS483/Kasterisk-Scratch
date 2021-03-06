@@ -134,6 +134,7 @@ class WorkloadSummaryApi extends Component {
                 containers: deployment.spec.template.spec.containers[0].name,
                 status: deployment.status.readyReplicas,
                 total: deployment.status.replicas,
+                namespace: deployment.metadata.namespace,
             };
             deploymentsInfo.push(deploymentInfo);
         }
@@ -157,6 +158,7 @@ class WorkloadSummaryApi extends Component {
                 containers: replicaset.spec.template.spec.containers[0].name,
                 status: replicaset.status.readyReplicas,
                 total: replicaset.status.replicas,
+                namespace: replicaset.metadata.namespace,
             };
             replicasetsInfo.push(replicasetInfo);
         }
@@ -179,6 +181,7 @@ class WorkloadSummaryApi extends Component {
                 status: pod.status.phase,
                 restarts: pod.status.containerStatuses[0].restartCount,
                 labels: pod.metadata.labels,
+                namespace: pod.metadata.namespace,
             };
             podInfoList.push(podInfo);
         } 

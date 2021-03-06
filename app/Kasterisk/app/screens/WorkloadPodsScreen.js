@@ -19,10 +19,14 @@ export default class WorkloadPodsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      pod: this.props.route.params.pod,
+      age: this.props.route.params.age,
+      labels: this.props.route.params.labels,
     };
   }
 
   render() {
+    console.log(this.state.pod)
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
         {/* <Spinner
@@ -32,14 +36,26 @@ export default class WorkloadPodsScreen extends Component {
         /> */}
 
         <Title style={commonStyles.headerTitle}>
-          Pod Name
+          {this.state.pod.metadata.name}
         </Title> 
 
         <View style={commonStyles.dashboardContainer}>
-          <IndividualCard header="Configuration" type="Pods"></IndividualCard>
-          <IndividualCard header="Status" type="Pods"></IndividualCard>
+          <IndividualCard header="Configuration" type="Pods"
+            priority={this.state.pod.spec.priority}
+            node={this.state.pod.spec.nodeName}
+            serviceAccount={this.state.pod.spec.serviceAccount}
+          ></IndividualCard>
+          <IndividualCard header="Status" type="Pods"
+            qos={this.state.pod.status.qosClass}
+            phase={this.state.pod.status.phase}
+            podIP={this.state.pod.status.podIP}
+            hostIP={this.state.pod.status.hostIP}
+          ></IndividualCard>
           <TableCard header="Conditions" />
-          <IndividualCard header="Metadata" type="Pods" />
+          <IndividualCard header="Metadata" type="Pods"
+            age={this.state.age}
+            control={this.state.pod.status.phase === "Running" ? this.state.pod.metadata.ownerReferences[0].name : "null"}
+          />
         </View>
 
       </ScrollView>

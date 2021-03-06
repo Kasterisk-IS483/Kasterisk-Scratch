@@ -78,7 +78,7 @@ class ReplicasetApi extends Component {
      * @param name 
      */
     static readReplicaSet = async (namespace, name) => {
-        const replicaSet = await CommonAPI.get(`apis/apps/v1/namespaces/${namespace}/replicasets/${name}`);
+        const replicaSet = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets/${name}`);
         return replicaSet;
     }
 

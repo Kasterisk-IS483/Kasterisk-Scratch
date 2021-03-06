@@ -138,6 +138,7 @@ export default class WorkloadSummaryScreen extends Component {
           replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(this.state.namespace),
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
         })
+        console.log(await PodApi.listAllPod())
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
@@ -155,9 +156,14 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.deploymentsInfo.map((item, index) => (
-        <TouchableOpacity onPress={() => navigation.navigate("WorkloadDeployment")} style={{
+        <TouchableOpacity onPress={async () => navigation.navigate("WorkloadDeployment", {
+          deployment: await DeploymentApi.readDeployment(item.namespace, item.name),
+          age: item.age,
+          labels: item.labels,
+          })} 
+          style={{
           flexDirection: 'row'
-        }} >
+          }} >
           <WorkloadCard
             key={index}
             name={item.name}
@@ -182,9 +188,15 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.replicasetsInfo.map((item, index) => (
-        <TouchableOpacity onPress={() => navigation.navigate("WorkloadReplicaset")} style={{
-          flexDirection: 'row'
-        }} >
+        <TouchableOpacity onPress={async () => navigation.navigate("WorkloadReplicaset", {
+          replicaset: await ReplicasetApi.readReplicaSet(item.namespace, item.name),
+          age: item.age,
+          labels: item.labels,
+          podstatus: await PodApi.PodsStatuses(item.namespace),
+          })} 
+          style={{
+            flexDirection: 'row'
+          }} >
           <WorkloadCard
             key={index}
             name={item.name}
@@ -209,9 +221,14 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.podsInfo.map((item, index) => (
-        <TouchableOpacity onPress={() => navigation.navigate("WorkloadPods")} style={{
-          flexDirection: 'row'
-        }} >
+        <TouchableOpacity onPress={async () => navigation.navigate("WorkloadPods", {
+          pod: await PodApi.readPod(item.namespace, item.name),
+          age: item.age,
+          labels: item.labels,
+          })} 
+          style={{
+            flexDirection: 'row'
+          }} >
           <WorkloadCard
             key={index}
             name={item.name}

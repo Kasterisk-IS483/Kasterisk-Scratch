@@ -61,7 +61,7 @@ export default function IndividualCard(props) {
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Deployment Strategy</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.priority}</Text>
+                                    <Text style={commonStyles.cardInfoRightText}>{props.deploymentStrategy}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Rolling Update Strategy</Title>
@@ -205,7 +205,7 @@ export default function IndividualCard(props) {
                                 <View style={commonStyles.fieldsContainer}>
                                     <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }]}>
                                         <Text style={commonStyles.cardInfoRightText}>{props.waiting | 0}</Text>
-                                        <Title style={commonStyles.cardInfoLeftText}>waiting</Title>
+                                        <Title style={commonStyles.cardInfoLeftText}>Waiting</Title>
                                     </View>
                                     <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }]}>
                                         <Text style={commonStyles.cardInfoRightText}>{props.running | 0}</Text>
