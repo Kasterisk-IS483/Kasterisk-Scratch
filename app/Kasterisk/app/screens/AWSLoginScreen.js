@@ -21,7 +21,7 @@ const AWSLoginScreen = ({ navigation }) => {
 
   const AwsLogin = async () => {
     if (loginState.accessKeyId !== "" && loginState.secretAccessKey !== "") {
-      setSpinner(true);
+      // setSpinner(true);
     } else {
       Alert.alert("Invalid Entry", "Please enter Access Key ID and Secret Access Key.");
       return;
@@ -31,6 +31,7 @@ const AWSLoginScreen = ({ navigation }) => {
       isValidCredentials = await AwsApi.checkAwsCredentials(loginState, region);
     } catch (err) {
       Alert.alert("Invalid Credentials", "Please enter valid access keys and ensure you have correct permissions.");
+      Alert.alert("Error Message", JSON.stringify(err));
       return;
     }
     if (!isValidCredentials) {
@@ -38,6 +39,7 @@ const AWSLoginScreen = ({ navigation }) => {
       Alert.alert("Invalid Credentials", "Please enter valid access keys and ensure you have correct permissions.");
       return;
     }
+    Alert.alert(JSON.stringify(isValidCredentials));
     let allClusters = await AwsApi.describeAllEksClusters(region, loginState);
     let userData = {
       name: loginState.accessKeyId,
@@ -65,25 +67,26 @@ const AWSLoginScreen = ({ navigation }) => {
       try {
         let check = await AsyncStorage.getItem("@" + clusterIdentifier);
         if (check != null) {
-          Alert.alert('Storage Error', "Cluster with name " + clusterName + " belonging to user " + userData.name + " already exists in storage, skipping.");
+          Alert.alert("Storage Error", "Cluster with name " + clusterName + " belonging to user " + userData.name + " already exists in storage, skipping.");
           continue;
         }
-        await AsyncStorage.setItem('@' + clusterIdentifier, JSON.stringify(mergeData));
+        await AsyncStorage.setItem("@" + clusterIdentifier, JSON.stringify(mergeData));
+        newClusters.push(clusterIdentifier);
       } catch (e) {
-        Alert.alert('Storage Error', "Failed to save cluster with name " + clusterName + " to storage");
+        Alert.alert("Storage Error", "Failed to save cluster with name " + clusterName + " to storage");
       }
-      newClusters.push('@' + clusterIdentifier)
     }
-    let storedClusters = await AsyncStorage.getItem("@clusters");
-    if (storedClusters != null) {
-      let clusterArray = JSON.parse(storedClusters);
-      newClusters.concat(clusterArray);
+    if (newClusters.length > 0) {
+      let storedClusters = await AsyncStorage.getItem("@clusters");
+      if (storedClusters != null) {
+        let clusterArray = JSON.parse(storedClusters);
+        newClusters.concat(clusterArray);
+      }
+      await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
     }
-    await saveCredentials("@clusters", JSON.stringify(newClusters));
     setSpinner(false);
     navigation.navigate("Cluster");
-    }
-    
+  };
 
   const AWSRegionList = () => {
     return (
@@ -130,12 +133,16 @@ const AWSLoginScreen = ({ navigation }) => {
         >
           {AWSRegionList()}
         </View>
-        <SubmitButton text="Sign In" onPress={() => {
-          try {
-            AwsLogin()
-        } catch (e) {
-          Alert.alert("Error", e.message)
-        }}} />
+        <SubmitButton
+          text="Sign In"
+          onPress={() => {
+            try {
+              AwsLogin();
+            } catch (e) {
+              Alert.alert("Error", e.message);
+            }
+          }}
+        />
       </ScrollView>
     </View>
   );

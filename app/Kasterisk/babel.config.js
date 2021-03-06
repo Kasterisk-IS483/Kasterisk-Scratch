@@ -3,10 +3,10 @@ module.exports = function(api) {
   return {
     presets: [
       'module:metro-react-native-babel-preset',
-      '@babel/preset-flow',
+      // '@babel/preset-flow',
     ],
-    plugins: [
-      ['transform-class-properties'],
-    ],
+    // plugins: [
+    //   ['transform-class-properties'],
+    // ],
   };
 };

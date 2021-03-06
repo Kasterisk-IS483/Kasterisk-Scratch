@@ -160,6 +160,37 @@ export const welcomeStyles = StyleSheet.create({
   },
 });
 
+export const clusterPageStyle = StyleSheet.create({
+  // Welcome
+  panelContainer: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  welcomeBannerContainer: {
+    flex: 1,
+  },
+  welcomeButtonsContainer: {
+    flex: 1,
+    backgroundColor: colours.primary,
+  },
+  welcomeBannerLogo: {
+    position: "absolute",
+    width: "50%",
+    height: "50%",
+    resizeMode: "contain",
+    left: "25%",
+    top: "25%",
+  },
+  welcomeBannerDescription: {
+    position: "absolute",
+    width: "50%",
+    left: "25%",
+    top: "50%",
+    textAlign: "center",
+    fontSize: fonts.lg,
+  },
+})
+
 export const workloadSummaryStyles = StyleSheet.create({
   dashboardRowContainer: {
     flexDirection: "row",
@@ -172,43 +203,3 @@ export const workloadSummaryStyles = StyleSheet.create({
     paddingHorizontal: spacings.sm,
   },
 })
-
-export const portraitStyles = StyleSheet.create({
-
-  // Welcome
-  panelContainer: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  welcomeBannerContainer: {
-    flex: 2,
-    flexDirection: "column",
-  },
-  welcomeButtonsContainer: {
-    flex: 3,
-    backgroundColor: colours.primary,
-    flexDirection: "column",
-  },
-  welcomeBannerLogo: {
-    position: "absolute",
-    width: "50%",
-    height: "55%",
-    resizeMode: "contain",
-    left: "25%",
-    top: "15%",
-  },
-  welcomeBannerDescription: {
-    position: "absolute",
-    width: "50%",
-    fontSize: fonts.md,
-    left: "25%",
-    top: "60%",
-    textAlign: "center",
-  },
-
-  // WorkloadSummary
-  dashboardRowContainer: {
-    flexDirection: "column",
-  },
-
-});

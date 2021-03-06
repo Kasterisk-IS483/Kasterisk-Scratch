@@ -99,7 +99,7 @@ class AwsApi {
         return false;
       }
     } catch (err) {
-      return Promise.resolve(err);
+      throw new Error(err);
     }
   };
 }

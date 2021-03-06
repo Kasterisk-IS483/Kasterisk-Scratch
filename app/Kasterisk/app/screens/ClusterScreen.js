@@ -1,15 +1,12 @@
 import React from "react";
 import "react-native-gesture-handler";
-import { View, SafeAreaView, Text, Alert } from "react-native";
+import { Image, ImageBackground, View, SafeAreaView, ScrollView, Text, Alert } from "react-native";
 import { Button, List } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  commonStyles,
-  welcomeStyles,
-} from "../utils/styles.js";
+import { commonStyles, clusterPageStyle } from "../utils/styles.js";
 
 class ClusterScreen extends React.Component {
   constructor(props) {
@@ -27,6 +24,10 @@ class ClusterScreen extends React.Component {
     let allClusters = await AsyncStorage.getItem("@clusters");
     if (allClusters == null) {
       this.setState({ spinner: false });
+      this.props.navigation.reset({
+        index: 0,
+        routes: [{ name: "Add Cluster" }],
+      });
       this.props.navigation.replace("Add Cluster");
       return;
     }
@@ -38,7 +39,7 @@ class ClusterScreen extends React.Component {
       this.setState({ spinner: false });
       this.props.navigation.reset({
         index: 0,
-        routes: [{ name: 'HomeDrawer', params: { screen: "WorkloadSummary" } }],
+        routes: [{ name: "HomeDrawer", params: { screen: "WorkloadSummary" } }],
       });
       // this.props.navigation.pushToTop("HomeDrawer", { screen: "WorkloadSummary" });
       return;
@@ -46,24 +47,34 @@ class ClusterScreen extends React.Component {
 
     // Check if there is a previousCluster in props
     // this is to show the most recent cluster the user has redirected from
-    
-    let previousCluster = this.props.route.previous;
 
+    let previousCluster = this.props.route.previous;
+    
     // get all clusters from localstorage
     allClusters = JSON.parse(allClusters);
+    
     for (const aCluster of allClusters) {
-      let currCluster = await AsyncStorage.getItem(aCluster);
+      let currCluster = await AsyncStorage.getItem("@" + aCluster);
       this.clusterList.push(JSON.parse(currCluster));
     }
     this.setState({ spinner: false, loaded: true });
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
-      <SafeAreaView>
+      <View style={clusterPageStyle.panelContainer}>
         <Spinner visible={this.state.spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
-        {!this.state.loaded ? null : (
-          <View>
+        <View style={clusterPageStyle.welcomeBannerContainer}>
+          <ImageBackground style={clusterPageStyle.welcomeBannerContainer} source={require("../assets/welcome-bg.png")} imageStyle={{ resizeMode: "cover" }} />
+          <Image style={clusterPageStyle.welcomeBannerLogo} source={require("../assets/kasterisk-logo.png")} />
+        </View>
+
+        <View style={clusterPageStyle.welcomeButtonsContainer}>
+          <ScrollView contentContainerStyle={[commonStyles.scrollView, commonStyles.centralise]}>
+          <Text style={{ fontSize: 30 }}>Previous Cluster</Text>
+            <View style={commonStyles.divider} />
             <Text style={{ fontSize: 30 }}>Select Cluster</Text>
             {this.clusterList.map((aCluster) => (
               <List.Item
@@ -77,13 +88,36 @@ class ClusterScreen extends React.Component {
                 }}
               />
             ))}
-            <Button icon="plus" mode="contained" onPress={() => this.props.navigation.navigate("Add Cluster")}>
-              Add new cluster
-            </Button>
-          </View>
-        )}
-      </SafeAreaView>
+          </ScrollView>
+        </View>
+      </View>
     );
+
+    // return (
+    //   <SafeAreaView>
+    //     <Spinner visible={this.state.spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
+    //     {!this.state.loaded ? null : (
+    //       <View>
+    //         <Text style={{ fontSize: 30 }}>Select Cluster</Text>
+    //         {this.clusterList.map((aCluster) => (
+    //           <List.Item
+    //             key={aCluster.clusterData.name}
+    //             title={aCluster.clusterData.name}
+    //             description={aCluster.userData.name}
+    //             left={(props) => <List.Icon {...props} icon="folder" />}
+    //             onPress={async () => {
+    //               await AsyncStorage.setItem("@defaultCluster", "@" + aCluster.clusterData.name);
+    //               this.props.navigation.navigate("HomeDrawer", { screen: "WorkloadSummary" });
+    //             }}
+    //           />
+    //         ))}
+    //         <Button icon="plus" mode="contained" onPress={() => this.props.navigation.navigate("Add Cluster")}>
+    //           Add new cluster
+    //         </Button>
+    //       </View>
+    //     )}
+    //   </SafeAreaView>
+    // );
   }
 }
 
