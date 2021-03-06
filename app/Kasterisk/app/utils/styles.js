@@ -128,7 +128,7 @@ export const commonStyles = StyleSheet.create({
 
 });
 
-export const landscapeStyles = StyleSheet.create({
+export const welcomeStyles = StyleSheet.create({
 
   // Welcome
   panelContainer: {
@@ -158,8 +158,9 @@ export const landscapeStyles = StyleSheet.create({
     textAlign: "center",
     fontSize: fonts.lg,
   },
+});
 
-  // WorkloadSummary
+export const workloadSummaryStyles = StyleSheet.create({
   dashboardRowContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -170,8 +171,7 @@ export const landscapeStyles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: spacings.sm,
   },
-
-});
+})
 
 export const portraitStyles = StyleSheet.create({
 

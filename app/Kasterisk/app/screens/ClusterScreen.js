@@ -6,6 +6,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useNavigation } from "@react-navigation/native";
 
+import {
+  commonStyles,
+  welcomeStyles,
+} from "../utils/styles.js";
+
 class ClusterScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -17,18 +22,18 @@ class ClusterScreen extends React.Component {
   }
 
   async componentDidMount() {
-    let previousCluster = this.props.route.previous;
-    Alert.alert(previousCluster)
-    
+    // Check if there are any clusters stored in localstorage.
+    // if none, redirect to add cluster page
     let allClusters = await AsyncStorage.getItem("@clusters");
-
     if (allClusters == null) {
       this.setState({ spinner: false });
       this.props.navigation.replace("Add Cluster");
       return;
     }
+
+    // check if there is a default cluster in localstorage
+    // if yes, redirect to workload summary page
     let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-    Alert.alert(defaultCluster)
     if (defaultCluster != null) {
       this.setState({ spinner: false });
       this.props.navigation.reset({
@@ -38,6 +43,13 @@ class ClusterScreen extends React.Component {
       // this.props.navigation.pushToTop("HomeDrawer", { screen: "WorkloadSummary" });
       return;
     }
+
+    // Check if there is a previousCluster in props
+    // this is to show the most recent cluster the user has redirected from
+    
+    let previousCluster = this.props.route.previous;
+
+    // get all clusters from localstorage
     allClusters = JSON.parse(allClusters);
     for (const aCluster of allClusters) {
       let currCluster = await AsyncStorage.getItem(aCluster);

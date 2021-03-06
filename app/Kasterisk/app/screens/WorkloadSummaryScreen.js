@@ -14,8 +14,7 @@ import {
   colours,
   spacings,
   commonStyles,
-  landscapeStyles,
-  portraitStyles,
+  workloadSummaryStyles
 } from "../utils/styles.js";
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
@@ -26,7 +25,6 @@ export default class WorkloadSummaryScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      orientation: "",
       result: null,
       index: 0,
       routes: [
@@ -55,9 +53,6 @@ export default class WorkloadSummaryScreen extends Component {
       podsInfo: [],
     };
     this.updateState = this.updateState.bind(this);
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
   }
 
   async updateState(stateKey, value) {
@@ -81,26 +76,6 @@ export default class WorkloadSummaryScreen extends Component {
     else if (stateKey == "deploymentsInfo") {
       this.setState({ deploymentsInfo: value });
     }
-  }
-
-  getOrientation() {
-    if (Dimensions.get("window").width > Dimensions.get("window").height) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return landscapeStyles;
-    } else {
-      return portraitStyles;
-    }
-  }
-
-  onLayout() {
-    this.setState({ orientation: this.getOrientation() });
   }
 
   NamespaceList() {
@@ -293,8 +268,8 @@ export default class WorkloadSummaryScreen extends Component {
               {this.NamespaceList()}
             </View>
           </View>
-          <View style={this.getStyle().dashboardRowContainer}>
-            <View style={this.getStyle().dashboardCardColumnContainer}>
+          <View style={workloadSummaryStyles.dashboardRowContainer}>
+            <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
 
               <OverviewCard
                 image={require("../assets/deployment.png")}
@@ -305,7 +280,7 @@ export default class WorkloadSummaryScreen extends Component {
                 no2={this.state.deploymentSummary.notReadyDeployments}
               />
             </View>
-            <View style={this.getStyle().dashboardCardColumnContainer}>
+            <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
               <OverviewCard
                 image={require("../assets/replicaset.png")}
                 name="ReplicaSet"
@@ -315,7 +290,7 @@ export default class WorkloadSummaryScreen extends Component {
                 no2={this.state.replicasetSummary.notReadyReplicaSets}
               />
             </View>
-            <View style={this.getStyle().dashboardCardColumnContainer}>
+            <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
               <OverviewCard
                 image={require("../assets/pod.png")}
                 name="Pod"

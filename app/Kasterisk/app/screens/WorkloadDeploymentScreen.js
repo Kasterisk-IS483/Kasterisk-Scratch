@@ -10,8 +10,6 @@ import {
   fonts,
   spacings,
   commonStyles,
-  landscapeStyles,
-  portraitStyles,
 } from "../utils/styles.js";
 
 import IndividualCard from "../components/Cards/IndividualCard";
@@ -22,31 +20,7 @@ export default class WorkloadDeploymentScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      orientation: "",
     };
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
-  }
-
-  getOrientation() {
-    if (Dimensions.get("window").width > Dimensions.get("window").height) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return landscapeStyles;
-    } else {
-      return portraitStyles;
-    }
-  }
-
-  onLayout() {
-    this.setState({ orientation: this.getOrientation() });
   }
 
   render() {

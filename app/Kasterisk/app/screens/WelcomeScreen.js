@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
   Text,
@@ -7,16 +6,13 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  Alert,
-  Linking,
 } from "react-native";
 
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
 import {
   commonStyles,
-  landscapeStyles,
-  portraitStyles,
+  welcomeStyles,
 } from "../utils/styles.js";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useNavigation, CommonActions } from "@react-navigation/native";
@@ -26,32 +22,11 @@ export default class WelcomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      orientation: "",
       result: null,
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
     });
-  }
-
-  getOrientation() {
-    if (Dimensions.get("window").width > Dimensions.get("window").height) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return landscapeStyles;
-    } else {
-      return portraitStyles;
-    }
-  }
-
-  onLayout() {
-    this.setState({ orientation: this.getOrientation() });
   }
 
   // GoogleLogin = async () => {
@@ -118,23 +93,23 @@ export default class WelcomeScreen extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={this.getStyle().panelContainer}>
-        <View style={this.getStyle().welcomeBannerContainer}>
+      <View style={welcomeStyles.panelContainer}>
+        <View style={welcomeStyles.welcomeBannerContainer}>
           <ImageBackground
-            style={this.getStyle().welcomeBannerContainer}
+            style={welcomeStyles.welcomeBannerContainer}
             source={require("../assets/welcome-bg.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={this.getStyle().welcomeBannerLogo}
+            style={welcomeStyles.welcomeBannerLogo}
             source={require("../assets/kasterisk-logo.png")}
           />
-          <Text style={this.getStyle().welcomeBannerDescription}>
+          <Text style={welcomeStyles.welcomeBannerDescription}>
             Access, manage and monitor your Kubernetes clusters.
           </Text>
         </View>
 
-        <View style={this.getStyle().welcomeButtonsContainer}>
+        <View style={welcomeStyles.welcomeButtonsContainer}>
           <ScrollView
             contentContainerStyle={[
               commonStyles.scrollView,
