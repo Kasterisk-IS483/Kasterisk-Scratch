@@ -74,11 +74,6 @@ export const commonStyles = StyleSheet.create({
     marginVertical: spacings.xs,
   },
 
-  title: {
-    paddingBottom: spacings.sm, 
-    fontSize: fonts.lg, 
-    fontWeight: 'bold',
-  },
   radioText: {
     marginTop: spacings.xs,
     fontSize: fonts.sm,
@@ -88,6 +83,18 @@ export const commonStyles = StyleSheet.create({
     borderColor: 'white',
     width: Dimensions.get('window').width * 0.3,
     margin: spacings.sm,
+  },
+
+  headerTitle: {
+    paddingLeft: spacings.xl, 
+    paddingTop: spacings.xl, 
+    fontSize: fonts.xl, 
+    fontWeight: 'bold', 
+  },
+  cardTitle: {
+    paddingBottom: spacings.sm, 
+    fontSize: fonts.lg, 
+    fontWeight: 'bold',
   },
 
   // WorkloadCard
