@@ -66,7 +66,6 @@ class ClusterScreen extends React.Component {
       let currCluster = await AsyncStorage.getItem("@" + aCluster);
       this.clusterList.push(JSON.parse(currCluster));
     }
-    // Alert.alert("clusterList", JSON.stringify(this.clusterList));
     this.setState({ spinner: false, loaded: true });
   }
 

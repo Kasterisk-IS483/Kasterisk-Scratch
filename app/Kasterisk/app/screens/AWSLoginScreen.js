@@ -39,7 +39,6 @@ const AWSLoginScreen = ({ navigation }) => {
       Alert.alert("Invalid Credentials", "Please enter valid access keys and ensure you have correct permissions.");
       return;
     }
-    Alert.alert(JSON.stringify(isValidCredentials));
     let allClusters = await AwsApi.describeAllEksClusters(region, loginState);
     let userData = {
       name: loginState.accessKeyId,
@@ -83,7 +82,7 @@ const AWSLoginScreen = ({ navigation }) => {
       let storedClusters = await AsyncStorage.getItem("@clusters");
       if (storedClusters != null) {
         let clusterArray = JSON.parse(storedClusters);
-        newClusters.concat(clusterArray);
+        newClusters = newClusters.concat(clusterArray);
       }
       await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
     }
