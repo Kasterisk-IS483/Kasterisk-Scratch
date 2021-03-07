@@ -118,31 +118,31 @@ export default class App extends Component {
   async componentDidMount() {
     SplashScreen.hide();
 
-    this.setState({
-      spinner: true,
-    });
+    // this.setState({
+    //   spinner: true,
+    // });
 
-    try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
-      if (defaultCluster != null) {
-        let serverStatus = await checkServerStatus(defaultCluster);
-        console.log(serverStatus);
-        if (serverStatus[0] == 200) {
-          this.setState({
-            namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
-          });
-        } else {
-          Alert.alert("Error", "Failed to contact cluster");
-        }
-      }
-    } catch (err) {
-      Alert.alert("Server Check Failed", err.message);
-    }
-    console.log(namespaceLabels);
-    this.setState({
-      spinner: false,
-    });
+    // try {
+    //   let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+    //   console.log(defaultCluster);
+    //   if (defaultCluster != null) {
+    //     let serverStatus = await checkServerStatus(defaultCluster);
+    //     console.log(serverStatus);
+    //     if (serverStatus[0] == 200) {
+    //       this.setState({
+    //         namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
+    //       });
+    //     } else {
+    //       Alert.alert("Error", "Failed to contact cluster");
+    //     }
+    //   }
+    // } catch (err) {
+    //   Alert.alert("Server Check Failed", err.message);
+    // }
+    // console.log(namespaceLabels);
+    // this.setState({
+    //   spinner: false,
+    // });
   }
 
   // useEffect(() => {
