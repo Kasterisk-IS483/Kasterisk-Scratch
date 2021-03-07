@@ -5,6 +5,9 @@ import AwsApi from "./AwsApi";
 import { saveCredentials } from "../utils/constants";
 
 export async function checkServerStatus(clusterKey) {
+  if (clusterKey == null) {
+    throw new Error("Default cluster not found");
+  }
   let mergeData = await AsyncStorage.getItem(clusterKey);
   if (mergeData == null) {
     throw new Error("Default cluster not found");

@@ -51,6 +51,7 @@ export default class KubeconfigUploadScreen extends React.Component {
                 Alert.alert("File Upload Failed", e.message);
                 return;
             }
+            
             this.updateState("clusterCheck", true);
             this.updateState("isUploaded", true);
             this.updateState("text", this.k8s.getKubeconfigContent());

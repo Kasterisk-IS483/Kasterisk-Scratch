@@ -1,14 +1,15 @@
 import React, { Component, useEffect, createContext } from "react";
 import "react-native-gesture-handler";
 import SplashScreen from "react-native-splash-screen";
-import { View, Image, SafeAreaView } from "react-native";
+import { View, Image, SafeAreaView, Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ModalDropdown from 'react-native-modal-dropdown';
+import ModalDropdown from "react-native-modal-dropdown";
 
 import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
+import { checkServerStatus } from "./api/KubeApi";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
@@ -34,7 +35,7 @@ const screenOptions = {
   headerShown: true,
 };
 
-const menuArray = ["test 1", "test 2"]
+const menuArray = ["test 1", "test 2"];
 
 function HomeDrawer({ navigation }) {
   return (
@@ -48,7 +49,7 @@ function HomeDrawer({ navigation }) {
         inactiveTintColor: "black" /* Font color for inactive screens' labels */,
       }}
       contentOptions={{
-        labelStyle: fonts.md
+        labelStyle: fonts.md,
       }}
       drawerContent={(props) => {
         return (
@@ -69,35 +70,42 @@ function HomeDrawer({ navigation }) {
               />
             </View>
             <DrawerItem
-              labelStyle={{ fontSize: fonts.md, color:"black" }}
+              labelStyle={{ fontSize: fonts.md, color: "black" }}
               label="Change Cluster"
               onPress={async () => {
-                let previousCluster = await AsyncStorage.getItem('@defaultCluster');
+                let previousCluster = await AsyncStorage.getItem("@defaultCluster");
                 await AsyncStorage.removeItem("@defaultCluster");
-                navigation.replace("Cluster", {previous: previousCluster});
+                navigation.replace("Cluster", { previous: previousCluster });
               }}
             />
-            <DrawerItemList {...props}  labelStyle={{ fontSize: fonts.md}}/>
+            <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
           </SafeAreaView>
         );
       }}
     >
-      <Drawer.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ 
-        title: "Workloads" , 
-        headerRight:() =>	<ModalDropdown options={menuArray} 
-          dropdownStyle={{ height: 40 * menuArray.length, alignItems: 'center' }}
-          dropdownTextStyle={{ fontSize: 16, color: 'black' }}
-          textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: 'white' }}
-          customButton="⋮"
-          defaultValue="All Namespaces"
-			  />
-       }} />
+      <Drawer.Screen
+        name="WorkloadSummary"
+        component={WorkloadSummaryScreen}
+        options={{
+          title: "Workloads",
+          headerRight: () => (
+            <ModalDropdown
+              options={menuArray}
+              dropdownStyle={{ height: 40 * menuArray.length, alignItems: "center" }}
+              dropdownTextStyle={{ fontSize: 16, color: "black" }}
+              textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
+              customButton="⋮"
+              defaultValue="All Namespaces"
+            />
+          ),
+        }}
+      />
       <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
     </Drawer.Navigator>
   );
 }
 
-export default class App extends Component{
+export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -111,54 +119,55 @@ export default class App extends Component{
     SplashScreen.hide();
 
     this.setState({
-      spinner: true
-    })
+      spinner: true,
+    });
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
       console.log(defaultCluster);
-      let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
-      if (serverStatus[0] == 200) {
-        this.setState({
-          namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
-        })
-      } else {
-        Alert.alert("Error", "Failed to contact cluster")
+      if (defaultCluster != null) {
+        let serverStatus = await checkServerStatus(defaultCluster);
+        console.log(serverStatus);
+        if (serverStatus[0] == 200) {
+          this.setState({
+            namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
+          });
+        } else {
+          Alert.alert("Error", "Failed to contact cluster");
+        }
       }
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
     console.log(namespaceLabels);
     this.setState({
-      spinner: false
-    })
-
+      spinner: false,
+    });
   }
 
   // useEffect(() => {
   //   SplashScreen.hide();
   // }, []);
 
-  render(){
+  render() {
     return (
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-        <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
+        <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
+          <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
 
-        <Stack.Screen name="HomeDrawer" component={HomeDrawer} options={{ headerShown: false }} />
-        <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
-        {/* Welcome Screen Buttons */}
-        <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
-        <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
-        <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
+          <Stack.Screen name="HomeDrawer" component={HomeDrawer} options={{ headerShown: false }} />
+          <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
+          {/* Welcome Screen Buttons */}
+          <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
+          <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
+          <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
 
-        {/* Misc */}
-        <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
-        <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }}/>
-        <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }}/>
-        <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pods" }}/>
-      </Stack.Navigator>
+          {/* Misc */}
+          <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
+          <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
+          <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
+          <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pods" }} />
+        </Stack.Navigator>
       </NavigationContainer>
     );
   }

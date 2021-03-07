@@ -16,6 +16,8 @@ class ClusterScreen extends React.Component {
       loaded: false,
     };
     this.clusterList = [];
+    this.previousCluster = null;
+    this.previousClusterData = null;
   }
 
   async componentDidMount() {
@@ -48,15 +50,23 @@ class ClusterScreen extends React.Component {
     // Check if there is a previousCluster in props
     // this is to show the most recent cluster the user has redirected from
 
-    let previousCluster = this.props.route.previous;
-    
+    // let previousCluster = this.props.route.params.previous;
+    try {
+      this.previousCluster = this.props.route.params.previous;
+    } catch (err) {}
+
+    if (this.previousCluster != null) {
+      this.previousClusterData = JSON.parse(await AsyncStorage.getItem(this.previousCluster));
+    }
+
     // get all clusters from localstorage
     allClusters = JSON.parse(allClusters);
-    
+
     for (const aCluster of allClusters) {
       let currCluster = await AsyncStorage.getItem("@" + aCluster);
       this.clusterList.push(JSON.parse(currCluster));
     }
+    // Alert.alert("clusterList", JSON.stringify(this.clusterList));
     this.setState({ spinner: false, loaded: true });
   }
 
@@ -69,26 +79,50 @@ class ClusterScreen extends React.Component {
         <View style={clusterPageStyle.welcomeBannerContainer}>
           <ImageBackground style={clusterPageStyle.welcomeBannerContainer} source={require("../assets/welcome-bg.png")} imageStyle={{ resizeMode: "cover" }} />
           <Image style={clusterPageStyle.welcomeBannerLogo} source={require("../assets/kasterisk-logo.png")} />
+          <Text style={clusterPageStyle.welcomeBannerDescription}>Select a cluster to continue</Text>
         </View>
 
         <View style={clusterPageStyle.welcomeButtonsContainer}>
-          <ScrollView contentContainerStyle={[commonStyles.scrollView, commonStyles.centralise]}>
-          <Text style={{ fontSize: 30 }}>Previous Cluster</Text>
-            <View style={commonStyles.divider} />
-            <Text style={{ fontSize: 30 }}>Select Cluster</Text>
+          <View>
+            {this.previousCluster == null ? null : (
+              <View>
+                <Text style={{ fontSize: 30 }}>Previous Cluster</Text>
+                <List.Item
+                  key={this.previousClusterData.clusterData.name}
+                  title={this.previousClusterData.clusterData.name}
+                  description={this.previousClusterData.userData.name}
+                  left={(props) => <List.Icon {...props} icon="aws" />}
+                  onPress={async () => {
+                    await AsyncStorage.setItem("@defaultCluster", "@" + this.previousClusterData.clusterIdentifier);
+                    this.props.navigation.reset({
+                      index: 0,
+                      routes: [{ name: "HomeDrawer", params: { screen: "WorkloadSummary" } }],
+                    });
+                  }}
+                />
+                <View style={commonStyles.divider} />
+              </View>
+            )}
+          </View>
+
+          <Text style={{ fontSize: 30 }}>All Clusters</Text>
+          <ScrollView>
             {this.clusterList.map((aCluster) => (
               <List.Item
                 key={aCluster.clusterData.name}
                 title={aCluster.clusterData.name}
                 description={aCluster.userData.name}
-                left={(props) => <List.Icon {...props} icon="folder" />}
+                left={(props) => <List.Icon {...props} icon={aCluster.serviceProvider} />}
                 onPress={async () => {
-                  await AsyncStorage.setItem("@defaultCluster", "@" + aCluster.clusterData.name);
+                  await AsyncStorage.setItem("@defaultCluster", "@" + aCluster.clusterIdentifier);
                   this.props.navigation.navigate("HomeDrawer", { screen: "WorkloadSummary" });
                 }}
               />
             ))}
           </ScrollView>
+          <Button icon="plus" mode="contained" onPress={() => this.props.navigation.navigate("Add Cluster")}>
+            Add new cluster
+          </Button>
         </View>
       </View>
     );

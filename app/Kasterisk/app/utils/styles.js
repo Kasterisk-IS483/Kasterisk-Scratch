@@ -179,7 +179,7 @@ export const clusterPageStyle = StyleSheet.create({
     height: "50%",
     resizeMode: "contain",
     left: "25%",
-    top: "25%",
+    top: "15%",
   },
   welcomeBannerDescription: {
     position: "absolute",

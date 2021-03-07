@@ -1,6 +1,7 @@
 import * as _ from "underscore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { saveCredentials } from "../../utils/constants";
+import { Alert } from "react-native";
 
 export enum ActionOnInvalid {
     THROW = "throw",
@@ -221,24 +222,22 @@ export async function saveToLocal(
     context: Context[]
 ): Promise<void> {
     var contexts = [];
-    for (const aContext of context) {
-        let contextName = "@".concat(aContext.name);
-        let clusterName = aContext.cluster;
-        let userName = aContext.user;
-        let mergeData, clusterData, userData, authType;
-        for (const aCluster of cluster) {
-            if (aCluster.name != clusterName) {
+    for (const aCluster of cluster) {
+        let mergeData, clusterData, userData, authType, userName;
+        let clusterName = aCluster.name;
+        clusterData = exportCluster(aCluster);
+        Alert.alert(clusterName)
+        for (const aContext of context) {
+            if (aContext.name != clusterName) {
                 continue;
             }
-            clusterName = "@".concat(clusterName);
-            clusterData = exportCluster(aCluster);
+            let userName = aContext.user;
             break;
         }
         for (const aUser of user) {
             if (aUser.name != userName) {
                 continue;
             }
-            userName = "@".concat(userName);
             userData = exportUser(aUser);
             if (userData.user.clientCertificateData != null) {
                 authType = "cert"
@@ -249,30 +248,35 @@ export async function saveToLocal(
             }
             break;
         }
+        Alert.alert("userdata", JSON.stringify(userData))
+        let clusterIdentifier = clusterName + "::" + userData.name + "::kubernetes";
+        Alert.alert("id", clusterIdentifier)
         mergeData = {
+            clusterIdentifier: "",
             clusterData: clusterData,
             userData: userData,
-            authType: authType
+            authType: authType,
+            serviceProvider: "kubernetes"
         };
-        try {
-            await AsyncStorage.setItem(contextName, JSON.stringify(mergeData));
-        } catch (e) {
-            throw new Error(
-                'Failed to save context "' + contextName + '" data to storage'
-            );
-        }
-        contexts.push(contextName);
+    //     try {
+    //         await AsyncStorage.setItem(contextName, JSON.stringify(mergeData));
+    //     } catch (e) {
+    //         throw new Error(
+    //             'Failed to save context "' + contextName + '" data to storage'
+    //         );
+    //     }
+    //     contexts.push(contextName);
     }
     
-    let storedContexts = await AsyncStorage.getItem("@contexts");
-    if (storedContexts != null) {
-        let contextArray = <Array<string>>JSON.parse(storedContexts);
-        contexts.concat(contextArray);
-    }
-    await Promise.all([
-        await saveCredentials("@defaultContext", contexts[0]),
-        saveCredentials("@contexts", JSON.stringify(contexts))
-    ]);
+    // let storedContexts = await AsyncStorage.getItem("@contexts");
+    // if (storedContexts != null) {
+    //     let contextArray = <Array<string>>JSON.parse(storedContexts);
+    //     contexts.concat(contextArray);
+    // }
+    // await Promise.all([
+    //     await saveCredentials("@defaultContext", contexts[0]),
+    //     saveCredentials("@contexts", JSON.stringify(contexts))
+    // ]);
 }
 
 // export async function saveURLToken(): Promise<void> {

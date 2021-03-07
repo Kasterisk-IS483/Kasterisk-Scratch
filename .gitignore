@@ -353,3 +353,5 @@ MigrationBackup/
 .idea
 .DS_Store
 *.hprof
+
+package-lock.json

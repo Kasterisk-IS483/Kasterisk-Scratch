@@ -50,6 +50,8 @@ const AWSLoginScreen = ({ navigation }) => {
     };
     let newClusters = [];
     for (const aCluster of allClusters) {
+      let clusterName = aCluster.name;
+      let clusterIdentifier = clusterName + "::" + userData.name + "::aws";
       let clusterData = {
         name: aCluster.name,
         cluster: {
@@ -58,12 +60,13 @@ const AWSLoginScreen = ({ navigation }) => {
         },
       };
       let mergeData = {
+        clusterIdentifier: clusterIdentifier, 
         clusterData: clusterData,
         userData: userData,
         authType: "aws",
+        serviceProvider: "aws"
       };
-      let clusterName = aCluster.name;
-      let clusterIdentifier = clusterName + "::" + userData.name + "::" + mergeData.authType;
+      
       try {
         let check = await AsyncStorage.getItem("@" + clusterIdentifier);
         if (check != null) {
