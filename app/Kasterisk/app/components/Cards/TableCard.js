@@ -18,7 +18,7 @@ export default function TableCard(props) {
     headers = ["Name", "Ready", "Phase", "Restarts", "Node", "Age"];
   } else if (props.header == 'Conditions') {
     headers = ["Type", "Reason", "Status", "Message", "Last Update", "Last Transition"];
-  } else if (props.header == 'Conditions') {
+  } else if (props.header == 'Pod Conditions') {
     headers = ["Type", "Status","Last Transition", "Message", "Reason"];
   }
 

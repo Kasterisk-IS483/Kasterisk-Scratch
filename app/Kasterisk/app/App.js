@@ -41,6 +41,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       spinner: false,
+      checked: true,
       namespaceLabels: ["All Namespaces"],
     };
     this.HomeDrawer = this.HomeDrawer.bind(this);
@@ -132,6 +133,7 @@ export default class App extends Component {
         if (serverStatus[0] == 200) {
           let namespaceLabelArray = await WorkloadSummaryApi.namespaceLabels2();
           this.setState({
+            checked: false,
             namespaceLabels: namespaceLabelArray,
           });
           console.log(this.state);
@@ -152,25 +154,28 @@ export default class App extends Component {
   // }, []);
 
   render() {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-          <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
+    if (this.state.checked) return null;
+    else {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
+            <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
 
-          <Stack.Screen name="HomeDrawer" component={this.HomeDrawer} options={{ headerShown: false }} />
-          <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
-          {/* Welcome Screen Buttons */}
-          <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
-          <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
-          <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
+            <Stack.Screen name="HomeDrawer" component={this.HomeDrawer} options={{ headerShown: false }} />
+            <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
+            {/* Welcome Screen Buttons */}
+            <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
+            <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
+            <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
 
-          {/* Misc */}
-          <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
-          <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
-          <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
-          <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+            {/* Misc */}
+            <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
+            <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
+            <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
+            <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    }
   }
 }

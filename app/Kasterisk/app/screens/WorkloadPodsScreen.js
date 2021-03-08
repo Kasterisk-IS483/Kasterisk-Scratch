@@ -52,7 +52,7 @@ export default class WorkloadPodsScreen extends Component {
             podIP={this.state.pod.status.podIP}
             hostIP={this.state.pod.status.hostIP}
           ></DetailsCard>
-          <TableCard header="Conditions" table={conditions}/>
+          <TableCard header="Pod Conditions" table={conditions}/>
           <DetailsCard header="Template" type="Pods" />
           <DetailsCard header="Metadata" type="Pods"
             age={this.state.age}

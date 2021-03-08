@@ -142,7 +142,7 @@ export default function DetailsCard(props) {
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.detailsCardInfoLeftText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Labels</Title>
