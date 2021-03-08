@@ -78,6 +78,10 @@ export const commonStyles = StyleSheet.create({
     marginTop: spacings.xs,
     fontSize: fonts.sm,
   },
+  switchText: {
+    marginTop: spacings.xs,
+    fontSize: fonts.sm,
+  },
   divider: {
     borderWidth: 0.5,
     borderColor: 'white',

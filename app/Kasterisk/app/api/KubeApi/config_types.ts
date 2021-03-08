@@ -202,7 +202,7 @@ function contextIterator(onInvalidEntry: ActionOnInvalid): _.ListIterator<any, C
   };
 }
 
-export async function saveToLocal(cluster: Cluster[], user: User[], context: Context[]): Promise<void> {
+export async function saveKubeconfigFileToLocal(cluster: Cluster[], user: User[], context: Context[]): Promise<void> {
   var newClusters = [];
   for (const aContext of context) {
     let clusterName = aContext.cluster;
@@ -212,7 +212,7 @@ export async function saveToLocal(cluster: Cluster[], user: User[], context: Con
       if (aCluster.name != clusterName) {
         continue;
       }
-      // clusterName = "@".concat(clusterName);
+      
       clusterData = exportCluster(aCluster);
       break;
     }
@@ -220,7 +220,7 @@ export async function saveToLocal(cluster: Cluster[], user: User[], context: Con
       if (aUser.name != userName) {
         continue;
       }
-      // userName = "@".concat(userName);
+      
       userData = exportUser(aUser);
       if (userData.user.clientCertificateData != null) {
         authType = "cert";
@@ -239,7 +239,7 @@ export async function saveToLocal(cluster: Cluster[], user: User[], context: Con
       authType: authType,
       serviceProvider: "kubernetes",
     };
-    Alert.alert("mergeData", JSON.stringify(mergeData));
+    
     try {
       let check = await AsyncStorage.getItem("@" + clusterIdentifier);
       if (check != null) {
@@ -251,6 +251,37 @@ export async function saveToLocal(cluster: Cluster[], user: User[], context: Con
     } catch (e) {
       Alert.alert("Storage Error", "Failed to save cluster with name " + clusterName + " to storage");
     }
+  }
+  if (newClusters.length > 0) {
+    let storedClusters = await AsyncStorage.getItem("@clusters");
+    if (storedClusters != null) {
+      let clusterArray = JSON.parse(storedClusters);
+      newClusters = newClusters.concat(clusterArray);
+    }
+    await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
+  }
+}
+
+export async function saveKubeconfigContentToLocal(clusterData: Cluster, userData: User, authType: string): Promise<void> {
+  var newClusters = [];
+  let clusterIdentifier = clusterData.name + "::" + userData.name + "::kubernetes";
+  let mergeData = {
+    clusterIdentifier: clusterIdentifier,
+    clusterData: clusterData,
+    userData: userData,
+    authType: authType,
+    serviceProvider: "kubernetes",
+  };
+  
+  try {
+    let check = await AsyncStorage.getItem("@" + clusterIdentifier);
+    if (check != null) {
+      throw new Error( "Cluster with name " + clusterData.name + " belonging to user " + userData.name + " already exists in storage.");
+    }
+    await AsyncStorage.setItem("@" + clusterIdentifier, JSON.stringify(mergeData));
+    newClusters.push(clusterIdentifier);
+  } catch (e) {
+    Alert.alert("Storage Error", "Failed to save cluster with name " + clusterData.name + " to storage");
   }
   if (newClusters.length > 0) {
     let storedClusters = await AsyncStorage.getItem("@clusters");
