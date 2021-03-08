@@ -1,22 +1,25 @@
 import React from "react"
 import { View, Text } from "react-native"
-import { Card, Title } from 'react-native-paper';
+import { Card, Title, DataTable } from 'react-native-paper';
 
-import {
-    cardsOuterPadding,
-    commonStyles,
-} from "../../utils/styles.js";
+import { cardsOuterPadding, commonStyles } from "../../utils/styles.js";
+
+import LabelButton from "../Buttons/LabelButton";
 
 export default function DetailsCard(props) {
 
     let isDeploymentConfiguration = false;
     let isDeploymentStatus = false;
+    let isDeploymentPodTemplate = false;
     let isDeploymentMetadata = false;
+
     let isReplicasetConfiguration = false;
     let isReplicasetStatus = false;
     let isReplicasetMetadata = false;
+
     let isPodConfiguration = false;
     let isPodStatus = false;
+    let isPodTemplate = false;
     let isPodMetadata = false;
 
     if (props.type == "Deployment") {
@@ -24,6 +27,8 @@ export default function DetailsCard(props) {
             isDeploymentConfiguration = true;
         } else if (props.header == "Status") {
             isDeploymentStatus = true;
+        } else if (props.header == "Pod Template") {
+            isDeploymentPodTemplate = true;
         } else if (props.header == "Metadata") {
             isDeploymentMetadata = true;
         }
@@ -40,6 +45,8 @@ export default function DetailsCard(props) {
             isPodConfiguration = true;
         } else if (props.header == "Status") {
             isPodStatus = true;
+        } else if (props.header == "Template") {
+            isPodTemplate = true;
         } else if (props.header == "Metadata") {
             isPodMetadata = true;
         }
@@ -85,7 +92,6 @@ export default function DetailsCard(props) {
                                 </View>
                             </View>
                         }
-
                         {isDeploymentStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
@@ -110,7 +116,28 @@ export default function DetailsCard(props) {
                                 </View>
                             </View>
                         }
-
+                        {isDeploymentPodTemplate &&
+                            <View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Title style={[ commonStyles.detailsCardInfoRightText, { textDecorationLine: 'underline' } ]}>
+                                        Container{props.container ? " " + props.container : ""}
+                                    </Title>
+                                    {props.label && 
+                                        <View style={commonStyles.detailsCardInfoLeftText}>
+                                            <LabelButton text={props.label}></LabelButton>
+                                        </View>                                    
+                                    }
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Image</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.image}</Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Container Ports</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.containerPorts}</Text>
+                                </View>
+                            </View>
+                        }
                         {isDeploymentMetadata &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
@@ -144,7 +171,6 @@ export default function DetailsCard(props) {
                                 </View>
                             </View>
                         }
-
                         {isPodStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
@@ -165,12 +191,53 @@ export default function DetailsCard(props) {
                                 </View>
                             </View>
                         }
-
+                        {isPodTemplate &&
+                            <View>
+                                <Title style={{ textDecorationLine: 'underline' }}>Container {props.container}</Title>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Image</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.image}</Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Image ID</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.imageId}</Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Current State</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.currentState}</Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Ready</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.ready}</Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Restart Count</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.restartCount}</Text>
+                                </View>
+                                <View style={commonStyles.fieldsContainer}>
+                                    <Title style={commonStyles.detailsCardInfoLeftText}>Volume Mounts</Title>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>
+                                        <DataTable>
+                                            <DataTable.Header>
+                                                <DataTable.Title>Name       </DataTable.Title>
+                                                <DataTable.Title>Mount Path     </DataTable.Title>
+                                                <DataTable.Title>Propagation    </DataTable.Title>
+                                            </DataTable.Header>
+                                            <DataTable.Row>
+                                                <DataTable.Cell>{props.name}</DataTable.Cell>
+                                                <DataTable.Cell>{props.mountPath}</DataTable.Cell>
+                                                <DataTable.Cell>{props.propagation}</DataTable.Cell>
+                                            </DataTable.Row>
+                                        </DataTable>
+                                    </Text>
+                                </View>
+                            </View>
+                        }
                         {isPodMetadata &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.detailsCardInfoLeftText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Labels</Title>
@@ -199,7 +266,6 @@ export default function DetailsCard(props) {
                                 </View>
                             </View>
                         }
-
                         {isReplicasetStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
@@ -224,7 +290,6 @@ export default function DetailsCard(props) {
                                 </View>
                             </View>
                         }
-
                         {isReplicasetMetadata &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>

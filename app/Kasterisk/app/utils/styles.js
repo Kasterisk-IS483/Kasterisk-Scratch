@@ -119,7 +119,7 @@ export const commonStyles = StyleSheet.create({
   },
   detailsCardInfoRightText: {
     flex: 3,
-    paddingTop: spacings.sm,
+    paddingTop: spacings.xs,
   },
 
   // OverviewCard

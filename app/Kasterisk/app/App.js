@@ -100,7 +100,7 @@ function HomeDrawer({ navigation }) {
           ),
         }}
       />
-      <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
+      {/* <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} /> */}
     </Drawer.Navigator>
   );
 }
@@ -166,7 +166,7 @@ export default class App extends Component {
           <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
           <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
           <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
-          <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pods" }} />
+          <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

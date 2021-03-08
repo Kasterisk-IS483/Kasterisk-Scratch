@@ -8,7 +8,6 @@ export default function LabelButton({ text="" }) {
   return (
     <Button 
       mode="outlined" 
-      // compact={true}
       uppercase={false}
       color={colours.cta}
       icon="label"

@@ -65,6 +65,7 @@ export default class WorkloadDeploymentScreen extends Component {
           ></DetailsCard>
           <TableCard header="Pods" table={podsInfo}/>
           <TableCard header="Conditions" table={conditions}/>
+          <DetailsCard header="Pod Template" type="Deployment" />
           <DetailsCard header="Metadata" type="Deployment" 
             age={this.state.age}
             labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
