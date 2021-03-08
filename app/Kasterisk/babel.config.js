@@ -5,9 +5,6 @@ module.exports = function(api) {
       'module:metro-react-native-babel-preset',
       // '@babel/preset-flow',
     ],
-    plugins: [
-      'react-native-reanimated/plugin',
-    ],
     // plugins: [
     //   ['transform-class-properties'],
     // ],
