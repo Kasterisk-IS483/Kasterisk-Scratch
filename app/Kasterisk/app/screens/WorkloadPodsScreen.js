@@ -11,7 +11,7 @@ import {
   commonStyles,
 } from "../utils/styles.js";
 
-import IndividualCard from "../components/Cards/IndividualCard";
+import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
 import LabelButton from "../components/Buttons/LabelButton";
 
@@ -41,19 +41,19 @@ export default class WorkloadPodsScreen extends Component {
         </Title> 
 
         <View style={commonStyles.dashboardContainer}>
-          <IndividualCard header="Configuration" type="Pods"
+          <DetailsCard header="Configuration" type="Pods"
             priority={this.state.pod.spec.priority}
             node={this.state.pod.spec.nodeName}
             serviceAccount={this.state.pod.spec.serviceAccount}
-          ></IndividualCard>
-          <IndividualCard header="Status" type="Pods"
+          ></DetailsCard>
+          <DetailsCard header="Status" type="Pods"
             qos={this.state.pod.status.qosClass}
             phase={this.state.pod.status.phase}
             podIP={this.state.pod.status.podIP}
             hostIP={this.state.pod.status.hostIP}
-          ></IndividualCard>
+          ></DetailsCard>
           <TableCard header="Pod Conditions" table={conditions}/>
-          <IndividualCard header="Metadata" type="Pods"
+          <DetailsCard header="Metadata" type="Pods"
             age={this.state.age}
             labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
               <LabelButton

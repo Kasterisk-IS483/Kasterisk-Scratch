@@ -98,19 +98,28 @@ export const commonStyles = StyleSheet.create({
   },
 
   // WorkloadCard
-  cardInfoLeftText: {
-    flex: 2,
-  },
-  cardInfoRightText: {
-    flex: 1,
-    paddingTop: spacings.sm,
-  },
   workloadCardLabelContainer: {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
     flexWrap: "wrap",
     paddingHorizontal: spacings.md,
+  },
+  workloadCardInfoLeftText: {
+    flex: 2,
+  },
+  workloadCardInfoRightText: {
+    flex: 1,
+    paddingTop: spacings.sm,
+  },
+
+  // DetailsCard
+  detailsCardInfoLeftText: {
+    flex: 2,
+  },
+  detailsCardInfoRightText: {
+    flex: 3,
+    paddingTop: spacings.sm,
   },
 
   // OverviewCard

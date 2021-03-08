@@ -9,7 +9,7 @@ import {
   commonStyles,
 } from "../utils/styles.js";
 
-import IndividualCard from "../components/Cards/IndividualCard";
+import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
 import LabelButton from "../components/Buttons/LabelButton";
 
@@ -45,18 +45,18 @@ export default class WorkloadReplicasetScreen extends Component {
         </Title> 
 
         <View style={commonStyles.dashboardContainer}>
-          <IndividualCard header="Configuration" type="Replicaset"
+          <DetailsCard header="Configuration" type="Replicaset"
             control={this.state.replicaset.metadata.ownerReferences[0].name}
             status={replicaStatus}
             numberReplica={this.state.replicaset.spec.replicas}
-          ></IndividualCard>
-          <IndividualCard header="Status" type="Replicaset"
+          ></DetailsCard>
+          <DetailsCard header="Status" type="Replicaset"
             waiting={this.state.podstatus.waiting}
             running={this.state.podstatus.running}
             failed={this.state.podstatus.failed}
             succeeded={this.state.podstatus.succeeded}
-          ></IndividualCard>
-          <IndividualCard header="Metadata" type="Replicaset" 
+          ></DetailsCard>
+          <DetailsCard header="Metadata" type="Replicaset" 
             age={this.state.age}
             labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
               <LabelButton

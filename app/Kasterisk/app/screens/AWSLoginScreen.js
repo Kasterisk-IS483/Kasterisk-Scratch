@@ -114,24 +114,20 @@ const AWSLoginScreen = ({ navigation }) => {
         />
         <Text
           style={[
-            commonStyles.formSectionHeader,
-            {
-              marginHorizontal: spacings.lg,
-              paddingTop: spacings.lg,
-            },
-          ]}
+            commonStyles.formSectionHeader, {
+            marginHorizontal: spacings.lg,
+            paddingTop: spacings.lg,
+          }]}
         >
           Region Information:
         </Text>
         <View
           style={[
-            commonStyles.formContent,
-            {
-              borderWidth: 1,
-              borderColor: colours.grey,
-              marginTop: spacings.md,
-            },
-          ]}
+            commonStyles.formContent, {
+            borderWidth: 1,
+            borderColor: colours.grey,
+            marginTop: spacings.md,
+          }]}
         >
           {AWSRegionList()}
         </View>
