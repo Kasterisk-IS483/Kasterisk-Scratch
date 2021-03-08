@@ -115,7 +115,7 @@ export default function IndividualCard(props) {
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.age}</Text>
+                                    <Text style={commonStyles.cardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Labels</Title>
@@ -170,7 +170,7 @@ export default function IndividualCard(props) {
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.age}</Text>
+                                    <Text style={commonStyles.cardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Labels</Title>
@@ -229,7 +229,7 @@ export default function IndividualCard(props) {
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.cardInfoRightText}>{props.age}</Text>
+                                    <Text style={commonStyles.cardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.cardInfoLeftText}>Labels</Title>

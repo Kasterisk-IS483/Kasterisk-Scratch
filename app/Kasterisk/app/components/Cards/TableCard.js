@@ -12,27 +12,14 @@ import {
 
 export default function TableCard(props) {
 
-  let title1;
-  let title2;
-  let title3;
-  let title4;
-  let title5;
-  let title6;
+  let headers;
 
   if (props.header == 'Pods') {
-    title1 = 'Name';
-    title2 = 'Ready';
-    title3 = 'Phase';
-    title4 = 'Restarts';
-    title5 = 'Node';
-    title6 = 'Age';
+    headers = ["Name", "Ready", "Phase", "Restarts", "Node", "Age"];
   } else if (props.header == 'Conditions') {
-    title1 = 'Type';
-    title2 = 'Reason';
-    title3 = 'Status';
-    title4 = 'Message';
-    title5 = 'Last Update';
-    title6 = 'Last Transition';
+    headers = ["Type", "Reason", "Status", "Message", "Last Update", "Last Transition"];
+  } else if (props.header == 'Pod Conditions') {
+    headers = ["Type", "Status","Last Transition", "Message", "Reason"];
   }
 
   return (
@@ -50,31 +37,20 @@ export default function TableCard(props) {
         <Card.Content style={commonStyles.cardContent}>
           <DataTable>
             <DataTable.Header>
-              <DataTable.Title>{title1}</DataTable.Title>
-              <DataTable.Title>{title2}</DataTable.Title>
-              <DataTable.Title>{title3}</DataTable.Title>
-              <DataTable.Title>{title4}</DataTable.Title>
-              <DataTable.Title>{title5}</DataTable.Title>
-              <DataTable.Title>{title6}</DataTable.Title>
+            {headers.map((item2, colIndex) => (
+                <DataTable.Title key={colIndex}> {item2} </DataTable.Title>
+                ))}
             </DataTable.Header>
-
-            <DataTable.Row>
-              <DataTable.Cell>A</DataTable.Cell>
-              <DataTable.Cell>A</DataTable.Cell>
-              <DataTable.Cell>A</DataTable.Cell>
-              <DataTable.Cell>A</DataTable.Cell>
-              <DataTable.Cell>A</DataTable.Cell>
-              <DataTable.Cell>A</DataTable.Cell>
+            
+            
+            
+            {props.table === undefined ? null : props.table.map((rows, rowIndex) => ( 
+            <DataTable.Row key={rowIndex}>
+              {rows === undefined ? null : rows.map((cols, colIndex) => (
+                <DataTable.Cell key={colIndex}> {cols} </DataTable.Cell>
+                ))}
             </DataTable.Row>
-
-            <DataTable.Row>
-              <DataTable.Cell>B</DataTable.Cell>
-              <DataTable.Cell>B</DataTable.Cell>
-              <DataTable.Cell>B</DataTable.Cell>
-              <DataTable.Cell>B</DataTable.Cell>
-              <DataTable.Cell>B</DataTable.Cell>
-              <DataTable.Cell>B</DataTable.Cell>
-            </DataTable.Row>
+            ))}
           </DataTable>
 
         </Card.Content>

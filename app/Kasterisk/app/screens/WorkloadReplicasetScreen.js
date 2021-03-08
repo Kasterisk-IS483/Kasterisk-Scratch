@@ -1,10 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
 import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 import Spinner from "react-native-loading-spinner-overlay";
 
-import { checkServerStatus } from '../api/KubeApi';
 import {
   fonts,
   spacings,
@@ -13,6 +11,7 @@ import {
 
 import IndividualCard from "../components/Cards/IndividualCard";
 import TableCard from "../components/Cards/TableCard";
+import LabelButton from "../components/Buttons/LabelButton";
 
 export default class WorkloadReplicasetScreen extends Component {
 
@@ -57,11 +56,15 @@ export default class WorkloadReplicasetScreen extends Component {
             failed={this.state.podstatus.failed}
             succeeded={this.state.podstatus.succeeded}
           ></IndividualCard>
-          <TableCard header="Conditions" />
           <IndividualCard header="Metadata" type="Replicaset" 
             age={this.state.age}
-            control={this.state.replicaset.metadata.ownerReferences[0].name}
+            labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
+              <LabelButton
+                key={labelIndex}
+                text={labelItem + ":" + this.state.labels[labelItem]} />
+            ))}
             annotations={stringAnnotations}
+            control={this.state.replicaset.metadata.ownerReferences[0].name}
           />
         </View>
 

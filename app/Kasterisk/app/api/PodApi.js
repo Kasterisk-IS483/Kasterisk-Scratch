@@ -111,28 +111,6 @@ class PodApi extends Component {
         return podList.items;
     }
 
-    static PodsStatuses = async (namespace) => {
-        const podList = await this.listPod(namespace);
-        const podsStatuses = {
-            waiting: 0,
-            running: 0,
-            failed: 0,
-            succeeded: 0,
-        };
-        for (i = 0; i < podList.length; i++) {
-            if(podList[i].status.phase == "Pending"){
-                podsStatuses.waiting += 1;
-            } else if (podList[i].status.phase == "Running"){
-                podsStatuses.running += 1;
-            } else if (podList[i].status.phase == "Failed"){
-                podsStatuses.failed += 1;
-            } else {
-                podsStatuses.succeeded += 1;
-            }
-        } 
-        return podsStatuses;
-    }
-
     /**
      * List All Pods
      * GET /api/v1/pods

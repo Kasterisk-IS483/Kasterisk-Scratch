@@ -1,10 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component, useState } from "react";
 import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 import Spinner from "react-native-loading-spinner-overlay";
 
-import { checkServerStatus } from '../api/KubeApi'
+import DetailPageApi from "../api/DetailPageApi";
+
 import {
   fonts,
   spacings,
@@ -13,6 +13,7 @@ import {
 
 import IndividualCard from "../components/Cards/IndividualCard";
 import TableCard from "../components/Cards/TableCard";
+import LabelButton from "../components/Buttons/LabelButton";
 
 export default class WorkloadPodsScreen extends Component {
 
@@ -26,7 +27,7 @@ export default class WorkloadPodsScreen extends Component {
   }
 
   render() {
-    console.log(this.state.pod)
+    let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
         {/* <Spinner
@@ -51,9 +52,14 @@ export default class WorkloadPodsScreen extends Component {
             podIP={this.state.pod.status.podIP}
             hostIP={this.state.pod.status.hostIP}
           ></IndividualCard>
-          <TableCard header="Conditions" />
+          <TableCard header="Pod Conditions" table={conditions}/>
           <IndividualCard header="Metadata" type="Pods"
             age={this.state.age}
+            labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
+              <LabelButton
+                key={labelIndex}
+                text={labelItem + ":" + this.state.labels[labelItem]} />
+            ))}
             control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
           />
         </View>

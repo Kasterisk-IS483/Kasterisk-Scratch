@@ -108,7 +108,8 @@ class WorkloadSummaryApi extends Component {
     }
 
     /** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/
-    static calculateAge = async (creationDT) => {
+    static calculateAge = (creationDT) => {
+        creationDT = new Date(creationDT);
         var current = new Date();
         // To calculate the time difference of two dates 
         let differenceInTime = current.getTime() - creationDT.getTime(); 
@@ -125,8 +126,7 @@ class WorkloadSummaryApi extends Component {
             deployments = await DeploymentApi.listDeployment(namespace);
         }
         for (const deployment of deployments){
-            let creationDT = new Date(deployment.metadata.creationTimestamp);
-            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let difference = WorkloadSummaryApi.calculateAge(deployment.metadata.creationTimestamp);
             let deploymentInfo = {
                 name: deployment.metadata.name,
                 age: Math.floor(difference),
@@ -149,8 +149,7 @@ class WorkloadSummaryApi extends Component {
             replicasets = await ReplicasetApi.listReplicaSet(namespace);
         }
         for (const replicaset of replicasets){
-            let creationDT = new Date(replicaset.metadata.creationTimestamp);
-            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let difference = WorkloadSummaryApi.calculateAge(replicaset.metadata.creationTimestamp);
             let replicasetInfo = {
                 name: replicaset.metadata.name,
                 age: Math.floor(difference),
@@ -173,8 +172,7 @@ class WorkloadSummaryApi extends Component {
             pods = await PodApi.listPod(namespace);
         }
         for (const pod of pods){
-            let creationDT = new Date(pod.metadata.creationTimestamp);
-            let difference = await WorkloadSummaryApi.calculateAge(creationDT);
+            let difference = WorkloadSummaryApi.calculateAge(pod.metadata.creationTimestamp);
             let podInfo = {
                 name: pod.metadata.name,
                 age: Math.floor(difference),

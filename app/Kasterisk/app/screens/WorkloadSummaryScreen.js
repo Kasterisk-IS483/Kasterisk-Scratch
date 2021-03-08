@@ -10,6 +10,7 @@ import DeploymentApi from "../api/DeploymentApi";
 import ReplicasetApi from "../api/ReplicasetApi";
 import PodApi from "../api/PodApi";
 import WorkloadSummaryApi from "../api/WorkloadSummaryApi";
+import DetailPageApi from "../api/DetailPageApi";
 import {
   colours,
   spacings,
@@ -156,16 +157,14 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.deploymentsInfo.map((item, index) => (
-        <TouchableOpacity onPress={async () => navigation.navigate("WorkloadDeployment", {
+        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadDeployment", {
           deployment: await DeploymentApi.readDeployment(item.namespace, item.name),
           age: item.age,
           labels: item.labels,
+          pods: await PodApi.listPod(item.namespace),
           })} 
-          style={{
-          flexDirection: 'row'
-          }} >
+          style={{ flexDirection: 'row' }} >
           <WorkloadCard
-            key={index}
             name={item.name}
             age={item.age}
             status={item.status}
@@ -188,17 +187,14 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.replicasetsInfo.map((item, index) => (
-        <TouchableOpacity onPress={async () => navigation.navigate("WorkloadReplicaset", {
+        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadReplicaset", {
           replicaset: await ReplicasetApi.readReplicaSet(item.namespace, item.name),
           age: item.age,
           labels: item.labels,
-          podstatus: await PodApi.PodsStatuses(item.namespace),
+          podstatus: await DetailPageApi.PodsStatuses(item.namespace),
           })} 
-          style={{
-            flexDirection: 'row'
-          }} >
+          style={{ flexDirection: 'row' }} >
           <WorkloadCard
-            key={index}
             name={item.name}
             age={item.age}
             status={item.status}
@@ -221,16 +217,13 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.podsInfo.map((item, index) => (
-        <TouchableOpacity onPress={async () => navigation.navigate("WorkloadPods", {
+        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadPods", {
           pod: await PodApi.readPod(item.namespace, item.name),
           age: item.age,
           labels: item.labels,
           })} 
-          style={{
-            flexDirection: 'row'
-          }} >
+          style={{ flexDirection: 'row' }} >
           <WorkloadCard
-            key={index}
             name={item.name}
             age={item.age}
             status={item.status}
