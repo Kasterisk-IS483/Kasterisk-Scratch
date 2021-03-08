@@ -37,17 +37,20 @@ const screenOptions = {
 };
 
 export default class App extends Component {
+  //1
   constructor(props) {
     super(props);
     this.state = {
       spinner: false,
-      checked: true,
+      // checked: true,
       namespaceLabels: ["All Namespaces"],
     };
     this.HomeDrawer = this.HomeDrawer.bind(this);
   };
 
-  HomeDrawer({ navigation }) {
+  //3 //6
+  HomeDrawer = ({ navigation }) => {
+    // console.log("HomeDrawer Rendered")
     return (
       <Drawer.Navigator
         initialRouteName="WorkloadSummary"
@@ -118,12 +121,12 @@ export default class App extends Component {
     );
   }
 
+  //4
   async componentDidMount() {
     SplashScreen.hide();
     this.setState({
       spinner: true,
     });
-    console.log("componentDidMount");
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
       console.log(defaultCluster);
@@ -133,14 +136,14 @@ export default class App extends Component {
         if (serverStatus[0] == 200) {
           let namespaceLabelArray = await WorkloadSummaryApi.namespaceLabels2();
           this.setState({
-            checked: false,
+            // checked: false,
             namespaceLabels: namespaceLabelArray,
           });
-          console.log(this.state);
         } else {
           Alert.alert("Error", "Failed to contact cluster");
         }
       }
+      console.log("componentDidMount");
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
@@ -152,10 +155,11 @@ export default class App extends Component {
   // useEffect(() => {
   //   SplashScreen.hide();
   // }, []);
-
+  //2 //5
   render() {
-    if (this.state.checked) return null;
-    else {
+    // if (this.state.checked) return null;
+    // else {
+      console.log("render");
       return (
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
@@ -176,6 +180,6 @@ export default class App extends Component {
           </Stack.Navigator>
         </NavigationContainer>
       );
-    }
+    // }
   }
 }
