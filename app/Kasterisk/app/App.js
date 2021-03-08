@@ -19,6 +19,7 @@ import ClusterScreen from "./screens/ClusterScreen";
 import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
+import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
 
 import LoadingScreen from "./screens-backup/LoadingScreen";
 import TestScreen from "./screens-backup/TestScreen";
@@ -35,114 +36,115 @@ const screenOptions = {
   headerShown: true,
 };
 
-const menuArray = ["test 1", "test 2"];
-
-function HomeDrawer({ navigation }) {
-  return (
-    <Drawer.Navigator
-      initialRouteName="WorkloadSummary"
-      screenOptions={screenOptions}
-      drawerStyle={{ backgroundColor: "white" }}
-      drawerContentOptions={{
-        activeTintColor: colours.primary /* font color for active screen label */,
-        activeBackgroundColor: colours.secondary /* bg color for active screen */,
-        inactiveTintColor: "black" /* Font color for inactive screens' labels */,
-      }}
-      contentOptions={{
-        labelStyle: fonts.md,
-      }}
-      drawerContent={(props) => {
-        return (
-          <SafeAreaView style={{ flex: 1 }}>
-            <View
-              style={{
-                height: 150,
-                margin: spacings.sm,
-                ...commonStyles.centralise,
-              }}
-            >
-              <Image
-                source={require("./assets/kasterisk-logo.png")}
-                style={{
-                  height: "40%",
-                  width: "100%",
-                }}
-              />
-            </View>
-            <DrawerItem
-              labelStyle={{ fontSize: fonts.md, color: "black" }}
-              label="Change Cluster"
-              onPress={async () => {
-                let previousCluster = await AsyncStorage.getItem("@defaultCluster");
-                await AsyncStorage.removeItem("@defaultCluster");
-                navigation.replace("Cluster", { previous: previousCluster });
-              }}
-            />
-            <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
-          </SafeAreaView>
-        );
-      }}
-    >
-      <Drawer.Screen
-        name="WorkloadSummary"
-        component={WorkloadSummaryScreen}
-        options={{
-          title: "Workloads",
-          headerRight: () => (
-            <ModalDropdown
-              options={menuArray}
-              dropdownStyle={{ height: 40 * menuArray.length, alignItems: "center" }}
-              dropdownTextStyle={{ fontSize: 16, color: "black" }}
-              textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-              customButton="⋮"
-              defaultValue="All Namespaces"
-            />
-          ),
-        }}
-      />
-      {/* <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} /> */}
-    </Drawer.Navigator>
-  );
-}
-
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       spinner: false,
-      namespaceLabels: [],
-      namespace: "",
+      namespaceLabels: ["All Namespaces"],
     };
+    this.HomeDrawer = this.HomeDrawer.bind(this);
+  };
+
+  HomeDrawer({ navigation }) {
+    return (
+      <Drawer.Navigator
+        initialRouteName="WorkloadSummary"
+        screenOptions={screenOptions}
+        drawerStyle={{ backgroundColor: "white" }}
+        drawerContentOptions={{
+          activeTintColor: colours.primary /* font color for active screen label */,
+          activeBackgroundColor: colours.secondary /* bg color for active screen */,
+          inactiveTintColor: "black" /* Font color for inactive screens' labels */,
+        }}
+        contentOptions={{
+          labelStyle: fonts.md,
+        }}
+        drawerContent={(props) => {
+          return (
+            <SafeAreaView style={{ flex: 1 }}>
+              <View
+                style={{
+                  height: 150,
+                  margin: spacings.sm,
+                  ...commonStyles.centralise,
+                }}
+              >
+                <Image
+                  source={require("./assets/kasterisk-logo.png")}
+                  style={{
+                    height: "40%",
+                    width: "100%",
+                  }}
+                />
+              </View>
+              <DrawerItem
+                labelStyle={{ fontSize: fonts.md, color: "black" }}
+                label="Change Cluster"
+                onPress={async () => {
+                  let previousCluster = await AsyncStorage.getItem("@defaultCluster");
+                  await AsyncStorage.removeItem("@defaultCluster");
+                  navigation.replace("Cluster", { previous: previousCluster });
+                }}
+              />
+              <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
+            </SafeAreaView>
+          );
+        }}
+      >
+        <Drawer.Screen
+          name="WorkloadSummary"
+          component={WorkloadSummaryScreen}
+          options={{
+            title: "Workloads",
+            headerRight: () => (
+              <ModalDropdown
+                options={this.state.namespaceLabels}
+                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
+                dropdownTextStyle={{ fontSize: 16, color: "black" }}
+                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
+                customButton="⋮"
+                defaultValue="All Namespaces▼"
+                onSelect= { async (index) => 
+                  await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])
+                }
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
+      </Drawer.Navigator>
+    );
   }
 
   async componentDidMount() {
     SplashScreen.hide();
-
-    // this.setState({
-    //   spinner: true,
-    // });
-
-    // try {
-    //   let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-    //   console.log(defaultCluster);
-    //   if (defaultCluster != null) {
-    //     let serverStatus = await checkServerStatus(defaultCluster);
-    //     console.log(serverStatus);
-    //     if (serverStatus[0] == 200) {
-    //       this.setState({
-    //         namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
-    //       });
-    //     } else {
-    //       Alert.alert("Error", "Failed to contact cluster");
-    //     }
-    //   }
-    // } catch (err) {
-    //   Alert.alert("Server Check Failed", err.message);
-    // }
-    // console.log(namespaceLabels);
-    // this.setState({
-    //   spinner: false,
-    // });
+    this.setState({
+      spinner: true,
+    });
+    console.log("componentDidMount");
+    try {
+      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      console.log(defaultCluster);
+      if (defaultCluster != null) {
+        let serverStatus = await checkServerStatus(defaultCluster);
+        console.log(serverStatus);
+        if (serverStatus[0] == 200) {
+          let namespaceLabelArray = await WorkloadSummaryApi.namespaceLabels2();
+          this.setState({
+            namespaceLabels: namespaceLabelArray,
+          });
+          console.log(this.state);
+        } else {
+          Alert.alert("Error", "Failed to contact cluster");
+        }
+      }
+    } catch (err) {
+      Alert.alert("Server Check Failed", err.message);
+    }
+    this.setState({
+      spinner: false,
+    });
   }
 
   // useEffect(() => {
@@ -155,7 +157,7 @@ export default class App extends Component {
         <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
           <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
 
-          <Stack.Screen name="HomeDrawer" component={HomeDrawer} options={{ headerShown: false }} />
+          <Stack.Screen name="HomeDrawer" component={this.HomeDrawer} options={{ headerShown: false }} />
           <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
           {/* Welcome Screen Buttons */}
           <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
