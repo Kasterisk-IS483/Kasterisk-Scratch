@@ -49,7 +49,14 @@ export default class App extends Component {
       namespaceLabels: ["All Namespaces"],
     };
     this.HomeDrawer = this.HomeDrawer.bind(this);
+    // this.updateLabels = this.updateLabels.bind(this);
   };
+
+  //Create function that updates labels in async storage
+  // async updateLabels(namespaceLabels) {
+  //   await AsyncStorage.setItem("@labelArray", namespaceLabels)
+  // }
+
 
   //3 //6
   HomeDrawer = ({ navigation }) => {
@@ -197,10 +204,9 @@ export default class App extends Component {
         let serverStatus = await checkServerStatus(defaultCluster);
         console.log(serverStatus);
         if (serverStatus[0] == 200) {
-          let namespaceLabelArray = await WorkloadSummaryApi.namespaceLabels2();
           this.setState({
             // checked: false,
-            namespaceLabels: namespaceLabelArray,
+            namespaceLabels: await WorkloadSummaryApi.namespaceLabels2(),
           });
         } else {
           Alert.alert("Error", "Failed to contact cluster");
@@ -222,11 +228,10 @@ export default class App extends Component {
   render() {
     // if (this.state.checked) return null;
     // else {
-    console.log("render");
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-          <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
+      return (
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
+            <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
 
           <Stack.Screen name="HomeDrawer" component={this.HomeDrawer} options={{ headerShown: false }} />
           <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
