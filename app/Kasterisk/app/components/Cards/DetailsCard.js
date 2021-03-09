@@ -57,7 +57,7 @@ export default function DetailsCard(props) {
             flexDirection: 'row',
             padding: cardsOuterPadding,
         }} onPress={props.onPress}>
-            <Card elevation={10} style={{ width: 605 }}>
+            <Card elevation={10} style={{ width: "100%" }}>
                 <Card.Content style={commonStyles.cardContent}>
                     <View style={{ flex: 1 }}>
                         <Title style={commonStyles.cardTitle}>

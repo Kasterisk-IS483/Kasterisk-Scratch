@@ -162,7 +162,7 @@ export default class WorkloadSummaryScreen extends Component {
           age: item.age,
           labels: item.labels,
           pods: await PodApi.listPod(item.namespace),
-          })} 
+        })}
           style={{ flexDirection: 'row' }} >
           <WorkloadCard
             name={item.name}
@@ -192,7 +192,7 @@ export default class WorkloadSummaryScreen extends Component {
           age: item.age,
           labels: item.labels,
           podstatus: await DetailPageApi.PodsStatuses(item.namespace),
-          })} 
+        })}
           style={{ flexDirection: 'row' }} >
           <WorkloadCard
             name={item.name}
@@ -221,7 +221,7 @@ export default class WorkloadSummaryScreen extends Component {
           pod: await PodApi.readPod(item.namespace, item.name),
           age: item.age,
           labels: item.labels,
-          })} 
+        })}
           style={{ flexDirection: 'row' }} >
           <WorkloadCard
             name={item.name}
@@ -280,35 +280,41 @@ export default class WorkloadSummaryScreen extends Component {
           </View>
           <View style={workloadSummaryStyles.dashboardRowContainer}>
             <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
+              <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
+                <OverviewCard
+                  image={require("../assets/deployment.png")}
+                  name="Deployment"
+                  text1="Ready"
+                  text2="Not Ready"
+                  no1={this.state.deploymentSummary.readyDeployments}
+                  no2={this.state.deploymentSummary.notReadyDeployments}
 
-              <OverviewCard
-                image={require("../assets/deployment.png")}
-                name="Deployment"
-                text1="Ready"
-                text2="Not Ready"
-                no1={this.state.deploymentSummary.readyDeployments}
-                no2={this.state.deploymentSummary.notReadyDeployments}
-              />
+                />
+              </TouchableOpacity>
             </View>
             <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
-              <OverviewCard
-                image={require("../assets/replicaset.png")}
-                name="ReplicaSet"
-                text1="Ready"
-                text2="Not Ready"
-                no1={this.state.replicasetSummary.readyReplicaSets}
-                no2={this.state.replicasetSummary.notReadyReplicaSets}
-              />
+              <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
+                <OverviewCard
+                  image={require("../assets/replicaset.png")}
+                  name="ReplicaSet"
+                  text1="Ready"
+                  text2="Not Ready"
+                  no1={this.state.replicasetSummary.readyReplicaSets}
+                  no2={this.state.replicasetSummary.notReadyReplicaSets}
+                />
+              </TouchableOpacity>
             </View>
             <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
-              <OverviewCard
-                image={require("../assets/pod.png")}
-                name="Pod"
-                text1="Running"
-                text2="Pending"
-                no1={this.state.podSummary.readyPods}
-                no2={this.state.podSummary.notReadyPods}
-              />
+              <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
+                <OverviewCard
+                  image={require("../assets/pod.png")}
+                  name="Pod"
+                  text1="Running"
+                  text2="Pending"
+                  no1={this.state.podSummary.readyPods}
+                  no2={this.state.podSummary.notReadyPods}
+                />
+              </TouchableOpacity>
             </View>
           </View>
         </View>

@@ -9,6 +9,7 @@ import {
   fonts,
   spacings,
   commonStyles,
+  welcomeStyles
 } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
@@ -33,10 +34,10 @@ export default class WorkloadDeploymentScreen extends Component {
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
     let annotations = this.state.deployment.metadata.annotations;
     let stringAnnotations = "";
-    Object.keys(annotations).forEach(function(key) {
+    Object.keys(annotations).forEach(function (key) {
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
-    console.log(JSON.stringify(this.state.deployment.spec.template.spec.containers,null,'\t'));
+    console.log(JSON.stringify(this.state.deployment.spec.template.spec.containers, null, '\t'));
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
         {/* <Spinner
@@ -47,32 +48,38 @@ export default class WorkloadDeploymentScreen extends Component {
 
         <Title style={commonStyles.headerTitle}>
           {this.state.deployment.metadata.name}
-        </Title> 
+        </Title>
 
+        <View style={welcomeStyles.panelContainer}>
+          <View style={welcomeStyles.welcomeBannerContainer}>
+            <DetailsCard header="Configuration" type="Deployment"
+              deploymentStrategy={this.state.deployment.spec.strategy.type}
+              rollingUpdate={rollingUpdate}
+              selectors={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
+                <LabelButton
+                  key={labelIndex}
+                  text={labelItem + ":" + this.state.labels[labelItem]} />
+              ))}
+              minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
+              historyLimit={this.state.deployment.spec.revisionHistoryLimit}
+              replicas={this.state.deployment.spec.replicas}
+            ></DetailsCard>
+          </View>
+          <View style={welcomeStyles.welcomeBannerContainer}>
+            <DetailsCard header="Status" type="Deployment"
+              availableReplicas={this.state.deployment.status.availableReplicas}
+              readyReplicas={this.state.deployment.status.readyReplicas}
+              totalReplicas={this.state.deployment.status.replicas}
+              unavailableReplicas={this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas}
+              updatedReplicas={this.state.deployment.status.updatedReplicas}
+            ></DetailsCard>
+          </View>
+        </View>
         <View style={commonStyles.dashboardContainer}>
-          <DetailsCard header="Configuration" type="Deployment" 
-            deploymentStrategy={this.state.deployment.spec.strategy.type}
-            rollingUpdate={rollingUpdate}
-            selectors={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + this.state.labels[labelItem]} />
-            ))}
-            minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
-            historyLimit={this.state.deployment.spec.revisionHistoryLimit}
-            replicas={this.state.deployment.spec.replicas}
-          ></DetailsCard>
-          <DetailsCard header="Status" type="Deployment"
-            availableReplicas={this.state.deployment.status.availableReplicas}
-            readyReplicas={this.state.deployment.status.readyReplicas}
-            totalReplicas={this.state.deployment.status.replicas}
-            unavailableReplicas={this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas}
-            updatedReplicas={this.state.deployment.status.updatedReplicas}
-          ></DetailsCard>
-          <TableCard header="Pods" table={podsInfo}/>
-          <TableCard header="Conditions" table={conditions}/>
+          <TableCard header="Pods" table={podsInfo} />
+          <TableCard header="Conditions" table={conditions} />
           <DetailsCard header="Pod Template" type="Deployment" />
-          <DetailsCard header="Metadata" type="Deployment" 
+          <DetailsCard header="Metadata" type="Deployment"
             age={this.state.age}
             labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
               <LabelButton
