@@ -25,7 +25,7 @@ export default function TableCard(props) {
   return (
     <View style={{
       padding: cardsOuterPadding,
-    }} onPress={props.onPress}>
+    }}>
       <Card elevation={10}>
 
         <Card.Content style={commonStyles.cardContent}>

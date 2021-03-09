@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useNavigation } from "@react-navigation/native";
 
-import { commonStyles, clusterPageStyle } from "../utils/styles.js";
+import { commonStyles } from "../utils/styles.js";
 
 class ClusterScreen extends React.Component {
   constructor(props) {
@@ -73,15 +73,15 @@ class ClusterScreen extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <View style={clusterPageStyle.panelContainer}>
+      <View style={commonStyles.rowContainer}>
         <Spinner visible={this.state.spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
-        <View style={clusterPageStyle.welcomeBannerContainer}>
-          <ImageBackground style={clusterPageStyle.welcomeBannerContainer} source={require("../assets/welcome-bg.png")} imageStyle={{ resizeMode: "cover" }} />
-          <Image style={clusterPageStyle.welcomeBannerLogo} source={require("../assets/kasterisk-logo.png")} />
-          <Text style={clusterPageStyle.welcomeBannerDescription}>Select a cluster to continue</Text>
+        <View style={commonStyles.columnContainer}>
+          <ImageBackground style={commonStyles.columnContainer} source={require("../assets/welcome-bg.png")} imageStyle={{ resizeMode: "cover" }} />
+          <Image style={commonStyles.bannerLogo} source={require("../assets/kasterisk-logo.png")} />
+          <Text style={commonStyles.bannerDescription}>Select a cluster to continue</Text>
         </View>
 
-        <View style={clusterPageStyle.welcomeButtonsContainer}>
+        <View style={commonStyles.primaryContainer}>
           <View>
             {this.previousCluster == null ? null : (
               <View>

@@ -47,7 +47,7 @@ export default function TestScreen() {
 
     return (
         <View style={commonStyles.whiteContainer} >
-            <ScrollView contentContainerStyle={commonStyles.scrollView}>
+            <ScrollView contentContainerStyle={commonStyles.scrollContainer}>
                 <Text style={commonStyles.heading}>test</Text>
 
                 <ActionButton

@@ -81,7 +81,7 @@ export default function KubeconfigContentScreen({ navigation }) {
   return (
     <View style={commonStyles.whiteContainer}>
       <Spinner visible={showSpinner} textContent={"Loading..."} textStyle={{ color: "#FFF" }} />
-      <ScrollView contentContainerStyle={commonStyles.scrollView}>
+      <ScrollView contentContainerStyle={commonStyles.scrollContainer}>
         <Text style={commonStyles.formSectionHeader}>General Information:</Text>
 
         <TextInput onChangeText={(text) => setData({ ...data, name: text })} style={commonStyles.formContent} label="Cluster Name" placeholder="Enter Cluster Name Here" />

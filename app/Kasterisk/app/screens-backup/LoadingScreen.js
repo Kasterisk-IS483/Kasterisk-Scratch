@@ -9,7 +9,7 @@ export default function LoadingScreen({ navigation }) {
         <View style={commonStyles.secondaryContainer}>
             <ScrollView
                 contentContainerStyle={[
-                    commonStyles.scrollView,
+                    commonStyles.scrollContainer,
                     { ...commonStyles.centralise },
                 ]}
             >

@@ -1,16 +1,10 @@
-import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions } from "react-native";
+import React, { Component } from "react";
+import { View, ScrollView } from "react-native";
 import { Title } from 'react-native-paper';
-import Spinner from "react-native-loading-spinner-overlay";
 
 import DetailPageApi from "../api/DetailPageApi";
 
-import {
-  fonts,
-  spacings,
-  commonStyles,
-  welcomeStyles
-} from "../utils/styles.js";
+import { commonStyles, workloadSummaryStyles } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
@@ -40,18 +34,14 @@ export default class WorkloadDeploymentScreen extends Component {
     console.log(JSON.stringify(this.state.deployment.spec.template.spec.containers, null, '\t'));
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-        {/* <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: '#FFF' }}
-        /> */}
+        <View style={workloadSummaryStyles.detailsContainer}>
 
         <Title style={commonStyles.headerTitle}>
           {this.state.deployment.metadata.name}
         </Title>
 
-        <View style={welcomeStyles.panelContainer}>
-          <View style={welcomeStyles.welcomeBannerContainer}>
+        <View style={commonStyles.rowContainer}>
+          <View style={commonStyles.columnContainer}>
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
               rollingUpdate={rollingUpdate}
@@ -63,9 +53,9 @@ export default class WorkloadDeploymentScreen extends Component {
               minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
               historyLimit={this.state.deployment.spec.revisionHistoryLimit}
               replicas={this.state.deployment.spec.replicas}
-            ></DetailsCard>
+            />
           </View>
-          <View style={welcomeStyles.welcomeBannerContainer}>
+          <View style={commonStyles.columnContainer}>
             <DetailsCard header="Status" type="Deployment"
               availableReplicas={this.state.deployment.status.availableReplicas}
               readyReplicas={this.state.deployment.status.readyReplicas}
@@ -75,19 +65,26 @@ export default class WorkloadDeploymentScreen extends Component {
             ></DetailsCard>
           </View>
         </View>
-        <View style={commonStyles.dashboardContainer}>
-          <TableCard header="Pods" table={podsInfo} />
-          <TableCard header="Conditions" table={conditions} />
-          <DetailsCard header="Pod Template" type="Deployment" />
-          <DetailsCard header="Metadata" type="Deployment"
-            age={this.state.age}
-            labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + this.state.labels[labelItem]} />
-            ))}
-            annotations={stringAnnotations}
-          />
+
+        <TableCard header="Pods" table={podsInfo} />
+        <TableCard header="Conditions" table={conditions} />
+
+        <View style={commonStyles.rowContainer}>
+          <View style={commonStyles.columnContainer}>
+            <DetailsCard header="Pod Template" type="Deployment" />
+          </View>
+          <View style={commonStyles.columnContainer}>
+            <DetailsCard header="Metadata" type="Deployment"
+              age={this.state.age}
+              labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
+                <LabelButton
+                  key={labelIndex}
+                  text={labelItem + ":" + this.state.labels[labelItem]} />
+              ))}
+              annotations={stringAnnotations}
+            />
+          </View>
+        </View>
         </View>
       </ScrollView>
     );

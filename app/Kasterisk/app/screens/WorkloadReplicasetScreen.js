@@ -1,16 +1,10 @@
-import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions } from "react-native";
+import React, { Component } from "react";
+import { View, ScrollView } from "react-native";
 import { Title } from 'react-native-paper';
-import Spinner from "react-native-loading-spinner-overlay";
 
-import {
-  fonts,
-  spacings,
-  commonStyles,
-} from "../utils/styles.js";
+import { commonStyles, workloadSummaryStyles } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
-import TableCard from "../components/Cards/TableCard";
 import LabelButton from "../components/Buttons/LabelButton";
 
 export default class WorkloadReplicasetScreen extends Component {
@@ -34,28 +28,30 @@ export default class WorkloadReplicasetScreen extends Component {
     });
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-        {/* <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: '#FFF' }}
-        /> */}
+        <View style={workloadSummaryStyles.detailsContainer}>
 
-        <Title style={commonStyles.headerTitle}>
-        {this.state.replicaset.metadata.name}
-        </Title> 
+          <Title style={commonStyles.headerTitle}>
+          {this.state.replicaset.metadata.name}
+          </Title> 
 
-        <View style={commonStyles.dashboardContainer}>
-          <DetailsCard header="Configuration" type="Replicaset"
-            control={this.state.replicaset.metadata.ownerReferences[0].name}
-            status={replicaStatus}
-            numberReplica={this.state.replicaset.spec.replicas}
-          ></DetailsCard>
-          <DetailsCard header="Status" type="Replicaset"
-            waiting={this.state.podstatus.waiting}
-            running={this.state.podstatus.running}
-            failed={this.state.podstatus.failed}
-            succeeded={this.state.podstatus.succeeded}
-          ></DetailsCard>
+          <View style={commonStyles.rowContainer}>
+            <View style={commonStyles.columnContainer}>
+              <DetailsCard header="Configuration" type="Replicaset"
+                control={this.state.replicaset.metadata.ownerReferences[0].name}
+                status={replicaStatus}
+                numberReplica={this.state.replicaset.spec.replicas}
+              />
+            </View>
+            <View style={commonStyles.columnContainer}>
+              <DetailsCard header="Status" type="Replicaset"
+                waiting={this.state.podstatus.waiting}
+                running={this.state.podstatus.running}
+                failed={this.state.podstatus.failed}
+                succeeded={this.state.podstatus.succeeded}
+              />
+            </View>
+          </View>
+
           <DetailsCard header="Metadata" type="Replicaset" 
             age={this.state.age}
             labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
@@ -66,8 +62,8 @@ export default class WorkloadReplicasetScreen extends Component {
             annotations={stringAnnotations}
             control={this.state.replicaset.metadata.ownerReferences[0].name}
           />
-        </View>
 
+        </View>
       </ScrollView>
     );
   }

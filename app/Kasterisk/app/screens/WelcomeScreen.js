@@ -12,7 +12,6 @@ import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
 import {
   commonStyles,
-  welcomeStyles,
 } from "../utils/styles.js";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useNavigation, CommonActions } from "@react-navigation/native";
@@ -93,26 +92,26 @@ export default class WelcomeScreen extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={welcomeStyles.panelContainer}>
-        <View style={welcomeStyles.welcomeBannerContainer}>
+      <View style={commonStyles.rowContainer}>
+        <View style={commonStyles.columnContainer}>
           <ImageBackground
-            style={welcomeStyles.welcomeBannerContainer}
+            style={commonStyles.columnContainer}
             source={require("../assets/welcome-bg.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={welcomeStyles.welcomeBannerLogo}
+            style={commonStyles.bannerLogo}
             source={require("../assets/kasterisk-logo.png")}
           />
-          <Text style={welcomeStyles.welcomeBannerDescription}>
+          <Text style={commonStyles.bannerDescription}>
             Access, manage and monitor your Kubernetes clusters.
           </Text>
         </View>
 
-        <View style={welcomeStyles.welcomeButtonsContainer}>
+        <View style={commonStyles.primaryContainer}>
           <ScrollView
             contentContainerStyle={[
-              commonStyles.scrollView,
+              commonStyles.scrollContainer,
               commonStyles.centralise,
             ]}
           >

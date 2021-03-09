@@ -51,7 +51,7 @@ export default function WorkloadCard(props) {
         <View style={{ 
                 flexDirection: 'row', 
                 padding: cardsOuterPadding, 
-            }} onPress={props.onPress}>
+            }}>
             <Card elevation={10} style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,

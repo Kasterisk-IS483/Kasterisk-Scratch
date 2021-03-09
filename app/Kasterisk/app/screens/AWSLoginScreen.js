@@ -103,7 +103,7 @@ const AWSLoginScreen = ({ navigation }) => {
   return (
     <View style={commonStyles.whiteContainer}>
       <Spinner visible={spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
-      <ScrollView contentContainerStyle={commonStyles.scrollView}>
+      <ScrollView contentContainerStyle={commonStyles.scrollContainer}>
         <Text style={commonStyles.formSectionHeader}>Access Key Information:</Text>
         <TextInput onChangeText={(text) => setLoginState({ ...loginState, accessKeyId: text })} style={commonStyles.formContent} label="Access Key ID" placeholder="Enter Access Key ID Here" />
         <TextInput

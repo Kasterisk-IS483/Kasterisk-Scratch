@@ -11,12 +11,14 @@ import ReplicasetApi from "../api/ReplicasetApi";
 import PodApi from "../api/PodApi";
 import WorkloadSummaryApi from "../api/WorkloadSummaryApi";
 import DetailPageApi from "../api/DetailPageApi";
+
 import {
   colours,
   spacings,
   commonStyles,
-  workloadSummaryStyles
+  workloadSummaryStyles,
 } from "../utils/styles.js";
+
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 import LabelButton from "../components/Buttons/LabelButton";
@@ -278,8 +280,8 @@ export default class WorkloadSummaryScreen extends Component {
               {this.NamespaceList()}
             </View>
           </View>
-          <View style={workloadSummaryStyles.dashboardRowContainer}>
-            <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
+          <View style={workloadSummaryStyles.rowContainer}>
+            <View style={workloadSummaryStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
                 <OverviewCard
                   image={require("../assets/deployment.png")}
@@ -292,7 +294,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
+            <View style={workloadSummaryStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
                 <OverviewCard
                   image={require("../assets/replicaset.png")}
@@ -304,7 +306,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <View style={workloadSummaryStyles.dashboardCardColumnContainer}>
+            <View style={workloadSummaryStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
                 <OverviewCard
                   image={require("../assets/pod.png")}
@@ -321,17 +323,17 @@ export default class WorkloadSummaryScreen extends Component {
           ;
 
       case 'second':
-        return <View style={commonStyles.dashboardContainer}>
+        return <View style={workloadSummaryStyles.dashboardContainer}>
           {this.DeploymentTab()}
         </View>;
 
       case 'third':
-        return <View style={commonStyles.dashboardContainer}>
+        return <View style={workloadSummaryStyles.dashboardContainer}>
           {this.ReplicasetTab()}
         </View>;
 
       case 'fourth':
-        return <View style={commonStyles.dashboardContainer}>
+        return <View style={workloadSummaryStyles.dashboardContainer}>
           {this.PodTab()}
         </View>;
 
