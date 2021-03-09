@@ -20,7 +20,6 @@ export default function OverviewCard({
     text2 = "Not Ready",
     no1 = "0",
     no2 = "0",
-    onPress = null,
 }) {
 
     let col2;
@@ -40,8 +39,7 @@ export default function OverviewCard({
             borderColor: 'grey',
             minWidth: 300,
         }}>
-            {/* <Card button={true} onPress={() => navigation.navigate(screen)}> */}
-            <Card elevation={10} onPress={onPress}>
+            <Card elevation={10}>
                 <Card.Cover source={image} />
 
                 <Text style={{

@@ -36,25 +36,39 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  scrollView: {
-    flexGrow: 1,
-    marginVertical: spacings.md,
-  },
   dashboardContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    paddingHorizontal: spacings.md,
-    paddingVertical: spacings.xl,
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+    marginVertical: spacings.md,
   },
   whiteContainer: {
     flex: 1,
     backgroundColor: 'white',
     padding: spacings.xl,
   },
+
+  primaryContainer: {
+    flex: 1,
+    backgroundColor: colours.primary,
+  },
   secondaryContainer: {
     flex: 1,
     backgroundColor: colours.secondary,
   },
+
+  rowContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  columnContainer: {
+    flex: 1,
+  },
+
   fieldsContainer: {
     flexDirection: 'row',
   },
@@ -90,8 +104,8 @@ export const commonStyles = StyleSheet.create({
   },
 
   headerTitle: {
-    paddingLeft: spacings.xl, 
-    paddingTop: spacings.xl, 
+    paddingBottom: spacings.sm, 
+    paddingLeft: spacings.sm,
     fontSize: fonts.xl, 
     fontWeight: 'bold', 
   },
@@ -139,23 +153,8 @@ export const commonStyles = StyleSheet.create({
     marginRight: "20%",
   },
 
-});
-
-export const welcomeStyles = StyleSheet.create({
-
-  // Welcome
-  panelContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  welcomeBannerContainer: {
-    flex: 1,
-  },
-  welcomeButtonsContainer: {
-    flex: 1,
-    backgroundColor: colours.primary,
-  },
-  welcomeBannerLogo: {
+  // Welcome, cluster
+  bannerLogo: {
     position: "absolute",
     width: "50%",
     height: "50%",
@@ -163,7 +162,7 @@ export const welcomeStyles = StyleSheet.create({
     left: "25%",
     top: "15%",
   },
-  welcomeBannerDescription: {
+  bannerDescription: {
     position: "absolute",
     width: "50%",
     left: "25%",
@@ -172,47 +171,24 @@ export const welcomeStyles = StyleSheet.create({
     fontSize: fonts.lg,
   },
 });
-
-export const clusterPageStyle = StyleSheet.create({
-  // Welcome
-  panelContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  welcomeBannerContainer: {
-    flex: 1,
-  },
-  welcomeButtonsContainer: {
-    flex: 1,
-    backgroundColor: colours.primary,
-  },
-  welcomeBannerLogo: {
-    position: "absolute",
-    width: "50%",
-    height: "50%",
-    resizeMode: "contain",
-    left: "25%",
-    top: "15%",
-  },
-  welcomeBannerDescription: {
-    position: "absolute",
-    width: "50%",
-    left: "25%",
-    top: "50%",
-    textAlign: "center",
-    fontSize: fonts.lg,
-  },
-})
 
 export const workloadSummaryStyles = StyleSheet.create({
-  dashboardRowContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+  rowContainer: {
+    ...commonStyles.rowContainer,
     marginHorizontal: spacings.xxl,
     paddingVertical: spacings.xl,
   },
-  dashboardCardColumnContainer: {
-    flex: 1,
+  columnContainer: {
+    ...commonStyles.columnContainer,
     paddingHorizontal: spacings.sm,
   },
-})
+  dashboardContainer: {
+    ...commonStyles.dashboardContainer,
+    paddingHorizontal: spacings.md,
+    paddingVertical: spacings.xl,
+  },
+  detailsContainer: {
+    paddingHorizontal: spacings.md,
+    paddingVertical: spacings.xxl,
+  },
+});

@@ -1,15 +1,10 @@
-import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions } from "react-native";
+import React, { Component } from "react";
+import { View, ScrollView } from "react-native";
 import { Title } from 'react-native-paper';
-import Spinner from "react-native-loading-spinner-overlay";
 
 import DetailPageApi from "../api/DetailPageApi";
 
-import {
-  fonts,
-  spacings,
-  commonStyles,
-} from "../utils/styles.js";
+import { commonStyles, workloadSummaryStyles } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
@@ -30,41 +25,51 @@ export default class WorkloadPodsScreen extends Component {
     let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-        {/* <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: '#FFF' }}
-        /> */}
+        <View style={workloadSummaryStyles.detailsContainer}>
+    
+          <Title style={commonStyles.headerTitle}>
+            {this.state.pod.metadata.name}
+          </Title> 
 
-        <Title style={commonStyles.headerTitle}>
-          {this.state.pod.metadata.name}
-        </Title> 
+          <View style={commonStyles.rowContainer}>
+            <View style={commonStyles.columnContainer}>
 
-        <View style={commonStyles.dashboardContainer}>
-          <DetailsCard header="Configuration" type="Pods"
-            priority={this.state.pod.spec.priority}
-            node={this.state.pod.spec.nodeName}
-            serviceAccount={this.state.pod.spec.serviceAccount}
-          ></DetailsCard>
-          <DetailsCard header="Status" type="Pods"
-            qos={this.state.pod.status.qosClass}
-            phase={this.state.pod.status.phase}
-            podIP={this.state.pod.status.podIP}
-            hostIP={this.state.pod.status.hostIP}
-          ></DetailsCard>
+              <DetailsCard header="Configuration" type="Pods"
+                priority={this.state.pod.spec.priority}
+                node={this.state.pod.spec.nodeName}
+                serviceAccount={this.state.pod.spec.serviceAccount}
+              />
+            </View>
+            <View style={commonStyles.columnContainer}>
+              <DetailsCard header="Status" type="Pods"
+                qos={this.state.pod.status.qosClass}
+                phase={this.state.pod.status.phase}
+                podIP={this.state.pod.status.podIP}
+                hostIP={this.state.pod.status.hostIP}
+              />
+            </View>
+          </View>
+
           <TableCard header="Pod Conditions" table={conditions}/>
-          <DetailsCard header="Template" type="Pods" />
-          <DetailsCard header="Metadata" type="Pods"
-            age={this.state.age}
-            labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + this.state.labels[labelItem]} />
-            ))}
-            control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
-          />
-        </View>
 
+          <View style={commonStyles.rowContainer}>
+            <View style={commonStyles.columnContainer}>
+              <DetailsCard header="Template" type="Pods" />
+            </View>
+            <View style={commonStyles.columnContainer}>
+              <DetailsCard header="Metadata" type="Pods"
+                age={this.state.age}
+                labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
+                  <LabelButton
+                    key={labelIndex}
+                    text={labelItem + ":" + this.state.labels[labelItem]} />
+                ))}
+                control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
+              />
+            </View>
+          </View>
+          
+        </View>
       </ScrollView>
     );
   }

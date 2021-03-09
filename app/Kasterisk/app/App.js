@@ -128,7 +128,7 @@ export default class App extends Component {
               <ModalDropdown
                 options={this.state.namespaceLabels}
                 dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-                dropdownTextStyle={{ fontSize: 16, color: "black" }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
                 textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
                 customButton="⋮"
                 defaultValue="All Namespaces▼"
@@ -179,7 +179,6 @@ export default class App extends Component {
             ),
           }}
         />
-        <Drawer.Screen name="Namespaces" component={LoadingScreen} options={{ title: "Namespaces" }} />
       </Drawer.Navigator>
     );
   }

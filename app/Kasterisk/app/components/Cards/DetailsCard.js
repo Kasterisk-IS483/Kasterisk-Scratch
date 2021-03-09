@@ -54,9 +54,10 @@ export default function DetailsCard(props) {
 
     return (
         <View style={{
+            flexGrow: 1,
             flexDirection: 'row',
             padding: cardsOuterPadding,
-        }} onPress={props.onPress}>
+        }}>
             <Card elevation={10} style={{ width: "100%" }}>
                 <Card.Content style={commonStyles.cardContent}>
                     <View style={{ flex: 1 }}>
@@ -294,7 +295,7 @@ export default function DetailsCard(props) {
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.detailsCardInfoLeftText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Labels</Title>
