@@ -59,6 +59,11 @@ export default class WorkloadSummaryScreen extends Component {
   }
 
   async updateState(stateKey, value) {
+    if (this.props.index!==undefined) {
+      this.setState({
+        index: this.props.index
+      })
+    }
     if (stateKey == "namespace") {
       let deployments = await WorkloadSummaryApi.deploymentSummary(value);
       let replicaSets = await WorkloadSummaryApi.replicasetSummary(value);
@@ -118,7 +123,14 @@ export default class WorkloadSummaryScreen extends Component {
     })
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
+      // console.log(defaultCluster);
+      if (this.props.index !== undefined) {
+        this.setState({
+          index: this.props.index
+        })
+        console.log("index"+this.index);
+      }
+     
 
       if (defaultCluster == null) {
         Alert.alert("Error", 'Default cluster not found')
