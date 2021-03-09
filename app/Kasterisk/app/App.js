@@ -40,7 +40,7 @@ const screenOptions = {
 };
 
 export default class App extends Component {
-  //1
+
   constructor(props) {
     super(props);
     this.state = {
@@ -48,17 +48,10 @@ export default class App extends Component {
       // checked: true,
       namespaceLabels: ["All Namespaces"],
     };
-    this.HomeDrawer = this.HomeDrawer.bind(this);
+    // this.HomeDrawer = this.HomeDrawer.bind(this);
     // this.updateLabels = this.updateLabels.bind(this);
   };
 
-  //Create function that updates labels in async storage
-  // async updateLabels(namespaceLabels) {
-  //   await AsyncStorage.setItem("@labelArray", namespaceLabels)
-  // }
-
-
-  //3 //6
   HomeDrawer = ({ navigation }) => {
     // console.log("HomeDrawer Rendered")
     return (
@@ -123,7 +116,7 @@ export default class App extends Component {
     );
   }
 
-  //4
+
   async componentDidMount() {
     SplashScreen.hide();
     this.setState({
@@ -153,10 +146,7 @@ export default class App extends Component {
     });
   }
 
-  // useEffect(() => {
-  //   SplashScreen.hide();
-  // }, []);
-  //2 //5
+
   render() {
     // if (this.state.checked) return null;
     // else {
@@ -164,7 +154,7 @@ export default class App extends Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
           <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="HomeDrawer" component={this.HomeDrawer} options={{ headerShown: false }} />
+          <Stack.Screen name="HomeDrawer" component={this.HomeDrawer.bind(this)} options={{ headerShown: false }} />
 
           <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
