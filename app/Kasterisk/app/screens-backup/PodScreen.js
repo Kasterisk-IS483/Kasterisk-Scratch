@@ -15,13 +15,13 @@ import {
   colours,
   spacings,
   commonStyles,
-  workloadSummaryStyles
+  dashboardStyles
 } from "../utils/styles.js";
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 import LabelButton from "../components/Buttons/LabelButton";
 
-export default class ReplicasetScreen extends Component {
+export default class PodScreen extends Component {
 
 
   constructor(props) {
@@ -124,24 +124,22 @@ export default class ReplicasetScreen extends Component {
 
   }
 
-  ReplicasetTab = () => {
+  PodTab = () => {
     const { navigation } = this.props;
     return (
-      this.state.replicasetsInfo.map((item, index) => (
-        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadReplicaset", {
-          replicaset: await ReplicasetApi.readReplicaSet(item.namespace, item.name),
+      this.state.podsInfo.map((item, index) => (
+        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadPods", {
+          pod: await PodApi.readPod(item.namespace, item.name),
           age: item.age,
           labels: item.labels,
-          podstatus: await DetailPageApi.PodsStatuses(item.namespace),
           })} 
           style={{ flexDirection: 'row' }} >
           <WorkloadCard
             name={item.name}
             age={item.age}
             status={item.status}
-            total={item.total}
-            variableField="Containers"
-            variableFieldVal={item.containers}
+            variableField="Restarts"
+            variableFieldVal={item.restarts}
           >
             {Object.keys(item.labels).map((labelItem, labelIndex) => (
               <LabelButton
@@ -153,14 +151,15 @@ export default class ReplicasetScreen extends Component {
       )
     )
   };
-  
+
+
   render() {
     // const { navigation } = this.props;
     return <ScrollView style={commonStyles.secondaryContainer}>
-    <View style={commonStyles.dashboardContainer}>
-        {this.ReplicasetTab()}
+    <View style={commonStyles.wrapContainer}>
+        {this.PodTab()}
     </View>
-    </ScrollView>
+    </ScrollView>;
   };
 
 }

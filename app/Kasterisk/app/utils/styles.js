@@ -36,14 +36,14 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  dashboardContainer: {
+  wrapContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
   },
 
   scrollContainer: {
     flexGrow: 1,
-    marginVertical: spacings.md,
+    paddingVertical: spacings.xl,
   },
   whiteContainer: {
     flex: 1,
@@ -72,10 +72,6 @@ export const commonStyles = StyleSheet.create({
   fieldsContainer: {
     flexDirection: 'row',
   },
-  cardContent: {
-    paddingLeft: spacings.lg,
-    flexDirection: 'row',
-  },
 
   formSectionHeader: {
     fontWeight: 'bold',
@@ -88,31 +84,22 @@ export const commonStyles = StyleSheet.create({
     marginVertical: spacings.xs,
   },
 
-  radioText: {
-    marginTop: spacings.xs,
-    fontSize: fonts.sm,
-  },
-  switchText: {
-    marginTop: spacings.xs,
-    fontSize: fonts.sm,
-  },
-  divider: {
-    borderWidth: 0.5,
-    borderColor: 'white',
-    width: Dimensions.get('window').width * 0.3,
-    margin: spacings.sm,
-  },
-
   headerTitle: {
     paddingBottom: spacings.sm, 
     paddingLeft: spacings.sm,
     fontSize: fonts.xl, 
     fontWeight: 'bold', 
   },
+
+  // Cards
   cardTitle: {
     paddingBottom: spacings.sm, 
     fontSize: fonts.lg, 
     fontWeight: 'bold',
+  },
+  cardContent: {
+    paddingLeft: spacings.lg,
+    flexDirection: 'row',
   },
 
   // WorkloadCard
@@ -153,6 +140,22 @@ export const commonStyles = StyleSheet.create({
     marginRight: "20%",
   },
 
+  // Kubeconfig Content
+  radioText: {
+    marginTop: spacings.xs,
+    fontSize: fonts.sm,
+  },
+  switchText: {
+    marginTop: spacings.xs,
+    fontSize: fonts.sm,
+  },
+  divider: {
+    borderWidth: 0.5,
+    borderColor: 'white',
+    width: Dimensions.get('window').width * 0.3,
+    margin: spacings.sm,
+  },
+
   // Welcome, cluster
   bannerLogo: {
     position: "absolute",
@@ -172,23 +175,22 @@ export const commonStyles = StyleSheet.create({
   },
 });
 
-export const workloadSummaryStyles = StyleSheet.create({
+export const dashboardStyles = StyleSheet.create({
+  scrollContainer: {
+    ...commonStyles.scrollContainer,
+    ...commonStyles.secondaryContainer,
+    paddingHorizontal: spacings.md, // for landscape
+  },
+ 
   rowContainer: {
     ...commonStyles.rowContainer,
-    marginHorizontal: spacings.xxl,
     paddingVertical: spacings.xl,
   },
   columnContainer: {
     ...commonStyles.columnContainer,
     paddingHorizontal: spacings.sm,
   },
-  dashboardContainer: {
-    ...commonStyles.dashboardContainer,
-    paddingHorizontal: spacings.md,
-    paddingVertical: spacings.xl,
-  },
   detailsContainer: {
-    paddingHorizontal: spacings.md,
-    paddingVertical: spacings.xxl,
+    paddingBottom: spacings.xxl,
   },
 });

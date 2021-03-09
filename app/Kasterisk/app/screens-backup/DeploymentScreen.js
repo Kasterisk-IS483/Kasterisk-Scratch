@@ -15,7 +15,7 @@ import {
   colours,
   spacings,
   commonStyles,
-  workloadSummaryStyles
+  dashboardStyles
 } from "../utils/styles.js";
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
@@ -157,7 +157,7 @@ export default class DeploymentScreen extends Component {
   render() {
     // const { navigation } = this.props;
     return <ScrollView style={commonStyles.secondaryContainer}>
-      <View style={commonStyles.dashboardContainer}>
+      <View style={commonStyles.wrapContainer}>
       {this.DeploymentTab()}
     </View>
     </ScrollView>;

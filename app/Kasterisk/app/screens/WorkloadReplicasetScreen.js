@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, ScrollView } from "react-native";
 import { Title } from 'react-native-paper';
 
-import { commonStyles, workloadSummaryStyles } from "../utils/styles.js";
+import { commonStyles, dashboardStyles } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import LabelButton from "../components/Buttons/LabelButton";
@@ -27,11 +27,11 @@ export default class WorkloadReplicasetScreen extends Component {
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
-        <View style={workloadSummaryStyles.detailsContainer}>
+      <ScrollView style={dashboardStyles.scrollContainer}>
+        <View style={dashboardStyles.detailsContainer}>
 
           <Title style={commonStyles.headerTitle}>
-          {this.state.replicaset.metadata.name}
+            {this.state.replicaset.metadata.name}
           </Title> 
 
           <View style={commonStyles.rowContainer}>

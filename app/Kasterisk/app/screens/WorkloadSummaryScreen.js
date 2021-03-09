@@ -16,7 +16,7 @@ import {
   colours,
   spacings,
   commonStyles,
-  workloadSummaryStyles,
+  dashboardStyles,
 } from "../utils/styles.js";
 
 import OverviewCard from "../components/Cards/OverviewCard";
@@ -257,17 +257,13 @@ export default class WorkloadSummaryScreen extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'first':
-        return <View>
-          <View>
-            <Text
-              style={[
-                commonStyles.formSectionHeader,
-                {
-                  marginHorizontal: spacings.xxl,
-                  paddingHorizontal: spacings.sm,
-                },
-              ]}
-            >
+        return <View style={{ marginTop: spacings.lg, marginHorizontal: spacings.xxl }}>
+          {/* <View>
+            <Text style={[
+                commonStyles.formSectionHeader, {
+                marginHorizontal: spacings.xxl,
+                paddingHorizontal: spacings.sm,
+            }]}>
               Select Namespace:
             </Text>
             <View
@@ -279,9 +275,9 @@ export default class WorkloadSummaryScreen extends Component {
               }}>
               {this.NamespaceList()}
             </View>
-          </View>
-          <View style={workloadSummaryStyles.rowContainer}>
-            <View style={workloadSummaryStyles.columnContainer}>
+          </View> */}
+          <View style={dashboardStyles.rowContainer}>
+            <View style={dashboardStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
                 <OverviewCard
                   image={require("../assets/deployment.png")}
@@ -290,11 +286,10 @@ export default class WorkloadSummaryScreen extends Component {
                   text2="Not Ready"
                   no1={this.state.deploymentSummary.readyDeployments}
                   no2={this.state.deploymentSummary.notReadyDeployments}
-
                 />
               </TouchableOpacity>
             </View>
-            <View style={workloadSummaryStyles.columnContainer}>
+            <View style={dashboardStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
                 <OverviewCard
                   image={require("../assets/replicaset.png")}
@@ -306,7 +301,7 @@ export default class WorkloadSummaryScreen extends Component {
                 />
               </TouchableOpacity>
             </View>
-            <View style={workloadSummaryStyles.columnContainer}>
+            <View style={dashboardStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
                 <OverviewCard
                   image={require("../assets/pod.png")}
@@ -323,17 +318,17 @@ export default class WorkloadSummaryScreen extends Component {
           ;
 
       case 'second':
-        return <View style={workloadSummaryStyles.dashboardContainer}>
+        return <View style={commonStyles.wrapContainer}>
           {this.DeploymentTab()}
         </View>;
 
       case 'third':
-        return <View style={workloadSummaryStyles.dashboardContainer}>
+        return <View style={commonStyles.wrapContainer}>
           {this.ReplicasetTab()}
         </View>;
 
       case 'fourth':
-        return <View style={workloadSummaryStyles.dashboardContainer}>
+        return <View style={commonStyles.wrapContainer}>
           {this.PodTab()}
         </View>;
 
@@ -356,6 +351,7 @@ export default class WorkloadSummaryScreen extends Component {
           renderScene={this._renderScene}
           renderTabBar={this._renderTabBar}
           initialLayout={{ width: Dimensions.get('window').width }}
+          sceneContainerStyle={dashboardStyles.scrollContainer}
         />
       </ScrollView>
     );

@@ -109,12 +109,10 @@ export default class WelcomeScreen extends Component {
         </View>
 
         <View style={commonStyles.primaryContainer}>
-          <ScrollView
-            contentContainerStyle={[
+          <ScrollView contentContainerStyle={[
               commonStyles.scrollContainer,
               commonStyles.centralise,
-            ]}
-          >
+          ]}>
             {/* <CustomButton
               image={require("../assets/welcome-button-google.png")}
               text="Log in With Google"
@@ -158,17 +156,17 @@ export default class WelcomeScreen extends Component {
 
             <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="Cluster"
+              text="Cluster Selection"
               size="small"
               onPress={() => navigation.navigate("Cluster")}
             />
-            <CustomButton
+            {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
               text="Workload Summary"
               size="small"
               onPress={() => navigation.navigate("WorkloadSummary")}
               // onPress={this.errorCheck}
-            />
+            /> */}
           </ScrollView>
         </View>
       </View>

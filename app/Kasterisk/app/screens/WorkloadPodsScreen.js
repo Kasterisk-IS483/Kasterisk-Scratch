@@ -4,7 +4,7 @@ import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../api/DetailPageApi";
 
-import { commonStyles, workloadSummaryStyles } from "../utils/styles.js";
+import { commonStyles, dashboardStyles } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
@@ -24,8 +24,8 @@ export default class WorkloadPodsScreen extends Component {
   render() {
     let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
-        <View style={workloadSummaryStyles.detailsContainer}>
+      <ScrollView style={dashboardStyles.scrollContainer}>
+        <View style={dashboardStyles.detailsContainer}>
     
           <Title style={commonStyles.headerTitle}>
             {this.state.pod.metadata.name}
@@ -53,9 +53,9 @@ export default class WorkloadPodsScreen extends Component {
           <TableCard header="Pod Conditions" table={conditions}/>
 
           <View style={commonStyles.rowContainer}>
-            <View style={commonStyles.columnContainer}>
+            {/* <View style={commonStyles.columnContainer}>
               <DetailsCard header="Template" type="Pods" />
-            </View>
+            </View> */}
             <View style={commonStyles.columnContainer}>
               <DetailsCard header="Metadata" type="Pods"
                 age={this.state.age}

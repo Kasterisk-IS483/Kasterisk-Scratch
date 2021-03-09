@@ -4,7 +4,7 @@ import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../api/DetailPageApi";
 
-import { commonStyles, workloadSummaryStyles } from "../utils/styles.js";
+import { commonStyles, dashboardStyles } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
@@ -31,10 +31,10 @@ export default class WorkloadDeploymentScreen extends Component {
     Object.keys(annotations).forEach(function (key) {
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
-    console.log(JSON.stringify(this.state.deployment.spec.template.spec.containers, null, '\t'));
+    // console.log(JSON.stringify(this.state.deployment.spec.template.spec.containers, null, '\t'));
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
-        <View style={workloadSummaryStyles.detailsContainer}>
+      <ScrollView style={dashboardStyles.scrollContainer}>
+        <View style={dashboardStyles.detailsContainer}>
 
         <Title style={commonStyles.headerTitle}>
           {this.state.deployment.metadata.name}
@@ -70,9 +70,9 @@ export default class WorkloadDeploymentScreen extends Component {
         <TableCard header="Conditions" table={conditions} />
 
         <View style={commonStyles.rowContainer}>
-          <View style={commonStyles.columnContainer}>
+          {/* <View style={commonStyles.columnContainer}>
             <DetailsCard header="Pod Template" type="Deployment" />
-          </View>
+          </View> */}
           <View style={commonStyles.columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={this.state.age}
