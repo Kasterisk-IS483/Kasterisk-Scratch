@@ -52,6 +52,20 @@ export default class App extends Component {
     // this.updateLabels = this.updateLabels.bind(this);
   };
 
+  filter = () => {
+    return (
+      <ModalDropdown
+        options={this.state.namespaceLabels}
+        dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
+        dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+        textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
+        customButton="⋮"
+        defaultValue="All Namespaces▼"
+        onSelect={async (index) => await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])}
+      />
+    );
+  };
+
   HomeDrawer = ({ navigation }) => {
     // console.log("HomeDrawer Rendered")
     return (
@@ -95,87 +109,26 @@ export default class App extends Component {
         <Drawer.Screen
           name="WorkloadSummary"
           component={WorkloadSummaryScreen}
-          options={{
-            title: "Workloadss",
-            headerRight: () => (
-              <ModalDropdown
-                options={this.state.namespaceLabels}
-                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-                customButton="⋮"
-                defaultValue="All Namespaces▼"
-                onSelect={async (index) =>
-                  await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])
-                }
-              />
-            ),
-          }}
+          options={{ title: "Workloads", headerRight: this.filter }}
         />
         <Drawer.Screen
           name="Deployment"
           component={DeploymentScreen}
-          options={{
-            title: "Deployment",
-            headerRight: () => (
-              <ModalDropdown
-                options={this.state.namespaceLabels}
-                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-                customButton="⋮"
-                defaultValue="All Namespaces▼"
-                onSelect={async (index) =>
-                  await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])
-                }
-              />
-            ),
-          }}
+          options={{ title: "Deployments", headerRight: this.filter }}
         />
          <Drawer.Screen
           name="Replicaset"
           component={ReplicasetScreen}
-          options={{
-            title: "Replicaset",
-            headerRight: () => (
-              <ModalDropdown
-                options={this.state.namespaceLabels}
-                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-                customButton="⋮"
-                defaultValue="All Namespaces▼"
-                onSelect={async (index) =>
-                  await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])
-                }
-              />
-            ),
-          }}
+          options={{ title: "Replicasets", headerRight: this.filter }}
         />
          <Drawer.Screen
           name="Pods"
           component={PodsScreen}
-          options={{
-            title: "Pods",
-            headerRight: () => (
-              <ModalDropdown
-                options={this.state.namespaceLabels}
-                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-                customButton="⋮"
-                defaultValue="All Namespaces▼"
-                onSelect={async (index) =>
-                  await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])
-                }
-              />
-            ),
-          }}
+          options={{ title: "Pods", headerRight: this.filter }}
         />
       </Drawer.Navigator>
     );
   }
-
 
   async componentDidMount() {
     SplashScreen.hide();
@@ -205,7 +158,6 @@ export default class App extends Component {
       spinner: false,
     });
   }
-
 
   render() {
     // if (this.state.checked) return null;
