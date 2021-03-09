@@ -50,7 +50,7 @@ export default class WorkloadDeploymentScreen extends Component {
           {this.state.deployment.metadata.name}
         </Title>
 
-        <View style={welcomeStyles.panelContainer}>
+        <View style={[welcomeStyles.panelContainer, { marginHorizontal: spacings.lg, flexWrap: 'wrap' }]}>
           <View style={welcomeStyles.welcomeBannerContainer}>
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
