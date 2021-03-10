@@ -203,7 +203,7 @@ export default class App extends Component {
           <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
           <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
           <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
-          <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
+          <Stack.Screen name="WorkloadPod" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
         </Stack.Navigator>
       </NavigationContainer>
     );

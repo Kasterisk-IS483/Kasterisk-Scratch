@@ -205,7 +205,7 @@ export default class WorkloadSummaryScreen extends Component {
     const { navigation } = this.props;
     return (
       this.state.podsInfo.map((item, index) => (
-        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadPods", {
+        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadPod", {
           pod: await PodApi.readPod(item.namespace, item.name),
           age: item.age,
           labels: item.labels,
