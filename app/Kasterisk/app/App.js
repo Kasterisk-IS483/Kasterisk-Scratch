@@ -1,7 +1,7 @@
 import React, { Component, useEffect, createContext } from "react";
 import "react-native-gesture-handler";
 import SplashScreen from "react-native-splash-screen";
-import { View, Image, SafeAreaView, Alert } from "react-native";
+import { View, Image, SafeAreaView, Alert, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator, DrawerItemList, DrawerItem } from "@react-navigation/drawer";
@@ -20,9 +20,6 @@ import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
 import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
-// import LoadingScreen from "./screens-backup/LoadingScreen";
-// import TestScreen from "./screens-backup/TestScreen";
-import { render } from "react-dom";
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 
@@ -43,7 +40,7 @@ export default class App extends Component {
       spinner: false,
       // checked: true,
       namespaceLabels: ["All Namespaces"],
-      selectedNamespace: "All Namespaces▼",
+      selectedNamespace: "All Namespaces",
       selectedValue:""
     };
     this.updateState = this.updateState.bind(this);
@@ -69,17 +66,21 @@ export default class App extends Component {
 
   filter = () => {
     return (
-      <ModalDropdown
-        options={this.state.namespaceLabels}
-        dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-        dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-        textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-        customButton="⋮"
-        defaultValue={this.state.selectedNamespace}
-        onSelect={async (index) => this.updateState(this.state.namespaceLabels[index])}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <ModalDropdown
+          options={this.state.namespaceLabels}
+          dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
+          dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+          textStyle={{ fontSize: fonts.sm, color: "white", marginRight: spacings.xxs }}
+          customButton="⋮"
+          defaultValue={this.state.selectedNamespace}
+          onSelect={async (index) => this.updateState(this.state.namespaceLabels[index])}
+        />
+        <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+      </View>
     );
   };
+
   async updateState(selectedNamespace) {
     let selectedValue = "";
     if(selectedNamespace!="All Namespaces"){
@@ -155,6 +156,7 @@ export default class App extends Component {
       </Drawer.Navigator>
     );
   }
+
 
   async componentDidMount() {
     SplashScreen.hide();
