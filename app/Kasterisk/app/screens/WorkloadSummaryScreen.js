@@ -118,9 +118,12 @@ export default class WorkloadSummaryScreen extends Component {
 
 
   async componentDidMount() {
+    this.setState({
+      spinner: true,
+    })
+
     if(await AsyncStorage.getItem("@selectedValue")!=null){
       this.setState({
-        spinner: true,
         namespace: await AsyncStorage.getItem("@selectedValue")
       })
     }
@@ -158,7 +161,6 @@ export default class WorkloadSummaryScreen extends Component {
           replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(this.state.namespace),
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
         })
-        console.log(await PodApi.listAllPod())
       } else {
         Alert.alert("Error", "Failed to contact cluster")
       }
