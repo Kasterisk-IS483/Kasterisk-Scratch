@@ -118,19 +118,24 @@ export default class WorkloadSummaryScreen extends Component {
 
 
   async componentDidMount() {
-    this.setState({
-      spinner: true
-    })
+    if(await AsyncStorage.getItem("@selectedNamespace")!=null){
+      this.setState({
+        spinner: true,
+        namespace: await AsyncStorage.getItem("@selectedNamespace")
+      })
+    }
+    
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      // console.log(defaultCluster);
+      console.log(defaultCluster);
       if (this.props.index !== undefined) {
         this.setState({
           index: this.props.index
         })
         console.log("index"+this.index);
       }
-     
+      console.log("here");
+      console.log(this.state);
 
       if (defaultCluster == null) {
         Alert.alert("Error", 'Default cluster not found')

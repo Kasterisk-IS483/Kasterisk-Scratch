@@ -47,7 +47,9 @@ export default class App extends Component {
       spinner: false,
       // checked: true,
       namespaceLabels: ["All Namespaces"],
+      selectedNamespace: ""
     };
+    this.updateState = this.updateState.bind(this);
     // this.HomeDrawer = this.HomeDrawer.bind(this);
     // this.updateLabels = this.updateLabels.bind(this);
   };
@@ -61,10 +63,16 @@ export default class App extends Component {
         textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
         customButton="⋮"
         defaultValue="All Namespaces▼"
-        onSelect={async (index) => await AsyncStorage.setItem("@selectedNamespace", this.state.namespaceLabels[index])}
+        onSelect={async (index) => this.updateState(this.state.namespaceLabels[index])}
       />
     );
   };
+  async updateState(selectedNamespace) {
+    await AsyncStorage.setItem("@selectedNamespace", selectedNamespace);
+    this.setState({
+      selectedNamespace: selectedNamespace,
+    })
+  }
 
   HomeDrawer = ({ navigation }) => {
     // console.log("HomeDrawer Rendered")
@@ -109,8 +117,26 @@ export default class App extends Component {
         <Drawer.Screen
           name="WorkloadSummary"
           component={WorkloadSummaryScreen}
-          options={{ title: "Workloads", headerRight: this.filter }}
+          options={{
+            title: "Workloads",
+            headerRight: () => (
+              <ModalDropdown
+                options={this.state.namespaceLabels}
+                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
+                customButton="⋮"
+                defaultValue="All Namespaces▼"
+                onSelect={async (index) =>
+                  this.updateState(this.state.namespaceLabels[index])
+                }
+                {...console.log(this.state)}
+
+              />
+            ),
+          }}
         />
+
         <Drawer.Screen
           name="Deployment"
           component={DeploymentScreen}
@@ -125,7 +151,7 @@ export default class App extends Component {
           name="Pods"
           component={PodsScreen}
           options={{ title: "Pods", headerRight: this.filter }}
-        />
+          />
       </Drawer.Navigator>
     );
   }
@@ -146,6 +172,7 @@ export default class App extends Component {
             // checked: false,
             namespaceLabels: await WorkloadSummaryApi.namespaceLabels2(),
           });
+          await AsyncStorage.setItem("@selectedNamespace", "")
         } else {
           Alert.alert("Error", "Failed to contact cluster");
         }
