@@ -20,10 +20,6 @@ import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
 import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
-import DeploymentScreen from "./screens/DeploymentScreen";
-import PodsScreen from "./screens/PodsScreen"
-import ReplicasetScreen from "./screens/ReplicasetScreen";
-
 // import LoadingScreen from "./screens-backup/LoadingScreen";
 // import TestScreen from "./screens-backup/TestScreen";
 import { render } from "react-dom";
@@ -53,6 +49,22 @@ export default class App extends Component {
     this.updateState = this.updateState.bind(this);
     // this.HomeDrawer = this.HomeDrawer.bind(this);
     // this.updateLabels = this.updateLabels.bind(this);
+  };
+
+  workloadDeploymentScreen = () => {
+    return (
+      <WorkloadSummaryScreen index={1}/>
+    );
+  };
+  workloadReplicasetScreen = () => {
+    return (
+      <WorkloadSummaryScreen index={2}/>
+    );
+  };
+  workloadPodScreen = () => {
+    return (
+      <WorkloadSummaryScreen index={3}/>
+    );
   };
 
   filter = () => {
@@ -123,39 +135,22 @@ export default class App extends Component {
         <Drawer.Screen
           name="WorkloadSummary"
           component={WorkloadSummaryScreen}
-          options={{
-            title: "Workloads",
-            headerRight: () => (
-              <ModalDropdown
-                options={this.state.namespaceLabels}
-                dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
-                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-                textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
-                customButton="⋮"
-                defaultValue={this.state.selectedNamespace}
-                onSelect={async (index) =>
-                  this.updateState(this.state.namespaceLabels[index])
-                }
-                {...console.log(this.state)}
-              />
-            ),
-          }}
+          options={{ drawerLabel: "Workload Overview", title: "Workloads", headerRight: this.filter }}
         />
-
         <Drawer.Screen
-          name="Deployment"
-          component={DeploymentScreen}
-          options={{ title: "Deployments", headerRight: this.filter }}
+          name="WorkloadDeployments"
+          component={this.workloadDeploymentScreen}
+          options={{ drawerLabel: "Deployments", title: "Workloads", headerRight: this.filter }}
         />
          <Drawer.Screen
-          name="Replicaset"
-          component={ReplicasetScreen}
-          options={{ title: "Replicasets", headerRight: this.filter }}
+          name="WorkloadReplicasets"
+          component={this.workloadReplicasetScreen}
+          options={{ drawerLabel: "Replicasets", title: "Workloads", headerRight: this.filter }}
         />
          <Drawer.Screen
-          name="Pods"
-          component={PodsScreen}
-          options={{ title: "Pods", headerRight: this.filter }}
+          name="WorkloadPods"
+          component={this.workloadPodScreen}
+          options={{ drawerLabel: "Pods", title: "Workloads", headerRight: this.filter }}
           />
       </Drawer.Navigator>
     );
@@ -205,14 +200,10 @@ export default class App extends Component {
           <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
           <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
 
-          <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} />
+          <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
           <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
           <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
           <Stack.Screen name="WorkloadPods" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
-
-          <Stack.Screen name="Deployment" component={DeploymentScreen} options={{ title: "Deployment" }} />
-          <Stack.Screen name="Replicaset" component={ReplicasetScreen} options={{ title: "Replicaset" }} />
-          <Stack.Screen name="Pods" component={PodsScreen} options={{ title: "Pods" }} /> 
         </Stack.Navigator>
       </NavigationContainer>
     );
