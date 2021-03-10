@@ -168,10 +168,8 @@ export default class App extends Component {
     });
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
       if (defaultCluster != null) {
         let serverStatus = await checkServerStatus(defaultCluster);
-        console.log(serverStatus);
         if (serverStatus[0] == 200) {
           this.setState({
             // checked: false,

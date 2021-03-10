@@ -86,37 +86,6 @@ export default class WorkloadSummaryScreen extends Component {
     }
   }
 
-  NamespaceList() {
-    return (
-      <Picker
-        selectedValue={this.state.namespace} onValueChange={(itemValue) => this.updateState("namespace", itemValue)} >
-        {this.state.namespaceLabels.map((_item, _index) => (
-          <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
-        ))}
-      </Picker>
-    );
-  };
-
-  //state = { credentials: [] };
-
-  // async getGoogle(){
-  //   try{
-  //     let google1 = await AsyncStorage.getItem("ClusterAuthProviderGoogle");
-  //     google1 = JSON.parse(google1);
-  //     return google1;
-  //   } catch (error) {
-  //     // Error retrieving data
-
-  //     console.log(error.message);
-  //   }
-  // }
-
-  // async componentDidMount(){
-  //   let response = await this.getGoogle()
-  //     this.setState({credentials : response});
-  // }
-
-
   async componentDidMount() {
     this.setState({
       spinner: true,
@@ -131,14 +100,13 @@ export default class WorkloadSummaryScreen extends Component {
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
       console.log(defaultCluster);
+
       if (this.props.index !== undefined) {
         this.setState({
           index: this.props.index
         })
         console.log("index"+this.index);
       }
-      console.log("here");
-      console.log(this.state);
 
       if (defaultCluster == null) {
         Alert.alert("Error", 'Default cluster not found')
@@ -153,7 +121,6 @@ export default class WorkloadSummaryScreen extends Component {
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
-          namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
           deploymentSummary: await WorkloadSummaryApi.deploymentSummary(this.state.namespace),
           replicasetSummary: await WorkloadSummaryApi.replicasetSummary(this.state.namespace),
           podSummary: await WorkloadSummaryApi.podSummary(this.state.namespace),
@@ -277,24 +244,6 @@ export default class WorkloadSummaryScreen extends Component {
     switch (route.key) {
       case 'first':
         return <View style={{ marginTop: spacings.lg, marginHorizontal: spacings.xxl }}>
-          {/* <View>
-            <Text style={[
-                commonStyles.formSectionHeader, {
-                marginHorizontal: spacings.xxl,
-                paddingHorizontal: spacings.sm,
-            }]}>
-              Select Namespace:
-            </Text>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "black",
-                marginTop: spacings.sm,
-                marginHorizontal: 40
-              }}>
-              {this.NamespaceList()}
-            </View>
-          </View> */}
           <View style={dashboardStyles.rowContainer}>
             <View style={dashboardStyles.columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 1 })}>

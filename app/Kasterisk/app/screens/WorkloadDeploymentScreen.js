@@ -26,12 +26,6 @@ export default class WorkloadDeploymentScreen extends Component {
     let conditions = DetailPageApi.DeploymentConditions(this.state.deployment.status.conditions);
     let podsInfo = DetailPageApi.PodsInfo(this.state.pods);
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
-    let annotations = this.state.deployment.metadata.annotations;
-    let stringAnnotations = "";
-    Object.keys(annotations).forEach(function (key) {
-      stringAnnotations += key + "      " + annotations[key] + "\n";
-    });
-    // console.log(JSON.stringify(this.state.deployment.spec.template.spec.containers, null, '\t'));
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
         <View style={dashboardStyles.detailsContainer}>
@@ -81,7 +75,7 @@ export default class WorkloadDeploymentScreen extends Component {
                   key={labelIndex}
                   text={labelItem + ":" + this.state.labels[labelItem]} />
               ))}
-              annotations={stringAnnotations}
+              annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
             />
           </View>
         </View>

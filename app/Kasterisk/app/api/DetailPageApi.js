@@ -37,9 +37,17 @@ class DetailPageApi extends Component {
         let PodsInfo = []
         for (const pod of pods){
             let age = WorkloadSummaryApi.calculateAge(pod.metadata.creationTimestamp);
+            const noOfContainers = pod.status.containerStatuses.length;
+            let noOfRunningContainers = 0;
+            for (const containerStatus of pod.status.containerStatuses){
+                if (containerStatus.state.running != undefined){
+                    noOfRunningContainers+=1
+                } 
+            }
+            const status = noOfRunningContainers + "/" + noOfContainers;
             let podInfo = [
                 pod.metadata.name,
-                pod.status.phase === "Running" ? "1/1" : "0/1",
+                status,
                 pod.status.phase,
                 pod.status.containerStatuses[0].restartCount,
                 pod.spec.nodeName,
