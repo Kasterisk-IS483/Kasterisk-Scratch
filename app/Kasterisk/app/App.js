@@ -47,7 +47,8 @@ export default class App extends Component {
       spinner: false,
       // checked: true,
       namespaceLabels: ["All Namespaces"],
-      selectedNamespace: ""
+      selectedNamespace: "All Namespaces▼",
+      selectedValue:""
     };
     this.updateState = this.updateState.bind(this);
     // this.HomeDrawer = this.HomeDrawer.bind(this);
@@ -62,15 +63,20 @@ export default class App extends Component {
         dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
         textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
         customButton="⋮"
-        defaultValue="All Namespaces▼"
+        defaultValue={this.state.selectedNamespace}
         onSelect={async (index) => this.updateState(this.state.namespaceLabels[index])}
       />
     );
   };
   async updateState(selectedNamespace) {
-    await AsyncStorage.setItem("@selectedNamespace", selectedNamespace);
+    let selectedValue = "";
+    if(selectedNamespace!="All Namespaces"){
+      selectedValue = selectedNamespace;
+    }
+    await AsyncStorage.setItem("@selectedValue", selectedValue);
     this.setState({
       selectedNamespace: selectedNamespace,
+      selectedValue: selectedValue,
     })
   }
 
@@ -126,12 +132,11 @@ export default class App extends Component {
                 dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
                 textStyle={{ fontSize: fonts.sm, marginRight: spacings.sm, color: "white" }}
                 customButton="⋮"
-                defaultValue="All Namespaces▼"
+                defaultValue={this.state.selectedNamespace}
                 onSelect={async (index) =>
                   this.updateState(this.state.namespaceLabels[index])
                 }
                 {...console.log(this.state)}
-
               />
             ),
           }}
@@ -172,7 +177,7 @@ export default class App extends Component {
             // checked: false,
             namespaceLabels: await WorkloadSummaryApi.namespaceLabels2(),
           });
-          await AsyncStorage.setItem("@selectedNamespace", "")
+          await AsyncStorage.setItem("@selectedValue", "")
         } else {
           Alert.alert("Error", "Failed to contact cluster");
         }

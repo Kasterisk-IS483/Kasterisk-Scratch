@@ -118,10 +118,10 @@ export default class WorkloadSummaryScreen extends Component {
 
 
   async componentDidMount() {
-    if(await AsyncStorage.getItem("@selectedNamespace")!=null){
+    if(await AsyncStorage.getItem("@selectedValue")!=null){
       this.setState({
         spinner: true,
-        namespace: await AsyncStorage.getItem("@selectedNamespace")
+        namespace: await AsyncStorage.getItem("@selectedValue")
       })
     }
     
