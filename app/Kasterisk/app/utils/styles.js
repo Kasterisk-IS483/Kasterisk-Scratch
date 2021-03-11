@@ -194,3 +194,35 @@ export const dashboardStyles = StyleSheet.create({
     paddingBottom: spacings.xxl,
   },
 });
+
+export const welcomePortraitStyles = StyleSheet.create({
+  rowContainer: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  columnContainer: {
+    flex: 2,
+    flexDirection: "column",
+  },
+  primaryContainer: {
+    flex: 3,
+    backgroundColor: colours.primary,
+    flexDirection: "column",
+  },
+  bannerLogo: {
+    position: "absolute",
+    width: "50%",
+    height: "55%",
+    resizeMode: "contain",
+    left: "25%",
+    top: "15%",
+  },
+  bannerDescription: {
+    position: "absolute",
+    width: "50%",
+    fontSize: fonts.md,
+    left: "25%",
+    top: "60%",
+    textAlign: "center",
+  },
+});

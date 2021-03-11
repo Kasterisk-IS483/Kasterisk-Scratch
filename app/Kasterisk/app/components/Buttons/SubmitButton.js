@@ -7,14 +7,15 @@ export default function SubmitButton({ text="", onPress=null }) {
 
   return (
     <Button
-        style={{ 
-          marginVertical: spacings.lg,
-          marginHorizontal: spacings.lg,
-        }}
-        color={colours.cta}
-        mode={"contained"}
-        onPress={onPress}>
-        {text}
+      mode="contained"
+      color={colours.cta}
+      style={{ 
+        marginVertical: spacings.lg,
+        marginHorizontal: spacings.lg,
+      }}
+      onPress={onPress}
+    >
+      {text}
     </Button>  
   )
 }

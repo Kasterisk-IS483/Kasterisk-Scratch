@@ -10,22 +10,40 @@ import {
 
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
-import {
-  commonStyles,
-} from "../utils/styles.js";
+import { commonStyles, welcomePortraitStyles } from "../utils/styles.js";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useNavigation, CommonActions } from "@react-navigation/native";
-
 
 export default class WelcomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      orientation: "",
       result: null,
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
     });
+  }
+
+  getOrientation() {
+    if (Dimensions.get("window").width > Dimensions.get("window").height) {
+      return "LANDSCAPE";
+    } else {
+      return "PORTRAIT";
+    }
+  }
+
+  getStyle() {
+    if (this.getOrientation() === "LANDSCAPE") {
+      return commonStyles;
+    } else {
+      return welcomePortraitStyles;
+    }
+  }
+
+  onLayout() {
+    this.setState({ orientation: this.getOrientation() });
   }
 
   // GoogleLogin = async () => {
@@ -92,23 +110,23 @@ export default class WelcomeScreen extends Component {
     const { navigation } = this.props;
 
     return (
-      <View style={commonStyles.rowContainer}>
-        <View style={commonStyles.columnContainer}>
+      <View style={this.getStyle().rowContainer}>
+        <View style={this.getStyle().columnContainer}>
           <ImageBackground
-            style={commonStyles.columnContainer}
+            style={this.getStyle().columnContainer}
             source={require("../assets/welcome-bg.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
-            style={commonStyles.bannerLogo}
+            style={this.getStyle().bannerLogo}
             source={require("../assets/kasterisk-logo.png")}
           />
-          <Text style={commonStyles.bannerDescription}>
+          <Text style={this.getStyle().bannerDescription}>
             Access, manage and monitor your Kubernetes clusters.
           </Text>
         </View>
 
-        <View style={commonStyles.primaryContainer}>
+        <View style={this.getStyle().primaryContainer}>
           <ScrollView contentContainerStyle={[
               commonStyles.scrollContainer,
               commonStyles.centralise,
@@ -137,7 +155,7 @@ export default class WelcomeScreen extends Component {
               <Text>Nothing to see here.</Text>
             )} */}
 
-            {/* <View style={commonStyles.divider} /> */}
+            <View style={commonStyles.divider} />
 
             <CustomButton
               image={require("../assets/welcome-button-kube.png")}
@@ -152,14 +170,14 @@ export default class WelcomeScreen extends Component {
               onPress={() => navigation.navigate("KubeconfigContent")}
             />
 
-            <View style={commonStyles.divider} />
+            {/* <View style={commonStyles.divider} /> */}
 
-            <CustomButton
+            {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
               text="Cluster Selection"
               size="small"
               onPress={() => navigation.navigate("Cluster")}
-            />
+            /> */}
             {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
               text="Workload Summary"

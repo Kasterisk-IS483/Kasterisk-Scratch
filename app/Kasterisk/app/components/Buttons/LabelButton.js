@@ -18,7 +18,7 @@ export default function LabelButton({ text="" }) {
         marginHorizontal: spacings.sm,
       }}
     >
-        {text}
+      {text}
     </Button>
   )
 }

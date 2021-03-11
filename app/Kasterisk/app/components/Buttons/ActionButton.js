@@ -9,13 +9,12 @@ export default function ActionButton({ text="", onPress=null }) {
   return (
     <View style={commonStyles.centralise}>
       <Button
-          style={{ 
-            marginVertical: spacings.md 
-          }}
-          color={colours.primary} 
-          mode={"contained"}
-          onPress={onPress}>
-          {text}
+        mode="contained"
+        color={colours.primary} 
+        style={{ marginVertical: spacings.md }}
+        onPress={onPress}
+      >
+        {text}
       </Button>  
     </View>
   )
