@@ -15,6 +15,7 @@ import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
+import ChangeClusterScreen from "./screens/ChangeClusterScreen";
 import ClusterScreen from "./screens/ClusterScreen";
 import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
@@ -133,6 +134,16 @@ export default class App extends Component {
           );
         }}
       >
+        {/* <Drawer.Screen 
+          name="Cluster" 
+          component={ChangeClusterScreen} 
+          options={{ title: "Change Cluster" }} 
+          onPress={async () => {
+            let previousCluster = await AsyncStorage.getItem("@defaultCluster");
+            await AsyncStorage.removeItem("@defaultCluster");
+            navigation.replace("Cluster", { previous: previousCluster });
+          }}
+        /> */}
         <Drawer.Screen
           name="WorkloadSummary"
           component={WorkloadSummaryScreen}
@@ -192,7 +203,8 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-          <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} />
+          {/* <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} /> */}
+          <Stack.Screen name="Cluster" component={ChangeClusterScreen} options={{ title: "Change Cluster" }} />
           <Stack.Screen name="HomeDrawer" component={this.HomeDrawer.bind(this)} options={{ headerShown: false }} />
 
           <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
