@@ -305,17 +305,17 @@ export default class WorkloadSummaryScreen extends Component {
         </View>;
 
       case 'second':
-        return <View style={commonStyles.wrapContainer}>
+        return <View style={dashboardStyles.wrapContainer}>
           {this.DeploymentTab()}
         </View>;
 
       case 'third':
-        return <View style={commonStyles.wrapContainer}>
+        return <View style={dashboardStyles.wrapContainer}>
           {this.ReplicasetTab()}
         </View>;
 
       case 'fourth':
-        return <View style={commonStyles.wrapContainer}>
+        return <View style={dashboardStyles.wrapContainer}>
           {this.PodTab()}
         </View>;
 

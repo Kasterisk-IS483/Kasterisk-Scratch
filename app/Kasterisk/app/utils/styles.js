@@ -221,6 +221,10 @@ export const dashboardStyles = StyleSheet.create({
     ...commonStyles.secondaryContainer,
     paddingHorizontal: spacings.md,
   },
+  wrapContainer: {
+    ...commonStyles.wrapContainer,
+    paddingHorizontal: spacings.md,
+  },
   rowContainer: {
     ...commonStyles.rowContainer,
     paddingVertical: spacings.xl,
