@@ -16,7 +16,6 @@ import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
 import AWSLoginScreen from "./screens/AWSLoginScreen";
 import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
 import ChangeClusterScreen from "./screens/ChangeClusterScreen";
-import ClusterScreen from "./screens/ClusterScreen";
 import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
@@ -67,7 +66,7 @@ export default class App extends Component {
 
   filter = () => {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: "row" }}>
         <ModalDropdown
           options={this.state.namespaceLabels}
           dropdownStyle={{ height: 40 * this.state.namespaceLabels.length, alignItems: "center" }}
@@ -104,7 +103,7 @@ export default class App extends Component {
         drawerContentOptions={{
           activeTintColor: colours.primary /* font color for active screen label */,
           activeBackgroundColor: colours.secondary /* bg color for active screen */,
-          inactiveTintColor: "black" /* Font color for inactive screens' labels */,
+          inactiveTintColor: "black" /* Font color for inactive screens" labels */,
         }}
         contentOptions={{ labelStyle: fonts.md }}
         drawerContent={(props) => {
@@ -203,7 +202,6 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-          {/* <Stack.Screen name="Cluster" component={ClusterScreen} options={{ headerShown: false }} /> */}
           <Stack.Screen name="Cluster" component={ChangeClusterScreen} options={{ title: "Change Cluster" }} />
           <Stack.Screen name="HomeDrawer" component={this.HomeDrawer.bind(this)} options={{ headerShown: false }} />
 

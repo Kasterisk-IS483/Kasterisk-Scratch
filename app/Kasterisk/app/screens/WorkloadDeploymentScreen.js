@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../api/DetailPageApi";
 
-import { commonStyles, dashboardStyles } from "../utils/styles.js";
+import { 
+  commonStyles, 
+  dashboardStyles, 
+  commonPortraitStyles, 
+  workloadDetailsBreakpoint 
+} from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
@@ -15,11 +20,33 @@ export default class WorkloadDeploymentScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      orientation: "",
       deployment: this.props.route.params.deployment,
       age: this.props.route.params.age,
       labels: this.props.route.params.labels,
       pods: this.props.route.params.pods,
     };
+    Dimensions.addEventListener("change", (e) => {
+      this.setState(e.window);
+    });
+  }
+
+  getOrientation() {
+    if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
+      return "LANDSCAPE";
+    } else {
+      return "PORTRAIT";
+    }
+  }
+  getStyle() {
+    if (this.getOrientation() === "LANDSCAPE") {
+      return commonStyles;
+    } else {
+      return commonPortraitStyles;
+    }
+  }
+  onLayout() {
+    this.setState({ orientation: this.getOrientation() });
   }
 
   render() {
@@ -28,14 +55,14 @@ export default class WorkloadDeploymentScreen extends Component {
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
-        <View style={dashboardStyles.detailsContainer}>
+        <View style={commonStyles.detailsContainer}>
 
         <Title style={commonStyles.headerTitle}>
           {this.state.deployment.metadata.name}
         </Title>
 
-        <View style={commonStyles.rowContainer}>
-          <View style={commonStyles.columnContainer}>
+        <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
               rollingUpdate={rollingUpdate}
@@ -49,7 +76,7 @@ export default class WorkloadDeploymentScreen extends Component {
               replicas={this.state.deployment.spec.replicas}
             />
           </View>
-          <View style={commonStyles.columnContainer}>
+          <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Status" type="Deployment"
               availableReplicas={this.state.deployment.status.availableReplicas}
               readyReplicas={this.state.deployment.status.readyReplicas}
@@ -63,11 +90,11 @@ export default class WorkloadDeploymentScreen extends Component {
         <TableCard header="Pods" table={podsInfo} />
         <TableCard header="Conditions" table={conditions} />
 
-        <View style={commonStyles.rowContainer}>
-          {/* <View style={commonStyles.columnContainer}>
+        <View style={this.getStyle().rowContainer}>
+          {/* <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Pod Template" type="Deployment" />
           </View> */}
-          <View style={commonStyles.columnContainer}>
+          <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={this.state.age}
               labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (

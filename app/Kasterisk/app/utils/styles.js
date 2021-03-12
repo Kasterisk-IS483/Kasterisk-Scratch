@@ -28,7 +28,9 @@ export const spacings = {
   xxl: 30,
 }
 
-export const cardsOuterPadding = spacings.sm;
+export const cardsOuterPadding = spacings.xs;
+export const workloadOverviewBreakpoint = 950;
+export const workloadDetailsBreakpoint = 800;
 
 export const commonStyles = StyleSheet.create({
 
@@ -156,7 +158,7 @@ export const commonStyles = StyleSheet.create({
     margin: spacings.sm,
   },
 
-  // Welcome, cluster
+  // Welcome
   bannerLogo: {
     position: "absolute",
     width: "50%",
@@ -173,28 +175,14 @@ export const commonStyles = StyleSheet.create({
     textAlign: "center",
     fontSize: fonts.lg,
   },
-});
 
-export const dashboardStyles = StyleSheet.create({
-  scrollContainer: {
-    ...commonStyles.scrollContainer,
-    ...commonStyles.secondaryContainer,
-    paddingHorizontal: spacings.md, // for landscape
-  },
- 
-  rowContainer: {
-    ...commonStyles.rowContainer,
-    paddingVertical: spacings.xl,
-  },
-  columnContainer: {
-    ...commonStyles.columnContainer,
-    paddingHorizontal: spacings.sm,
-  },
+  // workload pages
   detailsContainer: {
     paddingBottom: spacings.xxl,
   },
 });
-
+export const commonPortraitStyles = StyleSheet.create({
+});
 export const welcomePortraitStyles = StyleSheet.create({
   rowContainer: {
     flex: 1,
@@ -224,5 +212,32 @@ export const welcomePortraitStyles = StyleSheet.create({
     left: "25%",
     top: "60%",
     textAlign: "center",
+  },
+});
+
+export const dashboardStyles = StyleSheet.create({
+  scrollContainer: {
+    ...commonStyles.scrollContainer,
+    ...commonStyles.secondaryContainer,
+    paddingHorizontal: spacings.md,
+  },
+  rowContainer: {
+    ...commonStyles.rowContainer,
+    paddingVertical: spacings.xl,
+    marginHorizontal: spacings.xxl
+  },
+  columnContainer: {
+    ...commonStyles.columnContainer,
+    paddingHorizontal: spacings.sm,
+  },
+});
+export const dashboardPortraitStyles = StyleSheet.create({
+  scrollContainer: {
+    ...commonStyles.scrollContainer,
+    ...commonStyles.secondaryContainer,
+  },
+
+  columnContainer: {
+    paddingVertical: spacings.xxs,
   },
 });

@@ -1,9 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component, useState } from "react";
-import { View, ScrollView, Dimensions, Alert, Text, TouchableOpacity } from "react-native";
+import React, { Component } from "react";
+import { View, ScrollView, Dimensions, Alert, TouchableOpacity } from "react-native";
 import { TabView, TabBar } from 'react-native-tab-view';
 import Spinner from "react-native-loading-spinner-overlay";
-import { Picker } from "@react-native-picker/picker";
 
 import { checkServerStatus } from '../api/KubeApi'
 import DeploymentApi from "../api/DeploymentApi";
@@ -14,9 +13,10 @@ import DetailPageApi from "../api/DetailPageApi";
 
 import {
   colours,
-  spacings,
   commonStyles,
   dashboardStyles,
+  dashboardPortraitStyles,
+  workloadOverviewBreakpoint,
 } from "../utils/styles.js";
 
 import OverviewCard from "../components/Cards/OverviewCard";
@@ -28,13 +28,14 @@ export default class WorkloadSummaryScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      orientation: "",
       result: null,
       index: 0,
       routes: [
-        { key: 'first', title: 'All' },
-        { key: 'second', title: 'Deployment' },
-        { key: 'third', title: 'Replicaset' },
-        { key: 'fourth', title: 'Pod' },
+        { key: 'first', title: 'Overview' },
+        { key: 'second', title: 'Deployments' },
+        { key: 'third', title: 'Replicasets' },
+        { key: 'fourth', title: 'Pods' },
       ],
       spinner: false,
       namespaceLabels: [],
@@ -55,7 +56,28 @@ export default class WorkloadSummaryScreen extends Component {
       replicasetsInfo: [],
       podsInfo: [],
     };
+    Dimensions.addEventListener("change", (e) => {
+      this.setState(e.window);
+    });
     this.updateState = this.updateState.bind(this);
+  }
+
+  getOrientation() {
+    if (Dimensions.get("window").width > workloadOverviewBreakpoint) {
+      return "LANDSCAPE";
+    } else {
+      return "PORTRAIT";
+    }
+  }
+  getStyle() {
+    if (this.getOrientation() === "LANDSCAPE") {
+      return dashboardStyles;
+    } else {
+      return dashboardPortraitStyles;
+    }
+  }
+  onLayout() {
+    this.setState({ orientation: this.getOrientation() });
   }
 
   async updateState(stateKey, value) {
@@ -243,47 +265,44 @@ export default class WorkloadSummaryScreen extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'first':
-        return <View style={{ marginTop: spacings.lg, marginHorizontal: spacings.xxl }}>
-          <View style={dashboardStyles.rowContainer}>
-            <View style={dashboardStyles.columnContainer}>
-              <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
-                <OverviewCard
-                  image={require("../assets/deployment.png")}
-                  name="Deployment"
-                  text1="Ready"
-                  text2="Not Ready"
-                  no1={this.state.deploymentSummary.readyDeployments}
-                  no2={this.state.deploymentSummary.notReadyDeployments}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={dashboardStyles.columnContainer}>
-              <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
-                <OverviewCard
-                  image={require("../assets/replicaset.png")}
-                  name="ReplicaSet"
-                  text1="Ready"
-                  text2="Not Ready"
-                  no1={this.state.replicasetSummary.readyReplicaSets}
-                  no2={this.state.replicasetSummary.notReadyReplicaSets}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={dashboardStyles.columnContainer}>
-              <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
-                <OverviewCard
-                  image={require("../assets/pod.png")}
-                  name="Pod"
-                  text1="Running"
-                  text2="Pending"
-                  no1={this.state.podSummary.readyPods}
-                  no2={this.state.podSummary.notReadyPods}
-                />
-              </TouchableOpacity>
-            </View>
+        return <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().columnContainer}>
+            <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
+              <OverviewCard
+                image={require("../assets/deployment.png")}
+                name="Deployments"
+                text1="Ready"
+                text2="Not Ready"
+                no1={this.state.deploymentSummary.readyDeployments}
+                no2={this.state.deploymentSummary.notReadyDeployments}
+              />
+            </TouchableOpacity>
           </View>
-        </View>
-          ;
+          <View style={this.getStyle().columnContainer}>
+            <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
+              <OverviewCard
+                image={require("../assets/replicaset.png")}
+                name="ReplicaSets"
+                text1="Ready"
+                text2="Not Ready"
+                no1={this.state.replicasetSummary.readyReplicaSets}
+                no2={this.state.replicasetSummary.notReadyReplicaSets}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={this.getStyle().columnContainer}>
+            <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
+              <OverviewCard
+                image={require("../assets/pod.png")}
+                name="Pods"
+                text1="Running"
+                text2="Pending"
+                no1={this.state.podSummary.readyPods}
+                no2={this.state.podSummary.notReadyPods}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>;
 
       case 'second':
         return <View style={commonStyles.wrapContainer}>
@@ -319,7 +338,7 @@ export default class WorkloadSummaryScreen extends Component {
           renderScene={this._renderScene}
           renderTabBar={this._renderTabBar}
           initialLayout={{ width: Dimensions.get('window').width }}
-          sceneContainerStyle={dashboardStyles.scrollContainer}
+          sceneContainerStyle={this.getStyle().scrollContainer}
         />
       </ScrollView>
     );
