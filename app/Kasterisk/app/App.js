@@ -151,17 +151,17 @@ export default class App extends Component {
         <Drawer.Screen
           name="WorkloadDeployments"
           component={this.workloadDeploymentScreen}
-          options={{ drawerLabel: "Deployments", title: "Workloads", headerRight: this.filter }}
+          options={{ drawerLabel: "Deployment", title: "Workloads", headerRight: this.filter }}
         />
          <Drawer.Screen
           name="WorkloadReplicasets"
           component={this.workloadReplicasetScreen}
-          options={{ drawerLabel: "Replicasets", title: "Workloads", headerRight: this.filter }}
+          options={{ drawerLabel: "Replicaset", title: "Workloads", headerRight: this.filter }}
         />
          <Drawer.Screen
           name="WorkloadPods"
           component={this.workloadPodScreen}
-          options={{ drawerLabel: "Pods", title: "Workloads", headerRight: this.filter }}
+          options={{ drawerLabel: "Pod", title: "Workloads", headerRight: this.filter }}
           />
       </Drawer.Navigator>
     );
