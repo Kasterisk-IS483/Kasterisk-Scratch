@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions } from "react-native";
-import { Title, Card } from 'react-native-paper';
+import { View, ScrollView, Dimensions, Text } from "react-native";
+import { Title, Card, Checkbox } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Picker } from "@react-native-picker/picker";
 
@@ -38,6 +38,7 @@ export default class WorkloadPodsScreen extends Component {
       containerList: ["[all containers]", "hello-world"],
       since: "[all]",
       sinceList: ["5 minutes", "10 minutes"],
+      checked: false,
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -94,7 +95,7 @@ export default class WorkloadPodsScreen extends Component {
 
   SummaryTab = () => {
     let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
-    return ( 
+    return (
       <View>
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
@@ -114,7 +115,7 @@ export default class WorkloadPodsScreen extends Component {
           </View>
         </View>
 
-        <TableCard header="Pod Conditions" table={conditions}/>
+        <TableCard header="Pod Conditions" table={conditions} />
 
         <View style={this.getStyle().rowContainer}>
           {/* <View style={this.getStyle().columnContainer}>
@@ -146,6 +147,18 @@ export default class WorkloadPodsScreen extends Component {
             </View>
             <View style={this.getStyle().columnContainer}>
               {this.sinceList()}
+            </View>
+          </Card.Content>
+          <Card.Content style={commonStyles.cardContent}>
+            <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
+              <Checkbox
+                color={colours.primary}
+                status={this.state.checked ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  this.setState({ checked: !this.state.checked })
+                }}
+              />
+              <Text>Display Timestamp</Text>
             </View>
           </Card.Content>
         </Card>
@@ -182,27 +195,27 @@ export default class WorkloadPodsScreen extends Component {
     switch (route.key) {
       case 'first':
         return <ScrollView>
-            <Title style={commonStyles.headerTitle}>
-              {this.state.pod.metadata.name}
-            </Title> 
-            {this.SummaryTab()}
-          </ScrollView>;
-        
+          <Title style={commonStyles.headerTitle}>
+            {this.state.pod.metadata.name}
+          </Title>
+          {this.SummaryTab()}
+        </ScrollView>;
+
       case 'second':
         return <ScrollView>
-            <Title style={commonStyles.headerTitle}>
-              {this.state.pod.metadata.name}
-            </Title> 
-            {this.LogsTab()}
-          </ScrollView>;
+          <Title style={commonStyles.headerTitle}>
+            {this.state.pod.metadata.name}
+          </Title>
+          {this.LogsTab()}
+        </ScrollView>;
 
       case 'third':
         return <ScrollView>
-            <Title style={commonStyles.headerTitle}>
-              {this.state.pod.metadata.name}
-            </Title> 
-            {this.ShellTab()}
-          </ScrollView>;
+          <Title style={commonStyles.headerTitle}>
+            {this.state.pod.metadata.name}
+          </Title>
+          {this.ShellTab()}
+        </ScrollView>;
 
       default:
         return null;
