@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
+import { TabView, TabBar } from 'react-native-tab-view';
 
 import DetailPageApi from "../api/DetailPageApi";
 
 import { 
+  colours,
   commonStyles, 
   dashboardStyles, 
   commonPortraitStyles, 
@@ -21,6 +23,12 @@ export default class WorkloadPodsScreen extends Component {
     super(props);
     this.state = {
       orientation: "",
+      index: 0,
+      routes: [
+        { key: 'first', title: 'Summary' },
+        { key: 'second', title: 'Logs' },
+        { key: 'third', title: 'Shell' },
+      ],
       pod: this.props.route.params.pod,
       age: this.props.route.params.age,
       labels: this.props.route.params.labels,
@@ -48,55 +56,109 @@ export default class WorkloadPodsScreen extends Component {
     this.setState({ orientation: this.getOrientation() });
   }
 
-  render() {
+  SummaryTab = () => {
     let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
     return (
-      <ScrollView style={dashboardStyles.scrollContainer}>
-        <View style={commonStyles.detailsContainer}>
-    
-          <Title style={commonStyles.headerTitle}>
-            {this.state.pod.metadata.name}
-          </Title> 
+      <ScrollView>
+        <Title style={commonStyles.headerTitle}>
+          {this.state.pod.metadata.name}
+        </Title> 
 
-          <View style={this.getStyle().rowContainer}>
-            <View style={this.getStyle().columnContainer}>
+        <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().columnContainer}>
 
-              <DetailsCard header="Configuration" type="Pods"
-                priority={this.state.pod.spec.priority}
-                node={this.state.pod.spec.nodeName}
-                serviceAccount={this.state.pod.spec.serviceAccount}
-              />
-            </View>
-            <View style={this.getStyle().columnContainer}>
-              <DetailsCard header="Status" type="Pods"
-                qos={this.state.pod.status.qosClass}
-                phase={this.state.pod.status.phase}
-                podIP={this.state.pod.status.podIP}
-                hostIP={this.state.pod.status.hostIP}
-              />
-            </View>
+            <DetailsCard header="Configuration" type="Pods"
+              priority={this.state.pod.spec.priority}
+              node={this.state.pod.spec.nodeName}
+              serviceAccount={this.state.pod.spec.serviceAccount}
+            />
           </View>
-
-          <TableCard header="Pod Conditions" table={conditions}/>
-
-          <View style={this.getStyle().rowContainer}>
-            {/* <View style={this.getStyle().columnContainer}>
-              <DetailsCard header="Template" type="Pods" />
-            </View> */}
-            <View style={this.getStyle().columnContainer}>
-              <DetailsCard header="Metadata" type="Pods"
-                age={this.state.age}
-                labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-                  <LabelButton
-                    key={labelIndex}
-                    text={labelItem + ":" + this.state.labels[labelItem]} />
-                ))}
-                control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
-              />
-            </View>
+          <View style={this.getStyle().columnContainer}>
+            <DetailsCard header="Status" type="Pods"
+              qos={this.state.pod.status.qosClass}
+              phase={this.state.pod.status.phase}
+              podIP={this.state.pod.status.podIP}
+              hostIP={this.state.pod.status.hostIP}
+            />
           </View>
-          
         </View>
+
+        <TableCard header="Pod Conditions" table={conditions}/>
+
+        <View style={this.getStyle().rowContainer}>
+          {/* <View style={this.getStyle().columnContainer}>
+            <DetailsCard header="Template" type="Pods" />
+          </View> */}
+          <View style={this.getStyle().columnContainer}>
+            <DetailsCard header="Metadata" type="Pods"
+              age={this.state.age}
+              labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
+                <LabelButton
+                  key={labelIndex}
+                  text={labelItem + ":" + this.state.labels[labelItem]} />
+              ))}
+              control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
+            />
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  LogsTab = () => {
+    return (
+      <ScrollView>   
+
+      </ScrollView>
+    );
+  }
+
+  ShellTab = () => {
+    return (
+      <ScrollView>   
+      
+      </ScrollView>
+    );
+  }
+
+  _handleIndexChange = index => this.setState({ index });
+  _renderTabBar = props => {
+    return (
+      <TabBar
+        {...props}
+        indicatorStyle={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: colours.primary }}
+      />
+    )
+  };
+
+  _renderScene = ({ route }) => {
+    switch (route.key) {
+      case 'first':
+        return this.SummaryTab();
+
+      case 'second':
+        return this.LogsTab();
+
+      case 'third':
+        return this.ShellTab();
+
+      default:
+        return null;
+    }
+  };
+
+  render() {
+    return (
+      <ScrollView style={commonStyles.secondaryContainer}>
+        <TabView
+          navigationState={this.state}
+          onIndexChange={this._handleIndexChange}
+          renderScene={this._renderScene}
+          renderTabBar={this._renderTabBar}
+          initialLayout={{ width: Dimensions.get('window').width }}
+          sceneContainerStyle={dashboardStyles.scrollContainer}
+        />
       </ScrollView>
     );
   }
