@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Text } from "react-native";
-import { Title, Card, Checkbox } from 'react-native-paper';
+import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Picker } from "@react-native-picker/picker";
 
@@ -13,6 +13,7 @@ import {
   welcomePortraitStyles, 
   workloadDetailsBreakpoint,
   cardsOuterPadding,
+  spacings
 } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
@@ -38,7 +39,8 @@ export default class WorkloadPodsScreen extends Component {
       containerList: ["[all containers]", "hello-world"],
       since: "[all]",
       sinceList: ["5 minutes", "10 minutes"],
-      checked: false,
+      checkedTimestamp: false,
+      checkedFilter:false
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -137,6 +139,9 @@ export default class WorkloadPodsScreen extends Component {
     );
   }
 
+  onToggleTimestampSwitch = () => this.setState({ checkedTimestamp: !this.state.checkedTimestamp });
+  onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
+
   LogsTab = () => {
     return (
       <View style={{ padding: cardsOuterPadding }}>
@@ -150,15 +155,13 @@ export default class WorkloadPodsScreen extends Component {
             </View>
           </Card.Content>
           <Card.Content style={commonStyles.cardContent}>
-            <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
-              <Checkbox
-                color={colours.primary}
-                status={this.state.checked ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  this.setState({ checked: !this.state.checked })
-                }}
-              />
-              <Text>Display Timestamp</Text>
+            <View style={commonStyles.fieldsContainer}>
+              <Switch value={this.state.checkedTimestamp} onValueChange={this.onToggleTimestampSwitch} color={colours.primary} style={{ paddingTop: spacings.lg}} />
+              <Text style={[commonStyles.switchText, { paddingLeft: spacings.xxs, paddingTop: spacings.xxs }]}>Display timestamp</Text>
+            </View>
+            <View style={[commonStyles.fieldsContainer, {paddingLeft:spacings.xl}]}>
+              <Switch value={this.state.checkedFilter} onValueChange={this.onToggleFilterSwitch} color={colours.primary} style={{ paddingTop: spacings.lg, paddingLeft: spacings.xxs}} />
+              <Text style={[commonStyles.switchText, { paddingLeft: spacings.xxs, paddingTop: spacings.xxs }]}>Show only filtered</Text>
             </View>
           </Card.Content>
         </Card>
