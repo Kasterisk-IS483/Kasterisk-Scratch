@@ -133,16 +133,6 @@ export default class App extends Component {
           );
         }}
       >
-        {/* <Drawer.Screen 
-          name="ChooseCluster" 
-          component={ChangeClusterScreen} 
-          options={{ title: "Change Cluster" }} 
-          onPress={async () => {
-            let previousCluster = await AsyncStorage.getItem("@defaultCluster");
-            await AsyncStorage.removeItem("@defaultCluster");
-            navigation.replace("ChooseCluster", { previous: previousCluster });
-          }}
-        /> */}
         <Drawer.Screen
           name="WorkloadSummary"
           component={WorkloadSummaryScreen}
