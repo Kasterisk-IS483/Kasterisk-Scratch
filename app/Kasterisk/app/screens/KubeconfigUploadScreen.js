@@ -70,7 +70,7 @@ export default class KubeconfigUploadScreen extends React.Component {
     });
     try {
       await saveKubeconfigFileToLocal(this.k8s.getClusters(), this.k8s.getUsers(), this.k8s.getContexts());
-      this.props.navigation.navigate("Cluster");
+      this.props.navigation.navigate("ChooseCluster");
     } catch (err) {
       Alert.alert("File Submission Failed", err.message);
     }

@@ -125,7 +125,7 @@ export default class App extends Component {
                 onPress={async () => {
                   let previousCluster = await AsyncStorage.getItem("@defaultCluster");
                   await AsyncStorage.removeItem("@defaultCluster");
-                  navigation.replace("Cluster", { previous: previousCluster });
+                  navigation.replace("ChooseCluster", { previous: previousCluster });
                 }}
               />
               <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
@@ -134,13 +134,13 @@ export default class App extends Component {
         }}
       >
         {/* <Drawer.Screen 
-          name="Cluster" 
+          name="ChooseCluster" 
           component={ChangeClusterScreen} 
           options={{ title: "Change Cluster" }} 
           onPress={async () => {
             let previousCluster = await AsyncStorage.getItem("@defaultCluster");
             await AsyncStorage.removeItem("@defaultCluster");
-            navigation.replace("Cluster", { previous: previousCluster });
+            navigation.replace("ChooseCluster", { previous: previousCluster });
           }}
         /> */}
         <Drawer.Screen
@@ -201,12 +201,12 @@ export default class App extends Component {
     // else {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-          <Stack.Screen name="Cluster" component={ChangeClusterScreen} options={{ title: "Change Cluster",  headerBackTitleVisible: false }} />
+        <Stack.Navigator initialRouteName="ChooseCluster" screenOptions={screenOptions}>
+          <Stack.Screen name="ChooseCluster" component={ChangeClusterScreen} options={{ title: "Change Cluster",  headerBackTitleVisible: false }} />
           <Stack.Screen name="HomeDrawer" component={this.HomeDrawer.bind(this)} options={{ headerShown: false }} />
 
-          <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="AWS Login" component={AWSLoginScreen} />
+          <Stack.Screen name="AddCluster" component={WelcomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="AWSLogin" component={AWSLoginScreen} />
           <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
           <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
 

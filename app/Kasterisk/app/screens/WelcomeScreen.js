@@ -95,7 +95,7 @@ export default class WelcomeScreen extends Component {
   componentDidMount() {
     this.props.navigation.dispatch(state => {
       // Remove the home route from the stack
-      const routes = state.routes.filter(r => r.name !== 'Cluster');
+      const routes = state.routes.filter(r => r.name !== 'ChooseCluster');
     
       return CommonActions.reset({
         ...state,
@@ -141,7 +141,7 @@ export default class WelcomeScreen extends Component {
               image={require("../assets/welcome-button-aws.png")}
               text="Log in With Amazon"
               size="small"
-              onPress={() => navigation.navigate("AWS Login")}
+              onPress={() => navigation.navigate("AWSLogin")}
             />
             {/* <CustomButton
               image={require("../assets/welcome-button-azure.png")}
@@ -174,9 +174,9 @@ export default class WelcomeScreen extends Component {
 
             {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}
-              text="Cluster Selection"
+              text="Choose Cluster"
               size="small"
-              onPress={() => navigation.navigate("Cluster")}
+              onPress={() => navigation.navigate("ChooseCluster")}
             /> */}
             {/* <CustomButton
               image={require("../assets/welcome-button-kube.png")}

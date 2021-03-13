@@ -30,9 +30,9 @@ class ChangeClusterScreen extends React.Component {
       this.setState({ spinner: false });
       this.props.navigation.reset({
         index: 0,
-        routes: [{ name: "Add Cluster" }],
+        routes: [{ name: "AddCluster" }],
       });
-      this.props.navigation.replace("Add Cluster");
+      this.props.navigation.replace("AddCluster");
       return;
     }
 
@@ -117,7 +117,7 @@ class ChangeClusterScreen extends React.Component {
         </ScrollView>
         <SubmitButton 
             icon="plus" 
-            onPress={() => this.props.navigation.navigate("Add Cluster")}
+            onPress={() => this.props.navigation.navigate("AddCluster")}
             text="Add new cluster"
           />
       </View>

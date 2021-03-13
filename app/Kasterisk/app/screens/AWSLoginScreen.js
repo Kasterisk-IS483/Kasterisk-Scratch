@@ -87,7 +87,7 @@ const AWSLoginScreen = ({ navigation }) => {
       await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
     }
     setSpinner(false);
-    navigation.navigate("Cluster");
+    navigation.navigate("ChooseCluster");
   };
 
   const AWSRegionList = () => {

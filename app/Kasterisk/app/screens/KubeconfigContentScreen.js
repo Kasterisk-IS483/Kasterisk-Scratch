@@ -71,7 +71,7 @@ export default function KubeconfigContentScreen({ navigation }) {
     };
     try {
       await saveKubeconfigContentToLocal(clusterInfo, userInfo, checked);
-      navigation.navigate('Cluster');
+      navigation.navigate('ChooseCluster');
     } catch (err) {
         Alert.alert("Error", err.message);
     }

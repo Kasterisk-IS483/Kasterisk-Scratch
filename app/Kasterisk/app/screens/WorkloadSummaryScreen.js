@@ -135,7 +135,7 @@ export default class WorkloadSummaryScreen extends Component {
         this.setState({
           spinner: false
         })
-        this.props.navigation.navigate('Cluster')
+        this.props.navigation.navigate('ChooseCluster')
         return;
       }
 
