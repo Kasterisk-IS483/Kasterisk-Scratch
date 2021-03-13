@@ -180,6 +180,14 @@ export const commonStyles = StyleSheet.create({
   detailsContainer: {
     paddingBottom: spacings.xxl,
   },
+
+  // workload pod picker
+  picker: { 
+    borderWidth: 1, 
+    borderColor: "black", 
+    marginVertical: spacings.sm, 
+    marginRight: spacings.sm 
+  },
 });
 export const commonPortraitStyles = StyleSheet.create({
 });

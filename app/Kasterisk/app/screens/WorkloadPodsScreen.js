@@ -37,6 +37,8 @@ export default class WorkloadPodsScreen extends Component {
       labels: this.props.route.params.labels,
       container: "[all containers]",
       containerList: ["[all containers]", "hello-world"],
+      since: "[all]",
+      sinceList: ["5 minutes", "10 minutes"],
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -65,9 +67,24 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View>
         <Title style={{ fontWeight: 'bold' }}>Container:</Title>
-        <View style={{ borderWidth: 1, borderColor: "black", marginVertical: spacings.sm }}>
+        <View style={commonStyles.picker}>
           <Picker selectedValue={this.state.container} onValueChange={(itemValue) => this.updateState("container", itemValue)}>
             {this.state.containerList.map((_item, _index) => (
+              <Picker.Item label={_item} value={_item} key={_item} />
+            ))}
+          </Picker>
+        </View>
+      </View>
+    );
+  };
+
+  sinceList = () => {
+    return (
+      <View>
+        <Title style={{ fontWeight: 'bold' }}>Since:</Title>
+        <View style={commonStyles.picker}>
+          <Picker selectedValue={this.state.since} onValueChange={(itemValue) => this.updateState("since", itemValue)}>
+            {this.state.sinceList.map((_item, _index) => (
               <Picker.Item label={_item} value={_item} key={_item} />
             ))}
           </Picker>
@@ -127,6 +144,9 @@ export default class WorkloadPodsScreen extends Component {
           <Card.Content style={commonStyles.cardContent}>
               <View style={{ flex: 1 }}>
                 {this.containerList()}
+              </View>
+              <View style={{ flex: 1 }}>
+                {this.sinceList()}
               </View>
           </Card.Content>
         </Card>
