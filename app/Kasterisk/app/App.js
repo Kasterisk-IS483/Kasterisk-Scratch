@@ -151,17 +151,17 @@ export default class App extends Component {
         <Drawer.Screen
           name="WorkloadDeployments"
           component={this.workloadDeploymentScreen}
-          options={{ drawerLabel: "Deployment", title: "Workloads", headerRight: this.filter }}
+          options={{ drawerLabel: "Deployments", title: "Workloads", headerRight: this.filter }}
         />
          <Drawer.Screen
           name="WorkloadReplicasets"
           component={this.workloadReplicasetScreen}
-          options={{ drawerLabel: "Replicaset", title: "Workloads", headerRight: this.filter }}
+          options={{ drawerLabel: "Replicasets", title: "Workloads", headerRight: this.filter }}
         />
          <Drawer.Screen
           name="WorkloadPods"
           component={this.workloadPodScreen}
-          options={{ drawerLabel: "Pod", title: "Workloads", headerRight: this.filter }}
+          options={{ drawerLabel: "Pods", title: "Workloads", headerRight: this.filter }}
           />
       </Drawer.Navigator>
     );
@@ -202,7 +202,7 @@ export default class App extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Cluster" screenOptions={screenOptions}>
-          <Stack.Screen name="Cluster" component={ChangeClusterScreen} options={{ title: "Change Cluster" }} />
+          <Stack.Screen name="Cluster" component={ChangeClusterScreen} options={{ title: "Change Cluster",  headerBackTitleVisible: false }} />
           <Stack.Screen name="HomeDrawer" component={this.HomeDrawer.bind(this)} options={{ headerShown: false }} />
 
           <Stack.Screen name="Add Cluster" component={WelcomeScreen} options={{ headerShown: false }} />
