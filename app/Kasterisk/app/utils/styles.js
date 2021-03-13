@@ -184,9 +184,7 @@ export const commonStyles = StyleSheet.create({
   // workload pod picker
   picker: { 
     borderWidth: 1, 
-    borderColor: "black", 
-    marginVertical: spacings.sm, 
-    marginRight: spacings.sm 
+    borderColor: colours.grey, 
   },
 });
 export const commonPortraitStyles = StyleSheet.create({
@@ -242,6 +240,12 @@ export const dashboardStyles = StyleSheet.create({
     ...commonStyles.columnContainer,
     paddingHorizontal: spacings.sm,
   },
+
+  picker: {
+    ...commonStyles.picker,
+    marginVertical: spacings.sm, 
+    marginRight: spacings.sm 
+  }
 });
 export const dashboardPortraitStyles = StyleSheet.create({
   scrollContainer: {

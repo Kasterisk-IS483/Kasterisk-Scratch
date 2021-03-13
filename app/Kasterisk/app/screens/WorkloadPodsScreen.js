@@ -67,7 +67,7 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View>
         <Title style={{ fontWeight: 'bold' }}>Container:</Title>
-        <View style={commonStyles.picker}>
+        <View style={dashboardStyles.picker}>
           <Picker selectedValue={this.state.container} onValueChange={(itemValue) => this.updateState("container", itemValue)}>
             {this.state.containerList.map((_item, _index) => (
               <Picker.Item label={_item} value={_item} key={_item} />
@@ -82,7 +82,7 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View>
         <Title style={{ fontWeight: 'bold' }}>Since:</Title>
-        <View style={commonStyles.picker}>
+        <View style={dashboardStyles.picker}>
           <Picker selectedValue={this.state.since} onValueChange={(itemValue) => this.updateState("since", itemValue)}>
             {this.state.sinceList.map((_item, _index) => (
               <Picker.Item label={_item} value={_item} key={_item} />

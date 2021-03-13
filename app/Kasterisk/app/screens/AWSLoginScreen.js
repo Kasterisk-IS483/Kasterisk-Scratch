@@ -123,9 +123,8 @@ const AWSLoginScreen = ({ navigation }) => {
         </Text>
         <View
           style={[
-            commonStyles.formContent, {
-            borderWidth: 1,
-            borderColor: colours.grey,
+            commonStyles.formContent,
+            commonStyles.picker, {
             marginTop: spacings.md,
           }]}
         >
