@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { View, ScrollView, Dimensions } from "react-native";
 import { Title, Card } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
+import { Picker } from "@react-native-picker/picker";
 
 import DetailPageApi from "../api/DetailPageApi";
 
 import { 
-  colours,
+  colours, 
+  spacings,
   commonStyles, 
   dashboardStyles, 
   commonPortraitStyles, 
@@ -33,6 +35,8 @@ export default class WorkloadPodsScreen extends Component {
       pod: this.props.route.params.pod,
       age: this.props.route.params.age,
       labels: this.props.route.params.labels,
+      container: "[all containers]",
+      containerList: ["[all containers]", "hello-world"],
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -56,6 +60,21 @@ export default class WorkloadPodsScreen extends Component {
   onLayout() {
     this.setState({ orientation: this.getOrientation() });
   }
+
+  containerList = () => {
+    return (
+      <View>
+        <Title style={{ fontWeight: 'bold' }}>Container:</Title>
+        <View style={{ borderWidth: 1, borderColor: "black", marginVertical: spacings.sm }}>
+          <Picker selectedValue={this.state.container} onValueChange={(itemValue) => this.updateState("container", itemValue)}>
+            {this.state.containerList.map((_item, _index) => (
+              <Picker.Item label={_item} value={_item} key={_item} />
+            ))}
+          </Picker>
+        </View>
+      </View>
+    );
+  };
 
   SummaryTab = () => {
     let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
@@ -107,7 +126,7 @@ export default class WorkloadPodsScreen extends Component {
         <Card elevation={10} style={{ width: "100%" }}>
           <Card.Content style={commonStyles.cardContent}>
               <View style={{ flex: 1 }}>
-
+                {this.containerList()}
               </View>
           </Card.Content>
         </Card>
@@ -121,7 +140,7 @@ export default class WorkloadPodsScreen extends Component {
         <Card elevation={10} style={{ width: "100%" }}>
           <Card.Content style={commonStyles.cardContent}>
               <View style={{ flex: 1 }}>
-
+                {this.containerList()}
               </View>
           </Card.Content>
         </Card>
