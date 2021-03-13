@@ -5,7 +5,7 @@ import { Title } from 'react-native-paper';
 import { 
   commonStyles, 
   dashboardStyles, 
-  commonPortraitStyles, 
+  welcomePortraitStyles, 
   workloadDetailsBreakpoint 
 } from "../utils/styles.js";
 
@@ -39,7 +39,7 @@ export default class WorkloadReplicasetScreen extends Component {
     if (this.getOrientation() === "LANDSCAPE") {
       return commonStyles;
     } else {
-      return commonPortraitStyles;
+      return welcomePortraitStyles;
     }
   }
   onLayout() {

@@ -8,10 +8,9 @@ import DetailPageApi from "../api/DetailPageApi";
 
 import { 
   colours, 
-  spacings,
   commonStyles, 
   dashboardStyles, 
-  commonPortraitStyles, 
+  welcomePortraitStyles, 
   workloadDetailsBreakpoint,
   cardsOuterPadding,
 } from "../utils/styles.js";
@@ -56,7 +55,7 @@ export default class WorkloadPodsScreen extends Component {
     if (this.getOrientation() === "LANDSCAPE") {
       return commonStyles;
     } else {
-      return commonPortraitStyles;
+      return welcomePortraitStyles;
     }
   }
   onLayout() {
@@ -141,13 +140,13 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View style={{ padding: cardsOuterPadding }}>
         <Card elevation={10} style={{ width: "100%" }}>
-          <Card.Content style={commonStyles.cardContent}>
-              <View style={{ flex: 1 }}>
-                {this.containerList()}
-              </View>
-              <View style={{ flex: 1 }}>
-                {this.sinceList()}
-              </View>
+          <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
+            <View style={this.getStyle().columnContainer}>
+              {this.containerList()}
+            </View>
+            <View style={this.getStyle().columnContainer}>
+              {this.sinceList()}
+            </View>
           </Card.Content>
         </Card>
       </View>
@@ -158,8 +157,8 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View style={{ padding: cardsOuterPadding }}>
         <Card elevation={10} style={{ width: "100%" }}>
-          <Card.Content style={commonStyles.cardContent}>
-              <View style={{ flex: 1 }}>
+          <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
+            <View style={this.getStyle().columnContainer}>
                 {this.containerList()}
               </View>
           </Card.Content>

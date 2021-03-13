@@ -7,7 +7,7 @@ import DetailPageApi from "../api/DetailPageApi";
 import { 
   commonStyles, 
   dashboardStyles, 
-  commonPortraitStyles, 
+  welcomePortraitStyles, 
   workloadDetailsBreakpoint 
 } from "../utils/styles.js";
 
@@ -42,7 +42,7 @@ export default class WorkloadDeploymentScreen extends Component {
     if (this.getOrientation() === "LANDSCAPE") {
       return commonStyles;
     } else {
-      return commonPortraitStyles;
+      return welcomePortraitStyles;
     }
   }
   onLayout() {

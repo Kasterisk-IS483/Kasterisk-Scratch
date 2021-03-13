@@ -93,6 +93,11 @@ export const commonStyles = StyleSheet.create({
     fontWeight: 'bold', 
   },
 
+  picker: { 
+    borderWidth: 1, 
+    borderColor: colours.grey, 
+  },
+
   // Cards
   cardTitle: {
     paddingBottom: spacings.sm, 
@@ -180,14 +185,6 @@ export const commonStyles = StyleSheet.create({
   detailsContainer: {
     paddingBottom: spacings.xxl,
   },
-
-  // workload pod picker
-  picker: { 
-    borderWidth: 1, 
-    borderColor: colours.grey, 
-  },
-});
-export const commonPortraitStyles = StyleSheet.create({
 });
 export const welcomePortraitStyles = StyleSheet.create({
   rowContainer: {
