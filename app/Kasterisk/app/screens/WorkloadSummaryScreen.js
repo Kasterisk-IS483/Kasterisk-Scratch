@@ -31,7 +31,7 @@ export default class WorkloadSummaryScreen extends Component {
     this.state = {
       orientation: "",
       result: null,
-      index: 0,
+      index: this.props.index!==undefined? this.props.index : 0 ,
       routes: [
         { key: 'first', title: 'Overview' },
         { key: 'second', title: 'Deployments' },
