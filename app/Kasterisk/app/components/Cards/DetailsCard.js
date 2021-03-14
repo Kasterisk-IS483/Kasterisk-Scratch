@@ -52,6 +52,15 @@ export default function DetailsCard(props) {
         }
     }
 
+    fieldsContainerTemplate = (style, leftText, rightText) => {
+        return (
+            <View style={style}>
+                <Title style={commonStyles.detailsCardInfoLeftText}>{leftText}</Title>
+                <Text style={commonStyles.detailsCardInfoRightText}>{rightText}</Text>
+            </View>
+        )
+    }
+
     return (
         <View style={{
             flexGrow: 1,
@@ -67,54 +76,21 @@ export default function DetailsCard(props) {
 
                         {isDeploymentConfiguration &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Deployment Strategy</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.deploymentStrategy}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Rolling Update Strategy</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.rollingUpdate}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Selectors</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.selectors}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Min Ready Seconds</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.minReadySec}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Revision History Limit</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.historyLimit}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.replicas}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Deployment Strategy", props.deploymentStrategy)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Rolling Update Strategy", props.rollingUpdate)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Selectors", props.selectors)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Min Ready Seconds", props.minReadySec)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Revision History Limit", props.historyLimit)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.replicas)}
                             </View>
                         }
                         {isDeploymentStatus &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Available Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.availableReplicas}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Ready Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.readyReplicas}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Total Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.totalReplicas}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Unavailable Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.unavailableReplicas}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Updated Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.updatedReplicas}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Available Replicas", props.availableReplicas)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready Replicas", props.readyReplicas)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Total Replicas", props.totalReplicas)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Unavailable Replicas", props.unavailableReplicas)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Updated Replicas", props.updatedReplicas)}
                             </View>
                         }
                         {isDeploymentPodTemplate &&
@@ -129,14 +105,8 @@ export default function DetailsCard(props) {
                                         </View>                                    
                                     }
                                 </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Image</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.image}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Container Ports</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.containerPorts}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Ports", props.containerPorts)}
                             </View>
                         }
                         {isDeploymentMetadata &&
@@ -145,76 +115,34 @@ export default function DetailsCard(props) {
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Labels</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.labels}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Annotations</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.annotations}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                             </View>
                         }
 
                         {isPodConfiguration &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Priority</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.priority}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Node</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.node}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Service Account</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.serviceAccount}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Priority", props.priority)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Node", props.node)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Service Account", props.serviceAccount)}
                             </View>
                         }
                         {isPodStatus &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>QoS</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.qos}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Phase</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.phase}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Pod IP</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.podIP}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Host IP</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.hostIP}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "QoS", props.qos)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Phase", props.phase)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Pod IP", props.podIP)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Host IP", props.hostIP)}
                             </View>
                         }
                         {isPodTemplate &&
                             <View>
                                 <Title style={{ textDecorationLine: 'underline' }}>Container {props.container}</Title>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Image</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.image}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Image ID</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.imageId}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Current State</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.currentState}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Ready</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.ready}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Restart Count</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.restartCount}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", props.imageId)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", props.currentState)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", props.ready)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", props.restartCount)}
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Volume Mounts</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>
@@ -240,54 +168,27 @@ export default function DetailsCard(props) {
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Labels</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.labels}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Controlled By</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.control}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
                             </View>
                         }
 
                         {isReplicasetConfiguration &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Controlled By</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.control}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Replica Status</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.status}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Replicas</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.numberReplica}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Replica Status", props.replicaStatus)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.numberReplica)}
                             </View>
                         }
                         {isReplicasetStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }]}>
-                                        <Text style={commonStyles.detailsCardInfoRightText}>{props.waiting | 0}</Text>
-                                        <Title style={commonStyles.detailsCardInfoLeftText}>Waiting</Title>
-                                    </View>
-                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }]}>
-                                        <Text style={commonStyles.detailsCardInfoRightText}>{props.running | 0}</Text>
-                                        <Title style={commonStyles.detailsCardInfoLeftText}>Running</Title>
-                                    </View>
+                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }], "Waiting", props.waiting | 0)}
+                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }], "Running", props.running | 0)}
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black" }]}>
-                                        <Text style={commonStyles.detailsCardInfoRightText}>{props.failed | 0}</Text>
-                                        <Title style={commonStyles.detailsCardInfoLeftText}>Failed</Title>
-                                    </View>
-                                    <View style={[commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black", borderLeftWidth: 1 }]}>
-                                        <Text style={commonStyles.detailsCardInfoRightText}>{props.succeeded | 0}</Text>
-                                        <Title style={commonStyles.detailsCardInfoLeftText}>Succeeded</Title>
-                                    </View>
+                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black" }], "Failed", props.failed | 0)}
+                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black", borderLeftWidth: 1 }], "Succeeded", props.succeeded | 0)}
                                 </View>
                             </View>
                         }
@@ -297,18 +198,9 @@ export default function DetailsCard(props) {
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
                                 </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Labels</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.labels}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Annotations</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.annotations}</Text>
-                                </View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Controlled By</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.control}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
                             </View>
                         }
 

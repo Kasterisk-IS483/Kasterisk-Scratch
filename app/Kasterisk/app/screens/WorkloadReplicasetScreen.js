@@ -65,7 +65,7 @@ export default class WorkloadReplicasetScreen extends Component {
             <View style={this.getStyle().columnContainer}>
               <DetailsCard header="Configuration" type="Replicaset"
                 control={this.state.replicaset.metadata.ownerReferences[0].name}
-                status={replicaStatus}
+                replicaStatus={replicaStatus}
                 numberReplica={this.state.replicaset.spec.replicas}
               />
             </View>
