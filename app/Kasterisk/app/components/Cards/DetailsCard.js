@@ -4,8 +4,6 @@ import { Card, Title, DataTable } from 'react-native-paper';
 
 import { cardsOuterPadding, commonStyles } from "../../utils/styles.js";
 
-import LabelButton from "../Buttons/LabelButton";
-
 export default function DetailsCard(props) {
 
     let isDeploymentConfiguration = false;
@@ -148,11 +146,6 @@ export default function DetailsCard(props) {
                                                 <DataTable.Title>Mount Path     </DataTable.Title>
                                                 <DataTable.Title>Propagation    </DataTable.Title>
                                             </DataTable.Header>
-                                            {/* <DataTable.Row>
-                                                <DataTable.Cell>{props.name}</DataTable.Cell>
-                                                <DataTable.Cell>{props.mountPath}</DataTable.Cell>
-                                                <DataTable.Cell>{props.propagation}</DataTable.Cell>
-                                            </DataTable.Row> */}
                                             {props.podTemplateVolumnMounts.map((rows, rowIndex) => ( 
                                             <DataTable.Row key={rowIndex}>
                                                 <DataTable.Cell> {rows.name} </DataTable.Cell>

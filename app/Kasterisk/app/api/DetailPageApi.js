@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
-import NamespaceApi from "./NamespaceApi.js";
-import DeploymentApi from "./DeploymentApi.js";
-import ReplicasetApi from "./ReplicasetApi.js";
 import PodApi from "./PodApi.js";
-import NodeApi from "./NodeApi.js";
 import WorkloadSummaryApi from "./WorkloadSummaryApi.js";
 
 class DetailPageApi extends Component {
