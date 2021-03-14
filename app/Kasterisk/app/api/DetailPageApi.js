@@ -94,5 +94,23 @@ class DetailPageApi extends Component {
         return PodConditions;
     }
 
+    /** POD - TEMPLATE **/
+    static PodTemplates = (pod) => {
+        let podTemplates = []
+        let containerStatuses = pod.status.containerStatuses;
+        for (i = 0; i < containerStatuses.length; i++) {
+            let podTemplate = {
+                name: pod.status.containerStatuses[i].name,
+                image: pod.status.containerStatuses[i].image,
+                imageID: pod.status.containerStatuses[i].imageID,
+                ready: String(pod.status.containerStatuses[i].ready),
+                restartCount: pod.status.containerStatuses[i].restartCount,
+                volumeMounts: pod.spec.containers[i].volumeMounts,
+            }
+            podTemplates.push(podTemplate);
+        }
+        return podTemplates;
+    }
+
 }
 export default DetailPageApi;

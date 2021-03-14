@@ -96,7 +96,10 @@ export default class WorkloadPodsScreen extends Component {
   };
 
   SummaryTab = () => {
+    //console.log(JSON.stringify(this.state.pod,null,'\t'))
     let conditions = DetailPageApi.PodConditions(this.state.pod.status.conditions);
+    let podTemplates = DetailPageApi.PodTemplates(this.state.pod);
+    console.log(JSON.stringify(podTemplates, null,'\t'))
     return (
       <View>
         <View style={this.getStyle().rowContainer}>
@@ -120,9 +123,19 @@ export default class WorkloadPodsScreen extends Component {
         <TableCard header="Pod Conditions" table={conditions} />
 
         <View style={this.getStyle().rowContainer}>
-          {/* <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Template" type="Pods" />
-          </View> */}
+          <View style={this.getStyle().columnContainer}>
+            {podTemplates.map((item, index) => (
+                <DetailsCard key={index} header="Template" type="Pods" 
+                  podTemplateContainer={item.name}
+                  podTemplateImage={item.image}
+                  podTemplateImageID={item.imageID}
+                  podTemplateReady={item.ready}
+                  podTemplateRestartCount={item.restartCount}
+                  podTemplateVolumnMounts={item.volumeMounts}
+                />
+              )
+            )}
+          </View>
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Pods"
               age={this.state.age}

@@ -96,14 +96,10 @@ export default function DetailsCard(props) {
                         {isDeploymentPodTemplate &&
                             <View>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Title style={[ commonStyles.detailsCardInfoRightText, { textDecorationLine: 'underline' } ]}>
-                                        Container{props.container ? " " + props.container : ""}
+                                    <Title style={[ commonStyles.detailsCardInfoLeftText, { textDecorationLine: 'underline' } ]}>
+                                        Container {props.container !== undefined ? props.container : ""}
                                     </Title>
-                                    {props.label && 
-                                        <View style={commonStyles.detailsCardInfoLeftText}>
-                                            <LabelButton text={props.label}></LabelButton>
-                                        </View>                                    
-                                    }
+                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.label}</Text>
                                 </View>
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Ports", props.containerPorts)}
@@ -137,12 +133,12 @@ export default function DetailsCard(props) {
                         }
                         {isPodTemplate &&
                             <View>
-                                <Title style={{ textDecorationLine: 'underline' }}>Container {props.container}</Title>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", props.imageId)}
+                                <Title style={{ textDecorationLine: 'underline' }}>Container {props.podTemplateContainer}</Title>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.podTemplateImage)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", props.podTemplateImageID)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", props.currentState)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", props.ready)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", props.restartCount)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", props.podTemplateReady)}
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", props.podTemplateRestartCount)}
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Volume Mounts</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>
@@ -152,11 +148,17 @@ export default function DetailsCard(props) {
                                                 <DataTable.Title>Mount Path     </DataTable.Title>
                                                 <DataTable.Title>Propagation    </DataTable.Title>
                                             </DataTable.Header>
-                                            <DataTable.Row>
+                                            {/* <DataTable.Row>
                                                 <DataTable.Cell>{props.name}</DataTable.Cell>
                                                 <DataTable.Cell>{props.mountPath}</DataTable.Cell>
                                                 <DataTable.Cell>{props.propagation}</DataTable.Cell>
+                                            </DataTable.Row> */}
+                                            {props.podTemplateVolumnMounts.map((rows, rowIndex) => ( 
+                                            <DataTable.Row key={rowIndex}>
+                                                <DataTable.Cell> {rows.name} </DataTable.Cell>
+                                                <DataTable.Cell> {rows.mountPath} </DataTable.Cell>
                                             </DataTable.Row>
+                                            ))}
                                         </DataTable>
                                     </Text>
                                 </View>

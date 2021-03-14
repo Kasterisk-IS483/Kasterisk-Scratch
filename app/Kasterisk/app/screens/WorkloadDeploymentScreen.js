@@ -53,6 +53,17 @@ export default class WorkloadDeploymentScreen extends Component {
     let conditions = DetailPageApi.DeploymentConditions(this.state.deployment.status.conditions);
     let podsInfo = DetailPageApi.PodsInfo(this.state.pods);
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
+    let containerPorts = this.state.deployment.spec.template.spec.containers[0].ports;
+    let stringcontainerPorts = "";
+    if (containerPorts == undefined){
+      stringcontainerPorts += "80/TCP";
+    }
+    else {
+      for (const containerPort of containerPorts){
+        stringcontainerPorts += containerPort.name + " " + containerPort.containerPort + "/" + containerPort.protocol + "\n";
+      }
+    }
+    
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
         <View style={commonStyles.detailsContainer}>
@@ -87,9 +98,14 @@ export default class WorkloadDeploymentScreen extends Component {
         <TableCard header="Conditions" table={conditions} />
 
         <View style={this.getStyle().rowContainer}>
-          {/* <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Pod Template" type="Deployment" />
-          </View> */}
+          <View style={this.getStyle().columnContainer}>
+            <DetailsCard header="Pod Template" type="Deployment" 
+              container={this.state.deployment.spec.template.spec.containers[0].name}
+              label={getLabelButtons(this.state.deployment.spec.template.metadata.labels)}
+              image={this.state.deployment.spec.template.spec.containers[0].image}
+              containerPorts={stringcontainerPorts}
+            />
+          </View>
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={this.state.age}
