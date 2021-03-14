@@ -3,6 +3,7 @@ import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../api/DetailPageApi";
+import { getLabelButtons } from "../utils/constants";
 
 import { 
   commonStyles, 
@@ -13,7 +14,6 @@ import {
 
 import DetailsCard from "../components/Cards/DetailsCard";
 import TableCard from "../components/Cards/TableCard";
-import LabelButton from "../components/Buttons/LabelButton";
 
 export default class WorkloadDeploymentScreen extends Component {
 
@@ -66,11 +66,7 @@ export default class WorkloadDeploymentScreen extends Component {
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
               rollingUpdate={rollingUpdate}
-              selectors={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-                <LabelButton
-                  key={labelIndex}
-                  text={labelItem + ":" + this.state.labels[labelItem]} />
-              ))}
+              selectors={getLabelButtons(this.state.labels)}
               minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
               historyLimit={this.state.deployment.spec.revisionHistoryLimit}
               replicas={this.state.deployment.spec.replicas}
@@ -97,11 +93,7 @@ export default class WorkloadDeploymentScreen extends Component {
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={this.state.age}
-              labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-                <LabelButton
-                  key={labelIndex}
-                  text={labelItem + ":" + this.state.labels[labelItem]} />
-              ))}
+              labels={getLabelButtons(this.state.labels)}
               annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
             />
           </View>

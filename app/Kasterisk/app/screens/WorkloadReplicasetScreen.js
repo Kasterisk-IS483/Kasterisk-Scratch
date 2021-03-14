@@ -10,7 +10,7 @@ import {
 } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
-import LabelButton from "../components/Buttons/LabelButton";
+import { getLabelButtons } from "../utils/constants";
 
 export default class WorkloadReplicasetScreen extends Component {
 
@@ -81,11 +81,7 @@ export default class WorkloadReplicasetScreen extends Component {
 
           <DetailsCard header="Metadata" type="Replicaset" 
             age={this.state.age}
-            labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + this.state.labels[labelItem]} />
-            ))}
+            labels={getLabelButtons(this.state.labels)}
             annotations={stringAnnotations}
             control={this.state.replicaset.metadata.ownerReferences[0].name}
           />

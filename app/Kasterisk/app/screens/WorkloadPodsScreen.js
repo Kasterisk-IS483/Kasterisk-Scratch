@@ -17,8 +17,8 @@ import {
 } from "../utils/styles.js";
 
 import DetailsCard from "../components/Cards/DetailsCard";
+import { getLabelButtons } from "../utils/constants";
 import TableCard from "../components/Cards/TableCard";
-import LabelButton from "../components/Buttons/LabelButton";
 
 export default class WorkloadPodsScreen extends Component {
 
@@ -126,11 +126,7 @@ export default class WorkloadPodsScreen extends Component {
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Pods"
               age={this.state.age}
-              labels={Object.keys(this.state.labels).map((labelItem, labelIndex) => (
-                <LabelButton
-                  key={labelIndex}
-                  text={labelItem + ":" + this.state.labels[labelItem]} />
-              ))}
+              labels={getLabelButtons(this.state.labels)}
               control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
             />
           </View>

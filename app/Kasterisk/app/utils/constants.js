@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
+import React from "react";
+import LabelButton from "../components/Buttons/LabelButton";
 
 export const GOOGLE_IOS_CLIENT =
     "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt";
@@ -62,6 +64,16 @@ export const saveCredentials = async (storageKey, credentials) => {
         return false;
     }
 };
+
+export const getLabelButtons = (labelInput) => {
+    return (
+        Object.keys(labelInput).map((labelItem, labelIndex) => (
+        <LabelButton
+          key={labelIndex}
+          text={labelItem + ":" + labelInput[labelItem]} />
+      ))
+    )
+}
 
 export const AWSRegions = [
     { label: "US East (Ohio) - us-east-2", value: "us-east-2"},

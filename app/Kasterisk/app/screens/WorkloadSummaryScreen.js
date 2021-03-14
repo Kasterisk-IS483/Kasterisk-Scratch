@@ -10,6 +10,7 @@ import ReplicasetApi from "../api/ReplicasetApi";
 import PodApi from "../api/PodApi";
 import WorkloadSummaryApi from "../api/WorkloadSummaryApi";
 import DetailPageApi from "../api/DetailPageApi";
+import { getLabelButtons } from "../utils/constants";
 
 import {
   colours,
@@ -21,7 +22,6 @@ import {
 
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
-import LabelButton from "../components/Buttons/LabelButton";
 import { defined } from "react-native-reanimated";
 
 export default class WorkloadSummaryScreen extends Component {
@@ -183,11 +183,7 @@ export default class WorkloadSummaryScreen extends Component {
             variableField="Containers"
             variableFieldVal={item.containers}
           >
-            {Object.keys(item.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + item.labels[labelItem]} />
-            ))}
+            {getLabelButtons(item.labels)}
           </WorkloadCard>
         </TouchableOpacity>)
       )
@@ -213,11 +209,7 @@ export default class WorkloadSummaryScreen extends Component {
             variableField="Containers"
             variableFieldVal={item.containers}
           >
-            {Object.keys(item.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + item.labels[labelItem]} />
-            ))}
+            {getLabelButtons(item.labels)}
           </WorkloadCard>
         </TouchableOpacity>)
       )
@@ -241,11 +233,7 @@ export default class WorkloadSummaryScreen extends Component {
             variableField="Restarts"
             variableFieldVal={item.restarts}
           >
-            {Object.keys(item.labels).map((labelItem, labelIndex) => (
-              <LabelButton
-                key={labelIndex}
-                text={labelItem + ":" + item.labels[labelItem]} />
-            ))}
+            {getLabelButtons(item.labels)}
           </WorkloadCard>
         </TouchableOpacity>)
       )
