@@ -22,6 +22,7 @@ import {
 import OverviewCard from "../components/Cards/OverviewCard";
 import WorkloadCard from "../components/Cards/WorkloadCard";
 import LabelButton from "../components/Buttons/LabelButton";
+import { defined } from "react-native-reanimated";
 
 export default class WorkloadSummaryScreen extends Component {
 
@@ -127,7 +128,7 @@ export default class WorkloadSummaryScreen extends Component {
         this.setState({
           index: this.props.index
         })
-        console.log("index"+this.index);
+        console.log("index"+this.state.index);
       }
 
       if (defaultCluster == null) {
