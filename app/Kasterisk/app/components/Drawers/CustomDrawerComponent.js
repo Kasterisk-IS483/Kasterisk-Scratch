@@ -157,7 +157,7 @@ export default class CustomDrawerComponent extends Component {
                 }}
                 icon={() => (
                   <Image
-                    source={require("../../assets/icons/cluster_icon.png")}
+                    source={require("../../assets/DrawerIcons/cluster_icon.png")}
                     style={commonStyles.icon}
                   />
                 )}
@@ -179,7 +179,7 @@ export default class CustomDrawerComponent extends Component {
             drawerLabel: "Workload Overview",
             drawerIcon: () => (
               <Image
-                source={require("../../assets/icons/cluster_icon.png")}
+                source={require("../../assets/DrawerIcons/cluster_icon.png")}
                 style={commonStyles.icon}
               />
             ),
@@ -194,7 +194,7 @@ export default class CustomDrawerComponent extends Component {
             drawerLabel: "Deployments",
             drawerIcon: () => (
               <Image
-                source={require("../../assets/icons/deployment_icon.png")}
+                source={require("../../assets/DrawerIcons/deployment_icon.png")}
                 style={commonStyles.icon}
               />
             ),
@@ -209,7 +209,7 @@ export default class CustomDrawerComponent extends Component {
             drawerLabel: "Replicasets",
             drawerIcon: () => (
               <Image
-                source={require("../../assets/icons/replicaset_icon.png")}
+                source={require("../../assets/DrawerIcons/replicaset_icon.png")}
                 style={commonStyles.icon}
               />
             ),
@@ -224,7 +224,7 @@ export default class CustomDrawerComponent extends Component {
             drawerLabel: "Pods",
             drawerIcon: () => (
               <Image
-                source={require("../../assets/icons/pod_icon.png")}
+                source={require("../../assets/DrawerIcons/pod_icon.png")}
                 style={commonStyles.icon}
               />
             ),
@@ -239,7 +239,7 @@ export default class CustomDrawerComponent extends Component {
             drawerLabel: "Nodes",
             drawerIcon: () => (
               <Image
-                source={require("../../assets/icons/nodes_icon.png")}
+                source={require("../../assets/DrawerIcons/nodes_icon.png")}
                 style={commonStyles.icon}
               />
             ),
