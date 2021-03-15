@@ -10,7 +10,7 @@ import {
   colours, 
   commonStyles, 
   dashboardStyles, 
-  welcomePortraitStyles, 
+  commonPortraitStyles, 
   workloadDetailsBreakpoint,
   cardsOuterPadding,
   spacings
@@ -58,7 +58,7 @@ export default class WorkloadPodsScreen extends Component {
     if (this.getOrientation() === "LANDSCAPE") {
       return commonStyles;
     } else {
-      return welcomePortraitStyles;
+      return commonPortraitStyles;
     }
   }
   onLayout() {

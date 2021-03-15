@@ -8,7 +8,7 @@ import { getLabelButtons } from "../utils/constants";
 import { 
   commonStyles, 
   dashboardStyles, 
-  welcomePortraitStyles, 
+  commonPortraitStyles, 
   workloadDetailsBreakpoint 
 } from "../utils/styles.js";
 
@@ -42,7 +42,7 @@ export default class WorkloadDeploymentScreen extends Component {
     if (this.getOrientation() === "LANDSCAPE") {
       return commonStyles;
     } else {
-      return welcomePortraitStyles;
+      return commonPortraitStyles;
     }
   }
   onLayout() {

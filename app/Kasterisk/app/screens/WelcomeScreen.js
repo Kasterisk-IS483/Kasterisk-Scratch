@@ -10,7 +10,7 @@ import {
 
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
-import { commonStyles, welcomePortraitStyles } from "../utils/styles.js";
+import { commonStyles, commonPortraitStyles } from "../utils/styles.js";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 
@@ -38,7 +38,7 @@ export default class WelcomeScreen extends Component {
     if (this.getOrientation() === "LANDSCAPE") {
       return commonStyles;
     } else {
-      return welcomePortraitStyles;
+      return commonPortraitStyles;
     }
   }
 

@@ -32,23 +32,17 @@ export default class App extends Component {
   };
 
   workloadDeploymentScreen = () => {
-    return (
-      <WorkloadSummaryScreen index={1} />
-    );
+    return <WorkloadSummaryScreen index={1} />;
   };
   workloadReplicasetScreen = () => {
-    return (
-      <WorkloadSummaryScreen index={2} />
-    );
+    return <WorkloadSummaryScreen index={2} />;
   };
   workloadPodScreen = () => {
-    return (
-      <WorkloadSummaryScreen index={3} />
-    );
+    return <WorkloadSummaryScreen index={3} />;
   };
 
   HomeDrawer = ({ navigation }) => {
-    return (<CustomDrawerComponent navigation={navigation} />)
+    return <CustomDrawerComponent navigation={navigation} />;
   }
 
   render() {
