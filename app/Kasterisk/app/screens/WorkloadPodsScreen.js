@@ -123,17 +123,7 @@ export default class WorkloadPodsScreen extends Component {
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
-            {podTemplates.map((item, index) => (
-                <DetailsCard key={index} header="Template" type="Pods" 
-                  podTemplateContainer={item.name}
-                  podTemplateImage={item.image}
-                  podTemplateImageID={item.imageID}
-                  podTemplateReady={item.ready}
-                  podTemplateRestartCount={item.restartCount}
-                  podTemplateVolumnMounts={item.volumeMounts}
-                />
-              )
-            )}
+            <DetailsCard header="Template" type="Pods" podTemplate={podTemplates}/>
           </View>
 
           <View style={this.getStyle().columnContainer}>

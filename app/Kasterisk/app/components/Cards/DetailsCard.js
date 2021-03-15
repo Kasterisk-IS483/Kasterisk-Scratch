@@ -50,6 +50,18 @@ export default function DetailsCard(props) {
         }
     }
 
+    isPodTemplatedUndefined = [{
+        name: "",
+        image: "",
+        imageID: "",
+        ready: "",
+        restartCount: "",
+        volumeMounts: [{name: "", mountPath: ""}]
+    }];
+    if (props.podTemplate !== undefined){
+        isPodTemplatedUndefined = props.podTemplate;
+    }
+
     fieldsContainerTemplate = (style, leftText, rightText) => {
         return (
             <View style={style}>
@@ -130,13 +142,14 @@ export default function DetailsCard(props) {
                             </View>
                         }
                         {isPodTemplate &&
-                            <View>
-                                <Title style={{ textDecorationLine: 'underline' }}>Container {props.podTemplateContainer}</Title>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.podTemplateImage)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", props.podTemplateImageID)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", props.currentState)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", props.podTemplateReady)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", props.podTemplateRestartCount)}
+                            isPodTemplatedUndefined.map((container, index) => (
+                            <View key={index}>
+                                <Title style={{ textDecorationLine: 'underline' }}>Container {container.name}</Title>
+                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
+                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
+                                    {/* {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
+                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
+                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Volume Mounts</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>
@@ -146,7 +159,7 @@ export default function DetailsCard(props) {
                                                 <DataTable.Title>Mount Path     </DataTable.Title>
                                                 <DataTable.Title>Propagation    </DataTable.Title>
                                             </DataTable.Header>
-                                            {props.podTemplateVolumnMounts.map((rows, rowIndex) => ( 
+                                            {container.volumeMounts.map((rows, rowIndex) => ( 
                                             <DataTable.Row key={rowIndex}>
                                                 <DataTable.Cell> {rows.name} </DataTable.Cell>
                                                 <DataTable.Cell> {rows.mountPath} </DataTable.Cell>
@@ -156,7 +169,7 @@ export default function DetailsCard(props) {
                                     </Text>
                                 </View>
                             </View>
-                        }
+                        ))}
                         {isPodMetadata &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
