@@ -28,6 +28,7 @@ export const spacings = {
   xxl: 30,
 }
 
+
 export const cardsOuterPadding = spacings.xs;
 export const workloadOverviewBreakpoint = 950;
 export const workloadDetailsBreakpoint = 800;
@@ -184,6 +185,12 @@ export const commonStyles = StyleSheet.create({
   // workload pages
   detailsContainer: {
     paddingBottom: spacings.xxl,
+  },
+
+  // drawer
+  icon: {
+    width: 35,
+    height: 35,
   },
 });
 export const welcomePortraitStyles = StyleSheet.create({
