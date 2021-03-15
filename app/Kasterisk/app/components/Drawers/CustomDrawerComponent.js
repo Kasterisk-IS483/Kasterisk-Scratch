@@ -19,6 +19,7 @@ import SplashScreen from "react-native-splash-screen";
 import { spacings, colours, fonts, commonStyles } from "../../utils/styles.js";
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryScreen from "../../screens/WorkloadSummaryScreen";
+import NodesListScreen from "../../screens/NodesListScreen";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 const Drawer = createDrawerNavigator();
 
@@ -228,6 +229,21 @@ export default class CustomDrawerComponent extends Component {
               />
             ),
             title: "Workloads",
+            headerRight: this.filter,
+          }}
+        />
+         <Drawer.Screen
+          name="NodesList"
+          component={NodesListScreen}
+          options={{
+            drawerLabel: "Nodes",
+            drawerIcon: () => (
+              <Image
+                source={require("../../assets/nodes_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Nodes",
             headerRight: this.filter,
           }}
         />

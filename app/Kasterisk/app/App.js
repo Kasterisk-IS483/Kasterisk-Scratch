@@ -14,6 +14,7 @@ import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
 import CustomDrawerComponent from "./components/Drawers/CustomDrawerComponent"
+import NodesListScreen from "./screens/NodesListScreen";
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 const Stack = createStackNavigator();
@@ -63,6 +64,8 @@ export default class App extends Component {
           <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
           <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
           <Stack.Screen name="WorkloadPod" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
+
+          <Stack.Screen name="Nodes" component={NodesListScreen} options={{ title: "Nodes" }} />
         </Stack.Navigator>
       </NavigationContainer>
     );
