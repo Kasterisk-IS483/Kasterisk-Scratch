@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
+import LabelButton from "../Buttons/LabelButton";
 
 import {
   fonts,
@@ -9,6 +10,8 @@ import {
   cardsOuterPadding,
   commonStyles,
 } from "../../utils/styles.js";
+
+import { getLabelButtons } from "../../utils/constants";
 
 export default function TableCard(props) {
   let headers;
@@ -57,8 +60,15 @@ export default function TableCard(props) {
                       ? null
                       : rows.map((cols, colIndex) => (
                           <DataTable.Cell key={colIndex}>
-                            {" "}
-                            {cols}{" "}
+                            {typeof cols !== "object" ? cols : 
+                              getLabelButtons(cols)
+                              // labels not showing because they are too long - can uncomment below to try
+                              // Object.keys(cols).map((labelItem, labelIndex) => (
+                              //   <LabelButton
+                              //     key={labelIndex}
+                              //     text={cols[labelItem]} />
+                              // ))
+                            }
                           </DataTable.Cell>
                         ))}
                   </DataTable.Row>

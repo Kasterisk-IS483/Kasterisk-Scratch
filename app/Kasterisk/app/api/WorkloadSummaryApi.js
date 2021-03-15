@@ -114,8 +114,28 @@ class WorkloadSummaryApi extends Component {
 
     /** NODE INFO **/
     static nodesInfo = async () => {
+        nodesInfo = [];
         let nodes = await NodeApi.listAllNode();
-        return nodes;
+        for (const node of nodes){
+            let isReady = "Not Ready";
+            let conditions = node.status.conditions;
+            let difference = WorkloadSummaryApi.calculateAge(node.metadata.creationTimestamp);
+            for (const condition of conditions){
+                if (condition.type === "Ready"){
+                    isReady = "Ready";
+                }
+            }
+            let nodeInfo = [
+                node.metadata.name.substring(0, node.metadata.name.indexOf('.')),
+                node.metadata.labels,
+                isReady,
+                "Roles",
+                Math.floor(difference),
+                "Version"
+            ]
+            nodesInfo.push(nodeInfo);
+        }
+        return nodesInfo;
     }
 
     /** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/

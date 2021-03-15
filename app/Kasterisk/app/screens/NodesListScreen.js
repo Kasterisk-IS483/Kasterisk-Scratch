@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
-import { Title, Card } from "react-native-paper";
+import { ScrollView, Dimensions, Alert } from "react-native";
 
 import TableCard from "../components/Cards/TableCard";
-import NodeApi from "../api/NodeApi";
+import WorkloadSummaryApi from "../api/WorkloadSummaryApi";
 
 import {
   colours,
@@ -48,7 +47,7 @@ export default class NodesListScreen extends Component {
   async componentDidMount() {
     try {
       this.setState({
-        nodes: await NodeApi.listAllNode(),
+        nodes: await WorkloadSummaryApi.nodesInfo(),
       });
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
@@ -58,8 +57,7 @@ export default class NodesListScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-        <TableCard header="Nodes" />
-        {/* <TableCard header="Nodes" table={this.state.nodes} /> */}
+        <TableCard header="Nodes" table={this.state.nodes} />
       </ScrollView>
     );
   }
