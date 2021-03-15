@@ -1,30 +1,26 @@
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions, Text } from "react-native";
-import { Title, Card } from 'react-native-paper';
+import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
+import { Title, Card } from "react-native-paper";
 
-import DetailPageApi from "../api/DetailPageApi";
+import TableCard from "../components/Cards/TableCard";
+import NodeApi from "../api/NodeApi";
 
-import { 
-  colours, 
-  commonStyles, 
-  dashboardStyles, 
-  commonPortraitStyles, 
+import {
+  colours,
+  commonStyles,
+  dashboardStyles,
+  commonPortraitStyles,
   workloadDetailsBreakpoint,
   cardsOuterPadding,
-  spacings
+  spacings,
 } from "../utils/styles.js";
 
-
-
 export default class NodesListScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       orientation: "",
-    //   pod: this.props.route.params.pod,
-    //   age: this.props.route.params.age,
-    //   labels: this.props.route.params.labels,
+      nodes: [],
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -49,13 +45,22 @@ export default class NodesListScreen extends Component {
     this.setState({ orientation: this.getOrientation() });
   }
 
+  async componentDidMount() {
+    try {
+      this.setState({
+        nodes: await NodeApi.listAllNode(),
+      });
+    } catch (err) {
+      Alert.alert("Server Check Failed", err.message);
+    }
+  }
 
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-       
+        <TableCard header="Nodes" />
+        {/* <TableCard header="Nodes" table={this.state.nodes} /> */}
       </ScrollView>
     );
   }
-
 }
