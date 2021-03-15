@@ -186,7 +186,7 @@ export const commonStyles = StyleSheet.create({
     paddingBottom: spacings.xxl,
   },
 });
-export const welcomePortraitStyles = StyleSheet.create({
+export const commonPortraitStyles = StyleSheet.create({
   rowContainer: {
     flex: 1,
     flexDirection: "column",
