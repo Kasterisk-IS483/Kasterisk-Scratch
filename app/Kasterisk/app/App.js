@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createDrawerNavigator,
+  DrawerItemList,
+  DrawerItem,
+} from "@react-navigation/drawer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { View, Image, SafeAreaView, Alert, Text } from "react-native";
 import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
@@ -13,10 +20,15 @@ import ChangeClusterScreen from "./screens/ChangeClusterScreen";
 import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
-import CustomDrawerComponent from "./components/Drawers/CustomDrawerComponent"
+import { checkServerStatus } from "./api/KubeApi";
 import NodesListScreen from "./screens/NodesListScreen";
+import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
+
+import SplashScreen from "react-native-splash-screen";
+import ModalDropdown from "react-native-modal-dropdown";
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
+const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 const screenOptions = {
   headerTintColor: "white",
@@ -24,13 +36,15 @@ const screenOptions = {
   headerShown: true,
 };
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       spinner: false,
+      namespaceLabels: ["All Namespaces"],
+      selectedNamespace: "All Namespaces",
+      selectedValue: "",
     };
-  };
+  }
 
   workloadDeploymentScreen = () => {
     return <WorkloadSummaryScreen index={1} />;
@@ -42,33 +56,271 @@ export default class App extends Component {
     return <WorkloadSummaryScreen index={3} />;
   };
 
-  HomeDrawer = ({ navigation }) => {
-    return <CustomDrawerComponent navigation={navigation} />;
+  filter = () => {
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <ModalDropdown
+          options={this.state.namespaceLabels}
+          dropdownStyle={{
+            height: 40 * this.state.namespaceLabels.length,
+            alignItems: "center",
+          }}
+          dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+          textStyle={{
+            fontSize: fonts.sm,
+            color: "white",
+            marginRight: spacings.xxs,
+          }}
+          customButton="⋮"
+          defaultValue={this.state.selectedNamespace}
+          onSelect={async (index) =>
+            this.updateState(this.state.namespaceLabels[index])
+          }
+        />
+        <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+      </View>
+    );
+  };
+
+  async updateState(selectedNamespace) {
+    let selectedValue = "";
+    if (selectedNamespace != "All Namespaces") {
+      selectedValue = selectedNamespace;
+    }
+    await AsyncStorage.setItem("@selectedValue", selectedValue);
+    this.setState({
+      selectedNamespace: selectedNamespace,
+      selectedValue: selectedValue,
+    });
   }
 
+  async componentDidMount() {
+    SplashScreen.hide();
+    this.setState({
+      spinner: true,
+    });
+    try {
+      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      if (defaultCluster != null) {
+        let serverStatus = await checkServerStatus(defaultCluster);
+        if (serverStatus[0] == 200) {
+          this.setState({
+            namespaceLabels: await WorkloadSummaryApi.namespaceLabels2(),
+          });
+          await AsyncStorage.setItem("@selectedValue", "");
+        } else {
+          Alert.alert("Error", "Failed to contact cluster");
+        }
+      }
+    } catch (err) {
+      Alert.alert("Server Check Failed", err.message);
+    }
+    this.setState({
+      spinner: false,
+    });
+  }
+
+  HomeDrawer = ({ navigation }) => {
+    return (
+      <Drawer.Navigator
+        initialRouteName="WorkloadSummary"
+        screenOptions={screenOptions}
+        drawerStyle={{ backgroundColor: "white" }}
+        drawerContentOptions={{
+          activeTintColor:
+            colours.primary /* font color for active screen label */,
+          activeBackgroundColor:
+            colours.secondary /* bg color for active screen */,
+          inactiveTintColor:
+            "black" /* Font color for inactive screens" labels */,
+        }}
+        contentOptions={{ labelStyle: fonts.md }}
+        drawerContent={(props) => {
+          return (
+            <SafeAreaView style={{ flex: 1 }}>
+              <View
+                style={{
+                  height: 150,
+                  margin: spacings.sm,
+                  ...commonStyles.centralise,
+                }}
+              >
+                <Image
+                  source={require("./assets/kasterisk-logo.png")}
+                  style={{ height: "40%", width: "100%" }}
+                />
+              </View>
+              <DrawerItem
+                labelStyle={{ fontSize: fonts.md, color: "black" }}
+                label="Change Cluster"
+                onPress={async () => {
+                  let previousCluster = await AsyncStorage.getItem(
+                    "@defaultCluster"
+                  );
+                  await AsyncStorage.removeItem("@defaultCluster");
+                  props.navigation.replace("ChooseCluster", {
+                    previous: previousCluster,
+                  });
+                }}
+                icon={() => (
+                  <Image
+                    source={require("./assets/DrawerIcons/cluster_icon.png")}
+                    style={commonStyles.icon}
+                  />
+                )}
+                options={{ headerRight: this.filter }}
+              />
+
+              {/* <Text style={{ fontSize: fonts.md, paddingLeft: spacings.md, spacingVertical: spacing.md }}>Workloads</Text>*/}
+              {/* <View style={commonStyles.centralise}><View style={{ borderWidth: 1, color: "black", width: "90%" }}></View></View> */}
+
+              <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
+            </SafeAreaView>
+          );
+        }}
+      >
+        <Drawer.Screen
+          name="WorkloadSummary"
+          component={WorkloadSummaryScreen}
+          options={{
+            drawerLabel: "Workload Overview",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/DrawerIcons/cluster_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Workloads",
+            headerRight: this.filter,
+          }}
+        />
+        <Drawer.Screen
+          name="WorkloadDeployments"
+          component={this.workloadDeploymentScreen}
+          options={{
+            drawerLabel: "Deployments",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/DrawerIcons/deployment_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Workloads",
+            headerRight: this.filter,
+          }}
+        />
+        <Drawer.Screen
+          name="WorkloadReplicasets"
+          component={this.workloadReplicasetScreen}
+          options={{
+            drawerLabel: "Replicasets",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/DrawerIcons/replicaset_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Workloads",
+            headerRight: this.filter,
+          }}
+        />
+        <Drawer.Screen
+          name="WorkloadPods"
+          component={this.workloadPodScreen}
+          options={{
+            drawerLabel: "Pods",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/DrawerIcons/pod_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Workloads",
+            headerRight: this.filter,
+          }}
+        />
+        <Drawer.Screen
+          name="NodesList"
+          component={NodesListScreen}
+          options={{
+            drawerLabel: "Nodes",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/DrawerIcons/nodes_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Nodes",
+            headerRight: this.filter,
+          }}
+        />
+      </Drawer.Navigator>
+    );
+  };
+
   render() {
-    // if (this.state.checked) return null;
-    // else {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="ChooseCluster" screenOptions={screenOptions}>
-          <Stack.Screen name="ChooseCluster" component={ChangeClusterScreen} options={{ title: "Change Cluster", headerBackTitleVisible: false }} />
-          <Stack.Screen name="HomeDrawer" component={this.HomeDrawer.bind(this)} options={{ headerShown: false }} />
+        <Stack.Navigator
+          initialRouteName="ChooseCluster"
+          screenOptions={screenOptions}
+        >
+          <Stack.Screen
+            name="ChooseCluster"
+            component={ChangeClusterScreen}
+            options={{ title: "Change Cluster", headerBackTitleVisible: false }}
+          />
+          <Stack.Screen
+            name="HomeDrawer"
+            component={this.HomeDrawer.bind(this)}
+            options={{ headerShown: false }}
+          />
 
-          <Stack.Screen name="AddCluster" component={WelcomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen
+            name="AddCluster"
+            component={WelcomeScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="AWSLogin" component={AWSLoginScreen} />
-          <Stack.Screen name="KubeconfigUpload" component={KubeconfigUploadScreen} options={{ title: "Upload Kubeconfig File" }} />
-          <Stack.Screen name="KubeconfigContent" component={KubeconfigContentScreen} options={{ title: "Add Kubeconfig Content" }} />
+          <Stack.Screen
+            name="KubeconfigUpload"
+            component={KubeconfigUploadScreen}
+            options={{ title: "Upload Kubeconfig File" }}
+          />
+          <Stack.Screen
+            name="KubeconfigContent"
+            component={KubeconfigContentScreen}
+            options={{ title: "Add Kubeconfig Content" }}
+          />
 
-          <Stack.Screen name="WorkloadSummary" component={WorkloadSummaryScreen} options={{ title: "Workloads" }} />
-          <Stack.Screen name="WorkloadDeployment" component={WorkloadDeploymentScreen} options={{ title: "Deployment" }} />
-          <Stack.Screen name="WorkloadReplicaset" component={WorkloadReplicasetScreen} options={{ title: "Replicaset" }} />
-          <Stack.Screen name="WorkloadPod" component={WorkloadPodsScreen} options={{ title: "Pod" }} />
+          <Stack.Screen
+            name="WorkloadSummary"
+            component={WorkloadSummaryScreen}
+            options={{ title: "Workloads" }}
+          />
+          <Stack.Screen
+            name="WorkloadDeployment"
+            component={WorkloadDeploymentScreen}
+            options={{ title: "Deployment" }}
+          />
+          <Stack.Screen
+            name="WorkloadReplicaset"
+            component={WorkloadReplicasetScreen}
+            options={{ title: "Replicaset" }}
+          />
+          <Stack.Screen
+            name="WorkloadPod"
+            component={WorkloadPodsScreen}
+            options={{ title: "Pod" }}
+          />
 
-          <Stack.Screen name="Nodes" component={NodesListScreen} options={{ title: "Nodes" }} />
+          <Stack.Screen
+            name="Nodes"
+            component={NodesListScreen}
+            options={{ title: "Nodes" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
-    // }
   }
 }
