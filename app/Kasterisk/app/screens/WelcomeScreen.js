@@ -6,11 +6,13 @@ import {
   ImageBackground,
   Image,
   Dimensions,
+  Alert
 } from "react-native";
 
 import GoogleCloudApi from "../api/GoogleCloudApi";
 import AzureApi from "../api/AzureApi";
 import { commonStyles, commonPortraitStyles } from "../utils/styles.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButton from "../components/Buttons/CustomButton";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 
@@ -52,7 +54,7 @@ export default class WelcomeScreen extends Component {
   //     if (googleLoginResult) {
   //         let a = await AsyncStorage.getItem("@googleCredentials")
   //         alert(a)
-  //       this.props.navigation.navigate("WorkloadSummary");
+  //       // this.props.navigation.navigate("WorkloadSummary");
   //     } else {
   //       Alert.alert("Login Failed", "Please try again.");
   //     }

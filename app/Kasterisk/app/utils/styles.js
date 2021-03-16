@@ -28,8 +28,7 @@ export const spacings = {
   xxl: 30,
 }
 
-
-export const cardsOuterPadding = spacings.xs;
+export const cardsOuterPadding = spacings.xxs;
 export const workloadOverviewBreakpoint = 950;
 export const workloadDetailsBreakpoint = 800;
 
