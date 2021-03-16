@@ -97,11 +97,11 @@ class DetailPageApi extends Component {
         let containerStatuses = pod.status.containerStatuses;
         for (i = 0; i < containerStatuses.length; i++) {
             let podTemplate = {
-                name: pod.status.containerStatuses[i].name,
-                image: pod.status.containerStatuses[i].image,
-                imageID: pod.status.containerStatuses[i].imageID,
-                ready: String(pod.status.containerStatuses[i].ready),
-                restartCount: pod.status.containerStatuses[i].restartCount,
+                name: containerStatuses[i].name,
+                image: containerStatuses[i].image,
+                imageID: containerStatuses[i].imageID,
+                ready: String(containerStatuses[i].ready),
+                restartCount: containerStatuses[i].restartCount,
                 volumeMounts: pod.spec.containers[i].volumeMounts,
             }
             podTemplates.push(podTemplate);

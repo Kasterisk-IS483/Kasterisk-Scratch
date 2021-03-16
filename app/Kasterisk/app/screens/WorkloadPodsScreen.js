@@ -36,7 +36,7 @@ export default class WorkloadPodsScreen extends Component {
       age: this.props.route.params.age,
       labels: this.props.route.params.labels,
       container: "[all containers]",
-      containerList: ["[all containers]", "hello-world"],
+      containerList: ["[all containers]"],
       since: "[all]",
       sinceList: ["5 minutes", "10 minutes"],
       checkedTimestamp: false,
@@ -63,6 +63,19 @@ export default class WorkloadPodsScreen extends Component {
   }
   onLayout() {
     this.setState({ orientation: this.getOrientation() });
+  }
+
+  async updateState(stateKey, value) {
+    if (stateKey == "container") {
+      this.setState({
+        container: value
+      })
+    }
+    else if (stateKey == "since"){
+      this.setState({
+        since: value
+      })
+    }
   }
 
   containerList = () => {
@@ -142,6 +155,12 @@ export default class WorkloadPodsScreen extends Component {
   onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
 
   LogsTab = () => {
+    let containerStatuses = this.state.pod.status.containerStatuses;
+    for (i = 0; i < containerStatuses.length; i++) {
+      if (!this.state.containerList.includes(containerStatuses[i].name)){
+        this.state.containerList.push(containerStatuses[i].name);
+      }
+    }
     return (
       <View style={{ padding: cardsOuterPadding }}>
         <Card elevation={10} style={{ width: "100%" }}>
