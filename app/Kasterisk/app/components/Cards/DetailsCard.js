@@ -117,10 +117,7 @@ export default function DetailsCard(props) {
                         }
                         {isDeploymentMetadata &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                             </View>
@@ -172,10 +169,7 @@ export default function DetailsCard(props) {
                         ))}
                         {isPodMetadata &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
                             </View>
@@ -202,10 +196,7 @@ export default function DetailsCard(props) {
                         }
                         {isReplicasetMetadata &&
                             <View>
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Age</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>{props.age} {props.age <= 1 ? "Day" : "Days"}</Text>
-                                </View>
+                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                                 {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}

@@ -82,7 +82,7 @@ export default function WorkloadCard(props) {
                         <View style={commonStyles.fieldsContainer}>
                             <Title style={commonStyles.workloadCardInfoLeftText}>Age:</Title>
                             <Text style={commonStyles.workloadCardInfoRightText}>
-                                {props.age} {props.age <= 1 ? "Day" : "Days"}
+                                {props.age}
                             </Text>
                         </View>
 

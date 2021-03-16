@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import PodApi from "./PodApi.js";
 import WorkloadSummaryApi from "./WorkloadSummaryApi.js";
+import { getAgeText } from "../utils/constants";
 
 class DetailPageApi extends Component {
 
@@ -47,7 +48,7 @@ class DetailPageApi extends Component {
                 pod.status.phase,
                 pod.status.containerStatuses[0].restartCount,
                 pod.spec.nodeName,
-                Math.floor(age),
+                getAgeText(Math.floor(age)),
             ];
             PodsInfo.push(podInfo);
         }
@@ -65,8 +66,8 @@ class DetailPageApi extends Component {
                 condition.reason,
                 condition.status,
                 condition.message,
-                Math.floor(lastUpdate),
-                Math.floor(lastTransition),
+                getAgeText(Math.floor(lastUpdate)),
+                getAgeText(Math.floor(lastTransition)),
             ];
             DeploymentConditions.push(deploymentCondition);
         }
@@ -81,7 +82,7 @@ class DetailPageApi extends Component {
             let podCondition = [
                 condition.type,
                 condition.status,
-                Math.floor(lastTransition),
+                getAgeText(Math.floor(lastTransition)),
                 "",
                 "",
             ];

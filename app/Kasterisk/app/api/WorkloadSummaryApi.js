@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import CommonAPI from "./CommonApi.js";
 import NamespaceApi from "./NamespaceApi.js";
 import DeploymentApi from "./DeploymentApi.js";
 import ReplicasetApi from "./ReplicasetApi.js";
 import PodApi from "./PodApi.js";
 import NodeApi from "./NodeApi.js";
+import { getAgeText } from "../utils/constants";
 
 class WorkloadSummaryApi extends Component {
 
@@ -130,7 +130,7 @@ class WorkloadSummaryApi extends Component {
                 node.metadata.labels,
                 isReady,
                 "Roles",
-                Math.floor(difference),
+                getAgeText(Math.floor(difference)),
                 "Version"
             ]
             nodesInfo.push(nodeInfo);
@@ -160,7 +160,7 @@ class WorkloadSummaryApi extends Component {
             let difference = WorkloadSummaryApi.calculateAge(deployment.metadata.creationTimestamp);
             let deploymentInfo = {
                 name: deployment.metadata.name,
-                age: Math.floor(difference),
+                age: getAgeText(Math.floor(difference)),
                 labels: deployment.metadata.labels,
                 containers: deployment.spec.template.spec.containers[0].name,
                 status: deployment.status.readyReplicas,
@@ -183,7 +183,7 @@ class WorkloadSummaryApi extends Component {
             let difference = WorkloadSummaryApi.calculateAge(replicaset.metadata.creationTimestamp);
             let replicasetInfo = {
                 name: replicaset.metadata.name,
-                age: Math.floor(difference),
+                age: getAgeText(Math.floor(difference)),
                 labels: replicaset.metadata.labels,
                 containers: replicaset.spec.template.spec.containers[0].name,
                 status: replicaset.status.readyReplicas,
@@ -206,7 +206,7 @@ class WorkloadSummaryApi extends Component {
             let difference = WorkloadSummaryApi.calculateAge(pod.metadata.creationTimestamp);
             let podInfo = {
                 name: pod.metadata.name,
-                age: Math.floor(difference),
+                age: getAgeText(Math.floor(difference)),
                 status: pod.status.phase,
                 restarts: pod.status.containerStatuses[0].restartCount,
                 labels: pod.metadata.labels,

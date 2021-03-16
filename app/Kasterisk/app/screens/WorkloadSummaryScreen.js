@@ -87,26 +87,6 @@ export default class WorkloadSummaryScreen extends Component {
         index: this.props.index
       })
     }
-    if (stateKey == "namespace") {
-      let deployments = await WorkloadSummaryApi.deploymentSummary(value);
-      let replicaSets = await WorkloadSummaryApi.replicasetSummary(value);
-      let pods = await WorkloadSummaryApi.podSummary(value);
-      let deploymentsInfo = await WorkloadSummaryApi.deploymentsInfo(value);
-      let replicasetsInfo = await WorkloadSummaryApi.replicasetsInfo(value);
-      let podsInfo = await WorkloadSummaryApi.podsInfo(value);
-      this.setState({
-        namespace: value,
-        deploymentSummary: deployments,
-        replicasetSummary: replicaSets,
-        podSummary: pods,
-        deploymentsInfo: deploymentsInfo,
-        replicasetsInfo: replicasetsInfo,
-        podsInfo: podsInfo
-      })
-    }
-    else if (stateKey == "deploymentsInfo") {
-      this.setState({ deploymentsInfo: value });
-    }
   }
 
   async componentDidMount() {

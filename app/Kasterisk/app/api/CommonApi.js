@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import RNFetchBlob from "rn-fetch-blob";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { urlOptions } from "../utils/constants.js";
 import AwsApi from "./AwsApi";
 
 class CommonAPI extends Component {

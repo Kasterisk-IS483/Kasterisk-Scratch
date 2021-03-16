@@ -75,6 +75,12 @@ export const getLabelButtons = (labelInput) => {
     )
 }
 
+export const getAgeText = (age) => {
+    let day = "Days";
+    if (age <= 1) day = "Day";
+    return age + " " + day;
+}
+
 export const AWSRegions = [
     { label: "US East (Ohio) - us-east-2", value: "us-east-2"},
     { label: "US East (N. Virginia) - us-east-1", value: "us-east-1"},
