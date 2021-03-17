@@ -56,7 +56,7 @@ export default function TableCard(props) {
               {headers.map((item2, colIndex) => (
                 <DataTable.Title
                   key={colIndex}
-                  style={item2 !== "Labels" ? {} : { flex: 3 }}
+                  style={item2 !== "Labels" ? item2!== "Name"? {} : { flex: 2 }:{ flex: 4 }}
                 >
                   {item2}
                 </DataTable.Title>
@@ -72,7 +72,7 @@ export default function TableCard(props) {
                       : rows.map((cols, colIndex) => (
                           <DataTable.Cell
                             key={colIndex}
-                            style={typeof cols !== "object" ? {} : { flex: 3 }}
+                            style={typeof cols !== "object" ? colIndex!==0? {} : {flex:2}: { flex: 4 }}
                           >
                             {typeof cols !== "object"
                               ? cols
