@@ -62,7 +62,7 @@ export default function DetailsCard(props) {
         isPodTemplatedUndefined = props.podTemplate;
     }
 
-    fieldsContainerTemplate = (style, leftText, rightText) => {
+    const fieldsContainerTemplate = (style, leftText, rightText) => {
         return (
             <View style={style}>
                 <Title style={commonStyles.detailsCardInfoLeftText}>{leftText}</Title>
@@ -86,21 +86,21 @@ export default function DetailsCard(props) {
 
                         {isDeploymentConfiguration &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Deployment Strategy", props.deploymentStrategy)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Rolling Update Strategy", props.rollingUpdate)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Selectors", props.selectors)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Min Ready Seconds", props.minReadySec)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Revision History Limit", props.historyLimit)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.replicas)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Deployment Strategy", props.deploymentStrategy)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Rolling Update Strategy", props.rollingUpdate)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Selectors", props.selectors)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Min Ready Seconds", props.minReadySec)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Revision History Limit", props.historyLimit)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.replicas)}
                             </View>
                         }
                         {isDeploymentStatus &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Available Replicas", props.availableReplicas)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready Replicas", props.readyReplicas)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Total Replicas", props.totalReplicas)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Unavailable Replicas", props.unavailableReplicas)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Updated Replicas", props.updatedReplicas)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Available Replicas", props.availableReplicas)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready Replicas", props.readyReplicas)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Total Replicas", props.totalReplicas)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Unavailable Replicas", props.unavailableReplicas)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Updated Replicas", props.updatedReplicas)}
                             </View>
                         }
                         {isDeploymentPodTemplate &&
@@ -111,42 +111,42 @@ export default function DetailsCard(props) {
                                     </Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>{props.label}</Text>
                                 </View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Ports", props.containerPorts)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Ports", props.containerPorts)}
                             </View>
                         }
                         {isDeploymentMetadata &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                             </View>
                         }
 
                         {isPodConfiguration &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Priority", props.priority)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Node", props.node)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Service Account", props.serviceAccount)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Priority", props.priority)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Node", props.node)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Service Account", props.serviceAccount)}
                             </View>
                         }
                         {isPodStatus &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "QoS", props.qos)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Phase", props.phase)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Pod IP", props.podIP)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Host IP", props.hostIP)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "QoS", props.qos)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Phase", props.phase)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Pod IP", props.podIP)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Host IP", props.hostIP)}
                             </View>
                         }
                         {isPodTemplate &&
                             isPodTemplatedUndefined.map((container, index) => (
                             <View key={index}>
                                 <Title style={{ textDecorationLine: 'underline' }}>Container {container.name}</Title>
-                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
-                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
-                                    {/* {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
-                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
-                                    {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
+                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
+                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
+                                    {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
+                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
+                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
                                 <View style={commonStyles.fieldsContainer}>
                                     <Title style={commonStyles.detailsCardInfoLeftText}>Volume Mounts</Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>
@@ -169,37 +169,37 @@ export default function DetailsCard(props) {
                         ))}
                         {isPodMetadata &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
                             </View>
                         }
 
                         {isReplicasetConfiguration &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Replica Status", props.replicaStatus)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.numberReplica)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Replica Status", props.replicaStatus)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.numberReplica)}
                             </View>
                         }
                         {isReplicasetStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }], "Waiting", props.waiting | 0)}
-                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }], "Running", props.running | 0)}
+                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }], "Waiting", props.waiting | 0)}
+                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }], "Running", props.running | 0)}
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black" }], "Failed", props.failed | 0)}
-                                    {this.fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black", borderLeftWidth: 1 }], "Succeeded", props.succeeded | 0)}
+                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black" }], "Failed", props.failed | 0)}
+                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black", borderLeftWidth: 1 }], "Succeeded", props.succeeded | 0)}
                                 </View>
                             </View>
                         }
                         {isReplicasetMetadata &&
                             <View>
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
-                                {this.fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
                             </View>
                         }
 
