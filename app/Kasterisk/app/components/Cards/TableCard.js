@@ -73,9 +73,7 @@ export default function TableCard(props) {
                               ? cols
                               : // getLabelButtons(cols)
                                 // labels not showing because they are too long - can uncomment below to try
-                                Object.keys(cols).map((labelItem, labelIndex) =>
-                                getLabelButtons(cols,labelItem,labelIndex, 1)
-                                )}
+                                getLabelButtons(cols,1)}
                           </DataTable.Cell>
                         ))}
                   </DataTable.Row>
