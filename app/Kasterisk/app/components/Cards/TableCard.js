@@ -30,6 +30,12 @@ export default function TableCard(props) {
     headers = ["Type", "Status", "Last Transition", "Message", "Reason"];
   } else if (props.header == "Nodes") {
     headers = ["Name", "Labels", "Status", "Roles", "Age", "Version"];
+  } else if (props.header == "Deployments List"){
+    headers = ["Name", "Age", "Labels", "Containers", "Status", "Selector"];
+  } else if (props.header == "Pods List"){
+    headers = ["Name", "Age", "Phase", "Restarts", "Labels", "namespace"];
+  }else if (props.header == "Replicasets List"){
+    headers = ["Name", "Age", "Labels", "Containers", "Status", "Selector"];
   }
 
 

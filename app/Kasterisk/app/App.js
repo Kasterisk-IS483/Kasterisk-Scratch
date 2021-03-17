@@ -25,12 +25,14 @@ import WorkloadReplicasetScreen from "./screens/workload/WorkloadReplicasetScree
 import WorkloadPodsScreen from "./screens/workload/WorkloadPodsScreen";
 // list 
 import NodesListScreen from "./screens/list/NodesListScreen";
+import DeploymentListScreen from "./screens/list/DeploymentListScreen.js";
+import ReplicasetListScreen from "./screens/list/ReplicasetListScreen.js";
+import PodsListScreen from "./screens/list/PodsListScreen.js";
 // multicuster
 import ChangeClusterScreen from "./screens/ChangeClusterScreen";
 // API 
 import { checkServerStatus } from "./api/KubeApi";
 import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
-
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 const Drawer = createDrawerNavigator();
@@ -200,8 +202,8 @@ export default class App extends Component {
           }}
         />
         <Drawer.Screen
-          name="WorkloadDeployments"
-          component={this.workloadDeploymentScreen}
+          name="DeploymentList"
+          component={DeploymentListScreen}
           options={{
             drawerLabel: "Deployments",
             drawerIcon: () => (
@@ -210,13 +212,13 @@ export default class App extends Component {
                 style={commonStyles.icon}
               />
             ),
-            title: "Workloads",
+            title: "Deployment List",
             headerRight: this.filter,
           }}
         />
         <Drawer.Screen
-          name="WorkloadReplicasets"
-          component={this.workloadReplicasetScreen}
+          name="ReplicasetList"
+          component={ReplicasetListScreen}
           options={{
             drawerLabel: "Replicasets",
             drawerIcon: () => (
@@ -225,13 +227,13 @@ export default class App extends Component {
                 style={commonStyles.icon}
               />
             ),
-            title: "Workloads",
+            title: "Replicaset List",
             headerRight: this.filter,
           }}
         />
         <Drawer.Screen
-          name="WorkloadPods"
-          component={this.workloadPodScreen}
+          name="PodsList"
+          component={PodsListScreen}
           options={{
             drawerLabel: "Pods",
             drawerIcon: () => (
@@ -240,7 +242,7 @@ export default class App extends Component {
                 style={commonStyles.icon}
               />
             ),
-            title: "Workloads",
+            title: "Pods List",
             headerRight: this.filter,
           }}
         />
@@ -323,6 +325,21 @@ export default class App extends Component {
             name="Nodes"
             component={NodesListScreen}
             options={{ title: "Nodes" }}
+          />
+           <Stack.Screen
+            name="DeploymentList"
+            component={DeploymentListScreen}
+            options={{ title: "DeploymentList" }}
+          />
+          <Stack.Screen
+            name="ReplicasetList"
+            component={ReplicasetListScreen}
+            options={{ title: "ReplicasetList" }}
+          />
+          <Stack.Screen
+            name="PodsList"
+            component={PodsListScreen}
+            options={{ title: "PodsList" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
