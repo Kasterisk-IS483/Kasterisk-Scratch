@@ -116,12 +116,12 @@ export default class WelcomeScreen extends Component {
         <View style={this.getStyle().columnContainer}>
           <ImageBackground
             style={this.getStyle().columnContainer}
-            source={require("../assets/welcome-bg.png")}
+            source={require("../../assets/welcome-bg.png")}
             imageStyle={{ resizeMode: "cover" }}
           />
           <Image
             style={this.getStyle().bannerLogo}
-            source={require("../assets/kasterisk-logo.png")}
+            source={require("../../assets/kasterisk-logo.png")}
           />
           <Text style={this.getStyle().bannerDescription}>
             Access, manage and monitor your Kubernetes clusters.
@@ -140,7 +140,7 @@ export default class WelcomeScreen extends Component {
               onPress={this.GoogleLogin}
             /> */}
             <CustomButton
-              image={require("../assets/welcome-button-aws.png")}
+              image={require("../../assets/welcome-button-aws.png")}
               text="Log in With Amazon"
               size="small"
               onPress={() => navigation.navigate("AWSLogin")}
@@ -160,13 +160,13 @@ export default class WelcomeScreen extends Component {
             <View style={commonStyles.divider} />
 
             <CustomButton
-              image={require("../assets/welcome-button-kube.png")}
+              image={require("../../assets/welcome-button-kube.png")}
               text="Upload Kubeconfig File"
               size="small"
               onPress={() => navigation.navigate("KubeconfigUpload")}
             />
             <CustomButton
-              image={require("../assets/welcome-button-kube.png")}
+              image={require("../../assets/welcome-button-kube.png")}
               text="Add Kubeconfig Content"
               size="small"
               onPress={() => navigation.navigate("KubeconfigContent")}

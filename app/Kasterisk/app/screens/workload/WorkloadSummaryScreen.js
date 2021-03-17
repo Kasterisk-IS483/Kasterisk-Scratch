@@ -266,7 +266,7 @@ export default class WorkloadSummaryScreen extends Component {
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
                 <OverviewCard
-                  image={require("../assets/deployment.png")}
+                  image={require("../../assets/deployment.png")}
                   name="Deployments"
                   text1="Ready"
                   text2="Not Ready"
@@ -278,7 +278,7 @@ export default class WorkloadSummaryScreen extends Component {
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
                 <OverviewCard
-                  image={require("../assets/replicaset.png")}
+                  image={require("../../assets/replicaset.png")}
                   name="ReplicaSets"
                   text1="Ready"
                   text2="Not Ready"
@@ -290,7 +290,7 @@ export default class WorkloadSummaryScreen extends Component {
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
                 <OverviewCard
-                  image={require("../assets/pod.png")}
+                  image={require("../../assets/pod.png")}
                   name="Pods"
                   text1="Running"
                   text2="Pending"
