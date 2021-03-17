@@ -2,7 +2,6 @@ import React from "react";
 import { View } from "react-native";
 import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
-import LabelButton from "../Buttons/LabelButton";
 
 import {
   fonts,
@@ -71,9 +70,7 @@ export default function TableCard(props) {
                           >
                             {typeof cols !== "object"
                               ? cols
-                              : // getLabelButtons(cols)
-                                // labels not showing because they are too long - can uncomment below to try
-                                getLabelButtons(cols,1)}
+                              : getLabelButtons(cols,1)}
                           </DataTable.Cell>
                         ))}
                   </DataTable.Row>

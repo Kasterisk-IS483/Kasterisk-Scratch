@@ -44,7 +44,6 @@ export default class WorkloadSummaryScreen extends Component {
         { key: "fourth", title: "Pods" },
       ],
       spinner: false,
-      namespaceLabels: [],
       namespace: "",
       deploymentSummary: {
         readyDeployments: 0,

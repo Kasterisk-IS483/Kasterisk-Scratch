@@ -54,10 +54,7 @@ class CommonAPI extends Component {
         body
       )
       .then((response) => {
-        const statusCode = response.info().status;
         const data = response.json();
-        // console.log(data);
-        const all = JSON.stringify(response);
         return data;
       })
       .catch((error) => {

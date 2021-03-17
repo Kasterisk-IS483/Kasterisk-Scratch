@@ -13,24 +13,6 @@ class WorkloadSummaryApi extends Component {
     static namespaceLabels = async () => {
         let namespaces = await NamespaceApi.listAllNamespace();
         const namespaceLabels = [];
-        namespaceLabels.push({
-            label: "",
-            value: ""
-        });
-        for (const namespace of namespaces){
-            let namespaceLabel = {
-                label: namespace.metadata.name,
-                value: namespace.metadata.name
-            }
-            namespaceLabels.push(namespaceLabel);
-        }
-        return namespaceLabels;
-    }
-
-    /** NAMESPACES **/
-    static namespaceLabels2 = async () => {
-        let namespaces = await NamespaceApi.listAllNamespace();
-        const namespaceLabels = [];
         namespaceLabels.push("All Namespaces");
         for (const namespace of namespaces){
             namespaceLabels.push(namespace.metadata.name);

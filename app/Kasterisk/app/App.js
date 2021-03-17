@@ -110,7 +110,7 @@ export default class App extends Component {
         let serverStatus = await checkServerStatus(defaultCluster);
         if (serverStatus[0] == 200) {
           this.setState({
-            namespaceLabels: await WorkloadSummaryApi.namespaceLabels2(),
+            namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
           });
           await AsyncStorage.setItem("@selectedValue", "");
         } else {
