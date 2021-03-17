@@ -48,7 +48,7 @@ export default function TableCard(props) {
           <DataTable>
             <DataTable.Header>
               {headers.map((item2, colIndex) => (
-                <DataTable.Title key={colIndex}> {item2} </DataTable.Title>
+                <DataTable.Title key={colIndex} style={item2 !== "Labels" ? {} : {flex: 3}}> {item2} </DataTable.Title>
               ))}
             </DataTable.Header>
 
@@ -59,15 +59,15 @@ export default function TableCard(props) {
                     {rows === undefined
                       ? null
                       : rows.map((cols, colIndex) => (
-                          <DataTable.Cell key={colIndex}>
+                          <DataTable.Cell key={colIndex}  style={typeof cols !== "object" ? {} : {flex: 3}}>
                             {typeof cols !== "object" ? cols : 
-                              getLabelButtons(cols)
+                              // getLabelButtons(cols)
                               // labels not showing because they are too long - can uncomment below to try
-                              // Object.keys(cols).map((labelItem, labelIndex) => (
-                              //   <LabelButton
-                              //     key={labelIndex}
-                              //     text={cols[labelItem]} />
-                              // ))
+                              Object.keys(cols).map((labelItem, labelIndex) => (
+                                <LabelButton
+                                  key={labelIndex}
+                                  text={cols[labelItem]} />
+                              ))
                             }
                           </DataTable.Cell>
                         ))}
