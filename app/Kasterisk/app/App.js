@@ -8,24 +8,29 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { View, Image, SafeAreaView, Alert, Text } from "react-native";
-import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import KubeconfigUploadScreen from "./screens/KubeconfigUploadScreen";
-import KubeconfigContentScreen from "./screens/KubeconfigContentScreen";
-import AWSLoginScreen from "./screens/AWSLoginScreen";
-import WorkloadSummaryScreen from "./screens/WorkloadSummaryScreen";
-import ChangeClusterScreen from "./screens/ChangeClusterScreen";
-import WorkloadDeploymentScreen from "./screens/WorkloadDeploymentScreen";
-import WorkloadReplicasetScreen from "./screens/WorkloadReplicasetScreen";
-import WorkloadPodsScreen from "./screens/WorkloadPodsScreen";
-import { checkServerStatus } from "./api/KubeApi";
-import NodesListScreen from "./screens/NodesListScreen";
-import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
-
 import SplashScreen from "react-native-splash-screen";
 import ModalDropdown from "react-native-modal-dropdown";
+// styling
+import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
+// authentication 
+import WelcomeScreen from "./screens/authentication/WelcomeScreen";
+import KubeconfigUploadScreen from "./screens/authentication/KubeconfigUploadScreen";
+import KubeconfigContentScreen from "./screens/authentication/KubeconfigContentScreen";
+import AWSLoginScreen from "./screens/authentication/AWSLoginScreen";
+// workload 
+import WorkloadSummaryScreen from "./screens/workload/WorkloadSummaryScreen";
+import WorkloadDeploymentScreen from "./screens/workload/WorkloadDeploymentScreen";
+import WorkloadReplicasetScreen from "./screens/workload/WorkloadReplicasetScreen";
+import WorkloadPodsScreen from "./screens/workload/WorkloadPodsScreen";
+// list 
+import NodesListScreen from "./screens/list/NodesListScreen";
+// multicuster
+import ChangeClusterScreen from "./screens/ChangeClusterScreen";
+// API 
+import { checkServerStatus } from "./api/KubeApi";
+import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
+
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 const Drawer = createDrawerNavigator();

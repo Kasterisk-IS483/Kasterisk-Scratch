@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { ScrollView, Dimensions, Alert } from "react-native";
 
-import TableCard from "../components/Cards/TableCard";
-import WorkloadSummaryApi from "../api/WorkloadSummaryApi";
+import TableCard from "../../components/Cards/TableCard";
+import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 
 import {
   colours,
@@ -12,7 +12,7 @@ import {
   workloadDetailsBreakpoint,
   cardsOuterPadding,
   spacings,
-} from "../utils/styles.js";
+} from "../../utils/styles.js";
 
 export default class NodesListScreen extends Component {
   constructor(props) {

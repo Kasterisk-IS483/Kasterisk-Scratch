@@ -5,11 +5,11 @@ import { Picker } from "@react-native-picker/picker";
 import Spinner from "react-native-loading-spinner-overlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import AwsApi from "../api/AwsApi";
-import { AWSRegions } from "../utils/constants";
-import { saveCredentials } from "./../utils/constants";
-import { colours, spacings, commonStyles } from "../utils/styles.js";
-import SubmitButton from "../components/Buttons/SubmitButton";
+import AwsApi from "../../api/AwsApi";
+import { AWSRegions } from "../../utils/constants";
+import { saveCredentials } from "../../utils/constants";
+import { colours, spacings, commonStyles } from "../../utils/styles.js";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 const AWSLoginScreen = ({ navigation }) => {
   const [loginState, setLoginState] = useState({

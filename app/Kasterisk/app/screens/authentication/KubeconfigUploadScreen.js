@@ -4,12 +4,12 @@ import Spinner from "react-native-loading-spinner-overlay";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
 
-import { Kubeconfig } from "../api/KubeApi/config";
-import { saveKubeconfigFileToLocal, saveURLToken } from "../api/KubeApi/config_types";
-import { colours, fonts, spacings, commonStyles } from "../utils/styles.js";
-import CustomButton from "../components/Buttons/CustomButton";
-import ActionButton from "../components/Buttons/ActionButton";
-import SubmitButton from "../components/Buttons/SubmitButton";
+import { Kubeconfig } from "../../api/KubeApi/config";
+import { saveKubeconfigFileToLocal, saveURLToken } from "../../api/KubeApi/config_types";
+import { colours, fonts, spacings, commonStyles } from "../../utils/styles.js";
+import CustomButton from "../../components/Buttons/CustomButton";
+import ActionButton from "../../components/Buttons/ActionButton";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 const uncheckedIcon = require("../assets/checkbox-cross.png");
 const checkedIcon = require("../assets/checkbox-tick.png");

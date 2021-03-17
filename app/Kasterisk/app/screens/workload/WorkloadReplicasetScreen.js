@@ -7,10 +7,10 @@ import {
   dashboardStyles, 
   commonPortraitStyles, 
   workloadDetailsBreakpoint 
-} from "../utils/styles.js";
+} from "../../utils/styles.js";
 
-import DetailsCard from "../components/Cards/DetailsCard";
-import { getLabelButtons } from "../utils/constants";
+import DetailsCard from "../../components/Cards/DetailsCard";
+import { getLabelButtons } from "../../utils/constants";
 
 export default class WorkloadReplicasetScreen extends Component {
 

@@ -9,11 +9,11 @@ import {
   Alert
 } from "react-native";
 
-import GoogleCloudApi from "../api/GoogleCloudApi";
-import AzureApi from "../api/AzureApi";
-import { commonStyles, commonPortraitStyles } from "../utils/styles.js";
+import GoogleCloudApi from "../../api/GoogleCloudApi";
+import AzureApi from "../../api/AzureApi";
+import { commonStyles, commonPortraitStyles } from "../../utils/styles.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CustomButton from "../components/Buttons/CustomButton";
+import CustomButton from "../../components/Buttons/CustomButton";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 
 export default class WelcomeScreen extends Component {

@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 
-import DetailPageApi from "../api/DetailPageApi";
-import { getLabelButtons} from "../utils/constants";
+import DetailPageApi from "../../api/DetailPageApi";
+import { getLabelButtons} from "../../utils/constants";
 
 import { 
   commonStyles, 
   dashboardStyles, 
   commonPortraitStyles, 
   workloadDetailsBreakpoint 
-} from "../utils/styles.js";
+} from "../../utils/styles.js";
 
-import DetailsCard from "../components/Cards/DetailsCard";
-import TableCard from "../components/Cards/TableCard";
+import DetailsCard from "../../components/Cards/DetailsCard";
+import TableCard from "../../components/Cards/TableCard";
 
 export default class WorkloadDeploymentScreen extends Component {
 
