@@ -1,10 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions, Alert, TouchableOpacity } from "react-native";
-import { TabView, TabBar } from 'react-native-tab-view';
+import {
+  View,
+  ScrollView,
+  Dimensions,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
+import { TabView, TabBar } from "react-native-tab-view";
 import Spinner from "react-native-loading-spinner-overlay";
 
-import { checkServerStatus } from '../api/KubeApi'
+import { checkServerStatus } from "../api/KubeApi";
 import DeploymentApi from "../api/DeploymentApi";
 import ReplicasetApi from "../api/ReplicasetApi";
 import PodApi from "../api/PodApi";
@@ -25,18 +31,17 @@ import WorkloadCard from "../components/Cards/WorkloadCard";
 import { defined } from "react-native-reanimated";
 
 export default class WorkloadSummaryScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       orientation: "",
       result: null,
-      index: this.props.index!==undefined? this.props.index : 0 ,
+      index: this.props.index !== undefined ? this.props.index : 0,
       routes: [
-        { key: 'first', title: 'Overview' },
-        { key: 'second', title: 'Deployments' },
-        { key: 'third', title: 'Replicasets' },
-        { key: 'fourth', title: 'Pods' },
+        { key: "first", title: "Overview" },
+        { key: "second", title: "Deployments" },
+        { key: "third", title: "Replicasets" },
+        { key: "fourth", title: "Pods" },
       ],
       spinner: false,
       namespaceLabels: [],
@@ -82,41 +87,41 @@ export default class WorkloadSummaryScreen extends Component {
   }
 
   async updateState(stateKey, value) {
-    if (this.props.index!==undefined) {
+    if (this.props.index !== undefined) {
       this.setState({
-        index: this.props.index
-      })
+        index: this.props.index,
+      });
     }
   }
 
   async componentDidMount() {
     this.setState({
       spinner: true,
-    })
+    });
 
-    if(await AsyncStorage.getItem("@selectedValue")!=null){
+    if ((await AsyncStorage.getItem("@selectedValue")) != null) {
       this.setState({
-        namespace: await AsyncStorage.getItem("@selectedValue")
-      })
+        namespace: await AsyncStorage.getItem("@selectedValue"),
+      });
     }
-    
+
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
       console.log(defaultCluster);
 
       if (this.props.index !== undefined) {
         this.setState({
-          index: this.props.index
-        })
-        console.log("index"+this.state.index);
+          index: this.props.index,
+        });
+        console.log("index" + this.state.index);
       }
 
       if (defaultCluster == null) {
-        Alert.alert("Error", 'Default cluster not found')
+        Alert.alert("Error", "Default cluster not found");
         this.setState({
-          spinner: false
-        })
-        this.props.navigation.navigate('ChooseCluster')
+          spinner: false,
+        });
+        this.props.navigation.navigate("ChooseCluster");
         return;
       }
 
@@ -124,169 +129,197 @@ export default class WorkloadSummaryScreen extends Component {
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
-          deploymentSummary: await WorkloadSummaryApi.deploymentSummary(this.state.namespace),
-          replicasetSummary: await WorkloadSummaryApi.replicasetSummary(this.state.namespace),
+          deploymentSummary: await WorkloadSummaryApi.deploymentSummary(
+            this.state.namespace
+          ),
+          replicasetSummary: await WorkloadSummaryApi.replicasetSummary(
+            this.state.namespace
+          ),
           podSummary: await WorkloadSummaryApi.podSummary(this.state.namespace),
-          deploymentsInfo: await WorkloadSummaryApi.deploymentsInfo(this.state.namespace),
-          replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(this.state.namespace),
+          deploymentsInfo: await WorkloadSummaryApi.deploymentsInfo(
+            this.state.namespace
+          ),
+          replicasetsInfo: await WorkloadSummaryApi.replicasetsInfo(
+            this.state.namespace
+          ),
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
-        })
+        });
       } else {
-        Alert.alert("Error", "Failed to contact cluster")
+        Alert.alert("Error", "Failed to contact cluster");
       }
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
 
     this.setState({
-      spinner: false
-    })
-
+      spinner: false,
+    });
   }
 
   DeploymentTab = () => {
     const { navigation } = this.props;
-    return (
-      this.state.deploymentsInfo.map((item, index) => (
-        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadDeployment", {
-          deployment: await DeploymentApi.readDeployment(item.namespace, item.name),
-          age: item.age,
-          labels: item.labels,
-          pods: await PodApi.listPod(item.namespace),
-        })}
-          style={{ flexDirection: 'row' }} >
-          <WorkloadCard
-            name={item.name}
-            age={item.age}
-            status={item.status}
-            total={item.total}
-            variableField="Containers"
-            variableFieldVal={item.containers}
-          >
-            {getLabelButtons(item.labels)}
-          </WorkloadCard>
-        </TouchableOpacity>)
-      )
-    )
+    return this.state.deploymentsInfo.map((item, index) => (
+      <TouchableOpacity
+        key={index}
+        onPress={async () =>
+          navigation.navigate("WorkloadDeployment", {
+            deployment: await DeploymentApi.readDeployment(
+              item.namespace,
+              item.name
+            ),
+            age: item.age,
+            labels: item.labels,
+            pods: await PodApi.listPod(item.namespace),
+          })
+        }
+        style={{ flexDirection: "row" }}
+      >
+        <WorkloadCard
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          total={item.total}
+          variableField="Containers"
+          variableFieldVal={item.containers}
+        >
+          {getLabelButtons(item.labels, 3)}
+        </WorkloadCard>
+      </TouchableOpacity>
+    ));
   };
 
   ReplicasetTab = () => {
     const { navigation } = this.props;
-    return (
-      this.state.replicasetsInfo.map((item, index) => (
-        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadReplicaset", {
-          replicaset: await ReplicasetApi.readReplicaSet(item.namespace, item.name),
-          age: item.age,
-          labels: item.labels,
-          podstatus: await DetailPageApi.PodsStatuses(item.namespace),
-        })}
-          style={{ flexDirection: 'row' }} >
-          <WorkloadCard
-            name={item.name}
-            age={item.age}
-            status={item.status}
-            total={item.total}
-            variableField="Containers"
-            variableFieldVal={item.containers}
-          >
-            {getLabelButtons(item.labels)}
-          </WorkloadCard>
-        </TouchableOpacity>)
-      )
-    )
+    return this.state.replicasetsInfo.map((item, index) => (
+      <TouchableOpacity
+        key={index}
+        onPress={async () =>
+          navigation.navigate("WorkloadReplicaset", {
+            replicaset: await ReplicasetApi.readReplicaSet(
+              item.namespace,
+              item.name
+            ),
+            age: item.age,
+            labels: item.labels,
+            podstatus: await DetailPageApi.PodsStatuses(item.namespace),
+          })
+        }
+        style={{ flexDirection: "row" }}
+      >
+        <WorkloadCard
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          total={item.total}
+          variableField="Containers"
+          variableFieldVal={item.containers}
+        >
+          {getLabelButtons(item.labels, 3)}
+        </WorkloadCard>
+      </TouchableOpacity>
+    ));
   };
 
   PodTab = () => {
     const { navigation } = this.props;
-    return (
-      this.state.podsInfo.map((item, index) => (
-        <TouchableOpacity key={index} onPress={async () => navigation.navigate("WorkloadPod", {
-          pod: await PodApi.readPod(item.namespace, item.name),
-          age: item.age,
-          labels: item.labels,
-        })}
-          style={{ flexDirection: 'row' }} >
-          <WorkloadCard
-            name={item.name}
-            age={item.age}
-            status={item.status}
-            variableField="Restarts"
-            variableFieldVal={item.restarts}
-          >
-            {getLabelButtons(item.labels)}
-          </WorkloadCard>
-        </TouchableOpacity>)
-      )
-    )
+    return this.state.podsInfo.map((item, index) => (
+      <TouchableOpacity
+        key={index}
+        onPress={async () =>
+          navigation.navigate("WorkloadPod", {
+            pod: await PodApi.readPod(item.namespace, item.name),
+            age: item.age,
+            labels: item.labels,
+          })
+        }
+        style={{ flexDirection: "row" }}
+      >
+        <WorkloadCard
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          variableField="Restarts"
+          variableFieldVal={item.restarts}
+        >
+          {getLabelButtons(item.labels, 3)}
+        </WorkloadCard>
+      </TouchableOpacity>
+    ));
   };
 
-  _handleIndexChange = index => this.setState({ index });
-  _renderTabBar = props => {
+  _handleIndexChange = (index) => this.setState({ index });
+  _renderTabBar = (props) => {
     return (
       <TabBar
         {...props}
-        indicatorStyle={{ backgroundColor: 'white' }}
+        indicatorStyle={{ backgroundColor: "white" }}
         style={{ backgroundColor: colours.primary }}
       />
-    )
+    );
   };
 
   _renderScene = ({ route }) => {
     switch (route.key) {
-      case 'first':
-        return <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
-            <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
-              <OverviewCard
-                image={require("../assets/deployment.png")}
-                name="Deployments"
-                text1="Ready"
-                text2="Not Ready"
-                no1={this.state.deploymentSummary.readyDeployments}
-                no2={this.state.deploymentSummary.notReadyDeployments}
-              />
-            </TouchableOpacity>
+      case "first":
+        return (
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().columnContainer}>
+              <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
+                <OverviewCard
+                  image={require("../assets/deployment.png")}
+                  name="Deployments"
+                  text1="Ready"
+                  text2="Not Ready"
+                  no1={this.state.deploymentSummary.readyDeployments}
+                  no2={this.state.deploymentSummary.notReadyDeployments}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={this.getStyle().columnContainer}>
+              <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
+                <OverviewCard
+                  image={require("../assets/replicaset.png")}
+                  name="ReplicaSets"
+                  text1="Ready"
+                  text2="Not Ready"
+                  no1={this.state.replicasetSummary.readyReplicaSets}
+                  no2={this.state.replicasetSummary.notReadyReplicaSets}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={this.getStyle().columnContainer}>
+              <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
+                <OverviewCard
+                  image={require("../assets/pod.png")}
+                  name="Pods"
+                  text1="Running"
+                  text2="Pending"
+                  no1={this.state.podSummary.readyPods}
+                  no2={this.state.podSummary.notReadyPods}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={this.getStyle().columnContainer}>
-            <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
-              <OverviewCard
-                image={require("../assets/replicaset.png")}
-                name="ReplicaSets"
-                text1="Ready"
-                text2="Not Ready"
-                no1={this.state.replicasetSummary.readyReplicaSets}
-                no2={this.state.replicasetSummary.notReadyReplicaSets}
-              />
-            </TouchableOpacity>
+        );
+
+      case "second":
+        return (
+          <View style={dashboardStyles.wrapContainer}>
+            {this.DeploymentTab()}
           </View>
-          <View style={this.getStyle().columnContainer}>
-            <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
-              <OverviewCard
-                image={require("../assets/pod.png")}
-                name="Pods"
-                text1="Running"
-                text2="Pending"
-                no1={this.state.podSummary.readyPods}
-                no2={this.state.podSummary.notReadyPods}
-              />
-            </TouchableOpacity>
+        );
+
+      case "third":
+        return (
+          <View style={dashboardStyles.wrapContainer}>
+            {this.ReplicasetTab()}
           </View>
-        </View>;
+        );
 
-      case 'second':
-        return <View style={dashboardStyles.wrapContainer}>
-          {this.DeploymentTab()}
-        </View>;
-
-      case 'third':
-        return <View style={dashboardStyles.wrapContainer}>
-          {this.ReplicasetTab()}
-        </View>;
-
-      case 'fourth':
-        return <View style={dashboardStyles.wrapContainer}>
-          {this.PodTab()}
-        </View>;
+      case "fourth":
+        return (
+          <View style={dashboardStyles.wrapContainer}>{this.PodTab()}</View>
+        );
 
       default:
         return null;
@@ -299,18 +332,17 @@ export default class WorkloadSummaryScreen extends Component {
         <Spinner
           visible={this.state.spinner}
           textContent={"Loading..."}
-          textStyle={{ color: '#FFF' }}
+          textStyle={{ color: "#FFF" }}
         />
         <TabView
           navigationState={this.state}
           onIndexChange={this._handleIndexChange}
           renderScene={this._renderScene}
           renderTabBar={this._renderTabBar}
-          initialLayout={{ width: Dimensions.get('window').width }}
+          initialLayout={{ width: Dimensions.get("window").width }}
           sceneContainerStyle={this.getStyle().scrollContainer}
         />
       </ScrollView>
     );
   }
-
 }

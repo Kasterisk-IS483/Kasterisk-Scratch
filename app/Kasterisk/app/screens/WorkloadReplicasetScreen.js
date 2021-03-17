@@ -81,7 +81,7 @@ export default class WorkloadReplicasetScreen extends Component {
 
           <DetailsCard header="Metadata" type="Replicaset" 
             age={this.state.age}
-            labels={getLabelButtons(this.state.labels)}
+            labels={getLabelButtons(this.state.labels,labelItem,labelIndex)}
             annotations={stringAnnotations}
             control={this.state.replicaset.metadata.ownerReferences[0].name}
           />

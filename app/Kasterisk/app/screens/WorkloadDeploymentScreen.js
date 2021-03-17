@@ -3,7 +3,7 @@ import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../api/DetailPageApi";
-import { getLabelButtons } from "../utils/constants";
+import { getLabelButtons} from "../utils/constants";
 
 import { 
   commonStyles, 
@@ -109,7 +109,7 @@ export default class WorkloadDeploymentScreen extends Component {
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={this.state.age}
-              labels={getLabelButtons(this.state.labels)}
+              labels={getLabelButtons(this.state.labels) }
               annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
             />
           </View>
