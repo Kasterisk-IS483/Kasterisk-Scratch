@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -115,23 +115,21 @@ export default function TableCard(props) {
             {props.table === undefined
               ? null
               : props.table.map((rows, rowIndex) => (
-                // <TouchableOpacity  >
-                  <DataTable.Row key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
-                      {rows === undefined
-                        ? null
-                        : rows.map((cols, colIndex) => (
-                            <DataTable.Cell
-                              key={colIndex}
-                              style={typeof cols !== "object" ? props.header!=="Pods List"? colIndex!==0 ? {} : {} :{flex:2} : {flex:4}}
-                            >
-                              {typeof cols !== "object"
-                                ? cols
-                                : getLabelButtons(cols,1)}
-                            </DataTable.Cell>
-                          ))}
-                  </DataTable.Row>
-                  // </TouchableOpacity>
-                ))}
+                <DataTable.Row key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
+                    {rows === undefined
+                      ? null
+                      : rows.map((cols, colIndex) => (
+                          <DataTable.Cell
+                            key={colIndex}
+                            style={typeof cols !== "object" ? props.header!=="Pods List"? colIndex!==0 ? {} : {} :{flex:2} : {flex:4}}
+                          >
+                            {typeof cols !== "object"
+                              ? cols
+                              : getLabelButtons(cols,1)}
+                          </DataTable.Cell>
+                        ))}
+                </DataTable.Row>
+              ))}
           </DataTable>
         </Card.Content>
       </Card>

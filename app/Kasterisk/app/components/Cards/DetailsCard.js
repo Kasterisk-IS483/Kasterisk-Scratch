@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text } from "react-native"
 import { Card, Title, DataTable } from 'react-native-paper';
 
-import { cardsOuterPadding, commonStyles } from "../../utils/styles.js";
+import { spacings, cardsOuterPadding, commonStyles } from "../../utils/styles.js";
 
 export default function DetailsCard(props) {
 
@@ -116,7 +116,7 @@ export default function DetailsCard(props) {
                             <View>
                                 <View style={{ flexDirection: 'row' }}>
                                     <Title style={[ commonStyles.detailsCardInfoLeftText, { textDecorationLine: 'underline' } ]}>
-                                        Container {props.container !== undefined ? props.container : ""}
+                                        Container{props.container !== undefined ? " " + props.container : ""}
                                     </Title>
                                     <Text style={commonStyles.detailsCardInfoRightText}>{props.label}</Text>
                                 </View>
@@ -150,7 +150,7 @@ export default function DetailsCard(props) {
                         {isPodTemplate &&
                             isPodTemplatedUndefined.map((container, index) => (
                             <View key={index}>
-                                <Title style={{ textDecorationLine: 'underline' }}>Container {container.name}</Title>
+                                <Title style={{ textDecorationLine: 'underline' }}>Container{container.name !== undefined ? " " + container.name : ""}</Title>
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
                                 {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
@@ -192,12 +192,12 @@ export default function DetailsCard(props) {
                         {isReplicasetStatus &&
                             <View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth:1, borderRightWidth:1, borderColor: "black" }], "Waiting", props.waiting | 0)}
-                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderBottomWidth: 1,borderColor: "black" }], "Running", props.running | 0)}
+                                    {fieldsContainerTemplate([commonStyles.statusContainer, { borderBottomWidth: 1, borderRightWidth: 1, }], "Waiting", props.waiting | 0)}
+                                    {fieldsContainerTemplate([commonStyles.statusContainer, { borderBottomWidth: 1 }], "Running", props.running | 0)}
                                 </View>
                                 <View style={commonStyles.fieldsContainer}>
-                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black" }], "Failed", props.failed | 0)}
-                                    {fieldsContainerTemplate([commonStyles.centralise, { flexDirection: "column", flex: 1, borderColor: "black", borderLeftWidth: 1 }], "Succeeded", props.succeeded | 0)}
+                                    {fieldsContainerTemplate(commonStyles.statusContainer, "Failed", props.failed | 0)}
+                                    {fieldsContainerTemplate([commonStyles.statusContainer, { borderLeftWidth: 1 }], "Succeeded", props.succeeded | 0)}
                                 </View>
                             </View>
                         }

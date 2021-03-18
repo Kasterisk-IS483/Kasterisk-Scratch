@@ -71,6 +71,15 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
   },
 
+  statusContainer: {
+    flex: 1, 
+    paddingBottom: spacings.sm, 
+    flexDirection: "column", 
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "black",
+  },
+
   fieldsContainer: {
     flexDirection: 'row',
   },
