@@ -43,6 +43,9 @@ export default class NodesListScreen extends Component {
   }
 
   async componentDidMount() {
+    this.setState({
+      spinner: true,
+    });
     try {
       this.setState({
         nodes: await WorkloadSummaryApi.nodesInfo(),
@@ -50,11 +53,19 @@ export default class NodesListScreen extends Component {
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
+    this.setState({
+      spinner: false,
+    });
   }
 
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
+        <Spinner
+          visible={this.state.spinner}
+          textContent={"Loading..."}
+          textStyle={{ color: "#FFF" }}
+        />
         <TableCard header="Nodes" table={this.state.nodes} />
       </ScrollView>
     );

@@ -104,6 +104,11 @@ export default class ReplicasetListScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
+        <Spinner
+          visible={this.state.spinner}
+          textContent={"Loading..."}
+          textStyle={{ color: "#FFF" }}
+        />
         <TableCard header="Replicasets List" table={this.state.replicasetsArr} />
       </ScrollView>
     );

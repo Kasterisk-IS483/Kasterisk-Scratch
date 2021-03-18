@@ -1,7 +1,10 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions } from "react-native";
+import { View, ScrollView, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
+import Spinner from "react-native-loading-spinner-overlay";
 
+import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
 
@@ -48,6 +51,38 @@ export default class WorkloadDeploymentScreen extends Component {
     this.setState({ orientation: this.getOrientation() });
   }
 
+  async componentDidMount() {
+    this.setState({
+      spinner: true,
+    });
+
+    try {
+      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      
+      if (defaultCluster == null) {
+        Alert.alert("Error", "Default cluster not found");
+        this.setState({
+          spinner: false,
+        });
+        this.props.navigation.navigate("ChooseCluster");
+        return;
+      }
+
+      let serverStatus = await checkServerStatus(defaultCluster);
+      if (serverStatus[0] == 200) {
+        console.log(serverStatus);
+      } else {
+        Alert.alert("Error", "Failed to contact cluster");
+      }
+    } catch (err) {
+      Alert.alert("Server Check Failed", err.message);
+    }
+
+    this.setState({
+      spinner: false,
+    });
+  }
+
   render() {
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
     let containerPorts = this.state.deployment.spec.template.spec.containers[0].ports;
@@ -63,6 +98,11 @@ export default class WorkloadDeploymentScreen extends Component {
     
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
+        <Spinner
+          visible={this.state.spinner}
+          textContent={"Loading..."}
+          textStyle={{ color: "#FFF" }}
+        />
         <View style={commonStyles.detailsContainer}>
 
         <Title style={commonStyles.headerTitle}>

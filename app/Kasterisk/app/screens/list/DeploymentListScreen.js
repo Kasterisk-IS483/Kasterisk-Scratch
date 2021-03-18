@@ -104,6 +104,11 @@ export default class DeploymentListScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
+        <Spinner
+          visible={this.state.spinner}
+          textContent={"Loading..."}
+          textStyle={{ color: "#FFF" }}
+        />
         <TableCard header="Deployments List" table={this.state.deploymentArr} />
       </ScrollView>
     );
