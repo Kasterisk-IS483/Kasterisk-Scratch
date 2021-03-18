@@ -3,7 +3,7 @@ import { View, ScrollView, Dimensions } from "react-native";
 import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../../api/DetailPageApi";
-import { getLabelButtons} from "../../utils/constants";
+import { getLabelButtons, getAgeText } from "../../utils/constants";
 
 import { 
   commonStyles, 
@@ -22,7 +22,6 @@ export default class WorkloadDeploymentScreen extends Component {
     this.state = {
       orientation: "",
       deployment: this.props.route.params.deployment,
-      age: this.props.route.params.age,
       labels: this.props.route.params.labels,
       pods: this.props.route.params.pods,
     };
@@ -77,7 +76,7 @@ export default class WorkloadDeploymentScreen extends Component {
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
               rollingUpdate={rollingUpdate}
-              selectors={getLabelButtons(this.state.labels)}
+              selectors={getLabelButtons(this.state.deployment.metadata.labels)}
               minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
               historyLimit={this.state.deployment.spec.revisionHistoryLimit}
               replicas={this.state.deployment.spec.replicas}
@@ -108,8 +107,8 @@ export default class WorkloadDeploymentScreen extends Component {
           </View>
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
-              age={this.state.age}
-              labels={getLabelButtons(this.state.labels) }
+              age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
+              labels={getLabelButtons(this.state.deployment.metadata.labels) }
               annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
             />
           </View>

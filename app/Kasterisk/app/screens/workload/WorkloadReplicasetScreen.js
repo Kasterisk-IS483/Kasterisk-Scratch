@@ -10,7 +10,7 @@ import {
 } from "../../utils/styles.js";
 
 import DetailsCard from "../../components/Cards/DetailsCard";
-import { getLabelButtons } from "../../utils/constants";
+import { getLabelButtons, getAgeText } from "../../utils/constants";
 
 export default class WorkloadReplicasetScreen extends Component {
 
@@ -19,7 +19,6 @@ export default class WorkloadReplicasetScreen extends Component {
     this.state = {
       orientation: "",
       replicaset: this.props.route.params.replicaset,
-      age: this.props.route.params.age,
       labels: this.props.route.params.labels,
       podstatus: this.props.route.params.podstatus,
     };
@@ -80,8 +79,8 @@ export default class WorkloadReplicasetScreen extends Component {
           </View>
 
           <DetailsCard header="Metadata" type="Replicaset" 
-            age={this.state.age}
-            labels={getLabelButtons(this.state.labels,labelItem,labelIndex)}
+            age={getAgeText(this.state.replicaset.metadata.creationTimestamp)}
+            labels={getLabelButtons(this.state.replicaset.metadata.labels)}
             annotations={stringAnnotations}
             control={this.state.replicaset.metadata.ownerReferences[0].name}
           />

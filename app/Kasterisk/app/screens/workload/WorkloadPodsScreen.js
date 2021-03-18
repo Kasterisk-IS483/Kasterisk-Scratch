@@ -17,7 +17,7 @@ import {
 } from "../../utils/styles.js";
 
 import DetailsCard from "../../components/Cards/DetailsCard";
-import { getLabelButtons } from "../../utils/constants";
+import { getLabelButtons, getAgeText } from "../../utils/constants";
 import TableCard from "../../components/Cards/TableCard";
 
 export default class WorkloadPodsScreen extends Component {
@@ -33,7 +33,6 @@ export default class WorkloadPodsScreen extends Component {
         { key: 'third', title: 'Shell' },
       ],
       pod: this.props.route.params.pod,
-      age: this.props.route.params.age,
       labels: this.props.route.params.labels,
       container: "[all containers]",
       containerList: ["[all containers]"],
@@ -141,8 +140,8 @@ export default class WorkloadPodsScreen extends Component {
 
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Pods"
-              age={this.state.age}
-              labels={getLabelButtons(this.state.labels)}
+              age={getAgeText(this.state.pod.metadata.creationTimestamp)}
+              labels={getLabelButtons(this.state.pod.metadata.labels)}
               control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
             />
           </View>

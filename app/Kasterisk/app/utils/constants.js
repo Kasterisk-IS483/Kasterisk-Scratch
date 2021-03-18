@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native";
+import { Platform, Text } from "react-native";
 import React from "react";
 import LabelButton from "../components/Buttons/LabelButton";
 
@@ -76,7 +76,7 @@ export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay) =
       <LabelButton key={labelIndex} displayMore={true} text={count + "+"} />
     );
   } else if (countLabel > numToDisplay) {
-    return <></>;
+    return <Text key={labelIndex}></Text>;
   } else {
     return (
       <LabelButton key={labelIndex} text={labelItem + ":" + cols[labelItem]} />
@@ -84,7 +84,20 @@ export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay) =
   }
 };
 
-export const getAgeText = (age) => {
+/** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/
+export const calculateAge = (creationDT) => {
+  creationDT = new Date(creationDT);
+  var current = new Date();
+  // To calculate the time difference of two dates 
+  let differenceInTime = current.getTime() - creationDT.getTime(); 
+  // To calculate the no. of days between two dates 
+  let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+  return differenceInDays;
+}
+
+export const getAgeText = (ageInput) => {
+  let difference = calculateAge(ageInput);
+  let age = Math.floor(difference);
   let day = "Days";
   if (age <= 1) day = "Day";
   return age + " " + day;

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import PodApi from "./PodApi.js";
-import WorkloadSummaryApi from "./WorkloadSummaryApi.js";
 import { getAgeText } from "../utils/constants";
 
 class DetailPageApi extends Component {
@@ -45,7 +44,6 @@ class DetailPageApi extends Component {
     static PodsInfo = (pods) => {
         let PodsInfo = []
         for (const pod of pods){
-            let age = WorkloadSummaryApi.calculateAge(pod.metadata.creationTimestamp);
             const status = DetailPageApi.getContainerStatus(pod.status.containerStatuses);
             let podInfo = [
                 pod.metadata.name,
@@ -53,7 +51,7 @@ class DetailPageApi extends Component {
                 pod.status.phase,
                 pod.status.containerStatuses[0].restartCount,
                 pod.spec.nodeName,
-                getAgeText(Math.floor(age)),
+                getAgeText(pod.metadata.creationTimestamp),
             ];
             PodsInfo.push(podInfo);
         }
@@ -64,15 +62,13 @@ class DetailPageApi extends Component {
     static DeploymentConditions = (conditions) => {
         let DeploymentConditions = []
         for (const condition of conditions){
-            let lastUpdate = WorkloadSummaryApi.calculateAge(condition.lastUpdateTime);
-            let lastTransition = WorkloadSummaryApi.calculateAge(condition.lastTransitionTime);
             let deploymentCondition = [
                 condition.type,
                 condition.reason,
                 condition.status,
                 condition.message,
-                getAgeText(Math.floor(lastUpdate)),
-                getAgeText(Math.floor(lastTransition)),
+                getAgeText(condition.lastUpdateTime),
+                getAgeText(condition.lastTransitionTime),
             ];
             DeploymentConditions.push(deploymentCondition);
         }
@@ -83,11 +79,10 @@ class DetailPageApi extends Component {
     static PodConditions = (conditions) => {
         let PodConditions = []
         for (const condition of conditions){
-            let lastTransition = WorkloadSummaryApi.calculateAge(condition.lastTransitionTime);
             let podCondition = [
                 condition.type,
                 condition.status,
-                getAgeText(Math.floor(lastTransition)),
+                getAgeText(condition.lastTransitionTime),
                 "",
                 "",
             ];

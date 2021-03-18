@@ -166,8 +166,6 @@ export default class WorkloadSummaryScreen extends Component {
               item.namespace,
               item.name
             ),
-            age: item.age,
-            labels: item.labels,
             pods: await PodApi.listPod(item.namespace),
           })
         }
@@ -198,8 +196,6 @@ export default class WorkloadSummaryScreen extends Component {
               item.namespace,
               item.name
             ),
-            age: item.age,
-            labels: item.labels,
             podstatus: await DetailPageApi.PodsStatuses(item.namespace),
           })
         }
@@ -227,8 +223,6 @@ export default class WorkloadSummaryScreen extends Component {
         onPress={async () =>
           navigation.navigate("WorkloadPod", {
             pod: await PodApi.readPod(item.namespace, item.name),
-            age: item.age,
-            labels: item.labels,
           })
         }
         style={{ flexDirection: "row" }}

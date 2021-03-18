@@ -102,7 +102,6 @@ class WorkloadSummaryApi extends Component {
         for (const node of nodes){
             let isReady = "Not Ready";
             let conditions = node.status.conditions;
-            let difference = WorkloadSummaryApi.calculateAge(node.metadata.creationTimestamp);
             for (const condition of conditions){
                 if (condition.type === "Ready"){
                     isReady = "Ready";
@@ -113,23 +112,12 @@ class WorkloadSummaryApi extends Component {
                 node.metadata.labels,
                 isReady,
                 "Roles",
-                getAgeText(Math.floor(difference)),
+                getAgeText(node.metadata.creationTimestamp),
                 "Version"
             ]
             nodesInfo.push(nodeInfo);
         }
         return nodesInfo;
-    }
-
-    /** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/
-    static calculateAge = (creationDT) => {
-        creationDT = new Date(creationDT);
-        var current = new Date();
-        // To calculate the time difference of two dates 
-        let differenceInTime = current.getTime() - creationDT.getTime(); 
-        // To calculate the no. of days between two dates 
-        let differenceInDays = differenceInTime / (1000 * 3600 * 24);
-        return differenceInDays;
     }
 
     /** DEPLOYMENT TAB INFO **/
@@ -140,10 +128,9 @@ class WorkloadSummaryApi extends Component {
             deployments = await DeploymentApi.listDeployment(namespace);
         }
         for (const deployment of deployments){
-            let difference = WorkloadSummaryApi.calculateAge(deployment.metadata.creationTimestamp);
             let deploymentInfo = {
                 name: deployment.metadata.name,
-                age: getAgeText(Math.floor(difference)),
+                age: getAgeText(deployment.metadata.creationTimestamp),
                 labels: deployment.metadata.labels,
                 containers: deployment.spec.template.spec.containers[0].name,
                 status: deployment.status.readyReplicas,
@@ -163,10 +150,9 @@ class WorkloadSummaryApi extends Component {
             replicasets = await ReplicasetApi.listReplicaSet(namespace);
         }
         for (const replicaset of replicasets){
-            let difference = WorkloadSummaryApi.calculateAge(replicaset.metadata.creationTimestamp);
             let replicasetInfo = {
                 name: replicaset.metadata.name,
-                age: getAgeText(Math.floor(difference)),
+                age: getAgeText(replicaset.metadata.creationTimestamp),
                 labels: replicaset.metadata.labels,
                 containers: replicaset.spec.template.spec.containers[0].name,
                 status: replicaset.status.readyReplicas,
@@ -186,10 +172,9 @@ class WorkloadSummaryApi extends Component {
             pods = await PodApi.listPod(namespace);
         }
         for (const pod of pods){
-            let difference = WorkloadSummaryApi.calculateAge(pod.metadata.creationTimestamp);
             let podInfo = {
                 name: pod.metadata.name,
-                age: getAgeText(Math.floor(difference)),
+                age: getAgeText(pod.metadata.creationTimestamp),
                 status: pod.status.phase,
                 ready: DetailPageApi.getContainerStatus(pod.status.containerStatuses),
                 restarts: pod.status.containerStatuses[0].restartCount,
