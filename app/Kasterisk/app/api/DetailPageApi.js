@@ -29,19 +29,24 @@ class DetailPageApi extends Component {
         return podsStatuses;
     }
 
+    /** GET CONTAINER STATUSES FOR PODS **/
+    static getContainerStatus = (containerStatuses) => {
+        const noOfContainers = containerStatuses.length;
+            let noOfRunningContainers = 0;
+            for (const containerStatus of containerStatuses){
+                if (containerStatus.state.running != undefined){
+                    noOfRunningContainers+=1
+                } 
+            }
+        return status = noOfRunningContainers + "/" + noOfContainers;
+    }
+
     /** DEPLOYMENT TABLE - PODS **/
     static PodsInfo = (pods) => {
         let PodsInfo = []
         for (const pod of pods){
             let age = WorkloadSummaryApi.calculateAge(pod.metadata.creationTimestamp);
-            const noOfContainers = pod.status.containerStatuses.length;
-            let noOfRunningContainers = 0;
-            for (const containerStatus of pod.status.containerStatuses){
-                if (containerStatus.state.running != undefined){
-                    noOfRunningContainers+=1
-                } 
-            }
-            const status = noOfRunningContainers + "/" + noOfContainers;
+            const status = DetailPageApi.getContainerStatus(pod.status.containerStatuses);
             let podInfo = [
                 pod.metadata.name,
                 status,

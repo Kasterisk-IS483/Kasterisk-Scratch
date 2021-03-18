@@ -52,9 +52,7 @@ export default class DeploymentListScreen extends Component {
   }
 
   formatObject(item) {
-    const status = item["status"];
-    const total = item["total"];
-    item["status"] = status +"/" + total;
+    item.status = item.status +"/" + item.total;
     delete item.total;
     this.setState({
       deploymentArr: [...this.state.deploymentArr, Object.values(item)],

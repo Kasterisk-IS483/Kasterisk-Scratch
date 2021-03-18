@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NamespaceApi from "./NamespaceApi.js";
 import DeploymentApi from "./DeploymentApi.js";
 import ReplicasetApi from "./ReplicasetApi.js";
+import DetailPageApi from "./DetailPageApi.js";
 import PodApi from "./PodApi.js";
 import NodeApi from "./NodeApi.js";
 import { getAgeText } from "../utils/constants";
@@ -190,6 +191,7 @@ class WorkloadSummaryApi extends Component {
                 name: pod.metadata.name,
                 age: getAgeText(Math.floor(difference)),
                 status: pod.status.phase,
+                ready: DetailPageApi.getContainerStatus(pod.status.containerStatuses),
                 restarts: pod.status.containerStatuses[0].restartCount,
                 labels: pod.metadata.labels,
                 namespace: pod.metadata.namespace,

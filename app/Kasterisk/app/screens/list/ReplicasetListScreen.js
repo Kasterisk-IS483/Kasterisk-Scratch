@@ -52,14 +52,11 @@ export default class ReplicasetListScreen extends Component {
   }
 
   formatObject(item) {
-    const status = item["status"];
-    const total = item["total"];
-    item["status"] = status +"/" + total;
+    item.status = item.status +"/" + item.total;
     delete item.total;
     this.setState({
       replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
     });
-    console.log(this.state.replicasets)
   }
   async componentDidMount() {
     const { navigation } = this.props;

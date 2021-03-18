@@ -55,7 +55,6 @@ export default class PodsListScreen extends Component {
     this.setState({
       podsArr: [...this.state.podsArr, Object.values(item)],
     });
-    console.log(this.state.pods)
   }
   async componentDidMount() {
     const { navigation } = this.props;
