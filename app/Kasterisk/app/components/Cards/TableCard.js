@@ -24,7 +24,7 @@ export default function TableCard(props) {
   let headers;
 
   if (props.header == "Pods") {
-    headers = ["Name", "Ready", "Phase", "Restarts", "Node", "Age"];
+    headers = ["Name", "Ready", "Phase", "Restarts", "Node", "Age", "Namespace"];
   } else if (props.header == "Conditions") {
     if (props.type == "Deployment") {
       headers = ["Type", "Reason", "Status", "Message", "Last Update", "Last Transition"];
@@ -52,7 +52,6 @@ export default function TableCard(props) {
       return null;
     else {
       if (props.header == "Deployments List"){
-        console.log(props.table[rowIndex][5])
         return (async () =>
         navigation.navigate("WorkloadDeployment", {
           deployment: await DeploymentApi.readDeployment(
@@ -73,11 +72,11 @@ export default function TableCard(props) {
           })
         )
       }
-      else if (props.header == "Pods List") {
+      else if (props.header.includes("Pods")) {
         return (async () =>
           navigation.navigate("WorkloadPod", {
             pod: await PodApi.readPod(
-              props.table[rowIndex][5],
+              props.table[rowIndex][6],
               props.table[rowIndex][0]
             ),
           })

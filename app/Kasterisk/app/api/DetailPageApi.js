@@ -52,6 +52,7 @@ class DetailPageApi extends Component {
                 pod.status.containerStatuses[0].restartCount,
                 pod.spec.nodeName,
                 getAgeText(pod.metadata.creationTimestamp),
+                pod.metadata.namespace,
             ];
             PodsInfo.push(podInfo);
         }
