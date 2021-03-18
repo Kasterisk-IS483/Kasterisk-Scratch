@@ -46,7 +46,7 @@ export default function TableCard(props) {
   }
 
   const navigationToDetail = (rowIndex) => {
-    if (props.header.includes("Conditions"))
+    if (["Conditions","Pod Conditions","Resources","Addresses","Images"].includes(props.header))
       return null;
     else {
       if (props.header == "Deployments List"){
@@ -63,7 +63,7 @@ export default function TableCard(props) {
         return (async () =>
           navigation.navigate("WorkloadReplicaset", {
             replicaset: await ReplicasetApi.readReplicaSet(
-              props.table[rowIndex][6],
+              props.table[rowIndex][5],
               props.table[rowIndex][0]
             ),
             podstatus: await DetailPageApi.PodsStatuses(props.table[rowIndex][5]),
@@ -83,14 +83,11 @@ export default function TableCard(props) {
       else if (props.header == "Nodes") {
         return (async () =>
           navigation.navigate("WorkloadNode", {
-            pod: await NodeApi.readNode(
+            node: await NodeApi.readNode(
               props.table[rowIndex][0]
             ),
           })
         )
-      }
-      else {
-        return () => alert("alert!")
       }
     }
   }
@@ -118,8 +115,8 @@ export default function TableCard(props) {
             {props.table === undefined
               ? null
               : props.table.map((rows, rowIndex) => (
-                <TouchableOpacity key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
-                  <DataTable.Row>
+                // <TouchableOpacity  >
+                  <DataTable.Row key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
                       {rows === undefined
                         ? null
                         : rows.map((cols, colIndex) => (
@@ -133,7 +130,7 @@ export default function TableCard(props) {
                             </DataTable.Cell>
                           ))}
                   </DataTable.Row>
-                  </TouchableOpacity>
+                  // </TouchableOpacity>
                 ))}
           </DataTable>
         </Card.Content>

@@ -47,36 +47,69 @@ export default class WorkloadNodeScreen extends Component {
   }
 
   render() {
-    
+    let annotations = this.state.node.metadata.annotations;
+    let stringAnnotations = "";
+    Object.keys(annotations).forEach(function(key) {
+      stringAnnotations += key + "      " + annotations[key] + "\n";
+    });
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
         <View style={commonStyles.detailsContainer}>
 
           <Title style={commonStyles.headerTitle}>
-            Title
+            {this.state.node.metadata.name}
           </Title>
 
           <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().columnContainer}>
-              <DetailsCard header="Configuration" type="Node"/>
+              <DetailsCard header="Configuration" type="Node"
+                architecture={this.state.node.status.nodeInfo.architecture}
+                bootID={this.state.node.status.nodeInfo.bootID}
+                containerRuntimeVersion={this.state.node.status.nodeInfo.containerRuntimeVersion}
+                kernelVersion={this.state.node.status.nodeInfo.kernelVersion}
+                kubeProxyVersion={this.state.node.status.nodeInfo.kubeProxyVersion}
+                machineID={this.state.node.status.nodeInfo.machineID}
+                operatingSystem={this.state.node.status.nodeInfo.operatingSystem}
+                osImage={this.state.node.status.nodeInfo.osImage}
+                architecture={this.state.node.status.nodeInfo.architecture}
+                systemUUID={this.state.node.status.nodeInfo.systemUUID}
+              />
             </View>
-            <View style={this.getStyle().columnContainer}>
-              <TableCard header="Addresses" type="Node" />
-            </View>
+
           </View>
 
-          <TableCard header="Conditions" type="Node" />
+          <TableCard 
+            header="Conditions" 
+            table={DetailPageApi.Conditions(this.state.node.status.conditions, "node")} 
+            type="Node" 
+          />
 
           <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().columnContainer}>
-              <TableCard header="Resources" type="Node" />
+              <TableCard 
+                header="Resources" 
+                table={DetailPageApi.PodResources(this.state.node.status)} 
+                type="Node" />
             </View>
             <View style={this.getStyle().columnContainer}>
-              <TableCard header="Images" type="Node" />
+              <TableCard 
+                header="Addresses" 
+                table={DetailPageApi.PodAddresses(this.state.node.status.addresses)} 
+                type="Node" />
             </View>
           </View>
 
-          <DetailsCard header="Metadata" type="Node" />
+          <TableCard 
+            header="Images" 
+            table={DetailPageApi.PodImages(this.state.node.status.images)}
+            type="Node" 
+          />
+
+          <DetailsCard header="Metadata" type="Node" 
+            age={getAgeText(this.state.node.metadata.creationTimestamp)}
+            labels={getLabelButtons(this.state.node.metadata.labels) }
+            annotations={stringAnnotations}
+          />
 
         </View>
       </ScrollView>
