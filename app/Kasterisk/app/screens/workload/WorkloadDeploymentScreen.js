@@ -93,8 +93,8 @@ export default class WorkloadDeploymentScreen extends Component {
           </View>
         </View>
 
-        <TableCard header="Pods" table={podsInfo} />
-        <TableCard header="Conditions" table={conditions} />
+        <TableCard header="Pods" table={podsInfo} type="Deployment"/>
+        <TableCard header="Conditions" table={conditions} type="Deployment"/>
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>

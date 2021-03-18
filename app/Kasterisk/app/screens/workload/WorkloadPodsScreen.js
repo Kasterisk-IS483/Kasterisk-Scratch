@@ -34,7 +34,6 @@ export default class WorkloadPodsScreen extends Component {
         { key: 'third', title: 'Shell' },
       ],
       pod: this.props.route.params.pod,
-      labels: this.props.route.params.labels,
       container: "[all containers]",
       containerList: ["[all containers]"],
       since: "[all]",

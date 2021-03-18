@@ -23,6 +23,7 @@ import WorkloadSummaryScreen from "./screens/workload/WorkloadSummaryScreen";
 import WorkloadDeploymentScreen from "./screens/workload/WorkloadDeploymentScreen";
 import WorkloadReplicasetScreen from "./screens/workload/WorkloadReplicasetScreen";
 import WorkloadPodsScreen from "./screens/workload/WorkloadPodsScreen";
+import WorkloadNodeScreen from "./screens/workload/WorkloadNodeScreen";
 // list 
 import NodesListScreen from "./screens/list/NodesListScreen";
 import DeploymentListScreen from "./screens/list/DeploymentListScreen.js";
@@ -322,6 +323,11 @@ export default class App extends Component {
             name="WorkloadPod"
             component={WorkloadPodsScreen}
             options={{ title: "Pod" }}
+          />
+          <Stack.Screen
+            name="WorkloadNode"
+            component={WorkloadNodeScreen}
+            options={{ title: "Node" }}
           />
 
           <Stack.Screen
