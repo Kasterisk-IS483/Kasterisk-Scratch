@@ -39,6 +39,16 @@ class NodeApi extends Component {
         const nodeList = await CommonAPI.get(`/api/v1/nodes`);
         return nodeList.items;
     }
+
+    /**
+     * list or watch objects of kind Node
+     * GET /api/v1/nodes/{name}
+     * 
+    */
+    static readNode = async (name) => {
+        const node = await CommonAPI.get(`/api/v1/nodes/${name}`);
+        return node.items;
+    }
     
 
 }

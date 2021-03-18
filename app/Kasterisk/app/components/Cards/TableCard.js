@@ -1,7 +1,8 @@
 import React from "react";
-import { View } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   fonts,
@@ -10,23 +11,91 @@ import {
   commonStyles,
 } from "../../utils/styles.js";
 
+import DeploymentApi from "../../api/DeploymentApi";
+import ReplicasetApi from "../../api/ReplicasetApi";
+import DetailPageApi from "../../api/DetailPageApi";
+import PodApi from "../../api/PodApi";
+import NodeApi from "../../api/NodeApi";
 import { getLabelButtons } from "../../utils/constants";
 
 export default function TableCard(props) {
+  const navigation = useNavigation();
+
   let headers;
 
   if (props.header == "Pods") {
     headers = ["Name", "Ready", "Phase", "Restarts", "Node", "Age"];
   } else if (props.header == "Conditions") {
-    headers = ["Type", "Reason", "Status", "Message", "Last Update", "Last Transition"];
+    if (props.type == "Deployment") {
+      headers = ["Type", "Reason", "Status", "Message", "Last Update", "Last Transition"];
+    } else if (props.type == "Node") {
+      headers = ["Type", "Reason", "Status", "Message", "Last Heartbeat", "Last Transition"];
+    }
   } else if (props.header == "Pod Conditions") {
     headers = ["Type", "Status", "Last Transition", "Message", "Reason"];
   } else if (props.header == "Nodes") {
     headers = ["Name", "Labels", "Status", "Roles", "Age", "Version"];
-  } else if (["Deployments List","Replicasets List"].includes(props.header)){
+  } else if (["Deployments List","Replicasets List"].includes(props.header)) {
     headers = ["Name", "Age", "Labels", "Containers", "Status", "Selector"];
-  } else if (props.header == "Pods List"){
+  } else if (props.header == "Pods List") {
     headers = ["Name", "Age", "Phase", "Ready", "Restarts", "Labels", "namespace"];
+  } else if (props.header == "Addresses") {
+    headers = ["Type", "Address"];
+  } else if (props.header == "Resources") {
+    headers = ["Key", "Capacity", "Allocatable"];
+  } else if (props.header == "Images") {
+    headers = ["Names", "Size"];
+  }
+
+  const navigationToDetail = (rowIndex) => {
+    if (props.header.includes("Conditions"))
+      return null;
+    else {
+      if (props.header == "Deployments List"){
+        console.log(props.table[rowIndex][5])
+        return (async () =>
+        navigation.navigate("WorkloadDeployment", {
+          deployment: await DeploymentApi.readDeployment(
+            props.table[rowIndex][5],
+            props.table[rowIndex][0]
+          ),
+          pods: await PodApi.listPod(props.table[rowIndex][5]),
+        }))
+      }
+      else if (props.header == "Replicasets List"){
+        return (async () =>
+          navigation.navigate("WorkloadReplicaset", {
+            replicaset: await ReplicasetApi.readReplicaSet(
+              props.table[rowIndex][6],
+              props.table[rowIndex][0]
+            ),
+            podstatus: await DetailPageApi.PodsStatuses(props.table[rowIndex][5]),
+          })
+        )
+      }
+      else if (props.header == "Pods List") {
+        return (async () =>
+          navigation.navigate("WorkloadPod", {
+            pod: await PodApi.readPod(
+              props.table[rowIndex][5],
+              props.table[rowIndex][0]
+            ),
+          })
+        )
+      }
+      else if (props.header == "Nodes") {
+        return (async () =>
+          navigation.navigate("WorkloadNode", {
+            pod: await NodeApi.readNode(
+              props.table[rowIndex][0]
+            ),
+          })
+        )
+      }
+      else {
+        return () => alert("alert!")
+      }
+    }
   }
 
   return (
@@ -56,20 +125,22 @@ export default function TableCard(props) {
             {props.table === undefined
               ? null
               : props.table.map((rows, rowIndex) => (
-                  <DataTable.Row key={rowIndex}>
-                    {rows === undefined
-                      ? null
-                      : rows.map((cols, colIndex) => (
-                          <DataTable.Cell
-                            key={colIndex}
-                            style={typeof cols !== "object" ? colIndex!==0? {} : {flex:2}: { flex: 4 }}
-                          >
-                            {typeof cols !== "object"
-                              ? cols
-                              : getLabelButtons(cols,1)}
-                          </DataTable.Cell>
-                        ))}
+                <TouchableOpacity key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
+                  <DataTable.Row>
+                      {rows === undefined
+                        ? null
+                        : rows.map((cols, colIndex) => (
+                            <DataTable.Cell
+                              key={colIndex}
+                              style={typeof cols !== "object" ? colIndex!==0? {} : {flex:2}: { flex: 4 }}
+                            >
+                              {typeof cols !== "object"
+                                ? cols
+                                : getLabelButtons(cols,1)}
+                            </DataTable.Cell>
+                          ))}
                   </DataTable.Row>
+                  </TouchableOpacity>
                 ))}
           </DataTable>
         </Card.Content>
