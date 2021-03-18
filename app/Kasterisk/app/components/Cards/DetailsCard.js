@@ -20,6 +20,9 @@ export default function DetailsCard(props) {
     let isPodTemplate = false;
     let isPodMetadata = false;
 
+    let isNodeConfiguration = false;
+    let isNodeMetadata = false;
+
     if (props.type == "Deployment") {
         if (props.header == "Configuration") {
             isDeploymentConfiguration = true;
@@ -47,6 +50,12 @@ export default function DetailsCard(props) {
             isPodTemplate = true;
         } else if (props.header == "Metadata") {
             isPodMetadata = true;
+        }
+    } else if (props.type == "Node") {
+        if (props.header == "Configuration") {
+            isNodeConfiguration = true;
+        } else if (props.header == "Metadata") {
+            isNodeMetadata = true;
         }
     }
 
@@ -200,6 +209,28 @@ export default function DetailsCard(props) {
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
+                            </View>
+                        }
+
+                        {isNodeConfiguration &&
+                            <View>
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Architecture", props.architecture)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Boot ID", props.bootId)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Runtime Version", props.containerRuntimeVersion)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Kernel Version", props.kernelVersion)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "KubeProxy Version", props.kubeProxyVersion)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Machine ID", props.machineId)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Operating System", props.operatingSystem)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "OS Image", props.osImage)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Pod CIDR", props.podCIDR)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "System UUID", props.systemUUID)}
+                            </View>
+                        }
+                        {isNodeMetadata &&
+                            <View>
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                             </View>
                         }
 
