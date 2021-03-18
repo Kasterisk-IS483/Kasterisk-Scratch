@@ -7,6 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 import DetailPageApi from "../../api/DetailPageApi";
 
 import { 
+  fonts, 
   colours, 
   commonStyles, 
   dashboardStyles, 
@@ -180,6 +181,9 @@ export default class WorkloadPodsScreen extends Component {
               <Switch value={this.state.checkedFilter} onValueChange={this.onToggleFilterSwitch} color={colours.primary} style={{ paddingTop: spacings.lg, paddingLeft: spacings.xxs}} />
               <Text style={[commonStyles.switchText, { paddingLeft: spacings.xxs, paddingTop: spacings.xxs }]}>Show only filtered</Text>
             </View>
+          </Card.Content>
+          <Card.Content>
+            <Text style={{ backgroundColor: 'black', color: 'white', fontSize: fonts.sm, padding: spacings.md, marginVertical: spacings.sm }}>logs</Text>
           </Card.Content>
         </Card>
       </View>
