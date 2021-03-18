@@ -59,21 +59,25 @@ class DetailPageApi extends Component {
         return PodsInfo;
     }
 
-    /** DEPLOYMENT TABLE - CONDITIONS **/
-    static DeploymentConditions = (conditions) => {
-        let DeploymentConditions = []
+    /** NODE & DEPLOYMENT TABLE - CONDITIONS **/
+    static Conditions = (conditions, type) => {
+        let Conditions = []
         for (const condition of conditions){
-            let deploymentCondition = [
+            let updateOrHeartbeat = "lastUpdateTime";
+            if (type == "node"){
+                updateOrHeartbeat = "lastHeartbeatTime";
+            }
+            let Condition = [
                 condition.type,
                 condition.reason,
                 condition.status,
                 condition.message,
-                getAgeText(condition.lastUpdateTime),
+                getAgeText(condition[updateOrHeartbeat]),
                 getAgeText(condition.lastTransitionTime),
             ];
-            DeploymentConditions.push(deploymentCondition);
+            Conditions.push(Condition);
         }
-        return DeploymentConditions;
+        return Conditions;
     }
 
     /** POD TABLE - POD CONDITIONS **/
@@ -110,5 +114,48 @@ class DetailPageApi extends Component {
         return podTemplates;
     }
 
+    /** NODE TABLE - ADDRESSES **/
+    static PodAddresses = (addresses) => {
+        let PodAddresses = []
+        for (const address of addresses){
+            let podAddress = [
+                address.type,
+                address.address,
+            ];
+            PodAddresses.push(podAddress);
+        }
+        return PodAddresses;
+    }
+
+    /** NODE TABLE - RESOURCES **/
+    static PodResources = (statuses) => {
+        let PodResources = []
+        Object.keys(statuses.capacity).forEach(function(key) {
+            let podResource = [
+                key,
+                statuses.capacity[key],
+                statuses.allocatable[key],
+            ];
+            PodResources.push(podResource);
+          });
+        return PodResources;
+    }
+
+    /** NODE TABLE - IMAGES **/
+    static PodImages = (images) => {
+        let PodImages = [];
+        for (const image of images){
+            let namesString = "";
+            for (const name of image.names){
+                namesString += name + " ";
+            }
+            let podImage = [
+                namesString,
+                image.sizeBytes,
+            ];
+            PodImages.push(podImage);
+        }
+        return PodImages;
+    }
 }
 export default DetailPageApi;

@@ -49,8 +49,6 @@ export default class WorkloadDeploymentScreen extends Component {
   }
 
   render() {
-    let conditions = DetailPageApi.DeploymentConditions(this.state.deployment.status.conditions);
-    let podsInfo = DetailPageApi.PodsInfo(this.state.pods);
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
     let containerPorts = this.state.deployment.spec.template.spec.containers[0].ports;
     let stringcontainerPorts = "";
@@ -93,8 +91,17 @@ export default class WorkloadDeploymentScreen extends Component {
           </View>
         </View>
 
-        <TableCard header="Pods" table={podsInfo} type="Deployment"/>
-        <TableCard header="Conditions" table={conditions} type="Deployment"/>
+        <TableCard 
+          header="Pods" 
+          table={DetailPageApi.PodsInfo(this.state.pods)} 
+          type="Deployment"
+        />
+
+        <TableCard 
+          header="Conditions" 
+          table={DetailPageApi.Conditions(this.state.deployment.status.conditions, "Deployment")} 
+          type="Deployment"
+        />
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>

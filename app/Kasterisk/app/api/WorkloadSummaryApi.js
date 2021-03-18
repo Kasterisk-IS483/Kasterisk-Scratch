@@ -108,7 +108,8 @@ class WorkloadSummaryApi extends Component {
                 }
             }
             let nodeInfo = [
-                node.metadata.name.substring(0, node.metadata.name.indexOf('.')),
+                // node.metadata.name.substring(0, node.metadata.name.indexOf('.')),
+                node.metadata.name,
                 node.metadata.labels,
                 isReady,
                 "Roles",

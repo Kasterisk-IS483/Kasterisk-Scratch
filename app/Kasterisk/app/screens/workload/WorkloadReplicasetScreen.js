@@ -46,8 +46,8 @@ export default class WorkloadReplicasetScreen extends Component {
   }
 
   render() {
-    let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(this.state.replicaset.metadata.annotations)[0];
     let annotations = this.state.replicaset.metadata.annotations;
+    let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(annotations)[0];
     let stringAnnotations = "";
     Object.keys(annotations).forEach(function(key) {
       stringAnnotations += key + "      " + annotations[key] + "\n";

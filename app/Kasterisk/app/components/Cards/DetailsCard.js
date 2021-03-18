@@ -215,11 +215,11 @@ export default function DetailsCard(props) {
                         {isNodeConfiguration &&
                             <View>
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Architecture", props.architecture)}
-                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Boot ID", props.bootId)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Boot ID", props.bootID)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Runtime Version", props.containerRuntimeVersion)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Kernel Version", props.kernelVersion)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "KubeProxy Version", props.kubeProxyVersion)}
-                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Machine ID", props.machineId)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Machine ID", props.machineID)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Operating System", props.operatingSystem)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "OS Image", props.osImage)}
                                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Pod CIDR", props.podCIDR)}
