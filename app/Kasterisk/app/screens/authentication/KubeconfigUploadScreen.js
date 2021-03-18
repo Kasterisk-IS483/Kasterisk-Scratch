@@ -14,7 +14,7 @@ import SubmitButton from "../../components/Buttons/SubmitButton";
 const uncheckedIcon = require("../../assets/checkbox-cross.png");
 const checkedIcon = require("../../assets/checkbox-tick.png");
 
-export default class KubeconfigUploadScreen extends React.Component {
+export default class KubeconfigUploadScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {

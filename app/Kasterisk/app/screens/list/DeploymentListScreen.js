@@ -9,13 +9,10 @@ import TableCard from "../../components/Cards/TableCard";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 
 import {
-  colours,
   commonStyles,
   dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
-  cardsOuterPadding,
-  spacings,
 } from "../../utils/styles.js";
 
 export default class DeploymentListScreen extends Component {
@@ -106,7 +103,7 @@ export default class DeploymentListScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
+      <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
         <TableCard header="Deployments List" table={this.state.deploymentArr} />
       </ScrollView>
     );

@@ -5,8 +5,6 @@ import { DataTable } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import {
-  fonts,
-  spacings,
   cardsOuterPadding,
   commonStyles,
 } from "../../utils/styles.js";
@@ -98,11 +96,7 @@ export default function TableCard(props) {
   }
 
   return (
-    <View
-      style={{
-        padding: cardsOuterPadding,
-      }}
-    >
+    <View style={{ padding: cardsOuterPadding }}>
       <Card elevation={10}>
         <Card.Content style={commonStyles.cardContent}>
           <Title style={commonStyles.cardTitle}>{props.header}</Title>
@@ -114,7 +108,7 @@ export default function TableCard(props) {
               {headers.map((item2, colIndex) => (
                 <DataTable.Title
                   key={colIndex}
-                  style={item2 !== "Labels" ? item2!== "Name"? {} : { flex: 2 }:{ flex: 4 }}
+                  // style={item2 !== "Labels" ? item2!== "Name"? {} : { flex: 2 }:{ flex: 4 }}
                 >
                   {item2}
                 </DataTable.Title>
@@ -131,7 +125,7 @@ export default function TableCard(props) {
                         : rows.map((cols, colIndex) => (
                             <DataTable.Cell
                               key={colIndex}
-                              style={typeof cols !== "object" ? colIndex!==0? {} : {flex:2}: { flex: 4 }}
+                              // style={typeof cols !== "object" ? colIndex!==0? {} : {flex:2}: { flex: 4 }}
                             >
                               {typeof cols !== "object"
                                 ? cols

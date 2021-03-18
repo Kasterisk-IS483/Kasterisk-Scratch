@@ -9,13 +9,10 @@ import TableCard from "../../components/Cards/TableCard";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 
 import {
-  colours,
   commonStyles,
   dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
-  cardsOuterPadding,
-  spacings,
 } from "../../utils/styles.js";
 
 export default class ReplicasetListScreen extends Component {
@@ -106,7 +103,7 @@ export default class ReplicasetListScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
+      <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
         <TableCard header="Replicasets List" table={this.state.replicasetsArr} />
       </ScrollView>
     );

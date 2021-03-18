@@ -151,28 +151,26 @@ export default function DetailsCard(props) {
                             isPodTemplatedUndefined.map((container, index) => (
                             <View key={index}>
                                 <Title style={{ textDecorationLine: 'underline' }}>Container {container.name}</Title>
-                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
-                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
-                                    {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
-                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
-                                    {fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
-                                <View style={commonStyles.fieldsContainer}>
-                                    <Title style={commonStyles.detailsCardInfoLeftText}>Volume Mounts</Title>
-                                    <Text style={commonStyles.detailsCardInfoRightText}>
-                                        <DataTable>
-                                            <DataTable.Header>
-                                                <DataTable.Title>Name       </DataTable.Title>
-                                                <DataTable.Title>Mount Path     </DataTable.Title>
-                                                <DataTable.Title>Propagation    </DataTable.Title>
-                                            </DataTable.Header>
-                                            {container.volumeMounts.map((rows, rowIndex) => ( 
-                                            <DataTable.Row key={rowIndex}>
-                                                <DataTable.Cell> {rows.name} </DataTable.Cell>
-                                                <DataTable.Cell> {rows.mountPath} </DataTable.Cell>
-                                            </DataTable.Row>
-                                            ))}
-                                        </DataTable>
-                                    </Text>
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
+                                {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
+                                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
+                                <View>
+                                    <Title>Volume Mounts</Title>
+                                    <DataTable>
+                                        <DataTable.Header>
+                                            <DataTable.Title style={{ flex: 1 }}>Name</DataTable.Title>
+                                            <DataTable.Title style={{ flex: 2 }}>Mount Path</DataTable.Title>
+                                            {/* <DataTable.Title>Propagation    </DataTable.Title> */}
+                                        </DataTable.Header>
+                                        {container.volumeMounts.map((rows, rowIndex) => ( 
+                                        <DataTable.Row key={rowIndex}>
+                                            <DataTable.Cell style={{ flex: 1 }}>{rows.name}</DataTable.Cell>
+                                            <DataTable.Cell style={{ flex: 2 }}>{rows.mountPath}</DataTable.Cell>
+                                        </DataTable.Row>
+                                        ))}
+                                    </DataTable>
                                 </View>
                             </View>
                         ))}

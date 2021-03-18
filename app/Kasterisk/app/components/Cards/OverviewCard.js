@@ -1,7 +1,6 @@
 import React from "react"
 import { View, Text } from "react-native"
 import { Card, Title } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 
 import {
     colours,

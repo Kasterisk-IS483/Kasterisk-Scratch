@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "react-native-gesture-handler";
 import { View, ScrollView, Text } from "react-native";
 import { List } from "react-native-paper";
@@ -10,7 +10,7 @@ import { commonStyles, fonts } from "../utils/styles.js";
 
 import SubmitButton from "../components/Buttons/SubmitButton";
 
-class ChangeClusterScreen extends React.Component {
+class ChangeClusterScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {

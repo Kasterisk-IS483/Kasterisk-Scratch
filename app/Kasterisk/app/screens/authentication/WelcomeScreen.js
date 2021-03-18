@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  Alert
 } from "react-native";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";

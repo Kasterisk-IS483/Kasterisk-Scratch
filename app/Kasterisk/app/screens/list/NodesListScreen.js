@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import { ScrollView, Dimensions, Alert } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import TableCard from "../../components/Cards/TableCard";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 
 import {
-  colours,
   commonStyles,
   dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
-  cardsOuterPadding,
-  spacings,
 } from "../../utils/styles.js";
 
 export default class NodesListScreen extends Component {
@@ -56,7 +54,7 @@ export default class NodesListScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
+      <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
         <TableCard header="Nodes" table={this.state.nodes} />
       </ScrollView>
     );
