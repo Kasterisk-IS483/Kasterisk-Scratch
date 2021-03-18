@@ -103,7 +103,7 @@ const AWSLoginScreen = ({ navigation }) => {
   return (
     <View style={commonStyles.whiteContainer}>
       <Spinner visible={spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
-      <ScrollView contentContainerStyle={commonStyles.scrollContainer}>
+      <ScrollView contentContainerStyle={commonStyles.scrollContainer, commonStyles.formContentContainer}>
         <Text style={commonStyles.formSectionHeader}>Access Key Information:</Text>
         <TextInput onChangeText={(text) => setLoginState({ ...loginState, accessKeyId: text })} style={commonStyles.formContent} label="Access Key ID" placeholder="Enter Access Key ID Here" />
         <TextInput
@@ -112,22 +112,17 @@ const AWSLoginScreen = ({ navigation }) => {
           style={commonStyles.formContent}
           placeholder="Enter Secret Access Key Here"
         />
-        <Text
-          style={[
-            commonStyles.formSectionHeader, {
-            marginHorizontal: spacings.lg,
-            paddingTop: spacings.lg,
-          }]}
-        >
+        <Text style={[
+          commonStyles.formSectionHeader, {
+          paddingTop: spacings.lg,
+        }]}>
           Region Information:
         </Text>
-        <View
-          style={[
-            commonStyles.formContent,
-            commonStyles.picker, {
-            marginTop: spacings.md,
-          }]}
-        >
+        <View style={[
+          commonStyles.formContent,
+          commonStyles.picker, {
+          marginTop: spacings.md,
+        }]}>
           {AWSRegionList()}
         </View>
         <SubmitButton

@@ -288,7 +288,10 @@ export default class App extends Component {
             component={WelcomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="AWSLogin" component={AWSLoginScreen} />
+          <Stack.Screen name="AWSLogin" 
+            component={AWSLoginScreen} 
+            options={{ title: "AWS Login" }}
+          />
           <Stack.Screen
             name="KubeconfigUpload"
             component={KubeconfigUploadScreen}

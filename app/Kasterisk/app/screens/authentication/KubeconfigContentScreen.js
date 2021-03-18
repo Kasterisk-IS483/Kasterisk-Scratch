@@ -81,19 +81,19 @@ export default function KubeconfigContentScreen({ navigation }) {
   return (
     <View style={commonStyles.whiteContainer}>
       <Spinner visible={showSpinner} textContent={"Loading..."} textStyle={{ color: "#FFF" }} />
-      <ScrollView contentContainerStyle={commonStyles.scrollContainer}>
+      <ScrollView contentContainerStyle={commonStyles.scrollContainer, commonStyles.formContentContainer}>
         <Text style={commonStyles.formSectionHeader}>General Information:</Text>
 
         <TextInput onChangeText={(text) => setData({ ...data, name: text })} style={commonStyles.formContent} label="Cluster Name" placeholder="Enter Cluster Name Here" />
         <TextInput onChangeText={(text) => setData({ ...data, server: text })} style={commonStyles.formContent} label="Server" placeholder="Enter Server Address Here" />
         <TextInput onChangeText={(text) => setData({ ...data, certificate: text })} style={commonStyles.formContent} label="Certificate Authority Data" placeholder="Enter Certificate Here" />
         <View style={commonStyles.fieldsContainer}>
-          <Text style={[commonStyles.switchText, { paddingLeft: spacings.lg, paddingTop: spacings.xxs }]}>Skip TLS Verification</Text>
-          <Switch value={isTLSVerify} onValueChange={onToggleTls} color={colours.primary} style={{ paddingTop: spacings.lg, paddingLeft: spacings.md }} />
+          <Switch value={isTLSVerify} onValueChange={onToggleTls} color={colours.primary} style={commonStyles.switchContainer} />
+          <Text style={commonStyles.switchText}>Skip TLS Verification</Text>
         </View>
         <Text style={[commonStyles.formSectionHeader, { paddingTop: spacings.sm }]}>Authentication Mode:</Text>
         <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
-          <View style={{ marginLeft: spacings.lg, marginBottom: spacings.xxs }}>
+          <View style={{ marginBottom: spacings.xxs }}>
             <View style={commonStyles.fieldsContainer}>
               <RadioButton value="token" color={colours.primary} />
               <Text style={commonStyles.radioText}>Token</Text>

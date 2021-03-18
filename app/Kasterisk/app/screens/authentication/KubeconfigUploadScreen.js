@@ -83,56 +83,43 @@ export default class KubeconfigUploadScreen extends React.Component {
     return (
       <View style={commonStyles.whiteContainer}>
         <Spinner visible={this.state.spinner} textContent={"Loading..."} textStyle={{ color: "#FFF" }} />
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: fonts.md,
-            marginHorizontal: spacings.lg,
-            paddingTop: spacings.md,
-            paddingBottom: spacings.md,
-          }}
-        >
+        <Text style={{
+          textAlign: "center",
+          fontSize: fonts.md,
+          paddingTop: spacings.md,
+          paddingBottom: spacings.md,
+          marginHorizontal: spacings.lg,
+        }}>
           Choose a kubeconfig with 'certificate-authority-data' or 'insecure-skip-tls-verify' set to true to proceed
         </Text>
         <ActionButton text="Select File" onPress={this.uploadFile} />
-        <Text
-          style={[
-            commonStyles.formSectionHeader,
-            {
-              paddingTop: spacings.lg,
-            },
-          ]}
-        >
-          Fields required:
-        </Text>
-        <CustomButton image={this.state.CertImg} text="certificate-authority-data or insecure-skip-tls-verify: true" type="checkbox" align="flex-start" disabled={true} />
-        <Text
-          style={[
-            commonStyles.formSectionHeader,
-            {
-              paddingTop: spacings.xl,
-            },
-          ]}
-        >
-          File preview:
-        </Text>
-        <ScrollView
-          style={{
+        <View style={[commonStyles.formContentContainer, { flex: 1 }]}>
+          <Text style={[ 
+            commonStyles.formSectionHeader, {
+            paddingTop: spacings.lg,
+          }]}>
+            Fields required:
+          </Text>
+          <CustomButton image={this.state.CertImg} text="certificate-authority-data or insecure-skip-tls-verify: true" type="checkbox" align="flex-start" disabled={true} />
+          <Text style={[
+            commonStyles.formSectionHeader, {
+            paddingTop: spacings.xl,
+          }]}>
+            File preview:
+          </Text>
+          <ScrollView style={{
             marginVertical: spacings.sm,
-            marginHorizontal: spacings.lg,
             backgroundColor: colours.grey,
-          }}
-        >
-          <Text
-            style={{
+          }}>
+            <Text style={{
               padding: spacings.lg,
               fontSize: fonts.sm,
-            }}
-          >
-            {this.state.text}
-          </Text>
-        </ScrollView>
-        {this.state.isCertAccepted ? <SubmitButton text="Submit" onPress={this.submit} /> : null}
+            }}>
+              {this.state.text}
+            </Text>
+          </ScrollView>
+          {this.state.isCertAccepted ? <SubmitButton text="Submit" onPress={this.submit} /> : null}
+        </View>
       </View>
     );
   }

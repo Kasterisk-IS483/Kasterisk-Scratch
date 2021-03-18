@@ -164,6 +164,7 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View style={{ padding: cardsOuterPadding }}>
         <Card elevation={10} style={{ width: "100%" }}>
+
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             <View style={this.getStyle().columnContainer}>
               {this.containerList()}
@@ -172,19 +173,49 @@ export default class WorkloadPodsScreen extends Component {
               {this.sinceList()}
             </View>
           </Card.Content>
-          <Card.Content style={commonStyles.cardContent}>
-            <View style={commonStyles.fieldsContainer}>
-              <Switch value={this.state.checkedTimestamp} onValueChange={this.onToggleTimestampSwitch} color={colours.primary} style={{ paddingTop: spacings.lg}} />
-              <Text style={[commonStyles.switchText, { paddingLeft: spacings.xxs, paddingTop: spacings.xxs }]}>Display timestamp</Text>
+
+          <Card.Content style={commonStyles.cardContent, commonPortraitStyles.rowContainer}>
+            <View style={commonPortraitStyles.columnContainer}>
+              <View style={commonStyles.fieldsContainer}>
+                <Switch 
+                  value={this.state.checkedTimestamp} 
+                  onValueChange={this.onToggleTimestampSwitch} 
+                  color={colours.primary} 
+                  style={commonStyles.switchContainer} 
+                />
+                <Text style={commonStyles.switchText}>
+                  Display timestamp
+                </Text>
+              </View>
             </View>
-            <View style={[commonStyles.fieldsContainer, {paddingLeft:spacings.xl}]}>
-              <Switch value={this.state.checkedFilter} onValueChange={this.onToggleFilterSwitch} color={colours.primary} style={{ paddingTop: spacings.lg, paddingLeft: spacings.xxs}} />
-              <Text style={[commonStyles.switchText, { paddingLeft: spacings.xxs, paddingTop: spacings.xxs }]}>Show only filtered</Text>
+            <View style={commonPortraitStyles.columnContainer}>
+              <View style={commonStyles.fieldsContainer}>
+                <Switch 
+                  value={this.state.checkedFilter} 
+                  onValueChange={this.onToggleFilterSwitch} 
+                  color={colours.primary} 
+                  style={commonStyles.switchContainer} 
+                />
+                <Text style={commonStyles.switchText}>
+                  Show only filtered
+                </Text>
+              </View>
             </View>
+
           </Card.Content>
+
           <Card.Content>
-            <Text style={{ backgroundColor: 'black', color: 'white', fontSize: fonts.sm, padding: spacings.md, marginVertical: spacings.sm }}>logs</Text>
+            <Text style={{ 
+              color: 'white', 
+              backgroundColor: 'black', 
+              fontSize: fonts.sm, 
+              padding: spacings.md, 
+              marginVertical: spacings.sm, 
+            }}>
+              logs
+            </Text>
           </Card.Content>
+
         </Card>
       </View>
     );

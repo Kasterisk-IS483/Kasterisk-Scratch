@@ -74,15 +74,19 @@ export const commonStyles = StyleSheet.create({
   fieldsContainer: {
     flexDirection: 'row',
   },
+  switchContainer: {
+    paddingTop: spacings.md,
+  },
+  formContentContainer: {
+    marginHorizontal: spacings.lg,
+  },
 
   formSectionHeader: {
     fontWeight: 'bold',
     fontSize: fonts.md,
-    marginHorizontal: spacings.lg,
     marginVertical: spacings.xs,
   }, 
   formContent: {
-    marginHorizontal: spacings.lg,
     marginVertical: spacings.xs,
   },
 
@@ -91,6 +95,10 @@ export const commonStyles = StyleSheet.create({
     paddingLeft: spacings.sm,
     fontSize: fonts.xl, 
     fontWeight: 'bold', 
+  },
+  switchText: {
+    fontSize: fonts.sm,
+    paddingTop: spacings.sm,
   },
 
   picker: { 
@@ -149,10 +157,6 @@ export const commonStyles = StyleSheet.create({
 
   // Kubeconfig Content
   radioText: {
-    marginTop: spacings.xs,
-    fontSize: fonts.sm,
-  },
-  switchText: {
     marginTop: spacings.xs,
     fontSize: fonts.sm,
   },
