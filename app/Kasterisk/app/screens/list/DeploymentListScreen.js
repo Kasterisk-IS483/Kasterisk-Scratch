@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ScrollView, Dimensions, Alert } from "react-native";
+import { View, ScrollView, Dimensions, Alert } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
@@ -109,7 +109,9 @@ export default class DeploymentListScreen extends Component {
           textContent={"Loading..."}
           textStyle={{ color: "#FFF" }}
         />
-        <TableCard header="Deployments List" table={this.state.deploymentArr} />
+        <View style={commonStyles.detailsContainer}>
+          <TableCard header="Deployments List" table={this.state.deploymentArr} />
+        </View>
       </ScrollView>
     );
   }

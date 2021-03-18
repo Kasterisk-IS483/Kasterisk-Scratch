@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, Dimensions, Alert } from "react-native";
+import { View, ScrollView, Dimensions, Alert } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 import TableCard from "../../components/Cards/TableCard";
@@ -66,7 +66,9 @@ export default class NodesListScreen extends Component {
           textContent={"Loading..."}
           textStyle={{ color: "#FFF" }}
         />
-        <TableCard header="Nodes" table={this.state.nodes} />
+        <View style={commonStyles.detailsContainer}>
+          <TableCard header="Nodes" table={this.state.nodes} />
+        </View>
       </ScrollView>
     );
   }
