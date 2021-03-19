@@ -8,8 +8,7 @@ import { Picker } from "@react-native-picker/picker";
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi.js";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
-
+import { getLabelButtons, getAgeText } from "../../utils/constants";
 import { 
   fonts, 
   colours, 
@@ -20,10 +19,9 @@ import {
   cardsOuterPadding,
   spacings
 } from "../../utils/styles.js";
-
 import DetailsCard from "../../components/Cards/DetailsCard";
-import { getLabelButtons, getAgeText } from "../../utils/constants";
 import TableCard from "../../components/Cards/TableCard";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default class WorkloadPodsScreen extends Component {
 

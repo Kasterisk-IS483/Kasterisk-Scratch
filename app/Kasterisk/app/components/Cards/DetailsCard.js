@@ -1,5 +1,5 @@
-import React from "react"
-import { View, Text } from "react-native"
+import React from "react";
+import { View, Text } from "react-native";
 import { Card, Title, DataTable } from 'react-native-paper';
 
 import { commonStyles } from "../../utils/styles.js";

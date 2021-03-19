@@ -7,13 +7,13 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";
 import AzureApi from "../../api/AzureApi";
 import { commonStyles, commonPortraitStyles } from "../../utils/styles.js";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButton from "../../components/Buttons/CustomButton";
-import { useNavigation, CommonActions } from "@react-navigation/native";
 
 export default class WelcomeScreen extends Component {
   constructor(props) {

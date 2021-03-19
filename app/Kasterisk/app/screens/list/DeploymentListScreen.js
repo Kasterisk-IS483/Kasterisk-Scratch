@@ -4,15 +4,14 @@ import { View, ScrollView, Dimensions, Alert } from "react-native";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
-import TableCard from "../../components/Cards/TableCard";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
-
 import {
   commonStyles,
   dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles.js";
+import TableCard from "../../components/Cards/TableCard";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default class DeploymentListScreen extends Component {
   constructor(props) {

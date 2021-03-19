@@ -1,6 +1,6 @@
-import React from "react"
-import { View, Text } from "react-native"
-import ProgressCircle from 'react-native-progress-circle'
+import React from "react";
+import { View, Text } from "react-native";
+import ProgressCircle from 'react-native-progress-circle';
 
 import {
     fonts,

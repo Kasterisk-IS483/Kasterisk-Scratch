@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native'
+import React from 'react';
+import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 
 import { fonts, spacings, commonStyles } from "../../utils/styles.js";
 
