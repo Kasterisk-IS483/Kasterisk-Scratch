@@ -118,31 +118,25 @@ export default class WorkloadNodeScreen extends Component {
 
           </View>
 
-          <TableCard 
-            header="Conditions" 
+          <TableCard header="Conditions" type="Node"
             table={DetailPageApi.Conditions(this.state.node.status.conditions, "node")} 
-            type="Node" 
           />
 
           <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().columnContainer}>
-              <TableCard 
-                header="Resources" 
+              <TableCard header="Resources" type="Node"
                 table={DetailPageApi.PodResources(this.state.node.status)} 
-                type="Node" />
+              />
             </View>
             <View style={this.getStyle().columnContainer}>
-              <TableCard 
-                header="Addresses" 
+              <TableCard header="Addresses" type="Node"
                 table={DetailPageApi.PodAddresses(this.state.node.status.addresses)} 
-                type="Node" />
+              />
             </View>
           </View>
 
-          <TableCard 
-            header="Images" 
+          <TableCard header="Images" type="Node"
             table={DetailPageApi.PodImages(this.state.node.status.images)}
-            type="Node" 
           />
 
           <DetailsCard header="Metadata" type="Node" 

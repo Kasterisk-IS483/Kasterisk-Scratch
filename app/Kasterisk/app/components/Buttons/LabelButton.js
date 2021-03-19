@@ -23,11 +23,12 @@ export default function LabelButton({ text = "", displayMore = false }) {
       color={colours.cta}
       icon={icon}
       style={{
+        maxWidth: 200,
         borderRadius: 40,
         borderColor: colours.cta,
         marginBottom: spacings.md,
         marginHorizontal: spacings.sm,
-        maxWidth: 200,
+        paddingHorizontal: spacings.sm,
       }}
     >
       {text}

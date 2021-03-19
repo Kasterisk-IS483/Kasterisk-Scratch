@@ -169,7 +169,6 @@ export default class WorkloadSummaryScreen extends Component {
             pods: await PodApi.listPod(item.namespace),
           })
         }
-        style={{ flexDirection: "row" }}
       >
         <WorkloadCard
           name={item.name}
@@ -199,7 +198,6 @@ export default class WorkloadSummaryScreen extends Component {
             podstatus: await DetailPageApi.PodsStatuses(item.namespace),
           })
         }
-        style={{ flexDirection: "row" }}
       >
         <WorkloadCard
           name={item.name}
@@ -225,7 +223,6 @@ export default class WorkloadSummaryScreen extends Component {
             pod: await PodApi.readPod(item.namespace, item.name),
           })
         }
-        style={{ flexDirection: "row" }}
       >
         <WorkloadCard
           name={item.name}
@@ -258,9 +255,8 @@ export default class WorkloadSummaryScreen extends Component {
           <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
-                <OverviewCard
+                <OverviewCard name="Deployments"
                   image={require("../../assets/deployment.png")}
-                  name="Deployments"
                   text1="Ready"
                   text2="Not Ready"
                   no1={this.state.deploymentSummary.readyDeployments}
@@ -270,9 +266,8 @@ export default class WorkloadSummaryScreen extends Component {
             </View>
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 2 })}>
-                <OverviewCard
+                <OverviewCard name="ReplicaSets"
                   image={require("../../assets/replicaset.png")}
-                  name="ReplicaSets"
                   text1="Ready"
                   text2="Not Ready"
                   no1={this.state.replicasetSummary.readyReplicaSets}
@@ -282,9 +277,8 @@ export default class WorkloadSummaryScreen extends Component {
             </View>
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 3 })}>
-                <OverviewCard
+                <OverviewCard name="Pods"
                   image={require("../../assets/pod.png")}
-                  name="Pods"
                   text1="Running"
                   text2="Pending"
                   no1={this.state.podSummary.readyPods}

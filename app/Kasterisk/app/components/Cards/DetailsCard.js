@@ -2,7 +2,7 @@ import React from "react"
 import { View, Text } from "react-native"
 import { Card, Title, DataTable } from 'react-native-paper';
 
-import { spacings, cardsOuterPadding, commonStyles } from "../../utils/styles.js";
+import { commonStyles } from "../../utils/styles.js";
 
 export default function DetailsCard(props) {
 
@@ -59,7 +59,7 @@ export default function DetailsCard(props) {
         }
     }
 
-    isPodTemplatedUndefined = [{
+    let isPodTemplatedUndefined = [{
         name: "",
         image: "",
         imageID: "",
@@ -81,11 +81,7 @@ export default function DetailsCard(props) {
     }
 
     return (
-        <View style={{
-            flexGrow: 1,
-            flexDirection: 'row',
-            padding: cardsOuterPadding,
-        }}>
+        <View style={commonStyles.wrapCard}>
             <Card elevation={10} style={{ width: "100%" }}>
                 <Card.Content style={commonStyles.cardContent}>
                     <View style={{ flex: 1 }}>

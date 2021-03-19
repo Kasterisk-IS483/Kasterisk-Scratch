@@ -63,10 +63,10 @@ export const saveCredentials = async (storageKey, credentials) => {
 };
 
 export const getLabelButtons = (cols, numToDisplay) => {
-    return Object.keys(cols).map((labelItem, labelIndex) => (
-        getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay) 
-      ))
-  };
+  return Object.keys(cols).map((labelItem, labelIndex) => (
+      getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay) 
+    ))
+};
 
 export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay) => {
   let countLabel = labelIndex + 1;

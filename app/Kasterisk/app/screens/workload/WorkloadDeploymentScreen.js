@@ -89,13 +89,12 @@ export default class WorkloadDeploymentScreen extends Component {
     let stringcontainerPorts = "";
     if (containerPorts == undefined){
       stringcontainerPorts += "80/TCP";
-    }
-    else {
+    } else {
       for (const containerPort of containerPorts){
         stringcontainerPorts += containerPort.name + " " + containerPort.containerPort + "/" + containerPort.protocol + "\n";
       }
     }
-    
+
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
         <Spinner
@@ -105,61 +104,58 @@ export default class WorkloadDeploymentScreen extends Component {
         />
         <View style={commonStyles.detailsContainer}>
 
-        <Title style={commonStyles.headerTitle}>
-          {this.state.deployment.metadata.name}
-        </Title>
+          <Title style={commonStyles.headerTitle}>
+            {this.state.deployment.metadata.name}
+          </Title>
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Configuration" type="Deployment"
-              deploymentStrategy={this.state.deployment.spec.strategy.type}
-              rollingUpdate={rollingUpdate}
-              selectors={getLabelButtons(this.state.deployment.metadata.labels)}
-              minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
-              historyLimit={this.state.deployment.spec.revisionHistoryLimit}
-              replicas={this.state.deployment.spec.replicas}
-            />
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().columnContainer}>
+              <DetailsCard header="Configuration" type="Deployment"
+                deploymentStrategy={this.state.deployment.spec.strategy.type}
+                rollingUpdate={rollingUpdate}
+                selectors={getLabelButtons(this.state.deployment.metadata.labels)}
+                minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
+                historyLimit={this.state.deployment.spec.revisionHistoryLimit}
+                replicas={this.state.deployment.spec.replicas}
+              />
+            </View>
+            <View style={this.getStyle().columnContainer}>
+              <DetailsCard header="Status" type="Deployment"
+                availableReplicas={this.state.deployment.status.availableReplicas}
+                readyReplicas={this.state.deployment.status.readyReplicas}
+                totalReplicas={this.state.deployment.status.replicas}
+                unavailableReplicas={this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas}
+                updatedReplicas={this.state.deployment.status.updatedReplicas}
+              />
+            </View>
           </View>
-          <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Status" type="Deployment"
-              availableReplicas={this.state.deployment.status.availableReplicas}
-              readyReplicas={this.state.deployment.status.readyReplicas}
-              totalReplicas={this.state.deployment.status.replicas}
-              unavailableReplicas={this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas}
-              updatedReplicas={this.state.deployment.status.updatedReplicas}
-            ></DetailsCard>
-          </View>
-        </View>
 
-        <TableCard 
-          header="Pods" 
-          table={DetailPageApi.PodsInfo(this.state.pods)} 
-          type="Deployment"
-        />
+          <TableCard header="Pods" type="Deployment"
+            table={DetailPageApi.PodsInfo(this.state.pods)} 
+          />
 
-        <TableCard 
-          header="Conditions" 
-          table={DetailPageApi.Conditions(this.state.deployment.status.conditions, "Deployment")} 
-          type="Deployment"
-        />
+          <TableCard header="Conditions" type="Deployment"
+            table={DetailPageApi.Conditions(this.state.deployment.status.conditions, "Deployment")} 
+          />
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Pod Template" type="Deployment" 
-              container={this.state.deployment.spec.template.spec.containers[0].name}
-              label={getLabelButtons(this.state.deployment.spec.template.metadata.labels)}
-              image={this.state.deployment.spec.template.spec.containers[0].image}
-              containerPorts={stringcontainerPorts}
-            />
+          <View style={this.getStyle().rowContainer}>
+            <View style={this.getStyle().columnContainer}>
+              <DetailsCard header="Pod Template" type="Deployment" 
+                container={this.state.deployment.spec.template.spec.containers[0].name}
+                label={getLabelButtons(this.state.deployment.spec.template.metadata.labels)}
+                image={this.state.deployment.spec.template.spec.containers[0].image}
+                containerPorts={stringcontainerPorts}
+              />
+            </View>
+            <View style={this.getStyle().columnContainer}>
+              <DetailsCard header="Metadata" type="Deployment"
+                age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
+                labels={getLabelButtons(this.state.deployment.metadata.labels) }
+                annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
+              />
+            </View>
           </View>
-          <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Metadata" type="Deployment"
-              age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
-              labels={getLabelButtons(this.state.deployment.metadata.labels) }
-              annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
-            />
-          </View>
-        </View>
+
         </View>
       </ScrollView>
     );

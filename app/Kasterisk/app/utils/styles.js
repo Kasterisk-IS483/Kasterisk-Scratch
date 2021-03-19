@@ -38,10 +38,6 @@ export const commonStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  wrapContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
 
   scrollContainer: {
     flexGrow: 1,
@@ -80,6 +76,18 @@ export const commonStyles = StyleSheet.create({
     borderColor: "black",
   },
 
+  wrapContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  wrapCard: {
+    flexGrow: 1,
+    flexDirection: 'row',
+    padding: cardsOuterPadding,
+  },
+
+  // forms
+  
   fieldsContainer: {
     flexDirection: 'row',
   },

@@ -4,10 +4,7 @@ import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  cardsOuterPadding,
-  commonStyles,
-} from "../../utils/styles.js";
+import { commonStyles } from "../../utils/styles.js";
 
 import DeploymentApi from "../../api/DeploymentApi";
 import ReplicasetApi from "../../api/ReplicasetApi";
@@ -93,7 +90,7 @@ export default function TableCard(props) {
   }
 
   return (
-    <View style={{ padding: cardsOuterPadding }}>
+    <View style={commonStyles.wrapCard}>
       <Card elevation={10}>
         <Card.Content style={commonStyles.cardContent}>
           <Title style={commonStyles.cardTitle}>{props.header}</Title>

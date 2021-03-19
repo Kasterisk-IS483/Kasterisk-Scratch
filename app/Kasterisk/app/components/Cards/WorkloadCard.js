@@ -1,13 +1,10 @@
 import React from "react"
 import { View, Text } from "react-native"
 import { Card, Title } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 
 import {
-    fonts,
     colours,
     spacings,
-    cardsOuterPadding,
     commonStyles,
 } from "../../utils/styles.js";
 
@@ -47,11 +44,18 @@ export default function WorkloadCard(props) {
         fontColor = "white"
     }
 
+    
+    const fieldsContainerTemplate = (style, leftText, rightText) => {
+        return (
+            <View style={style}>
+                <Title style={commonStyles.workloadCardInfoLeftText}>{leftText}</Title>
+                <Text style={commonStyles.workloadCardInfoRightText}>{rightText}</Text>
+            </View>
+        )
+    }
+
     return (
-        <View style={{ 
-                flexDirection: 'row', 
-                padding: cardsOuterPadding, 
-            }}>
+        <View style={commonStyles.wrapCard}>
             <Card elevation={10} style={{
                 borderLeftColor: statusColorCode,
                 borderLeftWidth: 5,
@@ -75,29 +79,13 @@ export default function WorkloadCard(props) {
                         marginBottom: spacings.sm,
                         justifyContent: 'center',
                     }}>
-                        <Title style={commonStyles.cardTitle}>
-                            {props.name}
-                        </Title>
-
-                        <View style={commonStyles.fieldsContainer}>
-                            <Title style={commonStyles.workloadCardInfoLeftText}>Age:</Title>
-                            <Text style={commonStyles.workloadCardInfoRightText}>
-                                {props.age}
-                            </Text>
-                        </View>
-
-                        <View style={commonStyles.fieldsContainer}>
-                            <Title style={commonStyles.workloadCardInfoLeftText}>{props.variableField}:</Title>
-                            <Text style={commonStyles.workloadCardInfoRightText}>{props.variableFieldVal}</Text>
-                        </View>
-
+                        <Title style={commonStyles.cardTitle}>{props.name}</Title>
+                        {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age:", props.age)}
+                        {fieldsContainerTemplate(commonStyles.fieldsContainer, props.variableField + ":", props.variableFieldVal)}
                     </View>
 
                 </Card.Content>
-
-                <Card.Content style={commonStyles.workloadCardLabelContainer}>
-                    {props.children}
-                </Card.Content>
+                <Card.Content style={commonStyles.workloadCardLabelContainer}>{props.children}</Card.Content>
             </Card>
         </View>
     )
