@@ -30,7 +30,7 @@ import DeploymentListScreen from "./screens/list/DeploymentListScreen.js";
 import ReplicasetListScreen from "./screens/list/ReplicasetListScreen.js";
 import PodsListScreen from "./screens/list/PodsListScreen.js";
 // multicuster
-import ChangeClusterScreen from "./screens/ChangeClusterScreen";
+import ChangeClusterScreen from "./screens/authentication/ChangeClusterScreen";
 // API 
 import { checkServerStatus } from "./api/KubeApi";
 import WorkloadSummaryApi from "./api/WorkloadSummaryApi";

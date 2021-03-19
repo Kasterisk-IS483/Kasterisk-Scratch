@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import { TextInput, RadioButton, Switch } from "react-native-paper";
 
 import { saveKubeconfigContentToLocal } from "../../api/KubeApi/config_types";
@@ -80,7 +80,7 @@ export default function KubeconfigContentScreen({ navigation }) {
 
   return (
     <View style={commonStyles.whiteContainer}>
-      <Spinner visible={showSpinner} textContent={"Loading..."} textStyle={{ color: "#FFF" }} />
+      <SpinnerOverlay showSpinner={showSpinner} />
       <ScrollView contentContainerStyle={commonStyles.scrollContainer, commonStyles.formContentContainer}>
         <Text style={commonStyles.formSectionHeader}>General Information:</Text>
 

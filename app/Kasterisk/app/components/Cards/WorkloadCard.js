@@ -45,9 +45,9 @@ export default function WorkloadCard(props) {
     }
 
     
-    const fieldsContainerTemplate = (style, leftText, rightText) => {
+    const fieldsContainerTemplate = (leftText, rightText) => {
         return (
-            <View style={style}>
+            <View style={commonStyles.fieldsContainer}>
                 <Title style={commonStyles.workloadCardInfoLeftText}>{leftText}</Title>
                 <Text style={commonStyles.workloadCardInfoRightText}>{rightText}</Text>
             </View>
@@ -80,8 +80,8 @@ export default function WorkloadCard(props) {
                         justifyContent: 'center',
                     }}>
                         <Title style={commonStyles.cardTitle}>{props.name}</Title>
-                        {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age:", props.age)}
-                        {fieldsContainerTemplate(commonStyles.fieldsContainer, props.variableField + ":", props.variableFieldVal)}
+                        {fieldsContainerTemplate("Age:", props.age)}
+                        {fieldsContainerTemplate(props.variableField + ":", props.variableFieldVal)}
                     </View>
 
                 </Card.Content>

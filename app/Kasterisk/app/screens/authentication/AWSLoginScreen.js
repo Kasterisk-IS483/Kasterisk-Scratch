@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
-import Spinner from "react-native-loading-spinner-overlay";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AwsApi from "../../api/AwsApi";
 import { AWSRegions } from "../../utils/constants";
 import { saveCredentials } from "../../utils/constants";
-import { colours, spacings, commonStyles } from "../../utils/styles.js";
+import { spacings, commonStyles } from "../../utils/styles.js";
 import SubmitButton from "../../components/Buttons/SubmitButton";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 const AWSLoginScreen = ({ navigation }) => {
   const [loginState, setLoginState] = useState({
@@ -17,11 +17,11 @@ const AWSLoginScreen = ({ navigation }) => {
     secretAccessKey: "",
   });
   const [region, setRegion] = useState();
-  const [spinner, setSpinner] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const AwsLogin = async () => {
     if (loginState.accessKeyId !== "" && loginState.secretAccessKey !== "") {
-      // setSpinner(true);
+      // setShowSpinner(true);
     } else {
       Alert.alert("Invalid Entry", "Please enter Access Key ID and Secret Access Key.");
       return;
@@ -35,7 +35,7 @@ const AWSLoginScreen = ({ navigation }) => {
       return;
     }
     if (!isValidCredentials) {
-      setSpinner(false);
+      setShowSpinner(false);
       Alert.alert("Invalid Credentials", "Please enter valid access keys and ensure you have correct permissions.");
       return;
     }
@@ -86,7 +86,7 @@ const AWSLoginScreen = ({ navigation }) => {
       }
       await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
     }
-    setSpinner(false);
+    setShowSpinner(false);
     navigation.navigate("ChooseCluster");
   };
 
@@ -102,7 +102,7 @@ const AWSLoginScreen = ({ navigation }) => {
 
   return (
     <View style={commonStyles.whiteContainer}>
-      <Spinner visible={spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
+      <SpinnerOverlay showSpinner={showSpinner} />
       <ScrollView contentContainerStyle={commonStyles.scrollContainer, commonStyles.formContentContainer}>
         <Text style={commonStyles.formSectionHeader}>Access Key Information:</Text>
         <TextInput onChangeText={(text) => setLoginState({ ...loginState, accessKeyId: text })} style={commonStyles.formContent} label="Access Key ID" placeholder="Enter Access Key ID Here" />
@@ -125,16 +125,13 @@ const AWSLoginScreen = ({ navigation }) => {
         }]}>
           {AWSRegionList()}
         </View>
-        <SubmitButton
-          text="Sign In"
-          onPress={() => {
-            try {
-              AwsLogin();
-            } catch (e) {
-              Alert.alert("Error", e.message);
-            }
-          }}
-        />
+        <SubmitButton text="Sign In" onPress={() => {
+          try {
+            AwsLogin();
+          } catch (e) {
+            Alert.alert("Error", e.message);
+          }
+        }} />
       </ScrollView>
     </View>
   );

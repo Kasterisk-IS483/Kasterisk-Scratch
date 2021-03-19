@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
 
@@ -82,7 +82,7 @@ export default class KubeconfigUploadScreen extends Component {
   render() {
     return (
       <View style={commonStyles.whiteContainer}>
-        <Spinner visible={this.state.spinner} textContent={"Loading..."} textStyle={{ color: "#FFF" }} />
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <Text style={{
           textAlign: "center",
           fontSize: fonts.md,

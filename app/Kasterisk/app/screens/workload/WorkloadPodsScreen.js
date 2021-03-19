@@ -4,7 +4,7 @@ import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Picker } from "@react-native-picker/picker";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
@@ -339,11 +339,7 @@ export default class WorkloadPodsScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-        <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: "#FFF" }}
-        />
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <TabView
           navigationState={this.state}
           onIndexChange={this._handleIndexChange}

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DeploymentApi from "../../api/DeploymentApi";
@@ -316,11 +316,7 @@ export default class WorkloadSummaryScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer}>
-        <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: "#FFF" }}
-        />
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <TabView
           navigationState={this.state}
           onIndexChange={this._handleIndexChange}

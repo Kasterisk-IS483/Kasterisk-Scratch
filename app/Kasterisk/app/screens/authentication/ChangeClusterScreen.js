@@ -3,12 +3,12 @@ import "react-native-gesture-handler";
 import { View, ScrollView, Text } from "react-native";
 import { List } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import { useNavigation } from "@react-navigation/native";
 
-import { commonStyles, fonts } from "../utils/styles.js";
+import { commonStyles, fonts } from "../../utils/styles.js";
 
-import SubmitButton from "../components/Buttons/SubmitButton";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 class ChangeClusterScreen extends Component {
   constructor(props) {
@@ -76,8 +76,7 @@ class ChangeClusterScreen extends Component {
 
     return (
       <View style={commonStyles.whiteContainer}>
-        <Spinner visible={this.state.spinner} textContent="Loading..." textStyle={{ color: "#FFF" }} />
-
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <View>
           {this.previousCluster == null ? null : (
             <View>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
 
@@ -104,11 +104,7 @@ export default class ReplicasetListScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
-        <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: "#FFF" }}
-        />
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <View style={commonStyles.detailsContainer}>
           <TableCard header="Replicasets List" table={this.state.replicasetsArr} />
         </View>

@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { 
   commonStyles, 
@@ -89,11 +89,7 @@ export default class WorkloadReplicasetScreen extends Component {
     });
     return (
       <ScrollView style={dashboardStyles.scrollContainer}>
-        <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: "#FFF" }}
-        />
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <View style={commonStyles.detailsContainer}>
 
           <Title style={commonStyles.headerTitle}>

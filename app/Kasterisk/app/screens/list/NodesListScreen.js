@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
-import Spinner from "react-native-loading-spinner-overlay";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import TableCard from "../../components/Cards/TableCard";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
@@ -61,11 +61,7 @@ export default class NodesListScreen extends Component {
   render() {
     return (
       <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
-        <Spinner
-          visible={this.state.spinner}
-          textContent={"Loading..."}
-          textStyle={{ color: "#FFF" }}
-        />
+        <SpinnerOverlay showSpinner={this.state.spinner} />
         <View style={commonStyles.detailsContainer}>
           <TableCard header="Nodes" table={this.state.nodes} />
         </View>
