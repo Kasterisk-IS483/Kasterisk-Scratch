@@ -44,7 +44,7 @@ export default class WorkloadPodsScreen extends Component {
       sinceList: ["5 minutes", "10 minutes"],
       checkedTimestamp: false,
       checkedFilter:false,
-      logs: []
+      logs: this.props.route.params.pod.status.containerStatuses.length <= 1 ? "" : []
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -132,12 +132,24 @@ export default class WorkloadPodsScreen extends Component {
       let serverStatus = await checkServerStatus(defaultCluster);
 
       if (serverStatus[0] == 200) {
-        this.setState({
-          logs: await PodApi.readPodLog(
-            this.state.pod.metadata.namespace,
-            this.state.pod.metadata.name
-          )
-        });
+        if (this.state.pod.status.containerStatuses.length <= 1){
+          this.setState({
+            logs: await PodApi.readPodLogText(
+              this.state.pod.metadata.namespace,
+              this.state.pod.metadata.name
+            )
+          });
+        }
+        else {
+          this.setState({
+            logs: await PodApi.readPodLog(
+              this.state.pod.metadata.namespace,
+              this.state.pod.metadata.name
+            )
+          });
+        }
+        
+        
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -202,7 +214,6 @@ export default class WorkloadPodsScreen extends Component {
   onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
 
   LogsTab = () => {
-    console.log(this.state.logs)
     let containerStatuses = this.state.pod.status.containerStatuses;
     for (i = 0; i < containerStatuses.length; i++) {
       if (!this.state.containerList.includes(containerStatuses[i].name)){
@@ -260,7 +271,7 @@ export default class WorkloadPodsScreen extends Component {
               padding: spacings.md, 
               marginVertical: spacings.sm, 
             }}>
-              logs
+              {this.state.logs}
             </Text>
           </Card.Content>
 
