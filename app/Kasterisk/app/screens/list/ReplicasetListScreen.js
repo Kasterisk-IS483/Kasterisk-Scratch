@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
-
-import TableCard from "../../components/Cards/TableCard";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
-
 import {
   commonStyles,
   dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles.js";
+import TableCard from "../../components/Cards/TableCard";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default class ReplicasetListScreen extends Component {
   constructor(props) {

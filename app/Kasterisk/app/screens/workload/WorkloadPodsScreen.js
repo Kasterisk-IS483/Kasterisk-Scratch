@@ -4,11 +4,11 @@ import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
 import { Picker } from "@react-native-picker/picker";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi.js";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { 
   fonts, 

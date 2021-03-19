@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+import { defined } from "react-native-reanimated";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DeploymentApi from "../../api/DeploymentApi";
@@ -17,7 +17,6 @@ import PodApi from "../../api/PodApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons } from "../../utils/constants";
-
 import {
   colours,
   commonStyles,
@@ -25,10 +24,9 @@ import {
   dashboardPortraitStyles,
   workloadOverviewBreakpoint,
 } from "../../utils/styles.js";
-
 import OverviewCard from "../../components/Cards/OverviewCard";
 import WorkloadCard from "../../components/Cards/WorkloadCard";
-import { defined } from "react-native-reanimated";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default class WorkloadSummaryScreen extends Component {
   constructor(props) {

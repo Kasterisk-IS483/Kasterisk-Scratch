@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+
 import { TextInput, RadioButton, Switch } from "react-native-paper";
 
 import { saveKubeconfigContentToLocal } from "../../api/KubeApi/config_types";
 import { colours, spacings, commonStyles } from "../../utils/styles.js";
 import SubmitButton from "../../components/Buttons/SubmitButton";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default function KubeconfigContentScreen({ navigation }) {
   const [checked, setChecked] = useState("token");

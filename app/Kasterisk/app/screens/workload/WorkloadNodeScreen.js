@@ -2,21 +2,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
-
 import { 
   commonStyles, 
   dashboardStyles, 
   commonPortraitStyles, 
   workloadDetailsBreakpoint 
 } from "../../utils/styles.js";
-
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default class WorkloadNodeScreen extends Component {
 

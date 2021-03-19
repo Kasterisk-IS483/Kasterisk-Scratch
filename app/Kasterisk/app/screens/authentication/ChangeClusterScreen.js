@@ -3,12 +3,11 @@ import "react-native-gesture-handler";
 import { View, ScrollView, Text } from "react-native";
 import { List } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import { useNavigation } from "@react-navigation/native";
 
 import { commonStyles, fonts } from "../../utils/styles.js";
-
 import SubmitButton from "../../components/Buttons/SubmitButton";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 class ChangeClusterScreen extends Component {
   constructor(props) {

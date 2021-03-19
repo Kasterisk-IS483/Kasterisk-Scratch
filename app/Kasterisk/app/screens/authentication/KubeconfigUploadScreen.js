@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
 
@@ -10,6 +9,7 @@ import { colours, fonts, spacings, commonStyles } from "../../utils/styles.js";
 import CustomButton from "../../components/Buttons/CustomButton";
 import ActionButton from "../../components/Buttons/ActionButton";
 import SubmitButton from "../../components/Buttons/SubmitButton";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 const uncheckedIcon = require("../../assets/checkbox-cross.png");
 const checkedIcon = require("../../assets/checkbox-tick.png");

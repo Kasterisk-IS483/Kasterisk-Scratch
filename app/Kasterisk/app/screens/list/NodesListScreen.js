@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Alert } from "react-native";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
-import TableCard from "../../components/Cards/TableCard";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
-
 import {
   commonStyles,
   dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles.js";
+import TableCard from "../../components/Cards/TableCard";
+import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
 export default class NodesListScreen extends Component {
   constructor(props) {
