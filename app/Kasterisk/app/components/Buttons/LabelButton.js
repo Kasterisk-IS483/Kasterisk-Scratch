@@ -3,17 +3,19 @@ import { Button } from "react-native-paper";
 
 import { colours, spacings } from "../../utils/styles.js";
 
-export default function LabelButton({ text = "", displayMore = false }) {
+export default function LabelButton({ text = "", displayMore = false, full = true }) {
 
-  let icon;
-  let mode;
+  let icon = "label";
+  let mode = "outlined";
+  let maxWidth = "auto";
 
   if (displayMore) {
     icon = "";
     mode = "contained";
-  } else {
-    icon = "label";
-    mode = "outlined";
+  }
+
+  if (!full) {
+    maxWidth = 200;
   }
 
   return (
@@ -23,7 +25,7 @@ export default function LabelButton({ text = "", displayMore = false }) {
       color={colours.cta}
       icon={icon}
       style={{
-        maxWidth: 200,
+        maxWidth: maxWidth,
         borderRadius: 40,
         borderColor: colours.cta,
         marginBottom: spacings.md,

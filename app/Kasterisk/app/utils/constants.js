@@ -62,26 +62,22 @@ export const saveCredentials = async (storageKey, credentials) => {
   }
 };
 
-export const getLabelButtons = (cols, numToDisplay) => {
+export const getLabelButtons = (cols, numToDisplay, isFull) => {
   return Object.keys(cols).map((labelItem, labelIndex) => (
-      getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay) 
+      getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull) 
     ))
 };
 
-export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay) => {
+export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay, isFull) => {
   let countLabel = labelIndex + 1;
   let count = Object.keys(cols).length - numToDisplay;
   if ( count>0 && countLabel == Object.keys(cols).length) {
-    return (
-      <LabelButton key={labelIndex} displayMore={true} text={count + "+"} />
-    );
-  } else if (countLabel > numToDisplay) {
-    return <Text key={labelIndex}></Text>;
-  } else {
-    return (
-      <LabelButton key={labelIndex} text={labelItem + ":" + cols[labelItem]} />
-    );
+    return <LabelButton key={labelIndex} displayMore={true} text={count + "+"} />;
   }
+  if (countLabel > numToDisplay) {
+    return <Text key={labelIndex}></Text>;
+  }
+  return <LabelButton key={labelIndex} full={isFull} text={labelItem + ":" + cols[labelItem]} />;
 };
 
 /** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/

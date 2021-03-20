@@ -148,7 +148,7 @@ export default function TableCard(props) {
                         <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
                           {typeof cols!=="object" 
                             ? cols 
-                            : getLabelButtons(cols,1)}
+                            : getLabelButtons(cols, 1, false)}
                         </DataTable.Cell>
                   ))}
                 </DataTable.Row>
