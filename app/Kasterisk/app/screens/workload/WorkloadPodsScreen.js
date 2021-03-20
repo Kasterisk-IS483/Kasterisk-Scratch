@@ -47,6 +47,7 @@ export default class WorkloadPodsScreen extends Component {
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
     });
+    this.updateState = this.updateState.bind(this);
   }
 
   getOrientation() {
@@ -130,21 +131,29 @@ export default class WorkloadPodsScreen extends Component {
       let serverStatus = await checkServerStatus(defaultCluster);
 
       if (serverStatus[0] == 200) {
-        if (this.state.pod.status.containerStatuses.length <= 1){
+        timestampParam = this.state.checkedTimestamp;
+        if (this.state.container != "[all containers]"){
           this.setState({
-            logs: await PodApi.readPodLogText(
+            logs: await PodApi.readPodLog(
               this.state.pod.metadata.namespace,
-              this.state.pod.metadata.name
+              this.state.pod.metadata.name,
+              {timestamps: timestampParam}
             )
           });
         }
         else {
+          for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++){
           this.setState({
             logs: await PodApi.readPodLog(
               this.state.pod.metadata.namespace,
-              this.state.pod.metadata.name
+              this.state.pod.metadata.name,
+              {
+                timestamps: timestampParam,
+                container: this.state.pod.status.containerStatuses[i].name
+              }
             )
           });
+          }
         }
         
         
