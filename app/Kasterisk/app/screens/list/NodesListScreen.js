@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions, Alert } from "react-native";
+import { Dimensions, Alert } from "react-native";
 
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import {
   commonStyles,
-  dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles.js";
-import TableCard from "../../components/Cards/TableCard";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class NodesListScreen extends Component {
   constructor(props) {
@@ -59,12 +57,9 @@ export default class NodesListScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
-        <SpinnerOverlay showSpinner={this.state.spinner} />
-        <View style={commonStyles.detailsContainer}>
-          <TableCard header="Nodes" table={this.state.nodes} />
-        </View>
-      </ScrollView>
+      <WorkloadTemplate type="list" header="Nodes" showSpinner={this.state.spinner}>
+        {this.state.nodes}
+      </WorkloadTemplate>
     );
   }
 }

@@ -1,18 +1,17 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions, Alert } from "react-native";
+import { View, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
 
 import { checkServerStatus } from "../../api/KubeApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
 import { 
   commonStyles, 
-  dashboardStyles, 
   commonPortraitStyles, 
   workloadDetailsBreakpoint 
 } from "../../utils/styles.js";
 import DetailsCard from "../../components/Cards/DetailsCard";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class WorkloadReplicasetScreen extends Component {
 
@@ -87,41 +86,36 @@ export default class WorkloadReplicasetScreen extends Component {
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
     return (
-      <ScrollView style={dashboardStyles.scrollContainer}>
-        <SpinnerOverlay showSpinner={this.state.spinner} />
-        <View style={commonStyles.detailsContainer}>
+      <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
+        <Title style={commonStyles.headerTitle}>
+          {this.state.replicaset.metadata.name}
+        </Title> 
 
-          <Title style={commonStyles.headerTitle}>
-            {this.state.replicaset.metadata.name}
-          </Title> 
-
-          <View style={this.getStyle().rowContainer}>
-            <View style={this.getStyle().columnContainer}>
-              <DetailsCard header="Configuration" type="Replicaset"
-                control={this.state.replicaset.metadata.ownerReferences[0].name}
-                replicaStatus={replicaStatus}
-                numberReplica={this.state.replicaset.spec.replicas}
-              />
-            </View>
-            <View style={this.getStyle().columnContainer}>
-              <DetailsCard header="Status" type="Replicaset"
-                waiting={this.state.podstatus.waiting}
-                running={this.state.podstatus.running}
-                failed={this.state.podstatus.failed}
-                succeeded={this.state.podstatus.succeeded}
-              />
-            </View>
+        <View style={this.getStyle().rowContainer}>
+          <View style={this.getStyle().columnContainer}>
+            <DetailsCard header="Configuration" type="Replicaset"
+              control={this.state.replicaset.metadata.ownerReferences[0].name}
+              replicaStatus={replicaStatus}
+              numberReplica={this.state.replicaset.spec.replicas}
+            />
           </View>
-
-          <DetailsCard header="Metadata" type="Replicaset" 
-            age={getAgeText(this.state.replicaset.metadata.creationTimestamp)}
-            labels={getLabelButtons(this.state.replicaset.metadata.labels)}
-            annotations={stringAnnotations}
-            control={this.state.replicaset.metadata.ownerReferences[0].name}
-          />
-
+          <View style={this.getStyle().columnContainer}>
+            <DetailsCard header="Status" type="Replicaset"
+              waiting={this.state.podstatus.waiting}
+              running={this.state.podstatus.running}
+              failed={this.state.podstatus.failed}
+              succeeded={this.state.podstatus.succeeded}
+            />
+          </View>
         </View>
-      </ScrollView>
+
+        <DetailsCard header="Metadata" type="Replicaset" 
+          age={getAgeText(this.state.replicaset.metadata.creationTimestamp)}
+          labels={getLabelButtons(this.state.replicaset.metadata.labels)}
+          annotations={stringAnnotations}
+          control={this.state.replicaset.metadata.ownerReferences[0].name}
+        />
+      </WorkloadTemplate>
     );
   }
 
