@@ -81,36 +81,6 @@ export default class WorkloadPodsScreen extends Component {
     }
   }
 
-  containerList = () => {
-    return (
-      <View>
-        <Title style={{ fontWeight: 'bold' }}>Container:</Title>
-        <View style={dashboardStyles.picker}>
-          <Picker selectedValue={this.state.container} onValueChange={(itemValue) => this.updateState("container", itemValue)}>
-            {this.state.containerList.map((_item, _index) => (
-              <Picker.Item label={_item} value={_item} key={_item} />
-            ))}
-          </Picker>
-        </View>
-      </View>
-    );
-  };
-
-  sinceList = () => {
-    return (
-      <View>
-        <Title style={{ fontWeight: 'bold' }}>Since:</Title>
-        <View style={dashboardStyles.picker}>
-          <Picker selectedValue={this.state.since} onValueChange={(itemValue) => this.updateState("since", itemValue)}>
-            {this.state.sinceList.map((_item, _index) => (
-              <Picker.Item label={_item} value={_item} key={_item} />
-            ))}
-          </Picker>
-        </View>
-      </View>
-    );
-  };
-
   async componentDidMount() {
     this.setState({
       spinner: true,
@@ -131,7 +101,7 @@ export default class WorkloadPodsScreen extends Component {
       let serverStatus = await checkServerStatus(defaultCluster);
 
       if (serverStatus[0] == 200) {
-        timestampParam = this.state.checkedTimestamp;
+        let timestampParam = this.state.checkedTimestamp;
         if (this.state.container != "[all containers]"){
           this.setState({
             logs: await PodApi.readPodLog(
@@ -155,8 +125,7 @@ export default class WorkloadPodsScreen extends Component {
           });
           }
         }
-        
-        
+
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -168,6 +137,61 @@ export default class WorkloadPodsScreen extends Component {
       spinner: false,
     });
   }
+
+  onToggleTimestampSwitch = () => this.setState({ checkedTimestamp: !this.state.checkedTimestamp });
+  onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
+  
+  scene = (tab) => {
+    return (
+      <ScrollView>
+        <Title style={commonStyles.headerTitle}>
+          {this.state.pod.metadata.name}
+        </Title>
+        {tab}
+      </ScrollView>
+    );
+  }
+
+  switch = (text, value, funct) => {
+    return (
+      <View style={commonPortraitStyles.columnContainer}>
+        <View style={commonStyles.fieldsContainer}>
+          <Switch 
+            value={value} 
+            onValueChange={funct} 
+            color={colours.primary} 
+            style={commonStyles.switchContainer} 
+          />
+          <Text style={commonStyles.switchText}>
+            {text}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  list = (type, value, list) => {
+    return (
+      <View style={this.getStyle().columnContainer}>
+        <Title style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{type}:</Title>
+        <View style={dashboardStyles.picker}>
+          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState({type}, itemValue)}>
+            {list.map((_item, _index) => (
+              <Picker.Item label={_item} value={_item} key={_item} />
+            ))}
+          </Picker>
+        </View>
+      </View>
+    );
+  }
+
+  ContainerList = () => {
+    return this.list("container", this.state.container, this.state.containerList);
+  };
+
+  SinceList = () => {
+    return this.list("Since", this.state.since, this.state.sinceList);
+  };
 
   SummaryTab = () => {
     return (
@@ -191,18 +215,14 @@ export default class WorkloadPodsScreen extends Component {
           </View>
         </View>
 
-        <TableCard 
-          header="Pod Conditions" 
+        <TableCard header="Pod Conditions" type="Pods"
           table={DetailPageApi.PodConditions(this.state.pod.status.conditions)}
-          type="Pods"
         />
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
-            <DetailsCard 
-              header="Template" 
+            <DetailsCard header="Template" type="Pods" 
               podTemplate={DetailPageApi.PodTemplates(this.state.pod)}
-              type="Pods" 
             />
           </View>
           <View style={this.getStyle().columnContainer}>
@@ -217,9 +237,6 @@ export default class WorkloadPodsScreen extends Component {
     );
   }
 
-  onToggleTimestampSwitch = () => this.setState({ checkedTimestamp: !this.state.checkedTimestamp });
-  onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
-
   LogsTab = () => {
     let containerStatuses = this.state.pod.status.containerStatuses;
     for (i = 0; i < containerStatuses.length; i++) {
@@ -229,45 +246,15 @@ export default class WorkloadPodsScreen extends Component {
     }
     return (
       <View style={{ padding: cardsOuterPadding }}>
-        <Card elevation={10} style={{ width: "100%" }}>
+        <Card elevation={10}>
 
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
-            <View style={this.getStyle().columnContainer}>
-              {this.containerList()}
-            </View>
-            <View style={this.getStyle().columnContainer}>
-              {this.sinceList()}
-            </View>
+            {this.ContainerList()}
+            {this.SinceList()}
           </Card.Content>
 
           <Card.Content style={commonStyles.cardContent, commonPortraitStyles.rowContainer}>
-            <View style={commonPortraitStyles.columnContainer}>
-              <View style={commonStyles.fieldsContainer}>
-                <Switch 
-                  value={this.state.checkedTimestamp} 
-                  onValueChange={this.onToggleTimestampSwitch} 
-                  color={colours.primary} 
-                  style={commonStyles.switchContainer} 
-                />
-                <Text style={commonStyles.switchText}>
-                  Display timestamp
-                </Text>
-              </View>
-            </View>
-            <View style={commonPortraitStyles.columnContainer}>
-              <View style={commonStyles.fieldsContainer}>
-                <Switch 
-                  value={this.state.checkedFilter} 
-                  onValueChange={this.onToggleFilterSwitch} 
-                  color={colours.primary} 
-                  style={commonStyles.switchContainer} 
-                />
-                <Text style={commonStyles.switchText}>
-                  Show only filtered
-                </Text>
-              </View>
-            </View>
-
+            {this.switch("Display timestamp", this.state.checkedTimestamp, this.onToggleTimestampSwitch)}
           </Card.Content>
 
           <Card.Content>
@@ -278,7 +265,7 @@ export default class WorkloadPodsScreen extends Component {
               padding: spacings.md, 
               marginVertical: spacings.sm, 
             }}>
-              {this.state.logs}
+              {this.state.logs ? this.state.logs : "No logs"}
             </Text>
           </Card.Content>
 
@@ -290,11 +277,9 @@ export default class WorkloadPodsScreen extends Component {
   ShellTab = () => {
     return (
       <View style={{ padding: cardsOuterPadding }}>
-        <Card elevation={10} style={{ width: "100%" }}>
+        <Card elevation={10}>
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
-            <View style={this.getStyle().columnContainer}>
-                {this.containerList()}
-              </View>
+            {this.ContainerList()}
           </Card.Content>
         </Card>
       </View>
@@ -315,29 +300,11 @@ export default class WorkloadPodsScreen extends Component {
   _renderScene = ({ route }) => {
     switch (route.key) {
       case 'first':
-        return <ScrollView>
-          <Title style={commonStyles.headerTitle}>
-            {this.state.pod.metadata.name}
-          </Title>
-          {this.SummaryTab()}
-        </ScrollView>;
-
+        return this.scene(this.SummaryTab());
       case 'second':
-        return <ScrollView>
-          <Title style={commonStyles.headerTitle}>
-            {this.state.pod.metadata.name}
-          </Title>
-          {this.LogsTab()}
-        </ScrollView>;
-
+        return this.scene(this.LogsTab());
       case 'third':
-        return <ScrollView>
-          <Title style={commonStyles.headerTitle}>
-            {this.state.pod.metadata.name}
-          </Title>
-          {this.ShellTab()}
-        </ScrollView>;
-
+        return this.scene(this.ShellTab());
       default:
         return null;
     }
