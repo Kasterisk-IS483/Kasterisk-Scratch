@@ -45,6 +45,7 @@ const screenOptions = {
 };
 export default class App extends Component {
   constructor(props) {
+    console.log("App.js constructor");
     super(props);
     this.state = {
       spinner: false,
@@ -52,6 +53,7 @@ export default class App extends Component {
       selectedNamespace: "All Namespaces",
       selectedValue: "",
     };
+    console.log("/App.js constructor");
   }
 
   workloadDeploymentScreen = () => {
@@ -67,6 +69,7 @@ export default class App extends Component {
   filter = () => {
     return (
       <View style={{ flexDirection: "row" }}>
+        {console.log("App.js filter")}
         <ModalDropdown
           options={this.state.namespaceLabels}
           dropdownStyle={{
@@ -112,14 +115,15 @@ export default class App extends Component {
       if (defaultCluster != null) {
         let serverStatus = await checkServerStatus(defaultCluster);
         if (serverStatus[0] == 200) {
+          await AsyncStorage.setItem("@selectedValue", "");
           this.setState({
             namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
           });
-          await AsyncStorage.setItem("@selectedValue", "");
         } else {
           Alert.alert("Error", "Failed to contact cluster");
         }
       }
+      console.log("App.js mounted");
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
@@ -131,6 +135,7 @@ export default class App extends Component {
   HomeDrawer = ({ navigation }) => {
     return (
       <Drawer.Navigator
+        {...console.log("App.js HomeDrawer")}
         initialRouteName="WorkloadSummary"
         screenOptions={screenOptions}
         drawerStyle={{ backgroundColor: "white" }}
@@ -351,6 +356,7 @@ export default class App extends Component {
             options={{ title: "PodsList" }}
           />
         </Stack.Navigator>
+        {console.log("App.js render")}
       </NavigationContainer>
     );
   }
