@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import AwsApi from "./AwsApi";
 
 class CommonAPI extends Component {
-  static apiFetch = async ({ apiUrl, method, body = "", text, parameters }) => {
+  static apiFetch = async ({ apiUrl, method, body = "", parameters, text }) => {
 
     let defaultCluster = await AsyncStorage.getItem('@defaultCluster');
     if (defaultCluster == null) {
@@ -75,8 +75,8 @@ class CommonAPI extends Component {
       });
   };
 
-  static get(apiUrl, body = "") {
-    return this.apiFetch({ method: "GET", apiUrl, body });
+  static get(apiUrl, parameters, text, body = "") {
+    return this.apiFetch({ method: "GET", apiUrl, body, parameters, text });
   }
   static post(apiUrl, body = "") {
     return this.apiFetch({ method: "POST", apiUrl, body });
@@ -89,9 +89,6 @@ class CommonAPI extends Component {
   }
   static patch(apiUrl, body = "") {
     return this.apiFetch({ method: "PATCH", apiUrl, body });
-  }
-  static getText(apiUrl, text, parameters, body = "") {
-    return this.apiFetch({ method: "GET", apiUrl, body, text, parameters });
   }
 }
 export default CommonAPI;

@@ -106,8 +106,8 @@ class PodApi extends Component {
     * 
     * @param namespace 
     */
-    static listPod = async (namespace) => {
-        const podList = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods`);
+    static listPod = async (namespace, parameters) => {
+        const podList = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods`, parameters);
         return podList.items;
     }
 
@@ -171,7 +171,7 @@ class PodApi extends Component {
      * @param name
     */
     static readPodLog = async (namespace, name, parameters) => {
-        const podLog = await CommonAPI.getText(`/api/v1/namespaces/${namespace}/pods/${name}/log`, "text", parameters);
+        const podLog = await CommonAPI.get(`/api/v1/namespaces/${namespace}/pods/${name}/log`, parameters, "text");
         return podLog;
     }
 

@@ -6,8 +6,14 @@ import { getAgeText } from "../utils/constants";
 class DetailPageApi extends Component {
 
     /** REPLICASET GRID **/
-    static PodsStatuses = async (namespace) => {
-        const podList = await PodApi.listPod(namespace);
+    static PodsStatuses = async (namespace, labels) => {
+        let labelParam = "";
+        Object.keys(labels).map((labelItem, labelIndex) => (
+            labelParam += labelItem + "=" + labels[labelItem] + ","
+            )
+        )
+        labelParam = labelParam.slice(0,-1);
+        const podList = await PodApi.listPod(namespace, {labelSelector: labelParam});
         const podsStatuses = {
             waiting: 0,
             running: 0,
