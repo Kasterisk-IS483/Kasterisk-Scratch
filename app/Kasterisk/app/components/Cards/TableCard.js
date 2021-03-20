@@ -43,50 +43,84 @@ export default function TableCard(props) {
   }
 
   const navigationToDetail = (rowIndex) => {
-    if (["Conditions","Pod Conditions","Resources","Addresses","Images"].includes(props.header))
+    if (["Conditions","Pod Conditions","Resources","Addresses","Images"].includes(props.header)) {
       return null;
-    else {
-      if (props.header == "Deployments List"){
-        return (async () =>
-        navigation.navigate("WorkloadDeployment", {
-          deployment: await DeploymentApi.readDeployment(
-            props.table[rowIndex][5],
-            props.table[rowIndex][0]
-          ),
-          pods: await PodApi.listPod(props.table[rowIndex][5]),
-        }))
-      }
-      else if (props.header == "Replicasets List"){
-        return (async () =>
-          navigation.navigate("WorkloadReplicaset", {
-            replicaset: await ReplicasetApi.readReplicaSet(
-              props.table[rowIndex][5],
-              props.table[rowIndex][0]
-            ),
-            podstatus: await DetailPageApi.PodsStatuses(props.table[rowIndex][5]),
-          })
-        )
-      }
-      else if (props.header.includes("Pods")) {
-        return (async () =>
-          navigation.navigate("WorkloadPod", {
-            pod: await PodApi.readPod(
-              props.table[rowIndex][6],
-              props.table[rowIndex][0]
-            ),
-          })
-        )
-      }
-      else if (props.header == "Nodes") {
-        return (async () =>
-          navigation.navigate("WorkloadNode", {
-            node: await NodeApi.readNode(
-              props.table[rowIndex][0]
-            ),
-          })
-        )
-      }
     }
+    if (props.header == "Deployments List"){
+      return (async () => navigation.navigate("WorkloadDeployment", {
+        deployment: await DeploymentApi.readDeployment(
+          props.table[rowIndex][5],
+          props.table[rowIndex][0]
+        ),
+        pods: await PodApi.listPod(props.table[rowIndex][5]),
+      }))
+    }
+    if (props.header == "Replicasets List"){
+      return (async () => navigation.navigate("WorkloadReplicaset", {
+        replicaset: await ReplicasetApi.readReplicaSet(
+          props.table[rowIndex][5],
+          props.table[rowIndex][0]
+        ),
+        podstatus: await DetailPageApi.PodsStatuses(props.table[rowIndex][5]),
+      }))
+    }
+    if (props.header.includes("Pods")) {
+      return (async () => navigation.navigate("WorkloadPod", {
+        pod: await PodApi.readPod(
+          props.table[rowIndex][6],
+          props.table[rowIndex][0]
+        ),
+      }))
+    }
+    if (props.header == "Nodes") {
+      return (async () => navigation.navigate("WorkloadNode", {
+        node: await NodeApi.readNode(
+          props.table[rowIndex][0]
+        ),
+      }))
+    }
+  }
+
+  const headerStyle = (col) => {
+    if (col === "Labels") {
+      return {flex: 3}; 
+    }
+    if (props.header === "Pods List" && col === "Name") {
+      return {flex: 2};
+    }
+    // Nodes 
+    if (props.header === "Resources" && col === "Key") {
+      return {flex: 2};
+    }
+    if (props.header === "Addresses" && col === "Address") {
+      return {flex: 3};
+    }
+    if (props.header === "Images" && col === "Names") {
+      return {flex: 14};
+    }
+
+    return {flex: 1};
+  }
+
+  const cellStyle = (cols, colIndex) => {
+    if (typeof cols === "object") { 
+      return {flex: 3};
+    }
+    if (props.header === "Pods List" && colIndex === 0) {
+      return {flex: 2};
+    }
+    // Nodes 
+    if (props.header === "Resources" && colIndex === 0) {
+      return {flex: 2};
+    }
+    if (props.header === "Addresses" && colIndex === 1) {
+      return {flex: 3};
+    }
+    if (props.header === "Images" && colIndex === 0) {
+      return {flex: 14};
+    }
+
+    return {flex: 1};
   }
 
   return (
@@ -99,13 +133,8 @@ export default function TableCard(props) {
         <Card.Content style={commonStyles.cardContent}>
           <DataTable>
             <DataTable.Header>
-              {headers.map((item2, colIndex) => (
-                <DataTable.Title
-                  key={colIndex}
-                  style={item2!=="Labels"? props.header!=="Pods List"? item2!== "Name"? {} : {} : {flex:2} : {flex:4}}
-                >
-                  {item2}
-                </DataTable.Title>
+              {headers.map((col, colIndex) => (
+                <DataTable.Title key={colIndex} style={headerStyle(col)}>{col}</DataTable.Title>
               ))}
             </DataTable.Header>
 
@@ -113,18 +142,15 @@ export default function TableCard(props) {
               ? null
               : props.table.map((rows, rowIndex) => (
                 <DataTable.Row key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
-                    {rows === undefined
-                      ? null
-                      : rows.map((cols, colIndex) => (
-                          <DataTable.Cell
-                            key={colIndex}
-                            style={typeof cols!=="object"? props.header!=="Pods List"? colIndex!==0 ? {} : {} : {flex:2} : {flex:4}}
-                          >
-                            {typeof cols !== "object"
-                              ? cols
-                              : getLabelButtons(cols,1)}
-                          </DataTable.Cell>
-                        ))}
+                  {rows === undefined
+                    ? null
+                    : rows.map((cols, colIndex) => (
+                        <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
+                          {typeof cols!=="object" 
+                            ? cols 
+                            : getLabelButtons(cols,1)}
+                        </DataTable.Cell>
+                  ))}
                 </DataTable.Row>
               ))}
           </DataTable>
