@@ -61,7 +61,9 @@ export default function TableCard(props) {
           props.table[rowIndex][5],
           props.table[rowIndex][0]
         ),
-        podstatus: await DetailPageApi.PodsStatuses(props.table[rowIndex][5]),
+        podstatus: await DetailPageApi.PodsStatuses(
+          props.table[rowIndex][5], 
+          props.table[rowIndex][2]),
       }))
     }
     if (props.header.includes("Pods")) {

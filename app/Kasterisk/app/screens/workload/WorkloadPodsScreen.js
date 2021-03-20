@@ -70,30 +70,22 @@ export default class WorkloadPodsScreen extends Component {
 
   async updateState(stateKey, value) {
     if (stateKey == "container") {
-      this.setState({
-        container: value
-      })
-    }
-    else if (stateKey == "since"){
-      this.setState({
-        since: value
-      })
+      this.setState({ container: value });
+    } 
+    if (stateKey == "since"){
+      this.setState({ since: value });
     }
   }
 
   async componentDidMount() {
-    this.setState({
-      spinner: true,
-    });
+    this.setState({ spinner: true });
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
 
       if (defaultCluster == null) {
         Alert.alert("Error", "Default cluster not found");
-        this.setState({
-          spinner: false,
-        });
+        this.setState({ spinner: false });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
@@ -107,22 +99,22 @@ export default class WorkloadPodsScreen extends Component {
             logs: await PodApi.readPodLog(
               this.state.pod.metadata.namespace,
               this.state.pod.metadata.name,
-              {timestamps: timestampParam}
+              { timestamps: timestampParam }
             )
           });
         }
         else {
           for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++){
-          this.setState({
-            logs: this.state.logs + await PodApi.readPodLog(
-              this.state.pod.metadata.namespace,
-              this.state.pod.metadata.name,
-              {
-                timestamps: timestampParam,
-                container: this.state.pod.status.containerStatuses[i].name
-              }
-            )
-          });
+            this.setState({
+              logs: this.state.logs + await PodApi.readPodLog(
+                this.state.pod.metadata.namespace,
+                this.state.pod.metadata.name,
+                {
+                  timestamps: timestampParam,
+                  container: this.state.pod.status.containerStatuses[i].name
+                }
+              )
+            });
           }
         }
 
@@ -133,9 +125,7 @@ export default class WorkloadPodsScreen extends Component {
       Alert.alert("Server Check Failed", err.message);
     }
 
-    this.setState({
-      spinner: false,
-    });
+    this.setState({ spinner: false });
   }
 
   onToggleTimestampSwitch = () => this.setState({ checkedTimestamp: !this.state.checkedTimestamp });
@@ -149,6 +139,14 @@ export default class WorkloadPodsScreen extends Component {
         </Title>
         {tab}
       </ScrollView>
+    );
+  }
+
+  singleCard = (content) => {
+    return (
+      <View style={{ padding: cardsOuterPadding }}>
+          {content}
+      </View>
     );
   }
 
@@ -175,7 +173,7 @@ export default class WorkloadPodsScreen extends Component {
       <View style={this.getStyle().columnContainer}>
         <Title style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{type}:</Title>
         <View style={dashboardStyles.picker}>
-          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState({type}, itemValue)}>
+          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState(type, itemValue)}>
             {list.map((_item, _index) => (
               <Picker.Item label={_item} value={_item} key={_item} />
             ))}
@@ -245,9 +243,8 @@ export default class WorkloadPodsScreen extends Component {
       }
     }
     return (
-      <View style={{ padding: cardsOuterPadding }}>
+      this.singleCard(
         <Card elevation={10}>
-
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             {this.ContainerList()}
             {this.SinceList()}
@@ -268,23 +265,23 @@ export default class WorkloadPodsScreen extends Component {
               {this.state.logs ? this.state.logs : "No logs"}
             </Text>
           </Card.Content>
-
         </Card>
-      </View>
+      )
     );
   }
 
   ShellTab = () => {
     return (
-      <View style={{ padding: cardsOuterPadding }}>
+      this.singleCard(
         <Card elevation={10}>
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             {this.ContainerList()}
           </Card.Content>
         </Card>
-      </View>
+      )
     );
   }
+
 
   _handleIndexChange = index => this.setState({ index });
   _renderTabBar = props => {
