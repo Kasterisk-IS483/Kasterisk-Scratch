@@ -145,9 +145,7 @@ export default class WorkloadPodsScreen extends Component {
   singleCard = (content) => {
     return (
       <View style={{ padding: cardsOuterPadding }}>
-        <Card elevation={10}>
           {content}
-        </Card>
       </View>
     );
   }
@@ -175,7 +173,7 @@ export default class WorkloadPodsScreen extends Component {
       <View style={this.getStyle().columnContainer}>
         <Title style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{type}:</Title>
         <View style={dashboardStyles.picker}>
-          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState({type}, itemValue)}>
+          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState(type, itemValue)}>
             {list.map((_item, _index) => (
               <Picker.Item label={_item} value={_item} key={_item} />
             ))}
@@ -246,7 +244,7 @@ export default class WorkloadPodsScreen extends Component {
     }
     return (
       this.singleCard(
-        <View>
+        <Card elevation={10}>
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             {this.ContainerList()}
             {this.SinceList()}
@@ -267,7 +265,7 @@ export default class WorkloadPodsScreen extends Component {
               {this.state.logs ? this.state.logs : "No logs"}
             </Text>
           </Card.Content>
-        </View>
+        </Card>
       )
     );
   }
@@ -275,11 +273,11 @@ export default class WorkloadPodsScreen extends Component {
   ShellTab = () => {
     return (
       this.singleCard(
-        <View>
+        <Card elevation={10}>
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             {this.ContainerList()}
           </Card.Content>
-        </View>
+        </Card>
       )
     );
   }
