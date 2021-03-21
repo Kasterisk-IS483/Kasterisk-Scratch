@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component } from "react";
+import React, { Component, useState, updateState } from "react";
 import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -40,7 +40,8 @@ export default class WorkloadPodsScreen extends Component {
       containerList: ["[all containers]"],
       checkedTimestamp: false,
       checkedFilter: false,
-      logs: ""
+      logs: "",
+      switchView: false
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -69,6 +70,36 @@ export default class WorkloadPodsScreen extends Component {
   async updateState(stateKey, value) {
     if (stateKey == "container") {
       this.setState({ container: value });
+      let timestampParam = this.state.checkedTimestamp;
+      if (this.state.container != "[all containers]") {
+        this.setState({
+          logs: await PodApi.readPodLog(
+            this.state.pod.metadata.namespace,
+            this.state.pod.metadata.name,
+            { timestamps: timestampParam }
+          )
+        });
+      } else {
+        this.setState({
+          logs: this.state.logs + await PodApi.readPodLog(
+            this.state.pod.metadata.namespace,
+            this.state.pod.metadata.name,
+            {
+              timestamps: timestampParam,
+              container: value
+            }
+          )
+        }); 
+      }     
+    }
+    if(stateKey=="switchView"){
+      this.setState({
+        logs: await PodApi.readPodLog(
+          this.state.pod.metadata.namespace,
+          this.state.pod.metadata.name,
+          { timestamps: value }
+        )
+      });
     }
   }
 
@@ -123,7 +154,10 @@ export default class WorkloadPodsScreen extends Component {
     this.setState({ spinner: false });
   }
 
-  onToggleTimestampSwitch = () => this.setState({ checkedTimestamp: !this.state.checkedTimestamp });
+  onToggleTimestampSwitch = () => {
+    this.setState({ checkedTimestamp: !this.state.checkedTimestamp })
+    this.updateState("switchView", !this.state.switchView)
+  };
   onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
 
   scene = (tab) => {
@@ -181,6 +215,7 @@ export default class WorkloadPodsScreen extends Component {
   ContainerList = () => {
     return this.list("container", this.state.container, this.state.containerList);
   };
+
 
   SummaryTab = () => {
     return (
@@ -241,7 +276,7 @@ export default class WorkloadPodsScreen extends Component {
           </Card.Content>
 
           <Card.Content style={commonStyles.cardContent, commonPortraitStyles.rowContainer}>
-            {this.switch("Display timestamp", this.state.checkedTimestamp, this.onToggleTimestampSwitch)}
+            {this.switch("Display timestamp", this.state.checkedTimestamp, this.onToggleTimestampSwitch)} 
           </Card.Content>
 
           <Card.Content>
