@@ -142,7 +142,6 @@ export default class WorkloadPodsScreen extends Component {
         }
         else {
           let logs = "";
-          console.log(this.state.pod.status.containerStatuses.length)
           for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++) {
             let currentLogs = await PodApi.readPodLog(
               this.state.pod.metadata.namespace,
@@ -277,7 +276,6 @@ export default class WorkloadPodsScreen extends Component {
   }
 
   LogsTab = () => {
-    console.log(this.state.pod.status.containerStatuses);
     let containerStatuses = this.state.pod.status.containerStatuses;
     for (i = 0; i < containerStatuses.length; i++) {
       if (!this.state.containerList.includes(containerStatuses[i].name)) {
