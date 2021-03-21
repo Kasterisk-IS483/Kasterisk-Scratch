@@ -38,8 +38,6 @@ export default class WorkloadPodsScreen extends Component {
       pod: this.props.route.params.pod,
       container: "[all containers]",
       containerList: ["[all containers]"],
-      since: "[all]",
-      sinceList: ["5 minutes", "10 minutes"],
       checkedTimestamp: false,
       checkedFilter: false,
       logs: ""
@@ -71,9 +69,6 @@ export default class WorkloadPodsScreen extends Component {
   async updateState(stateKey, value) {
     if (stateKey == "container") {
       this.setState({ container: value });
-    }
-    if (stateKey == "since") {
-      this.setState({ since: value });
     }
   }
 
@@ -187,10 +182,6 @@ export default class WorkloadPodsScreen extends Component {
     return this.list("container", this.state.container, this.state.containerList);
   };
 
-  SinceList = () => {
-    return this.list("Since", this.state.since, this.state.sinceList);
-  };
-
   SummaryTab = () => {
     return (
       <View>
@@ -247,7 +238,6 @@ export default class WorkloadPodsScreen extends Component {
         <Card elevation={10}>
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             {this.ContainerList()}
-            {this.SinceList()}
           </Card.Content>
 
           <Card.Content style={commonStyles.cardContent, commonPortraitStyles.rowContainer}>
