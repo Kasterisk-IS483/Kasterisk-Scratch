@@ -97,7 +97,7 @@ export default class WorkloadPodsScreen extends Component {
         logs: await PodApi.readPodLog(
           this.state.pod.metadata.namespace,
           this.state.pod.metadata.name,
-          { timestamps: value }
+          { timestamps: !this.state.checkedTimestamp }
         )
       });
     }
@@ -156,7 +156,7 @@ export default class WorkloadPodsScreen extends Component {
 
   onToggleTimestampSwitch = () => {
     this.setState({ checkedTimestamp: !this.state.checkedTimestamp })
-    this.updateState("switchView", !this.state.switchView)
+    this.updateState("switchView", !this.state.checkedTimestamp)
   };
   onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
 
