@@ -11,6 +11,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Image, SafeAreaView, Alert, Text } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import ModalDropdown from "react-native-modal-dropdown";
+// API 
+import { checkServerStatus } from "./api/KubeApi";
+import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
 // styling
 import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
 // authentication 
@@ -31,9 +34,7 @@ import ReplicasetListScreen from "./screens/list/ReplicasetListScreen.js";
 import PodsListScreen from "./screens/list/PodsListScreen.js";
 // multicuster
 import ChangeClusterScreen from "./screens/authentication/ChangeClusterScreen";
-// API 
-import { checkServerStatus } from "./api/KubeApi";
-import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
+
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 const Drawer = createDrawerNavigator();
@@ -43,6 +44,7 @@ const screenOptions = {
   headerStyle: { backgroundColor: colours.primary },
   headerShown: true,
 };
+
 export default class App extends Component {
   constructor(props) {
     console.log("App.js constructor");
@@ -56,15 +58,15 @@ export default class App extends Component {
     console.log("/App.js constructor");
   }
 
-  workloadDeploymentScreen = () => {
-    return <WorkloadSummaryScreen index={1} />;
-  };
-  workloadReplicasetScreen = () => {
-    return <WorkloadSummaryScreen index={2} />;
-  };
-  workloadPodScreen = () => {
-    return <WorkloadSummaryScreen index={3} />;
-  };
+  // workloadDeploymentTab = () => {
+  //   return <WorkloadSummaryScreen index={1} />;
+  // };
+  // workloadReplicasetTab = () => {
+  //   return <WorkloadSummaryScreen index={2} />;
+  // };
+  // workloadPodTab = () => {
+  //   return <WorkloadSummaryScreen index={3} />;
+  // };
 
   filter = () => {
     return (
@@ -153,13 +155,11 @@ export default class App extends Component {
         drawerContent={(props) => {
           return (
             <SafeAreaView style={{ flex: 1 }}>
-              <View
-                style={{
-                  height: 150,
-                  margin: spacings.sm,
-                  ...commonStyles.centralise,
-                }}
-              >
+              <View style={{
+                height: 150,
+                margin: spacings.sm,
+                ...commonStyles.centralise,
+              }}>
                 <Image
                   source={require("./assets/kasterisk-logo.png")}
                   style={{ height: "40%", width: "100%" }}
@@ -297,8 +297,8 @@ export default class App extends Component {
             component={WelcomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="AWSLogin" 
-            component={AWSLoginScreen} 
+          <Stack.Screen name="AWSLogin"
+            component={AWSLoginScreen}
             options={{ title: "AWS Login" }}
           />
           <Stack.Screen
@@ -343,7 +343,7 @@ export default class App extends Component {
             component={NodesListScreen}
             options={{ title: "Nodes" }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="DeploymentList"
             component={DeploymentListScreen}
             options={{ title: "DeploymentList" }}

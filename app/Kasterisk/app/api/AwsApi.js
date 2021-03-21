@@ -25,9 +25,9 @@ class AwsApi {
         region: region,
       };
       /* Sign STS API Query with AWS4 Signature */
-      
+
       const signedQuery = sign(queryOptions, AwsCredentials);
-      
+
       /* Pull out signed host & path */
       const signedURL = `https://${signedQuery.host}${signedQuery.path}`;
       /* Base64 encode signed URL */

@@ -54,7 +54,7 @@ class ChangeClusterScreen extends Component {
     // let previousCluster = this.props.route.params.previous;
     try {
       this.previousCluster = this.props.route.params.previous;
-    } catch (err) {}
+    } catch (err) { }
 
     if (this.previousCluster != null) {
       this.previousClusterData = JSON.parse(await AsyncStorage.getItem(this.previousCluster));
@@ -113,11 +113,11 @@ class ChangeClusterScreen extends Component {
             />
           ))}
         </ScrollView>
-        <SubmitButton 
-            icon="plus" 
-            onPress={() => this.props.navigation.navigate("AddCluster")}
-            text="Add new cluster"
-          />
+        <SubmitButton
+          icon="plus"
+          onPress={() => this.props.navigation.navigate("AddCluster")}
+          text="Add new cluster"
+        />
       </View>
     );
   }

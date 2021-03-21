@@ -193,7 +193,7 @@ export default class WorkloadSummaryScreen extends Component {
               item.namespace,
               item.name
             ),
-            podstatus: await DetailPageApi.PodsStatuses(item.namespace),
+            podstatus: await DetailPageApi.PodsStatuses(item.namespace, item.labels),
           })
         }
       >

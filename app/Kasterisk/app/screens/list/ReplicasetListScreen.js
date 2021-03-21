@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, ScrollView, Dimensions, Alert } from "react-native";
+import { Dimensions, Alert } from "react-native";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import {
   commonStyles,
-  dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles.js";
-import TableCard from "../../components/Cards/TableCard";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class ReplicasetListScreen extends Component {
   constructor(props) {
@@ -47,7 +45,7 @@ export default class ReplicasetListScreen extends Component {
   }
 
   formatObject(item) {
-    item.status = item.status +"/" + item.total;
+    item.status = item.status + "/" + item.total;
     delete item.total;
     this.setState({
       replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
@@ -101,12 +99,9 @@ export default class ReplicasetListScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
-        <SpinnerOverlay showSpinner={this.state.spinner} />
-        <View style={commonStyles.detailsContainer}>
-          <TableCard header="Replicasets List" table={this.state.replicasetsArr} />
-        </View>
-      </ScrollView>
+      <WorkloadTemplate type="list" header="Replicasets List" showSpinner={this.state.spinner}>
+        {this.state.replicasetsArr}
+      </WorkloadTemplate>
     );
   }
 }

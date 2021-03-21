@@ -94,17 +94,17 @@ export default class KubeconfigUploadScreen extends Component {
         </Text>
         <ActionButton text="Select File" onPress={this.uploadFile} />
         <View style={[commonStyles.formContentContainer, { flex: 1 }]}>
-          <Text style={[ 
+          <Text style={[
             commonStyles.formSectionHeader, {
-            paddingTop: spacings.lg,
-          }]}>
+              paddingTop: spacings.lg,
+            }]}>
             Fields required:
           </Text>
           <CustomButton image={this.state.CertImg} text="certificate-authority-data or insecure-skip-tls-verify: true" type="checkbox" align="flex-start" disabled={true} />
           <Text style={[
             commonStyles.formSectionHeader, {
-            paddingTop: spacings.xl,
-          }]}>
+              paddingTop: spacings.xl,
+            }]}>
             File preview:
           </Text>
           <ScrollView style={{

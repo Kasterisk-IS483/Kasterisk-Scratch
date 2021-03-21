@@ -97,7 +97,7 @@ export default class WelcomeScreen extends Component {
     this.props.navigation.dispatch(state => {
       // Remove the home route from the stack
       const routes = state.routes.filter(r => r.name !== 'ChooseCluster');
-    
+
       return CommonActions.reset({
         ...state,
         routes,
@@ -129,8 +129,8 @@ export default class WelcomeScreen extends Component {
 
         <View style={this.getStyle().primaryContainer}>
           <ScrollView contentContainerStyle={[
-              commonStyles.scrollContainer,
-              commonStyles.centralise,
+            commonStyles.scrollContainer,
+            commonStyles.centralise,
           ]}>
             {/* <CustomButton
               image={require("../assets/welcome-button-google.png")}

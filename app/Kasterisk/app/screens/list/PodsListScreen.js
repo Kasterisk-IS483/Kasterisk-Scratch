@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, ScrollView, Dimensions, Alert } from "react-native";
+import { Dimensions, Alert } from "react-native";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
-import TableCard from "../../components/Cards/TableCard";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 import {
   commonStyles,
-  dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles.js";
@@ -100,12 +98,9 @@ export default class PodsListScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer, dashboardStyles.scrollContainer}>
-        <SpinnerOverlay showSpinner={this.state.spinner} />
-        <View style={commonStyles.detailsContainer}>
-          <TableCard header="Pods List" table={this.state.podsArr} />
-        </View>
-      </ScrollView>
+      <WorkloadTemplate type="list" header="Pods List" showSpinner={this.state.spinner}>
+        {this.state.podsArr}
+      </WorkloadTemplate>
     );
   }
 }

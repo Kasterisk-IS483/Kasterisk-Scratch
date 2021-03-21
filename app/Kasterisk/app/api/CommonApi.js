@@ -4,14 +4,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import AwsApi from "./AwsApi";
 
 class CommonAPI extends Component {
-  static apiFetch = async ({ apiUrl, method, body = "", text }) => {
+  static apiFetch = async ({ apiUrl, method, body = "", parameters, text }) => {
 
     let defaultCluster = await AsyncStorage.getItem('@defaultCluster');
     if (defaultCluster == null) {
       throw new Error("Default cluster not found");
     }
     let mergeData = await AsyncStorage.getItem(defaultCluster);
-    
+
     mergeData = JSON.parse(mergeData);
 
     let clusterData, userData, authType;
@@ -41,6 +41,14 @@ class CommonAPI extends Component {
 
     let callUrl = `${baseUrl}${apiUrl}`;
 
+    if (parameters != undefined) {
+      callUrl += "?";
+      Object.keys(parameters).forEach(function (key) {
+        callUrl += key + "=" + parameters[key] + "&";
+      });
+      callUrl = callUrl.slice(0, -1);
+    }
+
     return RNFetchBlob.config({
       trusty: true,
     })
@@ -55,10 +63,10 @@ class CommonAPI extends Component {
       )
       .then((response) => {
         let data;
-        if (text == "text"){
+        if (text == "text") {
           data = response.text();
         }
-        else {data = response.json();}
+        else { data = response.json(); }
         return data;
       })
       .catch((error) => {
@@ -67,8 +75,8 @@ class CommonAPI extends Component {
       });
   };
 
-  static get(apiUrl, body = "") {
-    return this.apiFetch({ method: "GET", apiUrl, body });
+  static get(apiUrl, parameters, text, body = "") {
+    return this.apiFetch({ method: "GET", apiUrl, body, parameters, text });
   }
   static post(apiUrl, body = "") {
     return this.apiFetch({ method: "POST", apiUrl, body });
@@ -81,9 +89,6 @@ class CommonAPI extends Component {
   }
   static patch(apiUrl, body = "") {
     return this.apiFetch({ method: "PATCH", apiUrl, body });
-  }
-  static getText(apiUrl, text, body = "") {
-    return this.apiFetch({ method: "GET", apiUrl, body, text });
   }
 }
 export default CommonAPI;
