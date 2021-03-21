@@ -69,7 +69,6 @@ export default class App extends Component {
   filter = () => {
     return (
       <View style={{ flexDirection: "row" }}>
-        {console.log("App.js filter")}
         <ModalDropdown
           options={this.state.namespaceLabels}
           dropdownStyle={{
@@ -112,10 +111,13 @@ export default class App extends Component {
     });
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      console.log(defaultCluster);
       if (defaultCluster != null) {
         let serverStatus = await checkServerStatus(defaultCluster);
+        console.log(serverStatus);
         if (serverStatus[0] == 200) {
           await AsyncStorage.setItem("@selectedValue", "");
+          //Not working
           this.setState({
             namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
           });
@@ -272,6 +274,7 @@ export default class App extends Component {
   };
 
   render() {
+    console.log("App.js render");
     return (
       <NavigationContainer>
         <Stack.Navigator
@@ -356,7 +359,7 @@ export default class App extends Component {
             options={{ title: "PodsList" }}
           />
         </Stack.Navigator>
-        {console.log("App.js render")}
+        {console.log("/App.js render")}
       </NavigationContainer>
     );
   }
