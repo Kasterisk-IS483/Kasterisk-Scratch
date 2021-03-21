@@ -5,10 +5,10 @@ import { Title } from 'react-native-paper';
 
 import { checkServerStatus } from "../../api/KubeApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
-import { 
-  commonStyles, 
-  commonPortraitStyles, 
-  workloadDetailsBreakpoint 
+import {
+  commonStyles,
+  commonPortraitStyles,
+  workloadDetailsBreakpoint
 } from "../../utils/styles.js";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
@@ -53,7 +53,7 @@ export default class WorkloadReplicasetScreen extends Component {
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      
+
       if (defaultCluster == null) {
         Alert.alert("Error", "Default cluster not found");
         this.setState({
@@ -82,14 +82,14 @@ export default class WorkloadReplicasetScreen extends Component {
     let annotations = this.state.replicaset.metadata.annotations;
     let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(annotations)[0];
     let stringAnnotations = "";
-    Object.keys(annotations).forEach(function(key) {
+    Object.keys(annotations).forEach(function (key) {
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
     return (
       <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
         <Title style={commonStyles.headerTitle}>
           {this.state.replicaset.metadata.name}
-        </Title> 
+        </Title>
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
@@ -109,7 +109,7 @@ export default class WorkloadReplicasetScreen extends Component {
           </View>
         </View>
 
-        <DetailsCard header="Metadata" type="Replicaset" 
+        <DetailsCard header="Metadata" type="Replicaset"
           age={getAgeText(this.state.replicaset.metadata.creationTimestamp)}
           labels={getLabelButtons(this.state.replicaset.metadata.labels)}
           annotations={stringAnnotations}

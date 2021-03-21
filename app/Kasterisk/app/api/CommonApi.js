@@ -11,7 +11,7 @@ class CommonAPI extends Component {
       throw new Error("Default cluster not found");
     }
     let mergeData = await AsyncStorage.getItem(defaultCluster);
-    
+
     mergeData = JSON.parse(mergeData);
 
     let clusterData, userData, authType;
@@ -41,12 +41,12 @@ class CommonAPI extends Component {
 
     let callUrl = `${baseUrl}${apiUrl}`;
 
-    if (parameters != undefined){
+    if (parameters != undefined) {
       callUrl += "?";
-      Object.keys(parameters).forEach(function(key) {
+      Object.keys(parameters).forEach(function (key) {
         callUrl += key + "=" + parameters[key] + "&";
       });
-      callUrl = callUrl.slice(0,-1);
+      callUrl = callUrl.slice(0, -1);
     }
 
     return RNFetchBlob.config({
@@ -63,10 +63,10 @@ class CommonAPI extends Component {
       )
       .then((response) => {
         let data;
-        if (text == "text"){
+        if (text == "text") {
           data = response.text();
         }
-        else {data = response.json();}
+        else { data = response.json(); }
         return data;
       })
       .catch((error) => {

@@ -9,12 +9,12 @@ import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi.js";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
-import { 
-  fonts, 
-  colours, 
-  commonStyles, 
-  dashboardStyles, 
-  commonPortraitStyles, 
+import {
+  fonts,
+  colours,
+  commonStyles,
+  dashboardStyles,
+  commonPortraitStyles,
   workloadDetailsBreakpoint,
   cardsOuterPadding,
   spacings
@@ -41,7 +41,7 @@ export default class WorkloadPodsScreen extends Component {
       since: "[all]",
       sinceList: ["5 minutes", "10 minutes"],
       checkedTimestamp: false,
-      checkedFilter:false,
+      checkedFilter: false,
       logs: ""
     };
     Dimensions.addEventListener("change", (e) => {
@@ -71,8 +71,8 @@ export default class WorkloadPodsScreen extends Component {
   async updateState(stateKey, value) {
     if (stateKey == "container") {
       this.setState({ container: value });
-    } 
-    if (stateKey == "since"){
+    }
+    if (stateKey == "since") {
       this.setState({ since: value });
     }
   }
@@ -94,7 +94,7 @@ export default class WorkloadPodsScreen extends Component {
 
       if (serverStatus[0] == 200) {
         let timestampParam = this.state.checkedTimestamp;
-        if (this.state.container != "[all containers]"){
+        if (this.state.container != "[all containers]") {
           this.setState({
             logs: await PodApi.readPodLog(
               this.state.pod.metadata.namespace,
@@ -104,7 +104,7 @@ export default class WorkloadPodsScreen extends Component {
           });
         }
         else {
-          for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++){
+          for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++) {
             this.setState({
               logs: this.state.logs + await PodApi.readPodLog(
                 this.state.pod.metadata.namespace,
@@ -130,7 +130,7 @@ export default class WorkloadPodsScreen extends Component {
 
   onToggleTimestampSwitch = () => this.setState({ checkedTimestamp: !this.state.checkedTimestamp });
   onToggleFilterSwitch = () => this.setState({ checkedFilter: !this.state.checkedFilter });
-  
+
   scene = (tab) => {
     return (
       <ScrollView>
@@ -145,7 +145,7 @@ export default class WorkloadPodsScreen extends Component {
   singleCard = (content) => {
     return (
       <View style={{ padding: cardsOuterPadding }}>
-          {content}
+        {content}
       </View>
     );
   }
@@ -154,11 +154,11 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View style={commonPortraitStyles.columnContainer}>
         <View style={commonStyles.fieldsContainer}>
-          <Switch 
-            value={value} 
-            onValueChange={funct} 
-            color={colours.primary} 
-            style={commonStyles.switchContainer} 
+          <Switch
+            value={value}
+            onValueChange={funct}
+            color={colours.primary}
+            style={commonStyles.switchContainer}
           />
           <Text style={commonStyles.switchText}>
             {text}
@@ -202,7 +202,7 @@ export default class WorkloadPodsScreen extends Component {
               serviceAccount={this.state.pod.spec.serviceAccount}
             />
           </View>
-          
+
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Status" type="Pods"
               qos={this.state.pod.status.qosClass}
@@ -219,7 +219,7 @@ export default class WorkloadPodsScreen extends Component {
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Template" type="Pods" 
+            <DetailsCard header="Template" type="Pods"
               podTemplate={DetailPageApi.PodTemplates(this.state.pod)}
             />
           </View>
@@ -238,7 +238,7 @@ export default class WorkloadPodsScreen extends Component {
   LogsTab = () => {
     let containerStatuses = this.state.pod.status.containerStatuses;
     for (i = 0; i < containerStatuses.length; i++) {
-      if (!this.state.containerList.includes(containerStatuses[i].name)){
+      if (!this.state.containerList.includes(containerStatuses[i].name)) {
         this.state.containerList.push(containerStatuses[i].name);
       }
     }
@@ -255,12 +255,12 @@ export default class WorkloadPodsScreen extends Component {
           </Card.Content>
 
           <Card.Content>
-            <Text style={{ 
-              color: 'white', 
-              backgroundColor: 'black', 
-              fontSize: fonts.sm, 
-              padding: spacings.md, 
-              marginVertical: spacings.sm, 
+            <Text style={{
+              color: 'white',
+              backgroundColor: 'black',
+              fontSize: fonts.sm,
+              padding: spacings.md,
+              marginVertical: spacings.sm,
             }}>
               {this.state.logs ? this.state.logs : "No logs"}
             </Text>

@@ -6,10 +6,10 @@ import { Title } from 'react-native-paper';
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
-import { 
-  commonStyles, 
-  commonPortraitStyles, 
-  workloadDetailsBreakpoint 
+import {
+  commonStyles,
+  commonPortraitStyles,
+  workloadDetailsBreakpoint
 } from "../../utils/styles.js";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
@@ -55,7 +55,7 @@ export default class WorkloadDeploymentScreen extends Component {
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      
+
       if (defaultCluster == null) {
         Alert.alert("Error", "Default cluster not found");
         this.setState({
@@ -84,10 +84,10 @@ export default class WorkloadDeploymentScreen extends Component {
     let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
     let containerPorts = this.state.deployment.spec.template.spec.containers[0].ports;
     let stringcontainerPorts = "";
-    if (containerPorts == undefined){
+    if (containerPorts == undefined) {
       stringcontainerPorts += "80/TCP";
     } else {
-      for (const containerPort of containerPorts){
+      for (const containerPort of containerPorts) {
         stringcontainerPorts += containerPort.name + " " + containerPort.containerPort + "/" + containerPort.protocol + "\n";
       }
     }
@@ -120,16 +120,16 @@ export default class WorkloadDeploymentScreen extends Component {
         </View>
 
         <TableCard header="Pods" type="Deployment"
-          table={DetailPageApi.PodsInfo(this.state.pods)} 
+          table={DetailPageApi.PodsInfo(this.state.pods)}
         />
 
         <TableCard header="Conditions" type="Deployment"
-          table={DetailPageApi.Conditions(this.state.deployment.status.conditions, "Deployment")} 
+          table={DetailPageApi.Conditions(this.state.deployment.status.conditions, "Deployment")}
         />
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
-            <DetailsCard header="Pod Template" type="Deployment" 
+            <DetailsCard header="Pod Template" type="Deployment"
               container={this.state.deployment.spec.template.spec.containers[0].name}
               label={getLabelButtons(this.state.deployment.spec.template.metadata.labels)}
               image={this.state.deployment.spec.template.spec.containers[0].image}
@@ -139,7 +139,7 @@ export default class WorkloadDeploymentScreen extends Component {
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
-              labels={getLabelButtons(this.state.deployment.metadata.labels) }
+              labels={getLabelButtons(this.state.deployment.metadata.labels)}
               annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
             />
           </View>

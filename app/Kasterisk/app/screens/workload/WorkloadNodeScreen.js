@@ -6,10 +6,10 @@ import { Title } from 'react-native-paper';
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
-import { 
-  commonStyles, 
-  commonPortraitStyles, 
-  workloadDetailsBreakpoint 
+import {
+  commonStyles,
+  commonPortraitStyles,
+  workloadDetailsBreakpoint
 } from "../../utils/styles.js";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
@@ -53,7 +53,7 @@ export default class WorkloadNodeScreen extends Component {
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      
+
       if (defaultCluster == null) {
         Alert.alert("Error", "Default cluster not found");
         this.setState({
@@ -81,7 +81,7 @@ export default class WorkloadNodeScreen extends Component {
   render() {
     let annotations = this.state.node.metadata.annotations;
     let stringAnnotations = "";
-    Object.keys(annotations).forEach(function(key) {
+    Object.keys(annotations).forEach(function (key) {
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
     return (
@@ -109,18 +109,18 @@ export default class WorkloadNodeScreen extends Component {
         </View>
 
         <TableCard header="Conditions" type="Node"
-          table={DetailPageApi.Conditions(this.state.node.status.conditions, "node")} 
+          table={DetailPageApi.Conditions(this.state.node.status.conditions, "node")}
         />
 
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
             <TableCard header="Resources" type="Node"
-              table={DetailPageApi.PodResources(this.state.node.status)} 
+              table={DetailPageApi.PodResources(this.state.node.status)}
             />
           </View>
           <View style={this.getStyle().columnContainer}>
             <TableCard header="Addresses" type="Node"
-              table={DetailPageApi.PodAddresses(this.state.node.status.addresses)} 
+              table={DetailPageApi.PodAddresses(this.state.node.status.addresses)}
             />
           </View>
         </View>
@@ -129,9 +129,9 @@ export default class WorkloadNodeScreen extends Component {
           table={DetailPageApi.PodImages(this.state.node.status.images)}
         />
 
-        <DetailsCard header="Metadata" type="Node" 
+        <DetailsCard header="Metadata" type="Node"
           age={getAgeText(this.state.node.metadata.creationTimestamp)}
-          labels={getLabelButtons(this.state.node.metadata.labels) }
+          labels={getLabelButtons(this.state.node.metadata.labels)}
           annotations={stringAnnotations}
         />
       </WorkloadTemplate>

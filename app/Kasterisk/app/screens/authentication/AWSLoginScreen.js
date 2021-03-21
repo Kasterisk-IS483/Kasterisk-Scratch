@@ -58,13 +58,13 @@ const AWSLoginScreen = ({ navigation }) => {
         },
       };
       let mergeData = {
-        clusterIdentifier: clusterIdentifier, 
+        clusterIdentifier: clusterIdentifier,
         clusterData: clusterData,
         userData: userData,
         authType: "aws",
         serviceProvider: "aws"
       };
-      
+
       try {
         let check = await AsyncStorage.getItem("@" + clusterIdentifier);
         if (check != null) {
@@ -113,15 +113,15 @@ const AWSLoginScreen = ({ navigation }) => {
         />
         <Text style={[
           commonStyles.formSectionHeader, {
-          paddingTop: spacings.lg,
-        }]}>
+            paddingTop: spacings.lg,
+          }]}>
           Region Information:
         </Text>
         <View style={[
           commonStyles.formContent,
           commonStyles.picker, {
-          marginTop: spacings.md,
-        }]}>
+            marginTop: spacings.md,
+          }]}>
           {AWSRegionList()}
         </View>
         <SubmitButton text="Sign In" onPress={() => {

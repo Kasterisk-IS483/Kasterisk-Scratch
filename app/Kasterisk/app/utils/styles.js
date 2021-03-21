@@ -68,9 +68,9 @@ export const commonStyles = StyleSheet.create({
   },
 
   statusContainer: {
-    flex: 1, 
-    paddingBottom: spacings.sm, 
-    flexDirection: "column", 
+    flex: 1,
+    paddingBottom: spacings.sm,
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     borderColor: "black",
@@ -87,7 +87,7 @@ export const commonStyles = StyleSheet.create({
   },
 
   // forms
-  
+
   fieldsContainer: {
     flexDirection: 'row',
   },
@@ -102,31 +102,31 @@ export const commonStyles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: fonts.md,
     marginVertical: spacings.xs,
-  }, 
+  },
   formContent: {
     marginVertical: spacings.xs,
   },
 
   headerTitle: {
-    paddingBottom: spacings.sm, 
+    paddingBottom: spacings.sm,
     paddingLeft: spacings.sm,
-    fontSize: fonts.xl, 
-    fontWeight: 'bold', 
+    fontSize: fonts.xl,
+    fontWeight: 'bold',
   },
   switchText: {
     fontSize: fonts.sm,
     paddingTop: spacings.sm,
   },
 
-  picker: { 
-    borderWidth: 1, 
-    borderColor: colours.grey, 
+  picker: {
+    borderWidth: 1,
+    borderColor: colours.grey,
   },
 
   // Cards
   cardTitle: {
-    paddingBottom: spacings.sm, 
-    fontSize: fonts.lg, 
+    paddingBottom: spacings.sm,
+    fontSize: fonts.lg,
     fontWeight: 'bold',
   },
   cardContent: {
@@ -267,8 +267,8 @@ export const dashboardStyles = StyleSheet.create({
 
   picker: {
     ...commonStyles.picker,
-    marginVertical: spacings.sm, 
-    marginRight: spacings.sm 
+    marginVertical: spacings.sm,
+    marginRight: spacings.sm
   }
 });
 export const dashboardPortraitStyles = StyleSheet.create({

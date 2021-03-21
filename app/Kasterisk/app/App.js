@@ -149,9 +149,9 @@ export default class App extends Component {
           return (
             <SafeAreaView style={{ flex: 1 }}>
               <View style={{
-                  height: 150,
-                  margin: spacings.sm,
-                  ...commonStyles.centralise,
+                height: 150,
+                margin: spacings.sm,
+                ...commonStyles.centralise,
               }}>
                 <Image
                   source={require("./assets/kasterisk-logo.png")}
@@ -289,8 +289,8 @@ export default class App extends Component {
             component={WelcomeScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="AWSLogin" 
-            component={AWSLoginScreen} 
+          <Stack.Screen name="AWSLogin"
+            component={AWSLoginScreen}
             options={{ title: "AWS Login" }}
           />
           <Stack.Screen
@@ -335,7 +335,7 @@ export default class App extends Component {
             component={NodesListScreen}
             options={{ title: "Nodes" }}
           />
-           <Stack.Screen
+          <Stack.Screen
             name="DeploymentList"
             component={DeploymentListScreen}
             options={{ title: "DeploymentList" }}

@@ -30,7 +30,7 @@ export default function TableCard(props) {
     headers = ["Type", "Status", "Last Transition", "Message", "Reason"];
   } else if (props.header == "Nodes") {
     headers = ["Name", "Labels", "Status", "Roles", "Age", "Version"];
-  } else if (["Deployments List","Replicasets List"].includes(props.header)) {
+  } else if (["Deployments List", "Replicasets List"].includes(props.header)) {
     headers = ["Name", "Age", "Labels", "Containers", "Status", "Selector"];
   } else if (props.header == "Pods List") {
     headers = ["Name", "Age", "Phase", "Ready", "Restarts", "Labels", "namespace"];
@@ -43,10 +43,10 @@ export default function TableCard(props) {
   }
 
   const navigationToDetail = (rowIndex) => {
-    if (["Conditions","Pod Conditions","Resources","Addresses","Images"].includes(props.header)) {
+    if (["Conditions", "Pod Conditions", "Resources", "Addresses", "Images"].includes(props.header)) {
       return null;
     }
-    if (props.header == "Deployments List"){
+    if (props.header == "Deployments List") {
       return (async () => navigation.navigate("WorkloadDeployment", {
         deployment: await DeploymentApi.readDeployment(
           props.table[rowIndex][5],
@@ -55,14 +55,14 @@ export default function TableCard(props) {
         pods: await PodApi.listPod(props.table[rowIndex][5]),
       }))
     }
-    if (props.header == "Replicasets List"){
+    if (props.header == "Replicasets List") {
       return (async () => navigation.navigate("WorkloadReplicaset", {
         replicaset: await ReplicasetApi.readReplicaSet(
           props.table[rowIndex][5],
           props.table[rowIndex][0]
         ),
         podstatus: await DetailPageApi.PodsStatuses(
-          props.table[rowIndex][5], 
+          props.table[rowIndex][5],
           props.table[rowIndex][2]),
       }))
     }
@@ -85,44 +85,44 @@ export default function TableCard(props) {
 
   const headerStyle = (col) => {
     if (col === "Labels") {
-      return {flex: 3}; 
+      return { flex: 3 };
     }
     if (props.header === "Pods List" && col === "Name") {
-      return {flex: 2};
+      return { flex: 2 };
     }
     // Nodes 
     if (props.header === "Resources" && col === "Key") {
-      return {flex: 2};
+      return { flex: 2 };
     }
     if (props.header === "Addresses" && col === "Address") {
-      return {flex: 3};
+      return { flex: 3 };
     }
     if (props.header === "Images" && col === "Names") {
-      return {flex: 14};
+      return { flex: 14 };
     }
 
-    return {flex: 1};
+    return { flex: 1 };
   }
 
   const cellStyle = (cols, colIndex) => {
-    if (typeof cols === "object") { 
-      return {flex: 3};
+    if (typeof cols === "object") {
+      return { flex: 3 };
     }
     if (props.header === "Pods List" && colIndex === 0) {
-      return {flex: 2};
+      return { flex: 2 };
     }
     // Nodes 
     if (props.header === "Resources" && colIndex === 0) {
-      return {flex: 2};
+      return { flex: 2 };
     }
     if (props.header === "Addresses" && colIndex === 1) {
-      return {flex: 3};
+      return { flex: 3 };
     }
     if (props.header === "Images" && colIndex === 0) {
-      return {flex: 14};
+      return { flex: 14 };
     }
 
-    return {flex: 1};
+    return { flex: 1 };
   }
 
   return (
@@ -143,16 +143,16 @@ export default function TableCard(props) {
             {props.table === undefined
               ? null
               : props.table.map((rows, rowIndex) => (
-                <DataTable.Row key={rowIndex} onPress={ navigationToDetail(rowIndex) }>
+                <DataTable.Row key={rowIndex} onPress={navigationToDetail(rowIndex)}>
                   {rows === undefined
                     ? null
                     : rows.map((cols, colIndex) => (
-                        <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
-                          {typeof cols!=="object" 
-                            ? cols 
-                            : getLabelButtons(cols, 1, false)}
-                        </DataTable.Cell>
-                  ))}
+                      <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
+                        {typeof cols !== "object"
+                          ? cols
+                          : getLabelButtons(cols, 1, false)}
+                      </DataTable.Cell>
+                    ))}
                 </DataTable.Row>
               ))}
           </DataTable>

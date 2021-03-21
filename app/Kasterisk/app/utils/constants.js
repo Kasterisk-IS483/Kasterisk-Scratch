@@ -64,14 +64,14 @@ export const saveCredentials = async (storageKey, credentials) => {
 
 export const getLabelButtons = (cols, numToDisplay, isFull) => {
   return Object.keys(cols).map((labelItem, labelIndex) => (
-      getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull) 
-    ))
+    getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull)
+  ))
 };
 
 export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay, isFull) => {
   let countLabel = labelIndex + 1;
   let count = Object.keys(cols).length - numToDisplay;
-  if ( count>0 && countLabel == Object.keys(cols).length) {
+  if (count > 0 && countLabel == Object.keys(cols).length) {
     return <LabelButton key={labelIndex} displayMore={true} text={count + "+"} />;
   }
   if (countLabel > numToDisplay) {
@@ -85,7 +85,7 @@ export const calculateAge = (creationDT) => {
   creationDT = new Date(creationDT);
   var current = new Date();
   // To calculate the time difference of two dates 
-  let differenceInTime = current.getTime() - creationDT.getTime(); 
+  let differenceInTime = current.getTime() - creationDT.getTime();
   // To calculate the no. of days between two dates 
   let differenceInDays = differenceInTime / (1000 * 3600 * 24);
   return differenceInDays;

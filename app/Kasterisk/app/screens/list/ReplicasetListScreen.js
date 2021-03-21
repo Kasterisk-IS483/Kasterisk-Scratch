@@ -45,7 +45,7 @@ export default class ReplicasetListScreen extends Component {
   }
 
   formatObject(item) {
-    item.status = item.status +"/" + item.total;
+    item.status = item.status + "/" + item.total;
     delete item.total;
     this.setState({
       replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
