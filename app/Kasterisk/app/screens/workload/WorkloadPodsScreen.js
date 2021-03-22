@@ -73,9 +73,7 @@ export default class WorkloadPodsScreen extends Component {
       let timestampParam = this.state.checkedTimestamp;
       if (value != "[all containers]") {
         this.setState({
-          logs: await PodApi.readPodLog(
-            this.state.pod.metadata.namespace,
-            this.state.pod.metadata.name,
+          logs: await this.getPogLog(
             { 
               timestamps: timestampParam,
               container: value 
@@ -85,15 +83,12 @@ export default class WorkloadPodsScreen extends Component {
       } else {
         let logs = "";
         for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++) {
-          let currentLogs = await PodApi.readPodLog(
-            this.state.pod.metadata.namespace,
-            this.state.pod.metadata.name,
+          logs += await this.getPogLog(
             {
               timestamps: timestampParam,
               container: this.state.pod.status.containerStatuses[i].name
             }
           )
-          logs += currentLogs;
         }
         this.setState({
           logs: logs
@@ -102,13 +97,20 @@ export default class WorkloadPodsScreen extends Component {
     }
     if(stateKey=="switchView"){
       this.setState({
-        logs: await PodApi.readPodLog(
-          this.state.pod.metadata.namespace,
-          this.state.pod.metadata.name,
+        logs: await this.getPogLog(
           { timestamps: !this.state.checkedTimestamp }
         )
       });
     }
+  }
+
+  async getPogLog (parameters) {
+    return (
+      await PodApi.readPodLog(
+        this.state.pod.metadata.namespace,
+        this.state.pod.metadata.name,
+        parameters
+    ));
   }
 
   async componentDidMount() {
@@ -130,9 +132,7 @@ export default class WorkloadPodsScreen extends Component {
         let timestampParam = this.state.checkedTimestamp;
         if (this.state.container != "[all containers]") {
           this.setState({
-            logs: await PodApi.readPodLog(
-              this.state.pod.metadata.namespace,
-              this.state.pod.metadata.name,
+            logs: await this.getPogLog(
               { 
                 timestamps: timestampParam,
                 container: this.state.container.name 
@@ -143,15 +143,12 @@ export default class WorkloadPodsScreen extends Component {
         else {
           let logs = "";
           for (let i = 0; i < this.state.pod.status.containerStatuses.length; i++) {
-            let currentLogs = await PodApi.readPodLog(
-              this.state.pod.metadata.namespace,
-              this.state.pod.metadata.name,
+            logs += await this.getPogLog(
               {
                 timestamps: timestampParam,
                 container: this.state.pod.status.containerStatuses[i].name
               }
             )
-            logs += currentLogs;
           }
           this.setState({
             logs: logs
