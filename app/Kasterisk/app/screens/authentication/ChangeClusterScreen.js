@@ -149,7 +149,7 @@ class ChangeClusterScreen extends Component {
               onPress={async () => {
                 await AsyncStorage.setItem("@defaultCluster", "@" + aCluster.clusterIdentifier);
                 await this.setLabels("@" + aCluster.clusterIdentifier);
-                this.props.navigation.navigate("HomeDrawer", { screen: "WorkloadSummary" });
+                this.props.navigation.navigate("HomeDrawer", { namespaceLabels: this.state.namespaceLabels });
               }}
             />
           ))}

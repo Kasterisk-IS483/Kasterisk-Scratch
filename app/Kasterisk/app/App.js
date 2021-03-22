@@ -136,7 +136,9 @@ export default class App extends Component {
     });
   }
 
-  HomeDrawer = ({ navigation }) => {
+  HomeDrawer = ({ route, navigation }) => {
+    const { namespaceLabels } = route.params;
+    console.log(namespaceLabels);
     return (
       <Drawer.Navigator
         {...console.log("App.js HomeDrawer")}
