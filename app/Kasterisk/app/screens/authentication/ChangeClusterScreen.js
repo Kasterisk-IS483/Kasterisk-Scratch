@@ -77,10 +77,11 @@ class ChangeClusterScreen extends Component {
     let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
     if (defaultCluster != null) {
       console.log("there is default cluster");
+      await this.setLabels(defaultCluster);
       this.setState({ spinner: false });
       this.props.navigation.reset({
         index: 0,
-        routes: [{ name: "HomeDrawer", params: { screen: "WorkloadSummary" } }],
+        routes: [{ name: "HomeDrawer", params: { namespaceLabels: this.state.namespaceLabels } }],
       });
       // this.props.navigation.pushToTop("HomeDrawer", { screen: "WorkloadSummary" });
       return;
