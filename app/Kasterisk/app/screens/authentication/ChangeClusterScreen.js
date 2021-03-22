@@ -129,7 +129,7 @@ class ChangeClusterScreen extends Component {
                   await this.setLabels("@" + this.previousClusterData.clusterIdentifier);
                   this.props.navigation.reset({
                     index: 0,
-                    routes: [{ name: "HomeDrawer", params: { screen: "WorkloadSummary" } }],
+                    routes: [{ name: "HomeDrawer", params: { namespaceLabels: this.state.namespaceLabels } }],
                   });
                 }}
               />

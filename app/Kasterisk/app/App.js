@@ -68,31 +68,31 @@ export default class App extends Component {
   //   return <WorkloadSummaryScreen index={3} />;
   // };
 
-  filter = () => {
-    return (
-      <View style={{ flexDirection: "row" }}>
-        <ModalDropdown
-          options={this.state.namespaceLabels}
-          dropdownStyle={{
-            height: 40 * this.state.namespaceLabels.length,
-            alignItems: "center",
-          }}
-          dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-          textStyle={{
-            fontSize: fonts.sm,
-            color: "white",
-            marginRight: spacings.xxs,
-          }}
-          customButton="⋮"
-          defaultValue={this.state.selectedNamespace}
-          onSelect={async (index) =>
-            this.updateState(this.state.namespaceLabels[index])
-          }
-        />
-        <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
-      </View>
-    );
-  };
+  // filter = () => {
+  //   return (
+  //     <View style={{ flexDirection: "row" }}>
+  //       <ModalDropdown
+  //         options={this.state.namespaceLabels}
+  //         dropdownStyle={{
+  //           height: 40 * this.state.namespaceLabels.length,
+  //           alignItems: "center",
+  //         }}
+  //         dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+  //         textStyle={{
+  //           fontSize: fonts.sm,
+  //           color: "white",
+  //           marginRight: spacings.xxs,
+  //         }}
+  //         customButton="⋮"
+  //         defaultValue={this.state.selectedNamespace}
+  //         onSelect={async (index) =>
+  //           this.updateState(this.state.namespaceLabels[index])
+  //         }
+  //       />
+  //       <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+  //     </View>
+  //   );
+  // };
 
   async updateState(selectedNamespace) {
     let selectedValue = "";
@@ -108,32 +108,32 @@ export default class App extends Component {
 
   async componentDidMount() {
     SplashScreen.hide();
-    this.setState({
-      spinner: true,
-    });
-    try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
-      if (defaultCluster != null) {
-        let serverStatus = await checkServerStatus(defaultCluster);
-        console.log(serverStatus);
-        if (serverStatus[0] == 200) {
-          await AsyncStorage.setItem("@selectedValue", "");
-          //Not working
-          this.setState({
-            namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
-          });
-        } else {
-          Alert.alert("Error", "Failed to contact cluster");
-        }
-      }
-      console.log("App.js mounted");
-    } catch (err) {
-      Alert.alert("Server Check Failed", err.message);
-    }
-    this.setState({
-      spinner: false,
-    });
+    // this.setState({
+    //   spinner: true,
+    // });
+    // try {
+    //   let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+    //   console.log(defaultCluster);
+    //   if (defaultCluster != null) {
+    //     let serverStatus = await checkServerStatus(defaultCluster);
+    //     console.log(serverStatus);
+    //     if (serverStatus[0] == 200) {
+    //       await AsyncStorage.setItem("@selectedValue", "");
+    //       //Not working
+    //       this.setState({
+    //         namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
+    //       });
+    //     } else {
+    //       Alert.alert("Error", "Failed to contact cluster");
+    //     }
+    //   }
+    //   console.log("App.js mounted");
+    // } catch (err) {
+    //   Alert.alert("Server Check Failed", err.message);
+    // }
+    // this.setState({
+    //   spinner: false,
+    // });
   }
 
   HomeDrawer = ({ route, navigation }) => {
@@ -185,7 +185,28 @@ export default class App extends Component {
                     style={commonStyles.icon}
                   />
                 )}
-                options={{ headerRight: this.filter }}
+                options={{ headerRight: () => 
+            (<View style={{ flexDirection: "row" }}>
+              <ModalDropdown
+                options={namespaceLabels}
+                dropdownStyle={{
+                  height: 40 * namespaceLabels.length,
+                  alignItems: "center",
+                }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{
+                  fontSize: fonts.sm,
+                  color: "white",
+                  marginRight: spacings.xxs,
+                }}
+                customButton="⋮"
+                defaultValue={this.state.selectedNamespace}
+                onSelect={async (index) =>
+                  this.updateState(namespaceLabels[index])
+                }
+              />
+              <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+            </View>), }}
               />
 
               {/* <Text style={{ fontSize: fonts.md, paddingLeft: spacings.md, spacingVertical: spacing.md }}>Workloads</Text>*/}
@@ -208,7 +229,28 @@ export default class App extends Component {
               />
             ),
             title: "Workloads",
-            headerRight: this.filter,
+            headerRight: () => 
+            (<View style={{ flexDirection: "row" }}>
+              <ModalDropdown
+                options={namespaceLabels}
+                dropdownStyle={{
+                  height: 40 * namespaceLabels.length,
+                  alignItems: "center",
+                }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{
+                  fontSize: fonts.sm,
+                  color: "white",
+                  marginRight: spacings.xxs,
+                }}
+                customButton="⋮"
+                defaultValue={this.state.selectedNamespace}
+                onSelect={async (index) =>
+                  this.updateState(namespaceLabels[index])
+                }
+              />
+              <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+            </View>),
           }}
         />
         <Drawer.Screen
@@ -223,7 +265,28 @@ export default class App extends Component {
               />
             ),
             title: "Deployment List",
-            headerRight: this.filter,
+            headerRight: () => 
+            (<View style={{ flexDirection: "row" }}>
+              <ModalDropdown
+                options={namespaceLabels}
+                dropdownStyle={{
+                  height: 40 * namespaceLabels.length,
+                  alignItems: "center",
+                }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{
+                  fontSize: fonts.sm,
+                  color: "white",
+                  marginRight: spacings.xxs,
+                }}
+                customButton="⋮"
+                defaultValue={this.state.selectedNamespace}
+                onSelect={async (index) =>
+                  this.updateState(namespaceLabels[index])
+                }
+              />
+              <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+            </View>),
           }}
         />
         <Drawer.Screen
@@ -238,7 +301,28 @@ export default class App extends Component {
               />
             ),
             title: "Replicaset List",
-            headerRight: this.filter,
+            headerRight: () => 
+            (<View style={{ flexDirection: "row" }}>
+              <ModalDropdown
+                options={namespaceLabels}
+                dropdownStyle={{
+                  height: 40 * namespaceLabels.length,
+                  alignItems: "center",
+                }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{
+                  fontSize: fonts.sm,
+                  color: "white",
+                  marginRight: spacings.xxs,
+                }}
+                customButton="⋮"
+                defaultValue={this.state.selectedNamespace}
+                onSelect={async (index) =>
+                  this.updateState(namespaceLabels[index])
+                }
+              />
+              <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+            </View>),
           }}
         />
         <Drawer.Screen
@@ -253,7 +337,28 @@ export default class App extends Component {
               />
             ),
             title: "Pods List",
-            headerRight: this.filter,
+            headerRight: () => 
+            (<View style={{ flexDirection: "row" }}>
+              <ModalDropdown
+                options={namespaceLabels}
+                dropdownStyle={{
+                  height: 40 * namespaceLabels.length,
+                  alignItems: "center",
+                }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{
+                  fontSize: fonts.sm,
+                  color: "white",
+                  marginRight: spacings.xxs,
+                }}
+                customButton="⋮"
+                defaultValue={this.state.selectedNamespace}
+                onSelect={async (index) =>
+                  this.updateState(namespaceLabels[index])
+                }
+              />
+              <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+            </View>),
           }}
         />
         <Drawer.Screen
@@ -268,7 +373,28 @@ export default class App extends Component {
               />
             ),
             title: "Nodes",
-            headerRight: this.filter,
+            headerRight: () => 
+            (<View style={{ flexDirection: "row" }}>
+              <ModalDropdown
+                options={namespaceLabels}
+                dropdownStyle={{
+                  height: 40 * namespaceLabels.length,
+                  alignItems: "center",
+                }}
+                dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
+                textStyle={{
+                  fontSize: fonts.sm,
+                  color: "white",
+                  marginRight: spacings.xxs,
+                }}
+                customButton="⋮"
+                defaultValue={this.state.selectedNamespace}
+                onSelect={async (index) =>
+                  this.updateState(namespaceLabels[index])
+                }
+              />
+              <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+            </View>),
           }}
         />
       </Drawer.Navigator>
