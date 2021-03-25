@@ -10,6 +10,11 @@ export default function WorkloadTemplate(props) {
     <ScrollView style={dashboardStyles.scrollContainer}>
       <SpinnerOverlay showSpinner={props.showSpinner} />
       <View style={commonStyles.detailsContainer}>
+        {props.type=="filter"&& <TableCard header={"Deployments List"} table={props.deployment} />}
+        {props.type=="filter"&& <TableCard header={"Pods List"} table={props.pods} />}
+        {props.type=="filter"&& <TableCard header={"Replicasets List"} table={props.replicasets} />}
+        {props.type=="filter"&& <TableCard header={"Nodes"} table={props.nodes} />}
+
         {props.type == "list" &&
           <TableCard header={props.header} table={props.children} />
         }

@@ -32,6 +32,7 @@ import NodesListScreen from "./screens/list/NodesListScreen";
 import DeploymentListScreen from "./screens/list/DeploymentListScreen.js";
 import ReplicasetListScreen from "./screens/list/ReplicasetListScreen.js";
 import PodsListScreen from "./screens/list/PodsListScreen.js";
+import FilterLabelsScreen from "./screens/list/FilterLabels.js";
 // multicuster
 import ChangeClusterScreen from "./screens/authentication/ChangeClusterScreen";
 
@@ -161,9 +162,7 @@ export default class App extends Component {
                 options={{ headerRight: () => this.filter(namespaceLabels), }}
               />
 
-              {/* <Text style={{ fontSize: fonts.md, paddingLeft: spacings.md, spacingVertical: spacing.md }}>Workloads</Text>*/}
-              {/* <View style={commonStyles.centralise}><View style={{ borderWidth: 1, color: "black", width: "90%" }}></View></View> */}
-
+           
               <DrawerItemList {...props} labelStyle={{ fontSize: fonts.md }} />
             </SafeAreaView>
           );
@@ -237,6 +236,20 @@ export default class App extends Component {
               />
             ),
             title: "Nodes",
+            headerRight: () => this.filter(namespaceLabels), }}
+        />
+           <Drawer.Screen
+          name="FilterList"
+          component={FilterLabelsScreen}
+          options={{
+            drawerLabel: "Filter",
+            drawerIcon: () => (
+              <Image
+                source={require("./assets/DrawerIcons/nodes_icon.png")}
+                style={commonStyles.icon}
+              />
+            ),
+            title: "Filter",
             headerRight: () => this.filter(namespaceLabels), }}
         />
       </Drawer.Navigator>
@@ -327,6 +340,11 @@ export default class App extends Component {
             name="PodsList"
             component={PodsListScreen}
             options={{ title: "PodsList" }}
+          />
+           <Stack.Screen
+            name="FilterList"
+            component={FilterLabelsScreen}
+            options={{ title: "FilterList" }}
           />
         </Stack.Navigator>
         {console.log("/App.js render")}
