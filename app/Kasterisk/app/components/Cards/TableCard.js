@@ -150,7 +150,7 @@ export default function TableCard(props) {
                       <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
                         {typeof cols !== "object"
                           ? cols
-                          : getLabelButtons(cols, 1, false)}
+                          :<View style={commonStyles.labelContainer}>{getLabelButtons(cols, 1, false)}</View>}
                       </DataTable.Cell>
                     ))}
                 </DataTable.Row>

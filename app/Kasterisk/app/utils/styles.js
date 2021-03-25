@@ -212,6 +212,13 @@ export const commonStyles = StyleSheet.create({
     width: 35,
     height: 35,
   },
+
+  labelContainer: {
+    flex: 1,
+    flexDirection: "row",
+    paddingTop: spacings.md,
+    paddingBottom: 0,
+  },
 });
 export const commonPortraitStyles = StyleSheet.create({
   rowContainer: {
