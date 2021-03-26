@@ -14,6 +14,7 @@ import { checkServerStatus } from "../../api/KubeApi";
 import DeploymentApi from "../../api/DeploymentApi";
 import ReplicasetApi from "../../api/ReplicasetApi";
 import PodApi from "../../api/PodApi";
+import NodeApi from "../../api/NodeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons } from "../../utils/constants";
@@ -59,6 +60,7 @@ export default class WorkloadSummaryScreen extends Component {
       deploymentsInfo: [],
       replicasetsInfo: [],
       podsInfo: [],
+      nodesInfo: [],
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -141,7 +143,9 @@ export default class WorkloadSummaryScreen extends Component {
             this.state.namespace
           ),
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
+          nodesInfo: await WorkloadSummaryApi.nodesInfo(),
         });
+        //console.log(nodesInfo)
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -238,28 +242,25 @@ export default class WorkloadSummaryScreen extends Component {
 
   NodesTab = () => {
     const { navigation } = this.props;
-    return this.state.replicasetsInfo.map((item, index) => (
+    return this.state.nodesInfo.map((item, index) => (
       <TouchableOpacity
         key={index}
         onPress={async () =>
-          navigation.navigate("WorkloadReplicaset", {
-            replicaset: await ReplicasetApi.readReplicaSet(
-              item.namespace,
-              item.name
+          navigation.navigate("WorkloadNode", {
+            node: await NodeApi.readNode(
+              item[0]
             ),
-            podstatus: await DetailPageApi.PodsStatuses(item.namespace, item.labels),
           })
         }
       >
         <WorkloadCard
-          name={item.name}
-          age={item.age}
-          status={item.status}
-          total={item.total}
-          variableField="Containers"
-          variableFieldVal={item.containers}
+          name={item[0]}
+          age={item[4]}
+          status={item[2]}
+          total={item.length}
+          variableField="Ready"
         >
-          {getLabelButtons(item.labels, 3)}
+        {getLabelButtons(item[1], 3)}
         </WorkloadCard>
       </TouchableOpacity>
     ));
