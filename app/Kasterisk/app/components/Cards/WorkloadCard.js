@@ -42,7 +42,7 @@ export default function WorkloadCard(props) {
     progressShadowColor = statusColorCode;
     progressBgColor = statusColorCode;
     fontColor = "white"
-  } else if (props.variableField=="Ready"){
+  } else if (props.variableField=="Roles"){
       percent = 100;
       statusCondition = props.status.toLowerCase() == "ready";
       statusDisplay = statusCondition ? "Ready" : "Not Ready";
@@ -92,7 +92,7 @@ export default function WorkloadCard(props) {
           }}>
             <Title style={commonStyles.cardTitle}>{props.name}</Title>
             {fieldsContainerTemplate("Age:", props.age)}
-            {fieldsContainerTemplate(props.variableField + ":", props.variableFieldVal)}
+            {props.variableField!="Roles"?fieldsContainerTemplate(props.variableField + ":", props.variableFieldVal):<></>}
           </View>
 
         </Card.Content>

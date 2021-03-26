@@ -145,7 +145,7 @@ export default class WorkloadSummaryScreen extends Component {
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
           nodesInfo: await WorkloadSummaryApi.nodesInfo(),
         });
-        //console.log(nodesInfo)
+        console.log(nodesInfo)
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -258,7 +258,8 @@ export default class WorkloadSummaryScreen extends Component {
           age={item[4]}
           status={item[2]}
           total={item.length}
-          variableField="Ready"
+          variableField="Roles"
+          variableFieldVal={item[3]}
         >
         {getLabelButtons(item[1], 3)}
         </WorkloadCard>

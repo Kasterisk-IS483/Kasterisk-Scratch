@@ -8,6 +8,14 @@ import TableCard from "../Cards/TableCard";
 import SpinnerOverlay from "../Elements/SpinnerOverlay";
 
 export default function WorkloadTemplate(props) {
+  const getAllTables= () =>{
+    return(<View>
+    <TableCard header={"Deployments List"} table={props.deployment} />
+    <TableCard header={"Pods List"} table={props.pods} />
+    <TableCard header={"Replicasets List"} table={props.replicasets} />
+    <TableCard header={"Nodes"} table={props.nodes} />
+    </View>);
+  }
   return (
     <ScrollView style={dashboardStyles.scrollContainer}>
       <SpinnerOverlay showSpinner={props.showSpinner} />
@@ -45,10 +53,7 @@ export default function WorkloadTemplate(props) {
           </Card.Content>
         </Card>
       </View>}
-        {props.type=="filter"&& <TableCard header={"Deployments List"} table={props.deployment} />}
-        {props.type=="filter"&& <TableCard header={"Pods List"} table={props.pods} />}
-        {props.type=="filter"&& <TableCard header={"Replicasets List"} table={props.replicasets} />}
-        {props.type=="filter"&& <TableCard header={"Nodes"} table={props.nodes} />}
+         {props.type=="filter"&& getAllTables() }
 
         {props.type == "list" &&
           <TableCard header={props.header} table={props.children} />
