@@ -36,7 +36,7 @@ export default function OverviewCard({
     <View style={{
       paddingVertical: cardsOuterPadding,
       borderColor: 'grey',
-      minWidth: 300,
+      minWidth: 290,
     }}>
       <Card elevation={10}>
         <Card.Cover source={image} />

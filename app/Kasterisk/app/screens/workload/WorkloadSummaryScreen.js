@@ -40,6 +40,7 @@ export default class WorkloadSummaryScreen extends Component {
         { key: "second", title: "Deployments" },
         { key: "third", title: "Replicasets" },
         { key: "fourth", title: "Pods" },
+        { key: "fifth", title: "Nodes" },
       ],
       spinner: false,
       namespace: "",
@@ -235,6 +236,35 @@ export default class WorkloadSummaryScreen extends Component {
     ));
   };
 
+  NodesTab = () => {
+    const { navigation } = this.props;
+    return this.state.replicasetsInfo.map((item, index) => (
+      <TouchableOpacity
+        key={index}
+        onPress={async () =>
+          navigation.navigate("WorkloadReplicaset", {
+            replicaset: await ReplicasetApi.readReplicaSet(
+              item.namespace,
+              item.name
+            ),
+            podstatus: await DetailPageApi.PodsStatuses(item.namespace, item.labels),
+          })
+        }
+      >
+        <WorkloadCard
+          name={item.name}
+          age={item.age}
+          status={item.status}
+          total={item.total}
+          variableField="Containers"
+          variableFieldVal={item.containers}
+        >
+          {getLabelButtons(item.labels, 3)}
+        </WorkloadCard>
+      </TouchableOpacity>
+    ));
+  };
+
   _handleIndexChange = (index) => this.setState({ index });
   _renderTabBar = (props) => {
     return (
@@ -284,6 +314,17 @@ export default class WorkloadSummaryScreen extends Component {
                 />
               </TouchableOpacity>
             </View>
+            <View style={this.getStyle().columnContainer}>
+              <TouchableOpacity onPress={() => this.setState({ index: 4 })}>
+                <OverviewCard name="Nodes"
+                  image={require("../../assets/pod.png")}
+                  text1="Ready"
+                  text2="Not Ready"
+                  no1={this.state.podSummary.readyPods} //TODO change to nodes
+                  no2={this.state.podSummary.notReadyPods}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         );
 
@@ -305,6 +346,12 @@ export default class WorkloadSummaryScreen extends Component {
         return (
           <View style={dashboardStyles.wrapContainer}>{this.PodTab()}</View>
         );
+
+      case "fifth":
+        return (
+          <View style={dashboardStyles.wrapContainer}>{this.NodesTab()}</View>
+        );
+  
 
       default:
         return null;
