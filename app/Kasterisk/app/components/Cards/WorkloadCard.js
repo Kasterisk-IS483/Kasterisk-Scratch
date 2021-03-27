@@ -42,19 +42,17 @@ export default function WorkloadCard(props) {
     progressShadowColor = statusColorCode;
     progressBgColor = statusColorCode;
     fontColor = "white"
-  } else if (props.variableField=="Roles"){
-      percent = 100;
-      statusCondition = props.status.toLowerCase() == "ready";
-      statusDisplay = statusCondition ? "Ready" : "Not Ready";
-      statusColorCode = statusCondition ? colours.green : colours.orange;
-  
-      progressColor = statusColorCode;
-      progressShadowColor = statusColorCode;
-      progressBgColor = statusColorCode;
-      fontColor = "white"
-    }
-  
+  } else if (props.variableField == "Roles"){
+    percent = 100;
+    statusCondition = props.status.toLowerCase() == "ready";
+    statusDisplay = statusCondition ? "Ready" : "Not Ready";
+    statusColorCode = statusCondition ? colours.green : colours.orange;
 
+    progressColor = statusColorCode;
+    progressShadowColor = statusColorCode;
+    progressBgColor = statusColorCode;
+    fontColor = "white"
+  }
 
   const fieldsContainerTemplate = (leftText, rightText) => {
     return (

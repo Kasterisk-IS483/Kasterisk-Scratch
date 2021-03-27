@@ -79,9 +79,15 @@ export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay, i
   if (countLabel > numToDisplay) {
     return <Text key={labelIndex}></Text>;
   }
-  return <Tooltip height={80} backgroundColor={colours.secondary} popover={<View style={{flexDirection:'row'}}><Text style={{flex: 1, flexWrap: 'wrap'}}>{labelItem + ":" + cols[labelItem]}</Text></View>}>
-  <LabelButton key={labelIndex} full={isFull} text={labelItem + ":" + cols[labelItem]} />
-</Tooltip>;
+  return (
+    <Tooltip 
+      height={80} 
+      backgroundColor={colours.secondary} 
+      popover={<Text>{labelItem + ":" + cols[labelItem]}</Text>}
+    >
+      <LabelButton key={labelIndex} full={isFull} text={labelItem + ":" + cols[labelItem]} />
+    </Tooltip>
+  );
 };
 
 /** CALCULATE AGE FOR DEPLOYMENT, POD, REPLICASET **/

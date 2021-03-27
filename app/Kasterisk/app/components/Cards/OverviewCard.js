@@ -21,12 +21,19 @@ export default function OverviewCard({
   no2 = "0",
 }) {
 
+  let col1;
   let col2;
 
   if (text2 == "Not Ready") {
     col2 = colours.grey;
   } else if (text2 == "Pending") {
     col2 = colours.orange;
+  }
+
+  if (no1 == "0") {
+    col1 = colours.grey;
+  } else if (no2 == "0") {
+    col2 = colours.grey;
   }
 
   const statusCircleBorderWidth = 4;
