@@ -21,19 +21,15 @@ export default function OverviewCard({
   no2 = "0",
 }) {
 
-  let col1;
-  let col2;
-
-  if (text2 == "Not Ready") {
-    col2 = colours.grey;
-  } else if (text2 == "Pending") {
-    col2 = colours.orange;
-  }
+  let col1 = colours.green;
+  let col2 = colours.grey;
 
   if (no1 == "0") {
     col1 = colours.grey;
-  } else if (no2 == "0") {
-    col2 = colours.grey;
+  }
+  
+  if (no2 != "0") {
+    col2 = colours.orange;
   }
 
   const statusCircleBorderWidth = 4;
@@ -66,8 +62,8 @@ export default function OverviewCard({
             <StatusCircle
               borderWidth={statusCircleBorderWidth}
               radius={statusCircleRadius}
-              progressColor={colours.green}
-              fontColor={colours.green}
+              progressColor={col1}
+              fontColor={col1}
               text={no1}
             />
             <Title style={commonStyles.overviewCardLabel}>{text1}</Title>

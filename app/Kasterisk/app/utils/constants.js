@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform, Text, View} from "react-native";
+import { Platform, Text } from "react-native";
 import React from "react";
+import { Tooltip } from 'react-native-elements';
+
+import { commonStyles, spacings, colours } from "./styles";
 import LabelButton from "../components/Buttons/LabelButton";
-import { colors, Tooltip } from 'react-native-elements';
-import { commonStyles, spacings,colours } from "./styles";
 
 export const GOOGLE_IOS_CLIENT =
   "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt";
