@@ -1,10 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform, Text } from "react-native";
 import React from "react";
-import { Tooltip } from 'react-native-elements';
 
-import { commonStyles, spacings, colours } from "./styles";
 import LabelButton from "../components/Buttons/LabelButton";
+import TooltipOverlay from "../components/Elements/TooltipOverlay";
 
 export const GOOGLE_IOS_CLIENT =
   "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt";
@@ -81,13 +80,9 @@ export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay, i
     return <Text key={labelIndex}></Text>;
   }
   return (
-    <Tooltip 
-      height={80} 
-      backgroundColor={colours.secondary} 
-      popover={<Text>{labelItem + ":" + cols[labelItem]}</Text>}
-    >
+    <TooltipOverlay text={labelItem + ":" + cols[labelItem]}>
       <LabelButton key={labelIndex} full={isFull} text={labelItem + ":" + cols[labelItem]} />
-    </Tooltip>
+    </TooltipOverlay>
   );
 };
 

@@ -4,14 +4,14 @@ import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-import { commonStyles } from "../../utils/styles.js";
-
 import DeploymentApi from "../../api/DeploymentApi";
 import ReplicasetApi from "../../api/ReplicasetApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi";
 import NodeApi from "../../api/NodeApi";
 import { getLabelButtons } from "../../utils/constants";
+import { commonStyles } from "../../utils/styles.js";
+import TooltipOverlay from "../components/Elements/TooltipOverlay";
 
 export default function TableCard(props) {
   const navigation = useNavigation();
@@ -149,8 +149,12 @@ export default function TableCard(props) {
                     : rows.map((cols, colIndex) => (
                       <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
                         {typeof cols !== "object"
-                          ? cols
-                          :<View style={commonStyles.labelContainer}>{getLabelButtons(cols, 1, false)}</View>}
+                          ? 
+                          cols
+                          // <TooltipOverlay text={cols}>
+                          //   <Text>{cols}</Text>
+                          // </TooltipOverlay>
+                          : <View style={commonStyles.labelContainer}>{getLabelButtons(cols, 1, false)}</View>}
                       </DataTable.Cell>
                     ))}
                 </DataTable.Row>
