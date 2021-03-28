@@ -24,7 +24,7 @@ import {
   dashboardStyles,
   dashboardPortraitStyles,
   workloadOverviewBreakpoint,
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 import OverviewCard from "../../components/Cards/OverviewCard";
 import WorkloadCard from "../../components/Cards/WorkloadCard";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";

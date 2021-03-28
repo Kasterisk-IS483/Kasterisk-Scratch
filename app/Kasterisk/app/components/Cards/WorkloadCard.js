@@ -6,7 +6,7 @@ import {
   colours,
   spacings,
   commonStyles,
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 
 import StatusCircle from "../Elements/StatusCircle";
 

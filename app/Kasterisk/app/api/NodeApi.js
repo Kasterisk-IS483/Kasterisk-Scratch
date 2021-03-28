@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CommonAPI from "./CommonApi.js";
+import CommonAPI from "./CommonApi";
 
 class NodeApi extends Component {
 

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component, useState, updateState } from "react";
+import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -7,7 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
-import PodApi from "../../api/PodApi.js";
+import PodApi from "../../api/PodApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
 import {
   fonts,
@@ -18,7 +18,7 @@ import {
   workloadDetailsBreakpoint,
   cardsOuterPadding,
   spacings
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
@@ -114,14 +114,18 @@ export default class WorkloadPodsScreen extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ spinner: true });
+    this.setState({ 
+      spinner: true, 
+    });
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
 
       if (defaultCluster == null) {
         Alert.alert("Error", "Default cluster not found");
-        this.setState({ spinner: false });
+        this.setState({ 
+          spinner: false, 
+        });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
@@ -162,7 +166,9 @@ export default class WorkloadPodsScreen extends Component {
       Alert.alert("Server Check Failed", err.message);
     }
 
-    this.setState({ spinner: false });
+    this.setState({ 
+      spinner: false, 
+    });
   }
 
   onToggleTimestampSwitch = () => {

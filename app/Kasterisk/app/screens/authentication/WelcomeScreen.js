@@ -12,7 +12,7 @@ import { useNavigation, CommonActions } from "@react-navigation/native";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";
 import AzureApi from "../../api/AzureApi";
-import { commonStyles, commonPortraitStyles } from "../../utils/styles.js";
+import { commonStyles, commonPortraitStyles } from "../../utils/styles";
 import CustomButton from "../../components/Buttons/CustomButton";
 
 export default class WelcomeScreen extends Component {

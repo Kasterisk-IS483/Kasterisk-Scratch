@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import NamespaceApi from "./NamespaceApi.js";
-import DeploymentApi from "./DeploymentApi.js";
-import ReplicasetApi from "./ReplicasetApi.js";
-import DetailPageApi from "./DetailPageApi.js";
-import PodApi from "./PodApi.js";
-import NodeApi from "./NodeApi.js";
+import NamespaceApi from "./NamespaceApi";
+import DeploymentApi from "./DeploymentApi";
+import ReplicasetApi from "./ReplicasetApi";
+import DetailPageApi from "./DetailPageApi";
+import PodApi from "./PodApi";
+import NodeApi from "./NodeApi";
 import { getAgeText } from "../utils/constants";
 
 class WorkloadSummaryApi extends Component {

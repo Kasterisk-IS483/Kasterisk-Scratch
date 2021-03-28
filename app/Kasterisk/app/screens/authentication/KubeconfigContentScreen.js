@@ -4,7 +4,7 @@ import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput, RadioButton, Switch } from "react-native-paper";
 
 import { saveKubeconfigContentToLocal } from "../../api/KubeApi/config_types";
-import { colours, spacings, commonStyles } from "../../utils/styles.js";
+import { colours, spacings, commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 

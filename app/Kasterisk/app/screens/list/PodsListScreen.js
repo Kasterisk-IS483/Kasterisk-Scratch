@@ -10,7 +10,7 @@ import {
   commonStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 
 export default class PodsListScreen extends Component {
   constructor(props) {

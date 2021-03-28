@@ -8,7 +8,7 @@ import {
   commonStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class FilterLabelSCreen extends Component {

@@ -10,8 +10,8 @@ import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi";
 import NodeApi from "../../api/NodeApi";
 import { getLabelButtons } from "../../utils/constants";
-import { commonStyles } from "../../utils/styles.js";
-import TooltipOverlay from "../components/Elements/TooltipOverlay";
+import { commonStyles } from "../../utils/styles";
+// import TooltipOverlay from "../Elements/TooltipOverlay";
 
 export default function TableCard(props) {
   const navigation = useNavigation();

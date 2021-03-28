@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-native-paper";
 
-import { colours, spacings } from "../../utils/styles.js";
+import { colours, spacings } from "../../utils/styles";
 
 export default function LabelButton({ text = "", displayMore = false, full = true }) {
 

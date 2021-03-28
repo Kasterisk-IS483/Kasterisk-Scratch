@@ -3,7 +3,7 @@ import { View, ScrollView, Text } from "react-native";
 import { Card, Title } from "react-native-paper";
 import ModalDropdown from "react-native-modal-dropdown";
 
-import { commonStyles, dashboardStyles, fonts, spacings} from "../../utils/styles.js";
+import { commonStyles, dashboardStyles, fonts, spacings} from "../../utils/styles";
 import TableCard from "../Cards/TableCard";
 import SpinnerOverlay from "../Elements/SpinnerOverlay";
 
