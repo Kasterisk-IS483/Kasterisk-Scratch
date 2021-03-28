@@ -41,6 +41,8 @@ export default class FilterLabelSCreen extends Component {
       replicasetsArr: [],
       spinner: false,
       selectedItems : [],
+      dupeArr:[],
+      labelsArr: [],
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
@@ -50,6 +52,25 @@ export default class FilterLabelSCreen extends Component {
   onSelectedItemsChange = selectedItems => {
     this.setState({ selectedItems });
   };
+
+  addLabelsToArray = labelObject => {
+    for (const [key, value] of Object.entries(labelObject)) {
+      this.state.dupeArr.push(`${key}:${value}`);
+      this.state.labelsArr.push({
+        id: `${key}:${value}`,
+        name: `${key}:${value}`
+      })
+    }
+    let uniqueArray = [...new Set(this.state.dupeArr)];
+    console.log(uniqueArray);
+  }
+
+  getAllLabels = () => {
+    this.state.deployments.map((item) => this.addLabelsToArray(item.labels));
+    this.state.replicasets.map((item) => this.addLabelsToArray(item.labels));
+    this.state.pods.map((item) => this.addLabelsToArray(item.labels));
+    this.state.nodes.map((item) => this.addLabelsToArray(item.labels));
+  }
 
   getOrientation() {
     if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
@@ -135,6 +156,8 @@ export default class FilterLabelSCreen extends Component {
             ),
           });
           this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
+          this.getAllLabels();
+          console.log(this.state.labelsArr);
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -152,7 +175,7 @@ export default class FilterLabelSCreen extends Component {
       <View style={{ flex: 1 }}>
         <MultiSelect
           hideTags
-          items={items}
+          items={this.state.labelsArr}
           uniqueKey="id"
           ref={(component) => { this.multiSelect = component }}
           onSelectedItemsChange={this.onSelectedItemsChange}
