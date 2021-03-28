@@ -7,7 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
-import PodApi from "../../api/PodApi.js";
+import PodApi from "../../api/PodApi";
 import { getLabelButtons, getAgeText } from "../../utils/constants";
 import {
   fonts,
@@ -18,7 +18,7 @@ import {
   workloadDetailsBreakpoint,
   cardsOuterPadding,
   spacings
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";

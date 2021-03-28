@@ -6,7 +6,7 @@ import {
   fonts,
   spacings,
   commonStyles,
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 
 export default function StatusCircle({
   percent = 100,

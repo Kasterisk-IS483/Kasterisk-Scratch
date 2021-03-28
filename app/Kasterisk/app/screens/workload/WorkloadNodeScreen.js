@@ -10,7 +10,7 @@ import {
   commonStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint
-} from "../../utils/styles.js";
+} from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";

@@ -15,7 +15,7 @@ import ModalDropdown from "react-native-modal-dropdown";
 import { checkServerStatus } from "./api/KubeApi";
 import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
 // styling
-import { spacings, colours, fonts, commonStyles } from "./utils/styles.js";
+import { spacings, colours, fonts, commonStyles } from "./utils/styles";
 // authentication 
 import WelcomeScreen from "./screens/authentication/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/authentication/KubeconfigUploadScreen";
@@ -29,10 +29,10 @@ import WorkloadPodsScreen from "./screens/workload/WorkloadPodsScreen";
 import WorkloadNodeScreen from "./screens/workload/WorkloadNodeScreen";
 // list 
 import NodesListScreen from "./screens/list/NodesListScreen";
-import DeploymentListScreen from "./screens/list/DeploymentListScreen.js";
-import ReplicasetListScreen from "./screens/list/ReplicasetListScreen.js";
-import PodsListScreen from "./screens/list/PodsListScreen.js";
-import FilterLabelsScreen from "./screens/list/FilterLabels.js";
+import DeploymentListScreen from "./screens/list/DeploymentListScreen";
+import ReplicasetListScreen from "./screens/list/ReplicasetListScreen";
+import PodsListScreen from "./screens/list/PodsListScreen";
+import FilterLabelsScreen from "./screens/list/FilterLabels";
 // multicuster
 import ChangeClusterScreen from "./screens/authentication/ChangeClusterScreen";
 

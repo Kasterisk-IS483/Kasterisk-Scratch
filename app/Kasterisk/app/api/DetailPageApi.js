@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import PodApi from "./PodApi.js";
+import PodApi from "./PodApi";
 import { getAgeText } from "../utils/constants";
 
 class DetailPageApi extends Component {

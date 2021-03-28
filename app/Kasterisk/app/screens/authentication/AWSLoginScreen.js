@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AwsApi from "../../api/AwsApi";
 import { AWSRegions } from "../../utils/constants";
-import { spacings, commonStyles } from "../../utils/styles.js";
+import { spacings, commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-native-paper";
 
-import { spacings, colours } from "../../utils/styles.js";
+import { spacings, colours } from "../../utils/styles";
 
 export default function SubmitButton({ text="", onPress=null }) {
 

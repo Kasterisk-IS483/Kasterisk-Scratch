@@ -5,7 +5,7 @@ import { List } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
-import { commonStyles, fonts } from "../../utils/styles.js";
+import { commonStyles, fonts } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 

@@ -5,7 +5,7 @@ import * as DocumentPicker from "react-native-document-picker";
 
 import { Kubeconfig } from "../../api/KubeApi/config";
 import { saveKubeconfigFileToLocal, saveURLToken } from "../../api/KubeApi/config_types";
-import { colours, fonts, spacings, commonStyles } from "../../utils/styles.js";
+import { colours, fonts, spacings, commonStyles } from "../../utils/styles";
 import CustomButton from "../../components/Buttons/CustomButton";
 import ActionButton from "../../components/Buttons/ActionButton";
 import SubmitButton from "../../components/Buttons/SubmitButton";
