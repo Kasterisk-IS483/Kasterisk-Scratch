@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Dimensions, Alert } from "react-native";
+import { Dimensions, Alert, View } from "react-native";
+import MultiSelect from 'react-native-multiple-select';
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
@@ -11,6 +12,20 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+const items = [{
+  id: '92iijs7yta',
+  name: 'Ondo'
+}, {
+  id: '667atsas',
+  name: 'Maiduguri'
+}, {
+  id: 'hsyasajs',
+  name: 'Anambra'
+}, {
+  id: 'suudydjsjd',
+  name: 'Abuja'
+  }
+];
 export default class FilterLabelSCreen extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +40,16 @@ export default class FilterLabelSCreen extends Component {
       replicasets: [],
       replicasetsArr: [],
       spinner: false,
+      selectedItems : [],
     };
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
     });
   }
+
+  onSelectedItemsChange = selectedItems => {
+    this.setState({ selectedItems });
+  };
 
   getOrientation() {
     if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
@@ -127,9 +147,38 @@ export default class FilterLabelSCreen extends Component {
   }
 
   render() {
+    const { selectedItems } = this.state;
     return (
-      <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
+      <View style={{ flex: 1 }}>
+        <MultiSelect
+          hideTags
+          items={items}
+          uniqueKey="id"
+          ref={(component) => { this.multiSelect = component }}
+          onSelectedItemsChange={this.onSelectedItemsChange}
+          selectedItems={selectedItems}
+          selectText="Pick Items"
+          searchInputPlaceholderText="Search Items..."
+          onChangeInput={ (text)=> console.log(text)}
+          altFontFamily="ProximaNova-Light"
+          tagRemoveIconColor="#CCC"
+          tagBorderColor="#CCC"
+          tagTextColor="#CCC"
+          selectedItemTextColor="#CCC"
+          selectedItemIconColor="#CCC"
+          itemTextColor="#000"
+          displayKey="name"
+          searchInputStyle={{ color: '#CCC' }}
+          submitButtonColor="#CCC"
+          submitButtonText="Selected"
+        />
+        <View>
+          {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedItems)}
+        </View>
+        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
       </WorkloadTemplate>
+      </View>
+      
     );
   }
 }
