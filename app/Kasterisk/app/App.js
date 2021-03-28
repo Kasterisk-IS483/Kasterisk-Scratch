@@ -8,12 +8,9 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Image, SafeAreaView, Alert, Text } from "react-native";
+import { View, Image, SafeAreaView, Text } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import ModalDropdown from "react-native-modal-dropdown";
-// API 
-import { checkServerStatus } from "./api/KubeApi";
-import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
 // styling
 import { spacings, colours, fonts, commonStyles } from "./utils/styles";
 // authentication 

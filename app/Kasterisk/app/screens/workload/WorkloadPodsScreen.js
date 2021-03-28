@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { Component, useState, updateState } from "react";
+import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
@@ -114,14 +114,18 @@ export default class WorkloadPodsScreen extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ spinner: true });
+    this.setState({ 
+      spinner: true, 
+    });
 
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
 
       if (defaultCluster == null) {
         Alert.alert("Error", "Default cluster not found");
-        this.setState({ spinner: false });
+        this.setState({ 
+          spinner: false, 
+        });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
@@ -162,7 +166,9 @@ export default class WorkloadPodsScreen extends Component {
       Alert.alert("Server Check Failed", err.message);
     }
 
-    this.setState({ spinner: false });
+    this.setState({ 
+      spinner: false, 
+    });
   }
 
   onToggleTimestampSwitch = () => {

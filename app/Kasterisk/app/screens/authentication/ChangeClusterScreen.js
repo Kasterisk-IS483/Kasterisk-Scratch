@@ -63,7 +63,9 @@ class ChangeClusterScreen extends Component {
     // if none, redirect to add cluster page
     let allClusters = await AsyncStorage.getItem("@clusters");
     if (allClusters == null) {
-      this.setState({ spinner: false });
+      this.setState({ 
+        spinner: false, 
+      });
       this.props.navigation.reset({
         index: 0,
         routes: [{ name: "AddCluster" }],
@@ -78,7 +80,9 @@ class ChangeClusterScreen extends Component {
     if (defaultCluster != null) {
       console.log("there is default cluster");
       await this.setLabels(defaultCluster);
-      this.setState({ spinner: false });
+      this.setState({ 
+        spinner: false, 
+      });
       this.props.navigation.reset({
         index: 0,
         routes: [{ name: "HomeDrawer", params: { namespaceLabels: this.state.namespaceLabels } }],
@@ -107,7 +111,10 @@ class ChangeClusterScreen extends Component {
       let currCluster = await AsyncStorage.getItem("@" + aCluster);
       this.clusterList.push(JSON.parse(currCluster));
     }
-    this.setState({ spinner: false, loaded: true });
+    this.setState({ 
+      spinner: false, 
+      loaded: true, 
+    });
   }
 
   render() {
