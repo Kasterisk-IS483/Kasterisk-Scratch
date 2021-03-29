@@ -12,20 +12,20 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
-const items = [{
-  id: '92iijs7yta',
-  name: 'Ondo'
-}, {
-  id: '667atsas',
-  name: 'Maiduguri'
-}, {
-  id: 'hsyasajs',
-  name: 'Anambra'
-}, {
-  id: 'suudydjsjd',
-  name: 'Abuja'
-  }
-];
+// const items = [{
+//   id: '92iijs7yta',
+//   name: 'Ondo'
+// }, {
+//   id: '667atsas',
+//   name: 'Maiduguri'
+// }, {
+//   id: 'hsyasajs',
+//   name: 'Anambra'
+// }, {
+//   id: 'suudydjsjd',
+//   name: 'Abuja'
+//   }
+// ];
 export default class FilterLabelSCreen extends Component {
   constructor(props) {
     super(props);
@@ -51,25 +51,28 @@ export default class FilterLabelSCreen extends Component {
 
   onSelectedItemsChange = selectedItems => {
     this.setState({ selectedItems });
+    console.log(selectedItems);
   };
 
   addLabelsToArray = labelObject => {
     for (const [key, value] of Object.entries(labelObject)) {
-      this.state.dupeArr.push(`${key}:${value}`);
-      this.state.labelsArr.push({
-        id: `${key}:${value}`,
-        name: `${key}:${value}`
-      })
+      if(this.state.dupeArr.indexOf(`${key}:${value}`)==-1){
+        this.setState({
+          dupeArr: [...this.state.dupeArr,`${key}:${value}`],
+          labelsArr: [...this.state.labelsArr, {
+            id: `${key}:${value}`,
+            name: `${key}:${value}`
+          }]
+        })
+      }
     }
-    let uniqueArray = [...new Set(this.state.dupeArr)];
-    console.log(uniqueArray);
   }
 
   getAllLabels = () => {
     this.state.deployments.map((item) => this.addLabelsToArray(item.labels));
     this.state.replicasets.map((item) => this.addLabelsToArray(item.labels));
     this.state.pods.map((item) => this.addLabelsToArray(item.labels));
-    this.state.nodes.map((item) => this.addLabelsToArray(item.labels));
+    // this.state.nodes.map((item) => this.addLabelsToArray(item.labels));
   }
 
   getOrientation() {
@@ -162,7 +165,8 @@ export default class FilterLabelSCreen extends Component {
         Alert.alert("Error", "Failed to contact cluster");
       }
     } catch (err) {
-      Alert.alert("Server Check Failed", err.message);
+      console.log(err);
+      // Alert.alert("Server Check Failed", err.message);
     }
     this.setState({
       spinner: false,
@@ -194,10 +198,11 @@ export default class FilterLabelSCreen extends Component {
           searchInputStyle={{ color: '#CCC' }}
           submitButtonColor="#CCC"
           submitButtonText="Selected"
+          single={true}
         />
-        <View>
+        {/* <View>
           {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedItems)}
-        </View>
+        </View> */}
         <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
       </WorkloadTemplate>
       </View>
