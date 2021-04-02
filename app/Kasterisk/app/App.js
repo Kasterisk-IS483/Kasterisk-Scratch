@@ -242,7 +242,7 @@ export default class App extends Component {
             drawerLabel: "Filter",
             drawerIcon: () => (
               <Image
-                source={require("./assets/DrawerIcons/nodes_icon.png")}
+                source={require("./assets/DrawerIcons/filter.png")}
                 style={commonStyles.icon}
               />
             ),
