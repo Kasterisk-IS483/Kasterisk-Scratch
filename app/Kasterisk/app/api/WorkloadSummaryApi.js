@@ -38,6 +38,26 @@ class WorkloadSummaryApi extends Component {
   }
 
   /** ALL TAB INFO **/
+  static nodeSummary = async() => {
+    let nodes = await NodeApi.listAllNode();
+    let totalNodes = nodes.length;
+    let readyNodesCnt = 0;
+    for (i = 0; i < nodes.length; i++){
+      for (const condition of nodes[i].status.conditions){
+        if (condition.type == "Ready"){
+          if (condition.status == "True"){
+            readyNodesCnt += 1;
+          }
+        }
+      }
+    }
+    let notReadyNodesCnt = totalNodes - readyNodesCnt;
+    return {
+      readyNodes: readyNodesCnt,
+      notReadyNodes: notReadyNodesCnt
+    }
+  }
+
   static deploymentSummary = async (namespace) => {
     let deployments = await DeploymentApi.listAllDeployment();
     if (namespace != "") {

@@ -45,6 +45,10 @@ export default class WorkloadSummaryScreen extends Component {
       ],
       spinner: false,
       namespace: "",
+      nodeSummary: {
+        readyNodes: 0,
+        notReadyNodes: 0,
+      },
       deploymentSummary: {
         readyDeployments: 0,
         notReadyDeployments: 0,
@@ -129,6 +133,7 @@ export default class WorkloadSummaryScreen extends Component {
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
+          nodeSummary: await WorkloadSummaryApi.nodeSummary(),
           deploymentSummary: await WorkloadSummaryApi.deploymentSummary(
             this.state.namespace
           ),
@@ -145,7 +150,6 @@ export default class WorkloadSummaryScreen extends Component {
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
           nodesInfo: await WorkloadSummaryApi.nodesInfo(),
         });
-        console.log(nodesInfo)
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -322,8 +326,8 @@ export default class WorkloadSummaryScreen extends Component {
                   image={require("../../assets/pod.png")}
                   text1="Ready"
                   text2="Not Ready"
-                  no1={this.state.podSummary.readyPods} //TODO change to nodes
-                  no2={this.state.podSummary.notReadyPods}
+                  no1={this.state.nodeSummary.readyNodes} //TODO change to nodes
+                  no2={this.state.nodeSummary.notReadyNodes}
                 />
               </TouchableOpacity>
             </View>
