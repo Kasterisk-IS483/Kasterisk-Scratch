@@ -80,8 +80,8 @@ export const getIndivLabelButton = (cols, labelItem, labelIndex, numToDisplay, i
     return <Text key={labelIndex}></Text>;
   }
   return (
-    <TooltipOverlay text={labelItem + ":" + cols[labelItem]}>
-      <LabelButton key={labelIndex} full={isFull} text={labelItem + ":" + cols[labelItem]} />
+    <TooltipOverlay key={labelIndex} text={labelItem + ":" + cols[labelItem]}>
+      <LabelButton full={isFull} text={labelItem + ":" + cols[labelItem]} />
     </TooltipOverlay>
   );
 };

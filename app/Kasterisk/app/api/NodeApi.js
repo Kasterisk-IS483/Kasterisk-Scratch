@@ -35,8 +35,8 @@ class NodeApi extends Component {
    * GET /api/v1/nodes
    * 
   */
-  static listAllNode = async () => {
-    const nodeList = await CommonAPI.get(`/api/v1/nodes`);
+  static listAllNode = async (parameters) => {
+    const nodeList = await CommonAPI.get(`/api/v1/nodes`, parameters);
     return nodeList.items;
   }
 

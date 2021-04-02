@@ -88,8 +88,8 @@ class ReplicasetApi extends Component {
    * 
    * @param namespace 
    */
-  static listReplicaSet = async (namespace) => {
-    const replicaSetList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets`);
+  static listReplicaSet = async (namespace, parameters) => {
+    const replicaSetList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/replicasets`, parameters);
     return replicaSetList.items;
   }
 
@@ -97,8 +97,8 @@ class ReplicasetApi extends Component {
    * List All Namespaces
    * GET /apis/apps/v1/replicasets
    */
-  static listAllReplicaSet = async () => {
-    const replicaSetList = await CommonAPI.get(`/apis/apps/v1/replicasets`);
+  static listAllReplicaSet = async (parameters) => {
+    const replicaSetList = await CommonAPI.get(`/apis/apps/v1/replicasets`, parameters);
     return replicaSetList.items;
   }
 

@@ -140,27 +140,39 @@ export default class FilterLabelSCreen extends Component {
       if (serverStatus[0] == 200) {
         this.setState({
           deployments: await WorkloadSummaryApi.deploymentsInfo(
-            this.state.namespace
+            this.state.namespace,
+            {
+              labelSelector: "",
+            }
           ),
         });
         this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
         this.setState({
-            nodes: await WorkloadSummaryApi.nodesInfo(),
+            nodes: await WorkloadSummaryApi.nodesInfo(
+              {
+                labelSelector: "",
+              }
+              ),
           });
           this.setState({
             pods: await WorkloadSummaryApi.podsInfo(
-              this.state.namespace
+              this.state.namespace,
+              {
+                labelSelector: "",
+              }
             ),
           });
           this.state.pods.map((item, index) => this.formatObject(item,"pods"));
           this.setState({
             replicasets: await WorkloadSummaryApi.replicasetsInfo(
-              this.state.namespace
+              this.state.namespace,
+              {
+                labelSelector: "",
+              }
             ),
           });
           this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
           this.getAllLabels();
-          console.log(this.state.labelsArr);
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }

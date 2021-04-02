@@ -116,9 +116,9 @@ class WorkloadSummaryApi extends Component {
   }
 
   /** NODE INFO **/
-  static nodesInfo = async () => {
+  static nodesInfo = async (parameters) => {
     nodesInfo = [];
-    let nodes = await NodeApi.listAllNode();
+    let nodes = await NodeApi.listAllNode(parameters);
     for (const node of nodes) {
       let isReady = "Not Ready";
       let conditions = node.status.conditions;
@@ -128,7 +128,6 @@ class WorkloadSummaryApi extends Component {
         }
       }
       let nodeInfo = [
-        // node.metadata.name.substring(0, node.metadata.name.indexOf('.')),
         node.metadata.name,
         node.metadata.labels,
         isReady,
@@ -142,11 +141,11 @@ class WorkloadSummaryApi extends Component {
   }
 
   /** DEPLOYMENT TAB INFO **/
-  static deploymentsInfo = async (namespace) => {
+  static deploymentsInfo = async (namespace, parameters) => {
     let deploymentsInfo = [];
-    let deployments = await DeploymentApi.listAllDeployment();
+    let deployments = await DeploymentApi.listAllDeployment(parameters);
     if (namespace != "") {
-      deployments = await DeploymentApi.listDeployment(namespace);
+      deployments = await DeploymentApi.listDeployment(namespace, parameters);
     }
     for (const deployment of deployments) {
       let deploymentInfo = {
@@ -164,11 +163,11 @@ class WorkloadSummaryApi extends Component {
   }
 
   /** REPLICASET TAB INFO **/
-  static replicasetsInfo = async (namespace) => {
+  static replicasetsInfo = async (namespace, parameters) => {
     let replicasetsInfo = [];
-    let replicasets = await ReplicasetApi.listAllReplicaSet();
+    let replicasets = await ReplicasetApi.listAllReplicaSet(parameters);
     if (namespace != "") {
-      replicasets = await ReplicasetApi.listReplicaSet(namespace);
+      replicasets = await ReplicasetApi.listReplicaSet(namespace, parameters);
     }
     for (const replicaset of replicasets) {
       let replicasetInfo = {
@@ -186,11 +185,11 @@ class WorkloadSummaryApi extends Component {
   }
 
   /** POD TAB INFO **/
-  static podsInfo = async (namespace) => {
+  static podsInfo = async (namespace, parameters) => {
     var podInfoList = [];
-    let pods = await PodApi.listAllPod();
+    let pods = await PodApi.listAllPod(parameters);
     if (namespace != "") {
-      pods = await PodApi.listPod(namespace);
+      pods = await PodApi.listPod(namespace, parameters);
     }
     for (const pod of pods) {
       let podInfo = {

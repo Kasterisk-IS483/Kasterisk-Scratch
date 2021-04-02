@@ -28,10 +28,10 @@ export default function WorkloadTemplate(props) {
   
           <Card.Content style={commonStyles.cardContent}>
           <View style={{ flexDirection: "row" }}>
-          <ModalDropdown
-            // options={namespaceLabels}
+          {/* <ModalDropdown
+            options={namespaceLabels}
             dropdownStyle={{
-              // height: 40 * namespaceLabels.length,
+              height: 40 * namespaceLabels.length,
               height:40,
               alignItems: "center",
             }}
@@ -42,11 +42,11 @@ export default function WorkloadTemplate(props) {
               marginRight: spacings.xxs,
             }}
             customButton="⋮"
-            // defaultValue={this.state.selectedNamespace}
-            // onSelect={async (index) =>
-            //   this.updateState(namespaceLabels[index])
-            // }
-          />
+            defaultValue={this.state.selectedNamespace}
+            onSelect={async (index) =>
+              this.updateState(namespaceLabels[index])
+            }
+          /> */}
         <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
       </View>
             
