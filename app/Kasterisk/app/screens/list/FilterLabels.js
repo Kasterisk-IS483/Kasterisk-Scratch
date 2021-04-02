@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Dimensions, Alert, View } from "react-native";
-import MultiSelect from 'react-native-multiple-select';
+import MultiSelect from "react-native-multiple-select";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import {
+  spacings,
   commonStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
@@ -189,34 +190,37 @@ export default class FilterLabelSCreen extends Component {
     const { selectedItems } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <MultiSelect
-          hideTags
-          items={this.state.labelsArr}
-          uniqueKey="id"
-          ref={(component) => { this.multiSelect = component }}
-          onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={selectedItems}
-          selectText="Pick Items"
-          searchInputPlaceholderText="Search Items..."
-          onChangeInput={ (text)=> console.log(text)}
-          altFontFamily="ProximaNova-Light"
-          tagRemoveIconColor="#CCC"
-          tagBorderColor="#CCC"
-          tagTextColor="#CCC"
-          selectedItemTextColor="#CCC"
-          selectedItemIconColor="#CCC"
-          itemTextColor="#000"
-          displayKey="name"
-          searchInputStyle={{ color: '#CCC' }}
-          submitButtonColor="#CCC"
-          submitButtonText="Selected"
-          single={true}
-        />
         {/* <View>
           {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedItems)}
         </View> */}
         <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
-      </WorkloadTemplate>
+          <View style={{ margin: spacings.xxs }}>
+            <MultiSelect
+              hideTags
+              items={this.state.labelsArr}
+              uniqueKey="id"
+              ref={(component) => { this.multiSelect = component }}
+              onSelectedItemsChange={this.onSelectedItemsChange}
+              selectedItems={selectedItems}
+              selectText=" Pick Items"
+              searchInputPlaceholderText="Search Items..."
+              onChangeInput={ (text)=> console.log(text)}
+              altFontFamily="ProximaNova-Light"
+              tagRemoveIconColor="#CCC"
+              tagBorderColor="#CCC"
+              tagTextColor="#CCC"
+              selectedItemTextColor="#CCC"
+              selectedItemIconColor="#CCC"
+              itemTextColor="#000"
+              displayKey="name"
+              searchInputStyle={{ color: '#CCC' }}
+              submitButtonColor="#CCC"
+              submitButtonText="Selected"
+              single={true}
+              styleTextDropdownSelected={{ padding: spacings.xs }}
+            />
+          </View>
+        </WorkloadTemplate>
       </View>
       
     );
