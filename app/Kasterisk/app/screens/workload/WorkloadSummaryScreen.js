@@ -323,7 +323,7 @@ export default class WorkloadSummaryScreen extends Component {
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 4 })}>
                 <OverviewCard name="Nodes"
-                  image={require("../../assets/pod.png")}
+                  image={require("../../assets/node.png")}
                   text1="Ready"
                   text2="Not Ready"
                   no1={this.state.nodeSummary.readyNodes} //TODO change to nodes
