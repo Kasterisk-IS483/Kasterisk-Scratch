@@ -41,7 +41,7 @@ export default class FilterLabelSCreen extends Component {
       replicasets: [],
       replicasetsArr: [],
       spinner: false,
-      selectedItems : [],
+      selectedLabel : [],
       dupeArr:[],
       labelsArr: [],
     };
@@ -50,9 +50,9 @@ export default class FilterLabelSCreen extends Component {
     });
   }
 
-  onSelectedItemsChange = selectedItems => {
-    this.setState({ selectedItems });
-    console.log(selectedItems);
+  onSelectedItemsChange = selectedLabel => {
+    this.setState({ selectedLabel });
+    console.log(selectedLabel);
   };
 
   addLabelsToArray = labelObject => {
@@ -187,7 +187,8 @@ export default class FilterLabelSCreen extends Component {
   }
 
   render() {
-    const { selectedItems } = this.state;
+    console.log("render-filterLabels");
+    const { selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>
         {/* <View>
@@ -201,7 +202,7 @@ export default class FilterLabelSCreen extends Component {
               uniqueKey="id"
               ref={(component) => { this.multiSelect = component }}
               onSelectedItemsChange={this.onSelectedItemsChange}
-              selectedItems={selectedItems}
+              selectedItems={selectedLabel}
               selectText=" Pick Items"
               searchInputPlaceholderText="Search Items..."
               onChangeInput={ (text)=> console.log(text)}
