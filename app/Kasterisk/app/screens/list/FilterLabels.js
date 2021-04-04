@@ -92,11 +92,16 @@ export default class FilterLabelSCreen extends Component {
               labelSelector: selectedLabel,
             }
           ),
+          deploymentArr: [],
+          replicasetsArr: [],
+          podsArr: [],
         });
         this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
         this.state.pods.map((item, index) => this.formatObject(item,"pods"));
         this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
-
+        this.setState({
+          spinner: false,
+        });
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -106,7 +111,9 @@ export default class FilterLabelSCreen extends Component {
   }
 
   onSelectedItemsChange = selectedLabel => {
-    this.setState({ selectedLabel});
+    this.setState({ selectedLabel,
+      spinner: true,
+    });
     this.updateArr(selectedLabel[0]);
     console.log(selectedLabel[0]);
   };
@@ -226,15 +233,13 @@ export default class FilterLabelSCreen extends Component {
 
   render() {
     console.log("render-filterLabels");
-    console.log(this.state.selectedLabel);
     const { selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>
         {/* <View>
           {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedItems)}
         </View> */}
-        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
-          <View style={{ margin: spacings.xxs }}>
+        <View style={{ margin: spacings.xxs }}>
             <MultiSelect
               hideTags
               items={this.state.labelsArr}
@@ -260,6 +265,7 @@ export default class FilterLabelSCreen extends Component {
               styleTextDropdownSelected={{ padding: spacings.xs }}
             />
           </View>
+        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
         </WorkloadTemplate>
       </View>
       
