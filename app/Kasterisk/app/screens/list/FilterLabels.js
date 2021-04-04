@@ -265,8 +265,7 @@ export default class FilterLabelSCreen extends Component {
               styleTextDropdownSelected={{ padding: spacings.xs }}
             />
           </View>
-        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr}>
-        </WorkloadTemplate>
+        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr} />
       </View>
       
     );

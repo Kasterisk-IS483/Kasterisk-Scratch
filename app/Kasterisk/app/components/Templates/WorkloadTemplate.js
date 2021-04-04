@@ -22,10 +22,7 @@ export default function WorkloadTemplate(props) {
       <View style={commonStyles.detailsContainer}>
 
         {props.type == "filter" && 
-          <View>
-            {props.children}
-            {getAllTables()}
-          </View>
+          getAllTables()
         }
         {props.type == "list" &&
           <TableCard header={props.header} table={props.children} />
