@@ -50,9 +50,65 @@ export default class FilterLabelSCreen extends Component {
     });
   }
 
+  async updateArr(selectedLabel){
+    console.log("updateArr");
+    try {
+      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+      console.log(defaultCluster);
+
+      if (defaultCluster == null) {
+        Alert.alert("Error", "Default cluster not found");
+        this.setState({
+          spinner: false,
+        });
+        this.props.navigation.navigate("ChooseCluster");
+        return;
+      }
+
+      let serverStatus = await checkServerStatus(defaultCluster);
+      console.log(serverStatus);
+      if (serverStatus[0] == 200) {
+        this.setState({
+          deployments: await WorkloadSummaryApi.deploymentsInfo(
+            this.state.namespace,
+            {
+              labelSelector: selectedLabel,
+            }
+          ),
+          nodes: await WorkloadSummaryApi.nodesInfo(
+            {
+              labelSelector: selectedLabel,
+            }
+          ),
+          pods: await WorkloadSummaryApi.podsInfo(
+            this.state.namespace,
+            {
+              labelSelector: selectedLabel,
+            }
+          ),
+          replicasets: await WorkloadSummaryApi.replicasetsInfo(
+            this.state.namespace,
+            {
+              labelSelector: selectedLabel,
+            }
+          ),
+        });
+        this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
+        this.state.pods.map((item, index) => this.formatObject(item,"pods"));
+        this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
+
+      } else {
+        Alert.alert("Error", "Failed to contact cluster");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   onSelectedItemsChange = selectedLabel => {
-    this.setState({ selectedLabel });
-    console.log(selectedLabel);
+    this.setState({ selectedLabel});
+    this.updateArr(selectedLabel[0]);
+    console.log(selectedLabel[0]);
   };
 
   addLabelsToArray = labelObject => {
@@ -61,8 +117,8 @@ export default class FilterLabelSCreen extends Component {
         this.setState({
           dupeArr: [...this.state.dupeArr,`${key}:${value}`],
           labelsArr: [...this.state.labelsArr, {
-            id: `${key}:${value}`,
-            name: `${key}:${value}`
+            id: `${key}=${value}`,
+            name: `${key}:${value}`,
           }]
         })
       }
@@ -142,38 +198,20 @@ export default class FilterLabelSCreen extends Component {
         this.setState({
           deployments: await WorkloadSummaryApi.deploymentsInfo(
             this.state.namespace,
-            {
-              labelSelector: "",
-            }
+          ),
+          nodes: await WorkloadSummaryApi.nodesInfo(
+          ),
+          pods: await WorkloadSummaryApi.podsInfo(
+            this.state.namespace,
+          ),
+          replicasets: await WorkloadSummaryApi.replicasetsInfo(
+            this.state.namespace,
           ),
         });
         this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
-        this.setState({
-            nodes: await WorkloadSummaryApi.nodesInfo(
-              {
-                labelSelector: "",
-              }
-              ),
-          });
-          this.setState({
-            pods: await WorkloadSummaryApi.podsInfo(
-              this.state.namespace,
-              {
-                labelSelector: "",
-              }
-            ),
-          });
-          this.state.pods.map((item, index) => this.formatObject(item,"pods"));
-          this.setState({
-            replicasets: await WorkloadSummaryApi.replicasetsInfo(
-              this.state.namespace,
-              {
-                labelSelector: "",
-              }
-            ),
-          });
-          this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
-          this.getAllLabels();
+        this.state.pods.map((item, index) => this.formatObject(item,"pods"));
+        this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
+        this.getAllLabels();
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
@@ -188,6 +226,7 @@ export default class FilterLabelSCreen extends Component {
 
   render() {
     console.log("render-filterLabels");
+    console.log(this.state.selectedLabel);
     const { selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>

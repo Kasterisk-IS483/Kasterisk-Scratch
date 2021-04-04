@@ -39,7 +39,6 @@ class ChangeClusterScreen extends Component {
         console.log(serverStatus);
         if (serverStatus[0] == 200) {
           await AsyncStorage.setItem("@selectedValue", "");
-          //Not working
           this.setState({
             namespaceLabels: await WorkloadSummaryApi.namespaceLabels(),
           });
