@@ -39,7 +39,7 @@ export default function OverviewCard({
     <View style={{
       paddingVertical: cardsOuterPadding,
       borderColor: 'grey',
-      minWidth: 290,
+      minWidth: 250,
     }}>
       <Card elevation={10}>
         <Card.Cover source={image} />
@@ -47,11 +47,11 @@ export default function OverviewCard({
         <Text style={{
           position: "absolute",
           left: "5%",
-          top: "36%",
+          top: "37%",
           textAlign: "left",
           color: "white",
           fontWeight: "bold",
-          fontSize: fonts.xxl,
+          fontSize: fonts.xl,
         }}>
           {name}
         </Text>

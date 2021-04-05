@@ -13,6 +13,7 @@ export const colours = {
 export const fonts = {
   sm: 16,
   md: 18,
+  md_lg: 20,
   lg: 22,
   xl: 26,
   xxl: 30,
@@ -167,7 +168,7 @@ export const commonStyles = StyleSheet.create({
   },
   overviewCardLabel: {
     flex: 1,
-    fontSize: fonts.xl,
+    fontSize: fonts.md_lg,
     textAlign: "center",
     marginRight: "20%",
   },
