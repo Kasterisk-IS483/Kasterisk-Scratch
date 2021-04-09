@@ -495,7 +495,11 @@ export default class App extends Component {
           <Stack.Screen
             name="HomeDrawer"
             component={this.HomeDrawer.bind(this)}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, 
+              //try: ios fix
+              headerBackTitleVisible: false,
+              title: "Back",
+            }}
           />
 
           <Stack.Screen

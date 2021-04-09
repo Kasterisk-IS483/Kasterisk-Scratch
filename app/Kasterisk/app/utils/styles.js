@@ -93,7 +93,7 @@ export const commonStyles = StyleSheet.create({
     flexDirection: 'row',
   },
   switchContainer: {
-    paddingTop: spacings.md,
+    paddingVertical: spacings.md,
   },
   formContentContainer: {
     marginHorizontal: spacings.lg,
@@ -116,7 +116,8 @@ export const commonStyles = StyleSheet.create({
   },
   switchText: {
     fontSize: fonts.sm,
-    paddingTop: spacings.sm,
+    paddingTop: spacings.md,
+    paddingLeft: spacings.xs,
   },
 
   picker: {

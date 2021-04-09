@@ -238,7 +238,9 @@ export default class WorkloadPodsScreen extends Component {
       <View style={this.getStyle().columnContainer}>
         <Title style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{type}:</Title>
         <View style={dashboardStyles.picker}>
-          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState(type, itemValue)}>
+          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState(type, itemValue)}
+            style={{ height: 50 }}  //try: ios fix
+          >
             {list.map((_item, _index) => (
               <Picker.Item label={_item} value={_item} key={_item} />
             ))}
