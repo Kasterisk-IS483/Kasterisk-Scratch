@@ -11,6 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Image, SafeAreaView, Text } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import ModalDropdown from "react-native-modal-dropdown";
+import MultiSelect from "react-native-multiple-select";
+import { checkServerStatus } from "./api/KubeApi";
 // styling
 import { spacings, colours, fonts, commonStyles } from "./utils/styles";
 // authentication 
@@ -33,6 +35,7 @@ import FilterLabelsScreen from "./screens/list/FilterLabels";
 // multicuster
 import ChangeClusterScreen from "./screens/authentication/ChangeClusterScreen";
 
+import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
 
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 const Drawer = createDrawerNavigator();
@@ -43,6 +46,36 @@ const screenOptions = {
   headerShown: true,
 };
 
+const items = [{
+  id: '92iijs7yta',
+  name: 'Ondo'
+}, {
+  id: 'a0s0a8ssbsd',
+  name: 'Ogun'
+}, {
+  id: '16hbajsabsd',
+  name: 'Calabar'
+}, {
+  id: 'nahs75a5sg',
+  name: 'Lagos'
+}, {
+  id: '667atsas',
+  name: 'Maiduguri'
+}, {
+  id: 'hsyasajs',
+  name: 'Anambra'
+}, {
+  id: 'djsjudksjd',
+  name: 'Benue'
+}, {
+  id: 'sdhyaysdj',
+  name: 'Kaduna'
+}, {
+  id: 'suudydjsjd',
+  name: 'Abuja'
+  }
+];
+
 export default class App extends Component {
   constructor(props) {
     console.log("App.js constructor");
@@ -51,23 +84,162 @@ export default class App extends Component {
       spinner: false,
       selectedNamespace: "All Namespaces",
       selectedValue: "",
+      dupeArr:[],
+      labelsArr: [],
+      deployments: [],
+      deploymentArr: [],
+      nodes: [],
+      namespace: "",
+      pods: [],
+      podsArr: [],
+      replicasets: [],
+      replicasetsArr: [],
+      selectedLabel : [],
     };
     console.log("/App.js constructor");
   }
 
-  // workloadDeploymentTab = () => {
-  //   return <WorkloadSummaryScreen index={1} />;
-  // };
-  // workloadReplicasetTab = () => {
-  //   return <WorkloadSummaryScreen index={2} />;
-  // };
-  // workloadPodTab = () => {
-  //   return <WorkloadSummaryScreen index={3} />;
-  // };
+  // async updateArr(selectedLabel){
+  //   try {
+  //     let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+  //     console.log(defaultCluster);
+
+  //     if (defaultCluster == null) {
+  //       Alert.alert("Error", "Default cluster not found");
+  //       this.setState({
+  //         spinner: false,
+  //       });
+  //       this.props.navigation.navigate("ChooseCluster");
+  //       return;
+  //     }
+
+  //     let serverStatus = await checkServerStatus(defaultCluster);
+  //     console.log(serverStatus);
+  //     if (serverStatus[0] == 200) {
+  //       this.setState({
+  //         deployments: await WorkloadSummaryApi.deploymentsInfo(
+  //           this.state.namespace,
+  //           {
+  //             labelSelector: selectedLabel,
+  //           }
+  //         ),
+  //         nodes: await WorkloadSummaryApi.nodesInfo(
+  //           {
+  //             labelSelector: selectedLabel,
+  //           }
+  //         ),
+  //         pods: await WorkloadSummaryApi.podsInfo(
+  //           this.state.namespace,
+  //           {
+  //             labelSelector: selectedLabel,
+  //           }
+  //         ),
+  //         replicasets: await WorkloadSummaryApi.replicasetsInfo(
+  //           this.state.namespace,
+  //           {
+  //             labelSelector: selectedLabel,
+  //           }
+  //         ),
+  //         deploymentArr: [],
+  //         replicasetsArr: [],
+  //         podsArr: [],
+  //       });
+  //       this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
+  //       this.state.pods.map((item, index) => this.formatObject(item,"pods"));
+  //       this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
+  //       this.setState({
+  //         spinner: false,
+  //       });
+  //     } else {
+  //       Alert.alert("Error", "Failed to contact cluster");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  // addLabelsToArray = labelObject => {
+  //   for (const [key, value] of Object.entries(labelObject)) {
+  //     if(this.state.dupeArr.indexOf(`${key}:${value}`)==-1){
+  //       this.setState({
+  //         dupeArr: [...this.state.dupeArr,`${key}:${value}`],
+  //         labelsArr: [...this.state.labelsArr, {
+  //           id: `${key}=${value}`,
+  //           name: `${key}:${value}`,
+  //         }]
+  //       })
+  //     }
+  //   }
+  //   console.log(this.labelsArr)
+  // }
+
+  // getAllLabels = () => {
+  //   this.state.deployments.map((item) => this.addLabelsToArray(item.labels));
+  //   this.state.replicasets.map((item) => this.addLabelsToArray(item.labels));
+  //   this.state.pods.map((item) => this.addLabelsToArray(item.labels));
+   
+  // }
+
+  onSelectedItemsChange = selectedLabel => {
+    this.setState({ selectedLabel,
+      spinner: true,
+    });
+    // this.updateArr(selectedLabel[0]);
+    // console.log(selectedLabel[0]);
+  };
+
+  
+  // formatObject(item, service) {
+  //   item.status = item.status + "/" + item.total;
+  //   delete item.total;
+  //   if(service=="deployments"){
+  //       this.setState({
+  //       deploymentArr: [...this.state.deploymentArr, Object.values(item)],
+  //       });
+  //   }else if (service == "replicasets"){
+  //       this.setState({
+  //           replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
+  //       });
+  //   }else if (service == "pods"){
+  //       this.setState({
+  //           podsArr: [...this.state.podsArr, Object.values(item)],
+  //       });
+  //   }
+  // }
+
 
   filter = (namespaceLabels) => {
+    const { selectedLabel} = this.state;
     return (
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", marginTop: spacings.md}}>
+           <View style={{flex:1, paddingRight: spacings.md, margin: spacings.md}}>
+           <MultiSelect
+              hideTags
+              // items={this.state.labelsArr}
+              items={items}
+              uniqueKey="id"
+              ref={(component) => { this.multiSelect = component }}
+              onSelectedItemsChange={this.onSelectedItemsChange}
+              selectedItems={selectedLabel}
+              selectText=" Pick Items"
+              searchInputPlaceholderText="Search Items..."
+              onChangeInput={ (text)=> console.log(text)}
+              altFontFamily="ProximaNova-Light"
+              tagRemoveIconColor="#CCC"
+              tagBorderColor="#CCC"
+              tagTextColor="#CCC"
+              selectedItemTextColor="#CCC"
+              selectedItemIconColor="#CCC"
+              itemTextColor="#000"
+              displayKey="name"
+              searchInputStyle={{ color: '#CCC' }}
+              submitButtonColor="#CCC"
+              submitButtonText="Selected"
+              single={true}
+              styleTextDropdownSelected={{ padding: spacings.xs }}
+            />
+          </View>
+        <View style={{ flex:1,paddingLeft: spacings.lg, marginTop: spacings.lg }}>
         <ModalDropdown
           options={namespaceLabels}
           dropdownStyle={{
@@ -86,7 +258,10 @@ export default class App extends Component {
             this.updateState(namespaceLabels[index])
           }
         />
-        <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+        </View>
+        <View style={{flex:1, marginTop: spacings.lg }}>
+          <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
+        </View>
       </View>
     );
   };
@@ -103,13 +278,64 @@ export default class App extends Component {
     });
   }
 
+
   async componentDidMount() {
     SplashScreen.hide();
+    // const { navigation } = this.props;
+    // this.setState({
+    //   spinner: true,
+    // });
+
+    // if ((await AsyncStorage.getItem("@selectedValue")) != null) {
+    //   this.setState({
+    //     namespace: await AsyncStorage.getItem("@selectedValue"),
+    //   });
+    // }
+
+    // try {
+    //   let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+
+    //   if (defaultCluster == null) {
+    //     Alert.alert("Error", "Default cluster not found");
+    //     this.setState({
+    //       spinner: false,
+    //     });
+    //     this.props.navigation.navigate("ChooseCluster");
+    //     return;
+    //   }
+
+    //   let serverStatus = await checkServerStatus(defaultCluster);
+    //   if (serverStatus[0] == 200) {
+    //     this.setState({
+    //       deployments: await WorkloadSummaryApi.deploymentsInfo(
+    //         this.state.namespace,
+    //       ),
+    //       nodes: await WorkloadSummaryApi.nodesInfo(
+    //       ),
+    //       pods: await WorkloadSummaryApi.podsInfo(
+    //         this.state.namespace,
+    //       ),
+    //       replicasets: await WorkloadSummaryApi.replicasetsInfo(
+    //         this.state.namespace,
+    //       ),
+    //     });
+    //     this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
+    //     this.state.pods.map((item, index) => this.formatObject(item,"pods"));
+    //     this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
+    //     this.getAllLabels();
+    //   } else {
+    //     Alert.alert("Error", "Failed to contact cluster");
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // this.setState({
+    //   spinner: false,
+    // });
   }
 
   HomeDrawer = ({ route, navigation }) => {
     const { namespaceLabels } = route.params;
-    console.log(namespaceLabels);
     return (
       <Drawer.Navigator
         {...console.log("App.js HomeDrawer")}
