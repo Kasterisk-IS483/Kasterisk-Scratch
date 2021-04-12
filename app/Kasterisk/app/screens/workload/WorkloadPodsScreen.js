@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
-import { Picker } from "@react-native-picker/picker";
+import ModalSelector from 'react-native-modal-selector';
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
@@ -237,14 +237,15 @@ export default class WorkloadPodsScreen extends Component {
     return (
       <View style={this.getStyle().columnContainer}>
         <Title style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{type}:</Title>
-        <View style={dashboardStyles.picker}>
-          <Picker selectedValue={value} onValueChange={(itemValue) => this.updateState(type, itemValue)}
-            style={{ height: 50 }}  //try: ios fix
-          >
-            {list.map((_item, _index) => (
-              <Picker.Item label={_item} value={_item} key={_item} />
-            ))}
-          </Picker>
+        <View style={commonStyles.formContent}>
+          <ModalSelector
+            data={list}
+            keyExtractor={item => item}
+            labelExtractor={item => item}
+            initValue={value}
+            animationType={"fade"}
+            onChange={(option) => this.updateState(type, option.value)}
+          />
         </View>
       </View>
     );

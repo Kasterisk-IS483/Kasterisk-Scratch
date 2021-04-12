@@ -98,6 +98,9 @@ export const commonStyles = StyleSheet.create({
   formContentContainer: {
     marginHorizontal: spacings.lg,
   },
+  formSectionContainer: {
+    paddingBottom: spacings.md_lg,
+  },
 
   formSectionHeader: {
     fontWeight: 'bold',
@@ -118,11 +121,6 @@ export const commonStyles = StyleSheet.create({
     fontSize: fonts.sm,
     paddingTop: spacings.md,
     paddingLeft: spacings.xs,
-  },
-
-  picker: {
-    borderWidth: 1,
-    borderColor: colours.grey,
   },
 
   // Cards
@@ -274,11 +272,6 @@ export const dashboardStyles = StyleSheet.create({
     paddingHorizontal: spacings.sm,
   },
 
-  picker: {
-    ...commonStyles.picker,
-    marginVertical: spacings.sm,
-    marginRight: spacings.sm
-  }
 });
 export const dashboardPortraitStyles = StyleSheet.create({
   scrollContainer: {

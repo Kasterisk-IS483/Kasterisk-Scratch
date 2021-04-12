@@ -83,43 +83,48 @@ export default function KubeconfigContentScreen({ navigation }) {
     <View style={commonStyles.whiteContainer}>
       <SpinnerOverlay showSpinner={showSpinner} />
       <ScrollView contentContainerStyle={commonStyles.scrollContainer, commonStyles.formContentContainer}>
-        <Text style={commonStyles.formSectionHeader}>General Information:</Text>
 
-        <TextInput onChangeText={(text) => setData({ ...data, name: text })} style={commonStyles.formContent} label="Cluster Name" placeholder="Enter Cluster Name Here" />
-        <TextInput onChangeText={(text) => setData({ ...data, server: text })} style={commonStyles.formContent} label="Server" placeholder="Enter Server Address Here" />
-        <TextInput onChangeText={(text) => setData({ ...data, certificate: text })} style={commonStyles.formContent} label="Certificate Authority Data" placeholder="Enter Certificate Here" />
-        <View style={commonStyles.fieldsContainer}>
-          <Switch value={isTLSVerify} onValueChange={onToggleTls} color={colours.primary} style={commonStyles.switchContainer} />
-          <Text style={commonStyles.switchText}>Skip TLS Verification</Text>
-        </View>
-        <Text style={[commonStyles.formSectionHeader, { paddingTop: spacings.sm }]}>Authentication Mode:</Text>
-        <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
-          <View style={{ marginBottom: spacings.xxs }}>
-            <View style={commonStyles.fieldsContainer}>
-              <RadioButton value="token" color={colours.primary} />
-              <Text style={commonStyles.radioText}>Token</Text>
-            </View>
-            <View style={commonStyles.fieldsContainer}>
-              <RadioButton value="cert" color={colours.primary} />
-              <Text style={commonStyles.radioText}>Client Certificate and Key</Text>
-            </View>
+        <View style={commonStyles.formSectionContainer}>
+          <Text style={commonStyles.formSectionHeader}>General Information:</Text>
+          <TextInput onChangeText={(text) => setData({ ...data, name: text })} style={commonStyles.formContent} label="Cluster Name" placeholder="Enter Cluster Name Here" />
+          <TextInput onChangeText={(text) => setData({ ...data, server: text })} style={commonStyles.formContent} label="Server" placeholder="Enter Server Address Here" />
+          <TextInput onChangeText={(text) => setData({ ...data, certificate: text })} style={commonStyles.formContent} label="Certificate Authority Data" placeholder="Enter Certificate Here" />
+          <View style={commonStyles.fieldsContainer}>
+            <Switch value={isTLSVerify} onValueChange={onToggleTls} color={colours.primary} style={commonStyles.switchContainer} />
+            <Text style={commonStyles.switchText}>Skip TLS Verification</Text>
           </View>
-        </RadioButton.Group>
+        </View>
 
-        <View>
-          {checked === "token" ? (
+        <View style={commonStyles.formSectionContainer}>
+          <Text style={commonStyles.formSectionHeader}>Authentication Mode:</Text>
+          <RadioButton.Group onValueChange={(newValue) => setChecked(newValue)} value={checked}>
             <View>
-              <TextInput onChangeText={(text) => setData({ ...data, token: text })} style={commonStyles.formContent} label="Token" placeholder="Enter Token Here" />
+              <View style={commonStyles.fieldsContainer}>
+                <RadioButton value="token" color={colours.primary} />
+                <Text style={commonStyles.radioText}>Token</Text>
+              </View>
+              <View style={commonStyles.fieldsContainer}>
+                <RadioButton value="cert" color={colours.primary} />
+                <Text style={commonStyles.radioText}>Client Certificate and Key</Text>
+              </View>
             </View>
-          ) : (
-            <View>
-              <TextInput onChangeText={(text) => setData({ ...data, clientCert: text })} style={commonStyles.formContent} label="Client Certificate" placeholder="Enter Client Certificate Here" />
-              <TextInput onChangeText={(text) => setData({ ...data, clientKey: text })} style={commonStyles.formContent} label="Client Key" placeholder="Enter Client Key Here" />
-            </View>
-          )}
+          </RadioButton.Group>
+          <View style={{ marginTop: spacings.xxs }}>
+            {checked === "token" ? (
+              <View>
+                <TextInput onChangeText={(text) => setData({ ...data, token: text })} style={commonStyles.formContent} label="Token" placeholder="Enter Token Here" />
+              </View>
+            ) : (
+              <View>
+                <TextInput onChangeText={(text) => setData({ ...data, clientCert: text })} style={commonStyles.formContent} label="Client Certificate" placeholder="Enter Client Certificate Here" />
+                <TextInput onChangeText={(text) => setData({ ...data, clientKey: text })} style={commonStyles.formContent} label="Client Key" placeholder="Enter Client Key Here" />
+              </View>
+            )}
+          </View>
         </View>
 
         <SubmitButton text="Submit" onPress={() => ContentUpload()} />
+
       </ScrollView>
     </View>
   );

@@ -106,27 +106,28 @@ const AWSLoginScreen = ({ navigation }) => {
     <View style={commonStyles.whiteContainer}>
       <SpinnerOverlay showSpinner={showSpinner} />
       <ScrollView contentContainerStyle={commonStyles.scrollContainer, commonStyles.formContentContainer}>
-        <Text style={commonStyles.formSectionHeader}>Access Key Information:</Text>
-        <TextInput onChangeText={(text) => setLoginState({ ...loginState, accessKeyId: text })} style={commonStyles.formContent} label="Access Key ID" placeholder="Enter Access Key ID Here" />
-        <TextInput
-          onChangeText={(text) => setLoginState({ ...loginState, secretAccessKey: text })}
-          label="Secret Access Key"
-          style={commonStyles.formContent}
-          placeholder="Enter Secret Access Key Here"
-        />
-        <Text style={[
-          commonStyles.formSectionHeader, {
-            paddingTop: spacings.lg,
-          }]}>
-          Region Information:
-        </Text>
-        <View style={[
-          commonStyles.formContent,
-          commonStyles.picker, {
-            marginTop: spacings.md,
-          }]}>
-          {AWSRegionList()}
+
+        <View style={commonStyles.formSectionContainer}>
+          <Text style={commonStyles.formSectionHeader}>Access Key Information:</Text>
+          <TextInput 
+            onChangeText={(text) => setLoginState({ ...loginState, accessKeyId: text })} 
+            style={commonStyles.formContent} 
+            label="Access Key ID" 
+            placeholder="Enter Access Key ID Here" 
+          />
+          <TextInput
+            onChangeText={(text) => setLoginState({ ...loginState, secretAccessKey: text })}
+            style={commonStyles.formContent}
+            label="Secret Access Key"
+            placeholder="Enter Secret Access Key Here"
+          />          
         </View>
+
+        <View style={commonStyles.formSectionContainer}>
+          <Text style={commonStyles.formSectionHeader}>Region Information:</Text>
+          <View style={commonStyles.formContent}>{AWSRegionList()}</View>
+        </View>
+
         <SubmitButton text="Sign In" onPress={() => {
           try {
             AwsLogin();
@@ -134,6 +135,7 @@ const AWSLoginScreen = ({ navigation }) => {
             Alert.alert("Error", e.message);
           }
         }} />
+
       </ScrollView>
     </View>
   );
