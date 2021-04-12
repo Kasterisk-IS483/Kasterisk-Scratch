@@ -209,59 +209,61 @@ export default class App extends Component {
 
 
   filter = (namespaceLabels) => {
-    const { selectedLabel} = this.state;
+    const { selectedLabel } = this.state;
     return (
-      <View style={{ flexDirection: "row", marginTop: spacings.md}}>
-           <View style={{flex:1, paddingRight: spacings.md, margin: spacings.md}}>
-           <MultiSelect
-              hideTags
-              // items={this.state.labelsArr}
-              items={items}
-              uniqueKey="id"
-              ref={(component) => { this.multiSelect = component }}
-              onSelectedItemsChange={this.onSelectedItemsChange}
-              selectedItems={selectedLabel}
-              selectText=" Pick Items"
-              searchInputPlaceholderText="Search Items..."
-              onChangeInput={ (text)=> console.log(text)}
-              altFontFamily="ProximaNova-Light"
-              tagRemoveIconColor="#CCC"
-              tagBorderColor="#CCC"
-              tagTextColor="#CCC"
-              selectedItemTextColor="#CCC"
-              selectedItemIconColor="#CCC"
-              itemTextColor="#000"
-              displayKey="name"
-              searchInputStyle={{ color: '#CCC' }}
-              submitButtonColor="#CCC"
-              submitButtonText="Selected"
-              single={true}
-              styleTextDropdownSelected={{ padding: spacings.xs }}
-            />
-          </View>
-        <View style={{ flex:1,paddingLeft: spacings.lg, marginTop: spacings.lg }}>
-        <ModalDropdown
-          options={namespaceLabels}
-          dropdownStyle={{
-            height: 40 * namespaceLabels.length,
-            alignItems: "center",
-          }}
-          dropdownTextStyle={{ fontSize: fonts.sm, color: "black" }}
-          textStyle={{
-            fontSize: fonts.sm,
-            color: "white",
-            marginRight: spacings.xxs,
-          }}
-          customButton="⋮"
-          defaultValue={this.state.selectedNamespace}
-          onSelect={async (index) =>
-            this.updateState(namespaceLabels[index])
-          }
-        />
-        </View>
-        <View style={{flex:1, marginTop: spacings.lg }}>
+      <View style={{ flexDirection: "row" }}>
+
+        {/* <View style={{ margin: spacings.md, marginRight: spacings.xxl }}>
+          <MultiSelect
+            hideTags
+            // items={this.state.labelsArr}
+            items={items}
+            uniqueKey="id"
+            ref={(component) => { this.multiSelect = component }}
+            onSelectedItemsChange={this.onSelectedItemsChange}
+            selectedItems={selectedLabel}
+            selectText=" Pick Items"
+            searchInputPlaceholderText="Search Items..."
+            onChangeInput={ (text)=> console.log(text)}
+            altFontFamily="ProximaNova-Light"
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Selected"
+            single={true}
+            styleTextDropdownSelected={{ padding: spacings.xs }}
+          />
+        </View> */}
+
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <ModalDropdown
+            options={namespaceLabels}
+            dropdownStyle={{
+              height: 40 * namespaceLabels.length,
+              alignItems: "center",
+            }}
+            dropdownTextStyle={{ 
+              fontSize: fonts.sm, 
+              color: "black",
+            }}
+            textStyle={{
+              fontSize: fonts.sm,
+              color: "white",
+              marginRight: spacings.xxs,
+            }}
+            customButton="⋮"
+            defaultValue={this.state.selectedNamespace}
+            onSelect={async(index) => this.updateState(namespaceLabels[index])}
+          />
           <Text style={{ color: "white", marginRight: spacings.sm }}>▼</Text>
         </View>
+
       </View>
     );
   };
