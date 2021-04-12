@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
-import { Picker } from "@react-native-picker/picker";
+import ModalSelector from 'react-native-modal-selector';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AwsApi from "../../api/AwsApi";
@@ -91,11 +91,14 @@ const AWSLoginScreen = ({ navigation }) => {
 
   const AWSRegionList = () => {
     return (
-      <Picker selectedValue={region} onValueChange={(itemValue, itemIndex) => setRegion(itemValue)}>
-        {AWSRegions.map((_item, _index) => (
-          <Picker.Item label={_item.label} value={_item.value} key={_item.value} />
-        ))}
-      </Picker>
+      <ModalSelector
+        data={AWSRegions}
+        keyExtractor={item => item.value}
+        labelExtractor={item => item.label}
+        initValue={"Select a region"}
+        animationType={"fade"}
+        onChange={(option) => setRegion(option.value)}
+      />
     );
   };
 
