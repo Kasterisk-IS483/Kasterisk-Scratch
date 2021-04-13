@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions } from "react-native";
 import { Card, Title } from 'react-native-paper';
 
 import {
@@ -20,6 +20,7 @@ export default function WorkloadCard(props) {
   let progressShadowColor;
   let progressBgColor;
   let fontColor;
+  let cardWidth;
 
   if (props.variableField == "Containers") {
     percent = props.status / props.total * 100;    // healthReady / healthTotal * 100
@@ -55,6 +56,14 @@ export default function WorkloadCard(props) {
     fontColor = "white";
   }
 
+  cardWidth = Dimensions.get("window").width/3 - 50
+  if(cardWidth<340){
+    cardWidth = Dimensions.get("window").width/2 - 60
+    if(cardWidth<340){
+      cardWidth= 350
+    }
+  }
+
   const fieldsContainerTemplate = (leftText, rightText) => {
     return (
       <View style={commonStyles.fieldsContainer}>
@@ -69,7 +78,7 @@ export default function WorkloadCard(props) {
       <Card elevation={10} style={{
         borderLeftColor: statusColorCode,
         borderLeftWidth: 5,
-        width: 380,
+        width: cardWidth,
       }}>
         <Card.Content style={commonStyles.cardContent}>
           <StatusCircle
