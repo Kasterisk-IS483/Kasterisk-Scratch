@@ -50,7 +50,7 @@ export default class FilterLabelSCreen extends Component {
     });
   }
 
-  async updateArr(selectedLabel){
+  async updateArr(selectedLabel) {
     console.log("updateArr");
     try {
       let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
@@ -110,17 +110,18 @@ export default class FilterLabelSCreen extends Component {
     }
   }
 
-  onSelectedItemsChange = selectedLabel => {
-    this.setState({ selectedLabel,
+  onSelectedItemsChange = (selectedLabel) => {
+    this.setState({ 
+      selectedLabel,
       spinner: true,
     });
     this.updateArr(selectedLabel[0]);
     console.log(selectedLabel[0]);
   };
 
-  addLabelsToArray = labelObject => {
+  addLabelsToArray = (labelObject) => {
     for (const [key, value] of Object.entries(labelObject)) {
-      if(this.state.dupeArr.indexOf(`${key}:${value}`)==-1){
+      if (this.state.dupeArr.indexOf(`${key}:${value}`)==-1){
         this.setState({
           dupeArr: [...this.state.dupeArr,`${key}:${value}`],
           labelsArr: [...this.state.labelsArr, {
@@ -130,7 +131,7 @@ export default class FilterLabelSCreen extends Component {
         })
       }
     }
-  }
+  };
 
   getAllLabels = () => {
     this.state.deployments.map((item) => this.addLabelsToArray(item.labels));
@@ -162,11 +163,11 @@ export default class FilterLabelSCreen extends Component {
     delete item.total;
     if(service=="deployments"){
         this.setState({
-        deploymentArr: [...this.state.deploymentArr, Object.values(item)],
+          deploymentArr: [...this.state.deploymentArr, Object.values(item)],
         });
-    }else if (service == "replicasets"){
+    } else if (service == "replicasets"){
         this.setState({
-            replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
+          replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
         });
     }else if (service == "pods"){
         this.setState({
@@ -233,39 +234,38 @@ export default class FilterLabelSCreen extends Component {
 
   render() {
     console.log("render-filterLabels");
-    const { selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>
         {/* <View>
           {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedItems)}
         </View> */}
         <View style={{ margin: spacings.xxs }}>
-            <MultiSelect
-              hideTags
-              items={this.state.labelsArr}
-              uniqueKey="id"
-              ref={(component) => { this.multiSelect = component }}
-              onSelectedItemsChange={this.onSelectedItemsChange}
-              selectedItems={selectedLabel}
-              selectText=" Pick Items"
-              searchInputPlaceholderText="Search Items..."
-              onChangeInput={ (text)=> console.log(text)}
-              altFontFamily="ProximaNova-Light"
-              tagRemoveIconColor="#CCC"
-              tagBorderColor="#CCC"
-              tagTextColor="#CCC"
-              selectedItemTextColor="#CCC"
-              selectedItemIconColor="#CCC"
-              itemTextColor="#000"
-              displayKey="name"
-              searchInputStyle={{ color: '#CCC' }}
-              submitButtonColor="#CCC"
-              submitButtonText="Selected"
-              single={true}
-              styleTextDropdownSelected={{ padding: spacings.xs }}
-            />
-          </View>
-        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment= {this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr} />
+          <MultiSelect
+            hideTags
+            items={this.state.labelsArr}
+            uniqueKey="id"
+            ref={(component) => { this.multiSelect = component }}
+            onSelectedItemsChange={this.onSelectedItemsChange}
+            selectedItems={this.state.selectedLabel}
+            selectText=" Pick Items"
+            searchInputPlaceholderText="Search Items..."
+            onChangeInput={ (text)=> console.log(text)}
+            altFontFamily="ProximaNova-Light"
+            tagRemoveIconColor="#CCC"
+            tagBorderColor="#CCC"
+            tagTextColor="#CCC"
+            selectedItemTextColor="#CCC"
+            selectedItemIconColor="#CCC"
+            itemTextColor="#000"
+            displayKey="name"
+            searchInputStyle={{ color: '#CCC' }}
+            submitButtonColor="#CCC"
+            submitButtonText="Selected"
+            single={true}
+            styleTextDropdownSelected={{ padding: spacings.xs }}
+          />
+        </View>
+        <WorkloadTemplate type="filter" showSpinner={this.state.spinner} deployment={this.state.deploymentArr} nodes={this.state.nodes} pods={this.state.podsArr} replicasets={this.state.replicasetsArr} />
       </View>
       
     );

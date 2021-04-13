@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { Card, Title } from "react-native-paper";
 import { DataTable } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -11,7 +11,7 @@ import PodApi from "../../api/PodApi";
 import NodeApi from "../../api/NodeApi";
 import { getLabelButtons } from "../../utils/constants";
 import { commonStyles } from "../../utils/styles";
-// import TooltipOverlay from "../Elements/TooltipOverlay";
+import TooltipOverlay from "../Elements/TooltipOverlay";
 
 export default function TableCard(props) {
   const navigation = useNavigation();
@@ -150,10 +150,9 @@ export default function TableCard(props) {
                       <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
                         {typeof cols !== "object"
                           ? 
-                          cols
-                          // <TooltipOverlay text={cols}>
-                          //   <Text>{cols}</Text>
-                          // </TooltipOverlay>
+                          <TooltipOverlay key={colIndex} text={cols}>
+                            <Text>{cols}</Text>
+                          </TooltipOverlay>
                           : <View style={commonStyles.labelContainer}>{getLabelButtons(cols, 1, false)}</View>}
                       </DataTable.Cell>
                     ))}

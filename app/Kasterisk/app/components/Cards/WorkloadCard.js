@@ -41,7 +41,8 @@ export default function WorkloadCard(props) {
     progressColor = statusColorCode;
     progressShadowColor = statusColorCode;
     progressBgColor = statusColorCode;
-    fontColor = "white"
+    fontColor = "white";
+
   } else if (props.variableField == "Roles"){
     percent = 100;
     statusCondition = props.status.toLowerCase() == "ready";
@@ -51,7 +52,7 @@ export default function WorkloadCard(props) {
     progressColor = statusColorCode;
     progressShadowColor = statusColorCode;
     progressBgColor = statusColorCode;
-    fontColor = "white"
+    fontColor = "white";
   }
 
   const fieldsContainerTemplate = (leftText, rightText) => {
