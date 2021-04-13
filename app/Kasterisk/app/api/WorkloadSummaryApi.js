@@ -40,30 +40,22 @@ class WorkloadSummaryApi extends Component {
   /** ALL TAB INFO **/
   static nodeSummary = async() => {
     let nodes = await NodeApi.listAllNode();
-    if (!nodes === undefined){
-      let totalNodes = nodes.length;
-      let readyNodesCnt = 0;
-      for (i = 0; i < nodes.length; i++){
-        for (const condition of nodes[i].status.conditions){
-          if (condition.type == "Ready"){
-            if (condition.status == "True"){
-              readyNodesCnt += 1;
-            }
+    let totalNodes = nodes.length;
+    let readyNodesCnt = 0;
+    for (i = 0; i < nodes.length; i++){
+      for (const condition of nodes[i].status.conditions){
+        if (condition.type == "Ready"){
+          if (condition.status == "True"){
+            readyNodesCnt += 1;
           }
         }
       }
-      let notReadyNodesCnt = totalNodes - readyNodesCnt;
-      return {
-        readyNodes: readyNodesCnt,
-        notReadyNodes: notReadyNodesCnt
-      }
-    } else {
-      return {
-        readyNodes: 0,
-        notReadyNodes: 0
-      }
     }
-  
+    let notReadyNodesCnt = totalNodes - readyNodesCnt;
+    return {
+      readyNodes: readyNodesCnt,
+      notReadyNodes: notReadyNodesCnt
+    }
   }
 
   static deploymentSummary = async (namespace) => {
@@ -127,25 +119,23 @@ class WorkloadSummaryApi extends Component {
   static nodesInfo = async (parameters) => {
     nodesInfo = [];
     let nodes = await NodeApi.listAllNode(parameters);
-    if (!nodes === undefined){
-      for (const node of nodes) {
-        let isReady = "Not Ready";
-        let conditions = node.status.conditions;
-        for (const condition of conditions) {
-          if (condition.type === "Ready") {
-            isReady = "Ready";
-          }
+    for (const node of nodes) {
+      let isReady = "Not Ready";
+      let conditions = node.status.conditions;
+      for (const condition of conditions) {
+        if (condition.type === "Ready") {
+          isReady = "Ready";
         }
-        let nodeInfo = [
-          node.metadata.name,
-          node.metadata.labels,
-          isReady,
-          "Roles",
-          getAgeText(node.metadata.creationTimestamp),
-          "Version"
-        ]
-        nodesInfo.push(nodeInfo);
       }
+      let nodeInfo = [
+        node.metadata.name,
+        node.metadata.labels,
+        isReady,
+        "Roles",
+        getAgeText(node.metadata.creationTimestamp),
+        "Version"
+      ]
+      nodesInfo.push(nodeInfo);
     }
     return nodesInfo;
   }
