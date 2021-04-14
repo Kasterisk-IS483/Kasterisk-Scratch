@@ -144,17 +144,18 @@ export default function TableCard(props) {
               ? null
               : props.table.map((rows, rowIndex) => (
                 <DataTable.Row key={rowIndex} onPress={navigationToDetail(rowIndex)}>
+                  {/* for DataTable.Cell: use View instead for multi-line support */}
                   {rows === undefined
                     ? null
                     : rows.map((cols, colIndex) => (
-                      <DataTable.Cell key={colIndex} style={cellStyle(cols, colIndex)}>
+                      <View key={colIndex} style={[cellStyle(cols, colIndex), { justifyContent: 'center' } ]}>
                         {typeof cols !== "object"
                           ? 
                           <TooltipOverlay key={colIndex} text={cols}>
                             <Text>{cols}</Text>
                           </TooltipOverlay>
                           : <View style={commonStyles.labelContainer}>{getLabelButtons(cols, 1, false)}</View>}
-                      </DataTable.Cell>
+                      </View>
                     ))}
                 </DataTable.Row>
               ))}

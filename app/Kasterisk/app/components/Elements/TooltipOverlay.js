@@ -8,7 +8,8 @@ export default function TooltipOverlay(props) {
 
   return (
     <Tooltip 
-      height={80} 
+      height={80}
+      width={350}
       backgroundColor={colours.secondary} 
       popover={<Text>{props.text}</Text>}
     >
