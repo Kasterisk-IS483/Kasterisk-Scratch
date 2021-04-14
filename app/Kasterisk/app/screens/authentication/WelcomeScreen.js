@@ -23,9 +23,6 @@ export default class WelcomeScreen extends Component {
       orientation: "",
       result: null,
     };
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
   }
 
   getOrientation() {
@@ -94,7 +91,13 @@ export default class WelcomeScreen extends Component {
     }
   };
 
+  setWindow = () => {
+    this.setState(Dimensions.get("window"));
+  }
+
   componentDidMount() {
+    Dimensions.addEventListener("change", this.setWindow);
+
     this.props.navigation.dispatch(state => {
       // Remove the home route from the stack
       const routes = state.routes.filter(r => r.name !== 'ChooseCluster');
@@ -107,6 +110,9 @@ export default class WelcomeScreen extends Component {
     });
   }
 
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.setWindow);
+  }
 
   render() {
     const { navigation } = this.props;
