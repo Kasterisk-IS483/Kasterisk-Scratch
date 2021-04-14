@@ -264,6 +264,7 @@ export default class WorkloadSummaryScreen extends Component {
     switch (route.key) {
       case "first":
         return (
+        <ScrollView style={commonStyles.secondaryContainer}>
           <View style={this.getStyle().rowContainer}>
             <View style={this.getStyle().columnContainer}>
               <TouchableOpacity onPress={() => this.setState({ index: 1 })}>
@@ -310,30 +311,39 @@ export default class WorkloadSummaryScreen extends Component {
               </TouchableOpacity>
             </View>
           </View>
+        </ScrollView>
         );
 
       case "second":
         return (
+          <ScrollView style={commonStyles.secondaryContainer}>
           <View style={dashboardStyles.wrapContainer}>
             {this.DeploymentTab()}
           </View>
+         </ScrollView>
         );
 
       case "third":
         return (
+          <ScrollView style={commonStyles.secondaryContainer}>
           <View style={dashboardStyles.wrapContainer}>
             {this.ReplicasetTab()}
           </View>
+          </ScrollView>
         );
 
       case "fourth":
         return (
+          <ScrollView style={commonStyles.secondaryContainer}>
           <View style={dashboardStyles.wrapContainer}>{this.PodTab()}</View>
+          </ScrollView>
         );
 
       case "fifth":
         return (
+          <ScrollView style={commonStyles.secondaryContainer}>
           <View style={dashboardStyles.wrapContainer}>{this.NodesTab()}</View>
+          </ScrollView>
         );
   
 
@@ -344,7 +354,7 @@ export default class WorkloadSummaryScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
+      <View style={commonStyles.secondaryContainer}>
         <SpinnerOverlay showSpinner={this.state.spinner} />
         <TabView
           navigationState={this.state}
@@ -354,7 +364,7 @@ export default class WorkloadSummaryScreen extends Component {
           initialLayout={{ width: Dimensions.get("window").width }}
           sceneContainerStyle={this.getStyle().scrollContainer}
         />
-      </ScrollView>
+      </View>
     );
   }
 }
