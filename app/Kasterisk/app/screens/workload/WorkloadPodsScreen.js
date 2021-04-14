@@ -1,11 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
 import ModalSelector from 'react-native-modal-selector';
 
-import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi";
 import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";

@@ -68,7 +68,6 @@ export default class WorkloadSummaryScreen extends Component {
     Dimensions.addEventListener("change", (e) => {
       this.setState(e.window);
     });
-    this.updateState = this.updateState.bind(this);
   }
 
   getOrientation() {
@@ -87,14 +86,6 @@ export default class WorkloadSummaryScreen extends Component {
   }
   onLayout() {
     this.setState({ orientation: this.getOrientation() });
-  }
-
-  async updateState(stateKey, value) {
-    if (this.props.index !== undefined) {
-      this.setState({
-        index: this.props.index,
-      });
-    }
   }
 
   async componentDidMount() {

@@ -1,9 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { Component } from "react";
 import { View, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
 
-import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {

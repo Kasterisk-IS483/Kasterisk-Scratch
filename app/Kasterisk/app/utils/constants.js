@@ -112,9 +112,6 @@ export const checkDefaultCluster = async() => {
 
   if (defaultCluster == null) {
     Alert.alert("Error", "Default cluster not found");
-    this.setState({
-      spinner: false,
-    });
     this.props.navigation.navigate("ChooseCluster");
     return;
   }

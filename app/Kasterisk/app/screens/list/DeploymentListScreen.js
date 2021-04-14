@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Dimensions, Alert } from "react-native";
 
-import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import { checkDefaultCluster } from "../../utils/constants";
 import {
