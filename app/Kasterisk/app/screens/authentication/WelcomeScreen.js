@@ -141,6 +141,7 @@ export default class WelcomeScreen extends Component {
               text="Log in With Google"
               size="small"
               onPress={this.GoogleLogin}
+              // onPress={() => navigation.navigate("GoogleLogin")}
             />
             <CustomButton
               image={require(assetsPath + "welcome-button-aws.png")}

@@ -19,6 +19,7 @@ import { spacings, colours, fonts, commonStyles } from "./utils/styles";
 import WelcomeScreen from "./screens/authentication/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/authentication/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./screens/authentication/KubeconfigContentScreen";
+import GoogleLoginScreen from "./screens/authentication/GoogleLoginScreen";
 import AWSLoginScreen from "./screens/authentication/AWSLoginScreen";
 // workload 
 import WorkloadSummaryScreen from "./screens/workload/WorkloadSummaryScreen";
@@ -508,6 +509,10 @@ export default class App extends Component {
             name="AddCluster"
             component={WelcomeScreen}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen name="GoogleLogin"
+            component={GoogleLoginScreen}
+            options={{ title: "Google Login" }}
           />
           <Stack.Screen name="AWSLogin"
             component={AWSLoginScreen}
