@@ -51,6 +51,13 @@ export default class WorkloadReplicasetScreen extends Component {
 
     try {
       let serverStatus = await checkDefaultCluster();
+      if (!serverStatus){
+        this.setState({
+          spinner: false,
+        });
+        this.props.navigation.navigate("ChooseCluster");
+        return;
+      }
       if (serverStatus[0] == 200) {
         console.log(serverStatus);
       } else {

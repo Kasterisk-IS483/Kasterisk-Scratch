@@ -55,6 +55,13 @@ export default class FilterLabelSCreen extends Component {
     console.log("updateArr");
     try {
       let serverStatus = await checkDefaultCluster();
+      if (!serverStatus){
+        this.setState({
+          spinner: false,
+        });
+        this.props.navigation.navigate("ChooseCluster");
+        return;
+      }
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({

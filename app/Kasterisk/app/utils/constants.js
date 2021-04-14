@@ -108,12 +108,9 @@ export const getAgeText = (ageInput) => {
 
 export const checkDefaultCluster = async() => {
   let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-  console.log(defaultCluster);
-
   if (defaultCluster == null) {
     Alert.alert("Error", "Default cluster not found");
-    this.props.navigation.navigate("ChooseCluster");
-    return;
+    return false;
   }
   let serverStatus = await checkServerStatus(defaultCluster);
   return serverStatus;

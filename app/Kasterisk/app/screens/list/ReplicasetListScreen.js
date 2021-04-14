@@ -65,6 +65,13 @@ export default class ReplicasetListScreen extends Component {
 
     try {
       let serverStatus = await checkDefaultCluster();
+      if (!serverStatus){
+        this.setState({
+          spinner: false,
+        });
+        this.props.navigation.navigate("ChooseCluster");
+        return;
+      }
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
