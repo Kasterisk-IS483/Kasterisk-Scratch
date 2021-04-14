@@ -265,7 +265,7 @@ export default class WorkloadSummaryScreen extends Component {
           variableField="Roles"
           variableFieldVal={item[3]}
         >
-        {getLabelButtons(item[1], 3)}
+          {getLabelButtons(item[1], 3)}
         </WorkloadCard>
       </TouchableOpacity>
     ));
