@@ -234,11 +234,12 @@ export default class FilterLabelSCreen extends Component {
 
   render() {
     console.log("render-filterLabels");
+    const {selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>
-        {/* <View>
-          {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedItems)}
-        </View> */}
+        <View>
+          {/* {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedLabel)} */}
+        </View>
         <View style={{ margin: spacings.xxs }}>
           <MultiSelect
             hideTags
