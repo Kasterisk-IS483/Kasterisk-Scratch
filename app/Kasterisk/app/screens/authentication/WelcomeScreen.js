@@ -6,9 +6,10 @@ import {
   ImageBackground,
   Image,
   Dimensions,
+  Alert
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation, CommonActions } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";
 import AzureApi from "../../api/AzureApi";
@@ -49,18 +50,16 @@ export default class WelcomeScreen extends Component {
     try {
       let googleLoginResult = await GoogleCloudApi.checkGoogleCredentials();
       if (googleLoginResult) {
-          let a = await AsyncStorage.getItem("@googleCredentials")
-          alert(a)
-        // this.props.navigation.navigate("WorkloadSummary");
+          this.props.navigation.navigate("GoogleLogin");
       } else {
         Alert.alert("Login Failed", "Please try again.");
       }
     } catch (e) {
-      Alert.alert(e.message);
-      // Alert.alert(
-      //   "Invalid Credentials",
-      //   "Please enter valid email and password for your google account."
-      // );
+      // Alert.alert(e.message);
+      Alert.alert(
+        "Invalid Credentials",
+        "Please enter valid email and password for your google account."
+      );
     }
   };
 

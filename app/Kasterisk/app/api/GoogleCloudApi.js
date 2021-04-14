@@ -1,7 +1,6 @@
-import { authorize } from "react-native-app-auth";
+import { authorize, refresh } from "react-native-app-auth";
+import { Alert } from "react-native";
 import {
-  WEB_CLIENT_ID,
-  WEB_CLIENT_SECRET,
   googleConfig,
   saveCredentials,
 } from "../utils/constants";
@@ -33,21 +32,11 @@ class GoogleCloudApi {
   };
 
   static refreshAccessToken = async (refreshToken) => {
-    const url =
-      "https://oauth2.googleapis.com/token?" +
-      `client_id=${WEB_CLIENT_ID}&` +
-      `client_secret=${WEB_CLIENT_SECRET}&` +
-      `refresh_token=${refreshToken}&` +
-      "grant_type=refresh_token";
-
-    const newAccessToken = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    }).then((res) => res.json());
-
-    return newAccessToken.access_token;
+    const result = await refresh(googleConfig, {
+      refreshToken: refreshToken,
+    });
+    console.log(result.accessToken)
+    return result.accessToken;
   };
 
   static gcpFetch = async ({ url, method = "get", body, refreshToken }) => {
@@ -78,7 +67,8 @@ class GoogleCloudApi {
       }
       return projects;
     } catch (err) {
-      Promise.reject(err);
+      Alert.alert("Google Cloud Provider Error", "Please enable your project list.");
+      //Promise.reject(err);
     }
   };
 
@@ -98,7 +88,7 @@ class GoogleCloudApi {
     }
   };
 
-  static fetchGkeClusters = async ({ projectId, zone = "-", refreshToken }) => {
+  static fetchGkeClusters = async ({ projectId, refreshToken, zone = "-" }) => {
     try {
       const url = `https://container.googleapis.com/v1/projects/${projectId}/locations/${zone}/clusters`;
       const clusters = await this.gcpFetch({ url, refreshToken });
@@ -120,7 +110,8 @@ class GoogleCloudApi {
       }
       return clusterList;
     } catch (err) {
-      return Promise.reject(err);
+      Alert.alert("Google Cloud Provider Error", "Please enable your Kubernetes Engine API.");
+      //return Promise.reject(err);
     }
   };
 }
