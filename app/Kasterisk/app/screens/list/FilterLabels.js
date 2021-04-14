@@ -155,7 +155,9 @@ export default class FilterLabelSCreen extends Component {
   }
 
   formatObject(item, service) {
-    item.status = item.status + "/" + item.total;
+    if(service!="pods"){
+      item.status = item.status + "/" + item.total;
+    }
     delete item.total;
     if(service=="deployments"){
         this.setState({
