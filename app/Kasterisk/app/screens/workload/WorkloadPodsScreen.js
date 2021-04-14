@@ -242,9 +242,9 @@ export default class WorkloadPodsScreen extends Component {
             data={list}
             keyExtractor={item => item}
             labelExtractor={item => item}
-            initValue={value}
+            initValue={"Select a container"}
             animationType={"fade"}
-            onChange={(option) => this.updateState(type, option.value)}
+            onChange={(option) => this.updateState(type, option)}
           />
         </View>
       </View>
@@ -322,6 +322,7 @@ export default class WorkloadPodsScreen extends Component {
             <Text style={{
               color: 'white',
               backgroundColor: 'black',
+              fontFamily: 'Hack',
               fontSize: fonts.sm,
               padding: spacings.md,
               marginVertical: spacings.sm,
