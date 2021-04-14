@@ -322,6 +322,7 @@ export default class WorkloadPodsScreen extends Component {
             <Text style={{
               color: 'white',
               backgroundColor: 'black',
+              fontFamily: 'Hack',
               fontSize: fonts.sm,
               padding: spacings.md,
               marginVertical: spacings.sm,
