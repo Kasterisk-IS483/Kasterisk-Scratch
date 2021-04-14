@@ -67,9 +67,9 @@ class ChangeClusterScreen extends Component {
       });
       this.props.navigation.reset({
         index: 0,
-        routes: [{ name: "AddCluster" }],
+        routes: [{ name: "welcomeScreen" }],
       });
-      this.props.navigation.replace("AddCluster");
+      this.props.navigation.replace("welcomeScreen");
       return;
     }
 

@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createStackNavigator, HeaderBackButton  } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 import { View, Image, SafeAreaView, Text } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import ModalDropdown from "react-native-modal-dropdown";
@@ -19,8 +20,8 @@ import { spacings, colours, fonts, commonStyles } from "./utils/styles";
 import WelcomeScreen from "./screens/authentication/WelcomeScreen";
 import KubeconfigUploadScreen from "./screens/authentication/KubeconfigUploadScreen";
 import KubeconfigContentScreen from "./screens/authentication/KubeconfigContentScreen";
-import GoogleLoginScreen from "./screens/authentication/GoogleLoginScreen";
 import AWSLoginScreen from "./screens/authentication/AWSLoginScreen";
+import AddClusterScreen from "./screens/authentication/AddClusterScreen";
 // workload 
 import WorkloadSummaryScreen from "./screens/workload/WorkloadSummaryScreen";
 import WorkloadDeploymentScreen from "./screens/workload/WorkloadDeploymentScreen";
@@ -483,8 +484,10 @@ export default class App extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     console.log("App.js render");
     return (
+
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="ChooseCluster"
@@ -493,7 +496,7 @@ export default class App extends Component {
           <Stack.Screen
             name="ChooseCluster"
             component={ChangeClusterScreen}
-            options={{ title: "Change Cluster", headerBackTitleVisible: false }}
+            options={{ title: "Change Cluster", headerLeft: null, headerBackTitleVisible: false }}
           />
           <Stack.Screen
             name="HomeDrawer"
@@ -507,12 +510,22 @@ export default class App extends Component {
 
           <Stack.Screen
             name="AddCluster"
+            component={AddClusterScreen}
+            options={({navigation, route}) => ({
+              title: "Add Cluster",
+              headerLeft: (props) => (
+                <HeaderBackButton
+                  {...props}
+                  onPress={() => navigation.navigate('ChooseCluster')}
+                />
+              ),
+         })}
+          />
+
+          <Stack.Screen
+            name="welcomeScreen"
             component={WelcomeScreen}
             options={{ headerShown: false }}
-          />
-          <Stack.Screen name="GoogleLogin"
-            component={GoogleLoginScreen}
-            options={{ title: "Google Login" }}
           />
           <Stack.Screen name="AWSLogin"
             component={AWSLoginScreen}
