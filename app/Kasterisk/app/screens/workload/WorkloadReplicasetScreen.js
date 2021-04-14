@@ -77,6 +77,7 @@ export default class WorkloadReplicasetScreen extends Component {
     let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(annotations)[0];
     let stringAnnotations = "";
     Object.keys(annotations).forEach(function (key) {
+      if (!annotations[key].includes("{") && !annotations[key].includes("/"))
       stringAnnotations += key + "      " + annotations[key] + "\n";
     });
     return (

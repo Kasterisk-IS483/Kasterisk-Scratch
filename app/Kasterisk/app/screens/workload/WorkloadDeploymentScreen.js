@@ -75,7 +75,9 @@ export default class WorkloadDeploymentScreen extends Component {
   }
 
   render() {
-    let rollingUpdate = "Max Surge " + this.state.deployment.spec.strategy.rollingUpdate.maxSurge + ", " + "Max Unavailable " + this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable;
+    let maxSurge = this.state.deployment.spec.strategy.rollingUpdate !== undefined ? this.state.deployment.spec.strategy.rollingUpdate.maxSurge : 0;
+    let maxUnavailable = this.state.deployment.spec.strategy.rollingUpdate !== undefined ? this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable : 0;
+    let rollingUpdate = "Max Surge " + maxSurge + ", " + "Max Unavailable " + maxUnavailable;
     let containerPorts = this.state.deployment.spec.template.spec.containers[0].ports;
     let stringcontainerPorts = "";
     if (containerPorts == undefined) {
@@ -85,6 +87,12 @@ export default class WorkloadDeploymentScreen extends Component {
         stringcontainerPorts += containerPort.name + " " + containerPort.containerPort + "/" + containerPort.protocol + "\n";
       }
     }
+    let annotations = this.state.deployment.metadata.annotations;
+    let stringAnnotations = "";
+    Object.keys(annotations).forEach(function (key) {
+      if (!annotations[key].includes("{") && !annotations[key].includes("/"))
+      stringAnnotations += key + "      " + annotations[key] + "\n";
+    });
 
     return (
       <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
@@ -134,7 +142,7 @@ export default class WorkloadDeploymentScreen extends Component {
             <DetailsCard header="Metadata" type="Deployment"
               age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
               labels={getLabelButtons(this.state.deployment.metadata.labels)}
-              annotations={Object.keys(this.state.deployment.metadata.annotations)[0] + "    " + Object.values(this.state.deployment.metadata.annotations)[0]}
+              annotations={stringAnnotations}
             />
           </View>
         </View>

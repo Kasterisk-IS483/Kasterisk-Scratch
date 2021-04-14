@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Alert } from "react-native";
 import AwsApi from "./AwsApi";
-import { saveCredentials } from "../utils/constants";
 
 export async function checkServerStatus(clusterKey) {
   if (clusterKey == null) {
