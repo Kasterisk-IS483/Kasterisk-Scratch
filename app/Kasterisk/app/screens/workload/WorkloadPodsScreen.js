@@ -8,7 +8,7 @@ import ModalSelector from 'react-native-modal-selector';
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
 import PodApi from "../../api/PodApi";
-import { getLabelButtons, getAgeText } from "../../utils/constants";
+import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {
   fonts,
   colours,
@@ -139,19 +139,7 @@ export default class WorkloadPodsScreen extends Component {
     });
 
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", "Default cluster not found");
-        this.setState({ 
-          spinner: false, 
-        });
-        this.props.navigation.navigate("ChooseCluster");
-        return;
-      }
-
-      let serverStatus = await checkServerStatus(defaultCluster);
-
+      let serverStatus = await checkDefaultCluster();
       if (serverStatus[0] == 200) {
         let timestampParam = this.state.checkedTimestamp;
         let logs = "";

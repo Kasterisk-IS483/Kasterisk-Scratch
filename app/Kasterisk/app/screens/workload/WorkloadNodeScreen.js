@@ -5,7 +5,7 @@ import { Title } from 'react-native-paper';
 
 import { checkServerStatus } from "../../api/KubeApi";
 import DetailPageApi from "../../api/DetailPageApi";
-import { getLabelButtons, getAgeText } from "../../utils/constants";
+import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {
   commonStyles,
   commonPortraitStyles,
@@ -52,18 +52,7 @@ export default class WorkloadNodeScreen extends Component {
     });
 
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", "Default cluster not found");
-        this.setState({
-          spinner: false,
-        });
-        this.props.navigation.navigate("ChooseCluster");
-        return;
-      }
-
-      let serverStatus = await checkServerStatus(defaultCluster);
+      let serverStatus = await checkDefaultCluster();
       if (serverStatus[0] == 200) {
         console.log(serverStatus);
       } else {

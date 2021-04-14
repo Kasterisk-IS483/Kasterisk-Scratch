@@ -10,14 +10,13 @@ import {
 import { TabView, TabBar } from "react-native-tab-view";
 import { defined } from "react-native-reanimated";
 
-import { checkServerStatus } from "../../api/KubeApi";
 import DeploymentApi from "../../api/DeploymentApi";
 import ReplicasetApi from "../../api/ReplicasetApi";
 import PodApi from "../../api/PodApi";
 import NodeApi from "../../api/NodeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import DetailPageApi from "../../api/DetailPageApi";
-import { getLabelButtons } from "../../utils/constants";
+import { getLabelButtons, checkDefaultCluster } from "../../utils/constants";
 import {
   colours,
   commonStyles,
@@ -110,26 +109,7 @@ export default class WorkloadSummaryScreen extends Component {
     }
 
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
-
-      if (this.props.index !== undefined) {
-        this.setState({
-          index: this.props.index,
-        });
-        console.log("index" + this.state.index);
-      }
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", "Default cluster not found");
-        this.setState({
-          spinner: false,
-        });
-        this.props.navigation.navigate("ChooseCluster");
-        return;
-      }
-
-      let serverStatus = await checkServerStatus(defaultCluster);
+      let serverStatus = await checkDefaultCluster();
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({

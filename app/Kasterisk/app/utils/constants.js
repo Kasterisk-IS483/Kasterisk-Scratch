@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform, Text } from "react-native";
+import { Platform, Text, Alert } from "react-native";
 import React from "react";
 
 import LabelButton from "../components/Buttons/LabelButton";
 import TooltipOverlay from "../components/Elements/TooltipOverlay";
+import { checkServerStatus } from "../api/KubeApi";
 
 export const GOOGLE_IOS_CLIENT =
   "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt";
@@ -104,6 +105,22 @@ export const getAgeText = (ageInput) => {
   if (age <= 1) day = "Day";
   return age + " " + day;
 };
+
+export const checkDefaultCluster = async() => {
+  let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
+  console.log(defaultCluster);
+
+  if (defaultCluster == null) {
+    Alert.alert("Error", "Default cluster not found");
+    this.setState({
+      spinner: false,
+    });
+    this.props.navigation.navigate("ChooseCluster");
+    return;
+  }
+  let serverStatus = await checkServerStatus(defaultCluster);
+  return serverStatus;
+}
 
 export const AWSRegions = [
   { label: "US East (Ohio) - us-east-2", value: "us-east-2" },

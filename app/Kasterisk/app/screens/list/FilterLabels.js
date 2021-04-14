@@ -5,6 +5,7 @@ import MultiSelect from "react-native-multiple-select";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
+import { checkDefaultCluster } from "../../utils/constants";
 import {
   spacings,
   commonStyles,
@@ -53,19 +54,7 @@ export default class FilterLabelSCreen extends Component {
   async updateArr(selectedLabel) {
     console.log("updateArr");
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", "Default cluster not found");
-        this.setState({
-          spinner: false,
-        });
-        this.props.navigation.navigate("ChooseCluster");
-        return;
-      }
-
-      let serverStatus = await checkServerStatus(defaultCluster);
+      let serverStatus = await checkDefaultCluster();
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({

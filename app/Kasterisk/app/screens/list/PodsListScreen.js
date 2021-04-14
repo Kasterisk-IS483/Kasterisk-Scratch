@@ -4,13 +4,13 @@ import { Dimensions, Alert } from "react-native";
 
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
-import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
-
+import { checkDefaultCluster } from "../../utils/constants";
 import {
   commonStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
 } from "../../utils/styles";
+import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class PodsListScreen extends Component {
   constructor(props) {
@@ -63,19 +63,7 @@ export default class PodsListScreen extends Component {
     }
 
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", "Default cluster not found");
-        this.setState({
-          spinner: false,
-        });
-        this.props.navigation.navigate("ChooseCluster");
-        return;
-      }
-
-      let serverStatus = await checkServerStatus(defaultCluster);
+      let serverStatus = await checkDefaultCluster();
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
