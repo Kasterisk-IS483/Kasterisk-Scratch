@@ -49,14 +49,16 @@ export default class AddClusterScreen extends Component {
     try {
       let googleLoginResult = await GoogleCloudApi.checkGoogleCredentials();
       if (googleLoginResult) {
-          let a = await AsyncStorage.getItem("@googleCredentials")
-          alert(a)
-        // this.props.navigation.navigate("WorkloadSummary");
+          this.props.navigation.navigate("GoogleLogin");
       } else {
         Alert.alert("Login Failed", "Please try again.");
       }
     } catch (e) {
-      Alert.alert(e.message);
+      // Alert.alert(e.message);
+      Alert.alert(
+        "Invalid Credentials",
+        "Please enter valid email and password for your google account."
+      );
     }
   };
 
