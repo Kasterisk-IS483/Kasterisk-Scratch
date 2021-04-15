@@ -11,7 +11,7 @@ import PodApi from "../../api/PodApi";
 import NodeApi from "../../api/NodeApi";
 import { getLabelButtons } from "../../utils/constants";
 import { commonStyles } from "../../utils/styles";
-import TooltipOverlay from "../Elements/TooltipOverlay";
+// import TooltipOverlay from "../Elements/TooltipOverlay";
 
 export default function TableCard(props) {
   const navigation = useNavigation();
@@ -151,9 +151,9 @@ export default function TableCard(props) {
                       <View key={colIndex} style={[cellStyle(cols, colIndex), { justifyContent: 'center' } ]}>
                         {typeof cols !== "object"
                           ? 
-                          <TooltipOverlay key={colIndex} text={cols}>
-                            <Text>{cols}</Text>
-                          </TooltipOverlay>
+                          // <TooltipOverlay key={colIndex} text={cols}>
+                          <Text>{cols}</Text>
+                          // </TooltipOverlay>
                           : <View style={commonStyles.labelContainer}>{getLabelButtons(cols, 1, false)}</View>}
                       </View>
                     ))}

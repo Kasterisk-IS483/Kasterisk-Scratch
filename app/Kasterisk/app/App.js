@@ -491,13 +491,18 @@ export default class App extends Component {
           <Stack.Screen
             name="ChooseCluster"
             component={ChangeClusterScreen}
-            options={{ title: "Change Cluster", headerLeft: null, headerBackTitleVisible: false }}
+            options={{ 
+              title: "Change Cluster",
+              headerLeft: null,
+              headerBackTitleVisible: false,
+            }}
           />
           <Stack.Screen
             name="HomeDrawer"
             component={this.HomeDrawer.bind(this)}
-            options={{ headerShown: false, 
-              //try: ios fix
+            options={{ 
+              headerShown: false,
+              // ios fix
               headerBackTitleVisible: false,
               title: "Back",
             }}
