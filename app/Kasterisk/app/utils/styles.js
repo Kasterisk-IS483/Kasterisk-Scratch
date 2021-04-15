@@ -27,6 +27,7 @@ export const spacings = {
   lg: 20,
   xl: 25,
   xxl: 30,
+  xxxl: 35,
 }
 
 export const cardsOuterPadding = spacings.xxs;
@@ -203,8 +204,8 @@ export const commonStyles = StyleSheet.create({
   },
 
   // workload pages
-  detailsContainer: {
-    paddingBottom: spacings.xxl,
+  paddingBottomContainer: {
+    paddingBottom: spacings.xxxl,
   },
 
   // drawer
@@ -260,6 +261,7 @@ export const dashboardStyles = StyleSheet.create({
   },
   wrapContainer: {
     ...commonStyles.wrapContainer,
+    ...commonStyles.paddingBottomContainer,
     paddingHorizontal: spacings.md,
   },
   rowContainer: {

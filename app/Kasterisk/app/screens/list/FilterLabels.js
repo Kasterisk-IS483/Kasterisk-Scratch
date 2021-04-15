@@ -160,17 +160,17 @@ export default class FilterLabelSCreen extends Component {
     }
     delete item.total;
     if(service=="deployments"){
-        this.setState({
-          deploymentArr: [...this.state.deploymentArr, Object.values(item)],
-        });
+      this.setState({
+        deploymentArr: [...this.state.deploymentArr, Object.values(item)],
+      });
     } else if (service == "replicasets"){
-        this.setState({
-          replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
-        });
-    }else if (service == "pods"){
-        this.setState({
-            podsArr: [...this.state.podsArr, Object.values(item)],
-        });
+      this.setState({
+        replicasetsArr: [...this.state.replicasetsArr, Object.values(item)],
+      });
+    } else if (service == "pods"){
+      this.setState({
+        podsArr: [...this.state.podsArr, Object.values(item)],
+      });
     }
   }
   async componentDidMount() {

@@ -305,7 +305,7 @@ export default class WorkloadSummaryScreen extends Component {
                   image={require("../../assets/node.png")}
                   text1="Ready"
                   text2="Not Ready"
-                  no1={this.state.nodeSummary.readyNodes} //TODO change to nodes
+                  no1={this.state.nodeSummary.readyNodes}
                   no2={this.state.nodeSummary.notReadyNodes}
                 />
               </TouchableOpacity>
@@ -335,14 +335,18 @@ export default class WorkloadSummaryScreen extends Component {
       case "fourth":
         return (
           <ScrollView style={commonStyles.scrollContainer}>
-            <View style={dashboardStyles.wrapContainer}>{this.PodTab()}</View>
+            <View style={dashboardStyles.wrapContainer}>
+              {this.PodTab()}
+            </View>
           </ScrollView>
         );
 
       case "fifth":
         return (
           <ScrollView style={commonStyles.scrollContainer}>
-            <View style={dashboardStyles.wrapContainer}>{this.NodesTab()}</View>
+            <View style={dashboardStyles.wrapContainer}>
+              {this.NodesTab()}
+            </View>
           </ScrollView>
         );
   

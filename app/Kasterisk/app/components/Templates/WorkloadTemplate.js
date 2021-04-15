@@ -19,7 +19,7 @@ export default function WorkloadTemplate(props) {
   return (
     <ScrollView style={dashboardStyles.scrollContainer}>
       <SpinnerOverlay showSpinner={props.showSpinner} />
-      <View style={commonStyles.detailsContainer}>
+      <View style={commonStyles.paddingBottomContainer}>
 
         {props.type == "filter" && 
           getAllTables()

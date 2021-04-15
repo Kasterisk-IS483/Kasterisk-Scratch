@@ -20,6 +20,7 @@ import {
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
+import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class WorkloadPodsScreen extends Component {
 
@@ -191,12 +192,12 @@ export default class WorkloadPodsScreen extends Component {
 
   scene = (tab) => {
     return (
-      <ScrollView style={this.getStyle().scrollContainer}>
+      <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
         <Title style={commonStyles.headerTitle}>
           {this.state.pod.metadata.name}
         </Title>
         {tab}
-      </ScrollView>
+      </WorkloadTemplate>
     );
   }
 
@@ -334,6 +335,9 @@ export default class WorkloadPodsScreen extends Component {
         <Card elevation={10}>
           <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
             {this.ContainerList()}
+          </Card.Content>
+          <Card.Content>
+            <Text>Implementation in progress</Text>
           </Card.Content>
         </Card>
       )
