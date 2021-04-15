@@ -191,7 +191,7 @@ export default class WorkloadPodsScreen extends Component {
 
   scene = (tab) => {
     return (
-      <ScrollView>
+      <ScrollView style={this.getStyle().scrollContainer}>
         <Title style={commonStyles.headerTitle}>
           {this.state.pod.metadata.name}
         </Title>
@@ -367,7 +367,7 @@ export default class WorkloadPodsScreen extends Component {
 
   render() {
     return (
-      <ScrollView style={commonStyles.secondaryContainer}>
+      <View style={commonStyles.secondaryContainer}>
         <SpinnerOverlay showSpinner={this.state.spinner} />
         <TabView
           navigationState={this.state}
@@ -375,9 +375,8 @@ export default class WorkloadPodsScreen extends Component {
           renderScene={this._renderScene}
           renderTabBar={this._renderTabBar}
           initialLayout={{ width: Dimensions.get('window').width }}
-          sceneContainerStyle={dashboardStyles.scrollContainer}
         />
-      </ScrollView>
+      </View>
     );
   }
 
