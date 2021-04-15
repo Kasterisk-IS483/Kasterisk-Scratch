@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation, CommonActions } from "@react-navigation/native";
+import { CommonActions } from "@react-navigation/native";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";
 import AzureApi from "../../api/AzureApi";

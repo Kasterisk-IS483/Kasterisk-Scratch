@@ -8,12 +8,10 @@ import {
   DrawerItem,
 } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation, CommonActions } from "@react-navigation/native";
 import { View, Image, SafeAreaView, Text } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import ModalDropdown from "react-native-modal-dropdown";
 import MultiSelect from "react-native-multiple-select";
-import { checkServerStatus } from "./api/KubeApi";
 // styling
 import { spacings, colours, fonts, commonStyles } from "./utils/styles";
 // authentication 
@@ -38,8 +36,6 @@ import FilterLabelsScreen from "./screens/list/FilterLabels";
 // multicuster
 import ChangeClusterScreen from "./screens/authentication/ChangeClusterScreen";
 
-import WorkloadSummaryApi from "./api/WorkloadSummaryApi";
-
 // const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -49,36 +45,35 @@ const screenOptions = {
   headerShown: true,
 };
 
-const items = [{
-  id: '92iijs7yta',
-  name: 'Ondo'
-}, {
-  id: 'a0s0a8ssbsd',
-  name: 'Ogun'
-}, {
-  id: '16hbajsabsd',
-  name: 'Calabar'
-}, {
-  id: 'nahs75a5sg',
-  name: 'Lagos'
-}, {
-  id: '667atsas',
-  name: 'Maiduguri'
-}, {
-  id: 'hsyasajs',
-  name: 'Anambra'
-}, {
-  id: 'djsjudksjd',
-  name: 'Benue'
-}, {
-  id: 'sdhyaysdj',
-  name: 'Kaduna'
-}, {
-  id: 'suudydjsjd',
-  name: 'Abuja'
-  }
-];
-
+// const items = [{
+//   id: '92iijs7yta',
+//   name: 'Ondo'
+// }, {
+//   id: 'a0s0a8ssbsd',
+//   name: 'Ogun'
+// }, {
+//   id: '16hbajsabsd',
+//   name: 'Calabar'
+// }, {
+//   id: 'nahs75a5sg',
+//   name: 'Lagos'
+// }, {
+//   id: '667atsas',
+//   name: 'Maiduguri'
+// }, {
+//   id: 'hsyasajs',
+//   name: 'Anambra'
+// }, {
+//   id: 'djsjudksjd',
+//   name: 'Benue'
+// }, {
+//   id: 'sdhyaysdj',
+//   name: 'Kaduna'
+// }, {
+//   id: 'suudydjsjd',
+//   name: 'Abuja'
+//   }
+// ];
 export default class App extends Component {
   constructor(props) {
     console.log("App.js constructor");
@@ -282,7 +277,6 @@ export default class App extends Component {
       selectedValue: selectedValue,
     });
   }
-
 
   async componentDidMount() {
     SplashScreen.hide();

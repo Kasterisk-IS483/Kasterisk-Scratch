@@ -4,7 +4,7 @@ import * as RNFS from "react-native-fs";
 import * as DocumentPicker from "react-native-document-picker";
 
 import { Kubeconfig } from "../../api/KubeApi/config";
-import { saveKubeconfigFileToLocal, saveURLToken } from "../../api/KubeApi/config_types";
+import { saveKubeconfigFileToLocal } from "../../api/KubeApi/config_types";
 import { colours, fonts, spacings, commonStyles } from "../../utils/styles";
 import CustomButton from "../../components/Buttons/CustomButton";
 import ActionButton from "../../components/Buttons/ActionButton";

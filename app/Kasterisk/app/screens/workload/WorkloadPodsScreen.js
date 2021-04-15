@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ScrollView, Dimensions, Text, Alert } from "react-native";
+import { View, Dimensions, Text, Alert } from "react-native";
 import { Title, Card, Switch } from 'react-native-paper';
 import { TabView, TabBar } from 'react-native-tab-view';
 import ModalSelector from 'react-native-modal-selector';
@@ -11,7 +11,6 @@ import {
   fonts,
   colours,
   commonStyles,
-  dashboardStyles,
   commonPortraitStyles,
   workloadDetailsBreakpoint,
   cardsOuterPadding,

@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
-import { defined } from "react-native-reanimated";
 
 import DeploymentApi from "../../api/DeploymentApi";
 import ReplicasetApi from "../../api/ReplicasetApi";
