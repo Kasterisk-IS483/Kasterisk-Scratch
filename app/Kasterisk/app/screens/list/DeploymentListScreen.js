@@ -21,9 +21,6 @@ export default class DeploymentListScreen extends Component {
       namespace: "",
       spinner: false,
     };
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
   }
 
   getOrientation() {
@@ -51,7 +48,14 @@ export default class DeploymentListScreen extends Component {
       deploymentArr: [...this.state.deploymentArr, Object.values(item)],
     });
   }
+
+  setWindow = () => {
+    this.setState(Dimensions.get("window"));
+  }
+
   async componentDidMount() {
+    Dimensions.addEventListener("change", this.setWindow);
+
     const { navigation } = this.props;
     this.setState({
       spinner: true,
@@ -90,6 +94,10 @@ export default class DeploymentListScreen extends Component {
     this.setState({
       spinner: false,
     });
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.setWindow);
   }
 
   render() {
