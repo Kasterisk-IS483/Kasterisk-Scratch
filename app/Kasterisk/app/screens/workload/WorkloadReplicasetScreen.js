@@ -5,8 +5,8 @@ import { Title } from 'react-native-paper';
 import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {
   commonStyles,
-  commonPortraitStyles,
-  workloadDetailsBreakpoint
+  getOrientation,
+  getStyle
 } from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
@@ -23,22 +23,8 @@ export default class WorkloadReplicasetScreen extends Component {
     };
   }
 
-  getOrientation() {
-    if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return commonStyles;
-    } else {
-      return commonPortraitStyles;
-    }
-  }
   onLayout() {
-    this.setState({ orientation: this.getOrientation() });
+    this.setState({ orientation: getOrientation() });
   }
 
   setWindow = () => {
@@ -93,15 +79,15 @@ export default class WorkloadReplicasetScreen extends Component {
           {this.state.replicaset.metadata.name}
         </Title>
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Configuration" type="Replicaset"
               control={this.state.replicaset.metadata.ownerReferences[0].name}
               replicaStatus={replicaStatus}
               numberReplica={this.state.replicaset.spec.replicas}
             />
           </View>
-          <View style={this.getStyle().columnContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Status" type="Replicaset"
               waiting={this.state.podstatus.waiting}
               running={this.state.podstatus.running}

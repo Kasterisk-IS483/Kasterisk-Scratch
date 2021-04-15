@@ -12,9 +12,10 @@ import {
   colours,
   commonStyles,
   commonPortraitStyles,
-  workloadDetailsBreakpoint,
   cardsOuterPadding,
-  spacings
+  spacings,
+  getOrientation,
+  getStyle
 } from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
@@ -44,22 +45,8 @@ export default class WorkloadPodsScreen extends Component {
     this.updateState = this.updateState.bind(this);
   }
 
-  getOrientation() {
-    if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return commonStyles;
-    } else {
-      return commonPortraitStyles;
-    }
-  }
   onLayout() {
-    this.setState({ orientation: this.getOrientation() });
+    this.setState({ orientation: getOrientation() });
   }
 
   async updateState(stateKey, value) {
@@ -235,7 +222,7 @@ export default class WorkloadPodsScreen extends Component {
 
   list = (type, value, list) => {
     return (
-      <View style={this.getStyle().columnContainer}>
+      <View style={getStyle().columnContainer}>
         <Title style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{type}:</Title>
         <View style={commonStyles.formContent}>
           <ModalSelector
@@ -259,8 +246,8 @@ export default class WorkloadPodsScreen extends Component {
   SummaryTab = () => {
     return (
       <View>
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Configuration" type="Pods"
               priority={this.state.pod.spec.priority != undefined ? this.state.pod.spec.priority : "null"}
               node={this.state.pod.spec.nodeName}
@@ -268,7 +255,7 @@ export default class WorkloadPodsScreen extends Component {
             />
           </View>
 
-          <View style={this.getStyle().columnContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Status" type="Pods"
               qos={this.state.pod.status.qosClass}
               phase={this.state.pod.status.phase}
@@ -282,13 +269,13 @@ export default class WorkloadPodsScreen extends Component {
           table={DetailPageApi.PodConditions(this.state.pod.status.conditions)}
         />
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Template" type="Pods"
               podTemplate={DetailPageApi.PodTemplates(this.state.pod)}
             />
           </View>
-          <View style={this.getStyle().columnContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Pods"
               age={getAgeText(this.state.pod.metadata.creationTimestamp)}
               labels={getLabelButtons(this.state.pod.metadata.labels)}
@@ -310,7 +297,7 @@ export default class WorkloadPodsScreen extends Component {
     return (
       this.singleCard(
         <Card elevation={10}>
-          <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
+          <Card.Content style={commonStyles.cardContent, getStyle().rowContainer}>
             {this.ContainerList()}
           </Card.Content>
 
@@ -339,7 +326,7 @@ export default class WorkloadPodsScreen extends Component {
     return (
       this.singleCard(
         <Card elevation={10}>
-          <Card.Content style={commonStyles.cardContent, this.getStyle().rowContainer}>
+          <Card.Content style={commonStyles.cardContent, getStyle().rowContainer}>
             {this.ContainerList()}
           </Card.Content>
           <Card.Content>

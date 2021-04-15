@@ -285,3 +285,18 @@ export const dashboardPortraitStyles = StyleSheet.create({
     paddingVertical: spacings.xxs,
   },
 });
+
+export const getOrientation = () => {
+  if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
+    return "LANDSCAPE";
+  } else {
+    return "PORTRAIT";
+  }
+}
+export const getStyle = () => {
+  if (getOrientation() === "LANDSCAPE") {
+    return commonStyles;
+  } else {
+    return commonPortraitStyles;
+  }
+}

@@ -3,9 +3,7 @@ import { Dimensions, Alert } from "react-native";
 
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import {
-  commonStyles,
-  commonPortraitStyles,
-  workloadDetailsBreakpoint,
+  getOrientation
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
@@ -18,22 +16,8 @@ export default class NodesListScreen extends Component {
     };
   }
 
-  getOrientation() {
-    if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return commonStyles;
-    } else {
-      return commonPortraitStyles;
-    }
-  }
   onLayout() {
-    this.setState({ orientation: this.getOrientation() });
+    this.setState({ orientation: getOrientation() });
   }
 
   setWindow = () => {

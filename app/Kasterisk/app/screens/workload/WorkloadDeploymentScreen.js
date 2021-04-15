@@ -6,8 +6,8 @@ import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {
   commonStyles,
-  commonPortraitStyles,
-  workloadDetailsBreakpoint
+  getOrientation,
+  getStyle
 } from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
@@ -25,22 +25,8 @@ export default class WorkloadDeploymentScreen extends Component {
     };
   }
 
-  getOrientation() {
-    if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return commonStyles;
-    } else {
-      return commonPortraitStyles;
-    }
-  }
   onLayout() {
-    this.setState({ orientation: this.getOrientation() });
+    this.setState({ orientation: getOrientation() });
   }
 
   setWindow = () => {
@@ -106,8 +92,8 @@ export default class WorkloadDeploymentScreen extends Component {
         <Title style={commonStyles.headerTitle}>
           {this.state.deployment.metadata.name}
         </Title>
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
               rollingUpdate={rollingUpdate}
@@ -117,7 +103,7 @@ export default class WorkloadDeploymentScreen extends Component {
               replicas={this.state.deployment.spec.replicas}
             />
           </View>
-          <View style={this.getStyle().columnContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Status" type="Deployment"
               availableReplicas={this.state.deployment.status.availableReplicas}
               readyReplicas={this.state.deployment.status.readyReplicas}
@@ -136,8 +122,8 @@ export default class WorkloadDeploymentScreen extends Component {
           table={DetailPageApi.Conditions(this.state.deployment.status.conditions, "Deployment")}
         />
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Pod Template" type="Deployment"
               container={this.state.deployment.spec.template.spec.containers[0].name}
               label={getLabelButtons(this.state.deployment.spec.template.metadata.labels)}
@@ -145,7 +131,7 @@ export default class WorkloadDeploymentScreen extends Component {
               containerPorts={stringcontainerPorts}
             />
           </View>
-          <View style={this.getStyle().columnContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
               labels={getLabelButtons(this.state.deployment.metadata.labels)}

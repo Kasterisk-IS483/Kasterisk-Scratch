@@ -6,8 +6,8 @@ import DetailPageApi from "../../api/DetailPageApi";
 import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {
   commonStyles,
-  commonPortraitStyles,
-  workloadDetailsBreakpoint
+  getOrientation,
+  getStyle
 } from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
@@ -23,22 +23,8 @@ export default class WorkloadNodeScreen extends Component {
     };
   }
 
-  getOrientation() {
-    if (Dimensions.get("window").width > workloadDetailsBreakpoint) {
-      return "LANDSCAPE";
-    } else {
-      return "PORTRAIT";
-    }
-  }
-  getStyle() {
-    if (this.getOrientation() === "LANDSCAPE") {
-      return commonStyles;
-    } else {
-      return commonPortraitStyles;
-    }
-  }
   onLayout() {
-    this.setState({ orientation: this.getOrientation() });
+    this.setState({ orientation: getOrientation() });
   }
 
   setWindow = () => {
@@ -91,8 +77,8 @@ export default class WorkloadNodeScreen extends Component {
           {this.state.node.metadata.name}
         </Title>
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <DetailsCard header="Configuration" type="Node"
               architecture={this.state.node.status.nodeInfo.architecture}
               bootID={this.state.node.status.nodeInfo.bootID}
@@ -113,13 +99,13 @@ export default class WorkloadNodeScreen extends Component {
           table={DetailPageApi.Conditions(this.state.node.status.conditions, "node")}
         />
 
-        <View style={this.getStyle().rowContainer}>
-          <View style={this.getStyle().columnContainer}>
+        <View style={getStyle().rowContainer}>
+          <View style={getStyle().columnContainer}>
             <TableCard header="Resources" type="Node"
               table={DetailPageApi.PodResources(this.state.node.status)}
             />
           </View>
-          <View style={this.getStyle().columnContainer}>
+          <View style={getStyle().columnContainer}>
             <TableCard header="Addresses" type="Node"
               table={DetailPageApi.PodAddresses(this.state.node.status.addresses)}
             />
