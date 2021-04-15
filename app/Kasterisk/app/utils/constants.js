@@ -4,7 +4,6 @@ import React from "react";
 
 import LabelButton from "../components/Buttons/LabelButton";
 import TooltipOverlay from "../components/Elements/TooltipOverlay";
-import { checkServerStatus } from "../api/KubeApi";
 
 export const GOOGLE_IOS_CLIENT =
   "447181180888-bou5e3olte901t7srk0e1mv3c413g0lt";
@@ -112,8 +111,7 @@ export const checkDefaultCluster = async() => {
     Alert.alert("Error", "Default cluster not found");
     return false;
   }
-  let serverStatus = await checkServerStatus(defaultCluster);
-  return serverStatus;
+  return defaultCluster;
 }
 
 export const AWSRegions = [

@@ -3,6 +3,7 @@ import { View, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../../api/DetailPageApi";
+import { checkServerStatus } from "../../api/KubeApi";
 import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
 import {
   commonStyles,
@@ -39,14 +40,15 @@ export default class WorkloadNodeScreen extends Component {
     });
 
     try {
-      let serverStatus = await checkDefaultCluster();
-      if (!serverStatus){
+      let defaultCluster = await checkDefaultCluster();
+      if (!defaultCluster){
         this.setState({
           spinner: false,
         });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
+      let serverStatus = await checkServerStatus(defaultCluster);
       if (serverStatus[0] == 200) {
         console.log(serverStatus);
       } else {

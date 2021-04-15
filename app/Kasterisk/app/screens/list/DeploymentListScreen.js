@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Dimensions, Alert } from "react-native";
 
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
+import { checkServerStatus } from "../../api/KubeApi";
 import { checkDefaultCluster } from "../../utils/constants";
 import {
   getOrientation
@@ -40,7 +41,6 @@ export default class DeploymentListScreen extends Component {
   async componentDidMount() {
     Dimensions.addEventListener("change", this.setWindow);
 
-    const { navigation } = this.props;
     this.setState({
       spinner: true,
     });
@@ -52,14 +52,15 @@ export default class DeploymentListScreen extends Component {
     }
 
     try {
-      let serverStatus = await checkDefaultCluster();
-      if (!serverStatus){
+      let defaultCluster = await checkDefaultCluster();
+      if (!defaultCluster){
         this.setState({
           spinner: false,
         });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
+      let serverStatus = await checkServerStatus(defaultCluster);
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({

@@ -15,6 +15,7 @@ import PodApi from "../../api/PodApi";
 import NodeApi from "../../api/NodeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 import DetailPageApi from "../../api/DetailPageApi";
+import { checkServerStatus } from "../../api/KubeApi";
 import { getLabelButtons, checkDefaultCluster } from "../../utils/constants";
 import {
   colours,
@@ -102,14 +103,15 @@ export default class WorkloadSummaryScreen extends Component {
     }
 
     try {
-      let serverStatus = await checkDefaultCluster();
-      if (!serverStatus){
+      let defaultCluster = await checkDefaultCluster();
+      if (!defaultCluster){
         this.setState({
           spinner: false,
         });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
+      let serverStatus = await checkServerStatus(defaultCluster);
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({

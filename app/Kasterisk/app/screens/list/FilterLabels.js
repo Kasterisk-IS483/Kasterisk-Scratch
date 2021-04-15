@@ -174,18 +174,14 @@ export default class FilterLabelSCreen extends Component {
     }
 
     try {
-      let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
-      console.log(defaultCluster);
-
-      if (defaultCluster == null) {
-        Alert.alert("Error", "Default cluster not found");
+      let defaultCluster = await checkDefaultCluster();
+      if (!defaultCluster){
         this.setState({
           spinner: false,
         });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
-
       let serverStatus = await checkServerStatus(defaultCluster);
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
