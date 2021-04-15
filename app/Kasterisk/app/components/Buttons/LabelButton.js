@@ -20,10 +20,11 @@ export default function LabelButton({ text = "", displayMore = false, full = tru
 
   return (
     <Button
+      icon={icon}
       mode={mode}
+      compact={true}
       uppercase={false}
       color={colours.cta}
-      icon={icon}
       style={{
         maxWidth: maxWidth,
         borderRadius: 40,
