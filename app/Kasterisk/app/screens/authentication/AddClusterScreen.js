@@ -159,14 +159,14 @@ export default class AddClusterScreen extends Component {
               onPress={() => navigation.navigate("KubeconfigContent")}
             />
 
-            <View style={commonStyles.divider} />
+            {/* <View style={commonStyles.divider} />
 
             <CustomButton
               image={require(assetsPath + "welcome-button-kube.png")}
               text="Workload Summary"
               size="small"
               onPress={() => navigation.navigate("WorkloadSummary")}
-            />
+            /> */}
 
           </ScrollView>
         </View>

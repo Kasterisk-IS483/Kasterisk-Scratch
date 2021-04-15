@@ -160,8 +160,8 @@ class WorkloadSummaryApi extends Component {
         age: getAgeText(deployment.metadata.creationTimestamp),
         labels: deployment.metadata.labels,
         containers: deployment.spec.template.spec.containers[0].name,
-        status: deployment.status.readyReplicas,
-        total: deployment.status.replicas,
+        status: deployment.status.readyReplicas !== undefined ? deployment.status.readyReplicas : 0,
+        total: deployment.status.replicas !== undefined ? deployment.status.replicas : 0,
         namespace: deployment.metadata.namespace,
       };
       deploymentsInfo.push(deploymentInfo);
@@ -182,8 +182,8 @@ class WorkloadSummaryApi extends Component {
         age: getAgeText(replicaset.metadata.creationTimestamp),
         labels: replicaset.metadata.labels,
         containers: replicaset.spec.template.spec.containers[0].name,
-        status: replicaset.status.readyReplicas,
-        total: replicaset.status.replicas,
+        status: replicaset.status.readyReplicas !== undefined ? replicaset.status.readyReplicas : 0,
+        total: replicaset.status.replicas !== undefined ? replicaset.status.replicas : 0,
         namespace: replicaset.metadata.namespace,
       };
       replicasetsInfo.push(replicasetInfo);

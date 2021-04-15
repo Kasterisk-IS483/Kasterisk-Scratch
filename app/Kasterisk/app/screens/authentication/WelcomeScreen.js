@@ -148,12 +148,12 @@ export default class WelcomeScreen extends Component {
               size="small"
               onPress={() => navigation.navigate("AWSLogin")}
             />
-            <CustomButton
+            {/* <CustomButton
               image={require(assetsPath + "welcome-button-azure.png")}
               text="Log in With Azure AD"
               size="small"
               onPress={this.AzureLogin}
-            />
+            /> */}
             {/* {this.state.result ? (
               <Text>{JSON.stringify(this.state.result)}</Text>
             ) : (
@@ -175,7 +175,7 @@ export default class WelcomeScreen extends Component {
               onPress={() => navigation.navigate("KubeconfigContent")}
             />
 
-            <View style={commonStyles.divider} />
+            {/* <View style={commonStyles.divider} /> */}
 
             {/* <CustomButton
               image={require(assetsPath + "welcome-button-kube.png")}
@@ -183,13 +183,13 @@ export default class WelcomeScreen extends Component {
               size="small"
               onPress={() => navigation.navigate("ChooseCluster")}
             /> */}
-            <CustomButton
+            {/* <CustomButton
               image={require(assetsPath + "welcome-button-kube.png")}
               text="Workload Summary"
               size="small"
               onPress={() => navigation.navigate("WorkloadSummary")}
               // onPress={this.errorCheck}
-            />
+            /> */}
           </ScrollView>
         </View>
       </View>
