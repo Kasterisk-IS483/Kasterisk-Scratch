@@ -255,7 +255,7 @@ export default class WorkloadPodsScreen extends Component {
         <View style={this.getStyle().rowContainer}>
           <View style={this.getStyle().columnContainer}>
             <DetailsCard header="Configuration" type="Pods"
-              priority={this.state.pod.spec.priority}
+              priority={this.state.pod.spec.priority != undefined ? this.state.pod.spec.priority : "null"}
               node={this.state.pod.spec.nodeName}
               serviceAccount={this.state.pod.spec.serviceAccount}
             />
