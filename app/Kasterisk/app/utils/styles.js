@@ -81,6 +81,8 @@ export const commonStyles = StyleSheet.create({
   wrapContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "flex-start",
+    marginLeft: "3%"
   },
   wrapCard: {
     flexGrow: 1,
