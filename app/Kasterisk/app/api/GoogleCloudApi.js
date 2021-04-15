@@ -35,7 +35,6 @@ class GoogleCloudApi {
     const result = await refresh(googleConfig, {
       refreshToken: refreshToken,
     });
-    console.log(result.accessToken)
     return result.accessToken;
   };
 
@@ -88,7 +87,7 @@ class GoogleCloudApi {
     }
   };
 
-  static fetchGkeClusters = async ({ projectId, refreshToken, zone = "-" }) => {
+  static fetchGkeClusters = async (projectId, refreshToken, zone = "-") => {
     try {
       const url = `https://container.googleapis.com/v1/projects/${projectId}/locations/${zone}/clusters`;
       const clusters = await this.gcpFetch({ url, refreshToken });
@@ -97,7 +96,7 @@ class GoogleCloudApi {
       }
       const clusterList = clusters.clusters.map((cluster) => {
         return {
-          url: cluster.endpoint,
+          url: "https://"+ cluster.endpoint,
           name: cluster.name,
           status: cluster.status,
           createdAt: cluster.createTime,

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import RNFetchBlob from "rn-fetch-blob";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AwsApi from "./AwsApi";
+import GoogleCloudApi from "./GoogleCloudApi";
 
 class CommonAPI extends Component {
   static apiFetch = async ({ apiUrl, method, body = "", parameters, text }) => {
@@ -35,6 +36,8 @@ class CommonAPI extends Component {
       token = AwsApi.getAuthToken(clusterData.name, userData.user.awsCredentials, userData.user.region);
     } else if (authType == "token") {
       token = userData.user.token;
+    } else if (authType == "google") {
+      token = await GoogleCloudApi.refreshAccessToken(userData.name);
     }
 
     let baseUrl = clusterData.cluster.server.replace(/^"+|"+$/gm, "");

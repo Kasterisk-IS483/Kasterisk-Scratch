@@ -4,6 +4,7 @@ import ModalSelector from 'react-native-modal-selector';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";
+import { checkClusterIdentifier, addToClusterList } from "../../utils/constants";
 import { commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
@@ -11,16 +12,43 @@ import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 const GoogleLoginScreen = ({ navigation }) => {
   const [refreshToken, setRefreshToken] = useState();
   const [projectsList, setProjectsList] = useState();
-  const [project, setProject] = useState("Select a project");
+  const [projectId, setProjectId] = useState();
   const [showSpinner, setShowSpinner] = useState(false);
 
   const GoogleLogin = async () => {
-    if (project !== "Select a project") {
+    if (projectId !== "") {
       try {
-        let allClusters = await GoogleCloudApi.fetchGkeClusters(project, refreshToken);
+        let allClusters = await GoogleCloudApi.fetchGkeClusters(projectId, refreshToken);
+        let userData = {
+          name: refreshToken,
+          user: {
+            gcpCredentials: refreshToken,
+          },
+        };
+        let newClusters = [];
         for (const aCluster of allClusters) {
-          console.log(aCluster)
+          let clusterName = aCluster.name;
+          let clusterIdentifier = clusterName + "::" + userData.name + "::google";
+          let clusterData = {
+            name: aCluster.name,
+            cluster: {
+              server: aCluster.url,
+              skipTLSVerify: false,
+            },
+          };
+          let mergeData = {
+            clusterIdentifier: clusterIdentifier,
+            clusterData: clusterData,
+            userData: userData,
+            authType: "google",
+            serviceProvider: "google"
+          };
+          let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
+          if (result){
+            newClusters.push(clusterIdentifier);
+          }
         }
+        await addToClusterList(newClusters);
       } catch (err) {
         console.log(err)
       }
@@ -60,7 +88,7 @@ const GoogleLoginScreen = ({ navigation }) => {
         labelExtractor={item => item.label}
         initValue={"Select a project"}
         animationType={"fade"}
-        onChange={(option) => setProject(option.value)}
+        onChange={(option) => setProjectId(option.value)}
       />
     );
   };

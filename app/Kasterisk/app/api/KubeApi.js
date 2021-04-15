@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import RNFetchBlob from "rn-fetch-blob";
 import { Alert } from "react-native";
 import AwsApi from "./AwsApi";
+import GoogleCloudApi from "./GoogleCloudApi";
 
 export async function checkServerStatus(clusterKey) {
   if (clusterKey == null) {
@@ -33,6 +34,8 @@ export async function checkServerStatus(clusterKey) {
     token = AwsApi.getAuthToken(clusterData.name, userData.awsCredentials);
   } else if (authType == "token") {
     token = "Bearer ".concat(userData.user.token);
+  } else if (authType == "google") {
+    token = await GoogleCloudApi.refreshAccessToken(userData.name);
   }
 
   let baseUrl = clusterData.cluster.server.replace(/^"+|"+$/gm, "");

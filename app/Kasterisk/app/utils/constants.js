@@ -155,3 +155,28 @@ export const urlOptions = {
   refreshToken:
     "eyJhbGciOiJSUzI1NiIsImprdSI6Imh0dHBzOi8vYXBpLnJ1bi5oYWFzLTI0Mi5wZXoucGl2b3RhbC5pbzo4NDQzL3Rva2VuX2tleXMiLCJraWQiOiJrZXktMSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiZGE2YjUwYmEyNGE0YTdhYTgwYWU1YmU4NDM1ODMzZS1yIiwic3ViIjoiZTM5NzZjOTQtNjBjMC00OWI1LWJhMzYtYTJlNzFmZmVkYjk5IiwiaWF0IjoxNjExNTQ5ODk2LCJleHAiOjE2MTE1NzE0OTYsImNpZCI6InBrc19jbHVzdGVyX2NsaWVudCIsImNsaWVudF9pZCI6InBrc19jbHVzdGVyX2NsaWVudCIsImlzcyI6Imh0dHBzOi8vYXBpLnJ1bi5oYWFzLTI0Mi5wZXoucGl2b3RhbC5pbzo4NDQzL29hdXRoL3Rva2VuIiwiemlkIjoidWFhIiwiYXVkIjpbIm9wZW5pZCIsInBrc19jbHVzdGVyX2NsaWVudCJdLCJncmFudGVkX3Njb3BlcyI6WyJvcGVuaWQiLCJyb2xlcyJdLCJhbXIiOlsicHdkIl0sImF1dGhfdGltZSI6MTYxMTU0OTg5NiwiZ3JhbnRfdHlwZSI6InBhc3N3b3JkIiwidXNlcl9uYW1lIjoic211LWZ5cCIsIm9yaWdpbiI6InVhYSIsInVzZXJfaWQiOiJlMzk3NmM5NC02MGMwLTQ5YjUtYmEzNi1hMmU3MWZmZWRiOTkiLCJyZXZfc2lnIjoiYzJjY2U0OGQifQ.PiR439qcFTV7S-WV5Ag3slFPcQOH8FFWW8NLS13LAy-eCSyaapn2QBSZ7Cl5LZotP85NaHSRNhpuzYClMM6obouLyZjPFdnEIo2YkyZFVA8gUZRKKwz790mI3SAyXQliJOZjwNy2rO8o_cnmdlR6p73W2LXbUy0i9N3VWdl1U9V3nvduETo5D2UVuZLJlY6_fzgJy0iJpBCaQcyYwmAGoY6GpweqcmofEamF5sDVs-lJvKqB3EJfCZfrDCX6lHzLiVC4ZhXbv9T0F0arlXUURZAPUiw9GJH-43hVjtgz31d62ow2rX72yibdKcxgV9XLL_uwSsVn_evBNEr1RVSXIQ",
 };
+
+export const checkClusterIdentifier = async(clusterIdentifier, clusterName, userName, mergeData) => {
+  try {
+    let check = await AsyncStorage.getItem("@" + clusterIdentifier);
+    if (check != null) {
+      Alert.alert("Storage Error", "Cluster with name " + clusterName + " belonging to user " + userName + " already exists in storage, skipping.");
+      return false;
+    }
+    await AsyncStorage.setItem("@" + clusterIdentifier, JSON.stringify(mergeData));
+    return true;
+  } catch (e) {
+    Alert.alert("Storage Error", "Failed to save cluster with name " + clusterName + " to storage");
+  }
+}
+
+export const addToClusterList = async(newClusters) => {
+  if (newClusters.length > 0) {
+    let storedClusters = await AsyncStorage.getItem("@clusters");
+    if (storedClusters != null) {
+      let clusterArray = JSON.parse(storedClusters);
+      newClusters = newClusters.concat(clusterArray);
+    }
+    await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
+  }
+}
