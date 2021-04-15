@@ -107,9 +107,9 @@ export default class FilterLabelSCreen extends Component {
   }
 
   onSelectedItemsChange = (selectedLabel) => {
-    this.setState({ 
+    this.setState({
+      spinner: true, 
       selectedLabel,
-      spinner: true,
     });
     this.updateArr(selectedLabel[0]);
     console.log(selectedLabel[0]);
@@ -235,9 +235,7 @@ export default class FilterLabelSCreen extends Component {
     const {selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <View>
-          {/* {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedLabel)} */}
-        </View>
+          {this.multiSelect && this.multiSelect.getSelectedItemsExt(selectedLabel)} 
         <View style={{ margin: spacings.xxs }}>
           <MultiSelect
             hideTags
@@ -245,9 +243,9 @@ export default class FilterLabelSCreen extends Component {
             uniqueKey="id"
             ref={(component) => { this.multiSelect = component }}
             onSelectedItemsChange={this.onSelectedItemsChange}
-            selectedItems={this.state.selectedLabel}
-            selectText=" Pick Items"
-            searchInputPlaceholderText="Search Items..."
+            selectedItems={selectedLabel}
+            selectText=" Pick Label"
+            searchInputPlaceholderText="Search Labels..."
             onChangeInput={ (text)=> console.log(text)}
             altFontFamily="ProximaNova-Light"
             tagRemoveIconColor="#CCC"
