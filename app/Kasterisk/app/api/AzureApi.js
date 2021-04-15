@@ -29,6 +29,19 @@ class AzureApi {
       throw new Error(e);
     }
   };
+
+  // GET list of managed clusters in the specified subscription. 
+  // API reference link https://docs.microsoft.com/en-us/rest/api/aks/managedclusters/list
+  static fetchAzureClusters = async (subscriptionId) => {
+    try {
+        const clusters = await fetch(`https://management.azure.com/subscriptions/${subscriptionId}/providers/Microsoft.ContainerService/managedClusters?api-version=2021-03-01`, {
+      });
+      return clusters; 
+    }
+    catch (err) {
+      return Promise.reject(err);
+    }
+  };
 }
 
 export default AzureApi;
