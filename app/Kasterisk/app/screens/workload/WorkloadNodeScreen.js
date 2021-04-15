@@ -21,9 +21,6 @@ export default class WorkloadNodeScreen extends Component {
       orientation: "",
       node: this.props.route.params.node,
     };
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
   }
 
   getOrientation() {
@@ -44,7 +41,13 @@ export default class WorkloadNodeScreen extends Component {
     this.setState({ orientation: this.getOrientation() });
   }
 
+  setWindow = () => {
+    this.setState(Dimensions.get("window"));
+  }
+
   async componentDidMount() {
+    Dimensions.addEventListener("change", this.setWindow);
+
     this.setState({
       spinner: true,
     });
@@ -70,6 +73,10 @@ export default class WorkloadNodeScreen extends Component {
     this.setState({
       spinner: false,
     });
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.setWindow);
   }
 
   render() {

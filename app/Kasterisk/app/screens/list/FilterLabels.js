@@ -46,9 +46,6 @@ export default class FilterLabelSCreen extends Component {
       dupeArr:[],
       labelsArr: [],
     };
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
   }
 
   async updateArr(selectedLabel) {
@@ -173,7 +170,14 @@ export default class FilterLabelSCreen extends Component {
         });
     }
   }
+
+  setWindow = () => {
+    this.setState(Dimensions.get("window"));
+  }
+
   async componentDidMount() {
+    Dimensions.addEventListener("change", this.setWindow);
+
     const { navigation } = this.props;
     this.setState({
       spinner: true,
@@ -228,6 +232,10 @@ export default class FilterLabelSCreen extends Component {
     this.setState({
       spinner: false,
     });
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.setWindow);
   }
 
   render() {

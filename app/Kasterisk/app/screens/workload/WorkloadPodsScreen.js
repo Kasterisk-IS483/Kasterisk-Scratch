@@ -41,9 +41,6 @@ export default class WorkloadPodsScreen extends Component {
       logs: "",
       switchView: false
     };
-    Dimensions.addEventListener("change", (e) => {
-      this.setState(e.window);
-    });
     this.updateState = this.updateState.bind(this);
   }
 
@@ -131,7 +128,13 @@ export default class WorkloadPodsScreen extends Component {
     ));
   }
 
+  setWindow = () => {
+    this.setState(Dimensions.get("window"));
+  }
+
   async componentDidMount() {
+    Dimensions.addEventListener("change", this.setWindow);
+
     this.setState({ 
       spinner: true, 
     });
@@ -181,6 +184,10 @@ export default class WorkloadPodsScreen extends Component {
     this.setState({ 
       spinner: false, 
     });
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.setWindow);
   }
 
   onToggleTimestampSwitch = () => {
