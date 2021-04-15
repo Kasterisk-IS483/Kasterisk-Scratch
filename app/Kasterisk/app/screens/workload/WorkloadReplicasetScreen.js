@@ -3,7 +3,12 @@ import { View, Dimensions, Alert } from "react-native";
 import { Title } from 'react-native-paper';
 
 import { checkServerStatus } from "../../api/KubeApi";
-import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
+import { 
+  getLabelButtons, 
+  getAgeText, 
+  checkDefaultCluster, 
+  annotationsToString 
+} from "../../utils/constants";
 import {
   commonStyles,
   getOrientation,
@@ -70,11 +75,8 @@ export default class WorkloadReplicasetScreen extends Component {
   render() {
     let annotations = this.state.replicaset.metadata.annotations;
     let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(annotations)[0];
-    let stringAnnotations = "";
-    Object.keys(annotations).forEach(function (key) {
-      if (!annotations[key].includes("{") && !annotations[key].includes("/"))
-      stringAnnotations += key + "      " + annotations[key] + "\n";
-    });
+    let stringAnnotations = annotationsToString(annotations);
+    
     return (
       <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
         <Title style={commonStyles.headerTitle}>

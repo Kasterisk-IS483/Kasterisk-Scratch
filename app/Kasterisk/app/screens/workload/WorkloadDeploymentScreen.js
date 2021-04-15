@@ -4,7 +4,12 @@ import { Title } from 'react-native-paper';
 
 import DetailPageApi from "../../api/DetailPageApi";
 import { checkServerStatus } from "../../api/KubeApi";
-import { getLabelButtons, getAgeText, checkDefaultCluster } from "../../utils/constants";
+import { 
+  getLabelButtons, 
+  getAgeText, 
+  checkDefaultCluster, 
+  annotationsToString 
+} from "../../utils/constants";
 import {
   commonStyles,
   getOrientation,
@@ -83,11 +88,7 @@ export default class WorkloadDeploymentScreen extends Component {
       }
     }
     let annotations = this.state.deployment.metadata.annotations;
-    let stringAnnotations = "";
-    Object.keys(annotations).forEach(function (key) {
-      if (!annotations[key].includes("{") && !annotations[key].includes("/"))
-      stringAnnotations += key + "      " + annotations[key] + "\n";
-    });
+    let stringAnnotations = annotationsToString(annotations);
 
     return (
       <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
