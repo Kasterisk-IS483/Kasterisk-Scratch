@@ -52,57 +52,10 @@ export default class WorkloadPodsScreen extends Component {
   async updateState(stateKey, value) {
     if (stateKey == "container") {
       this.setState({ container: value });
-      let timestampParam = this.state.checkedTimestamp;
-      let logs = "";
-      if (value != "[all containers]") {
-        logs = await this.getPogLog(
-          { 
-            timestamps: timestampParam,
-            container: value
-          }
-        )
-      }
-      else {
-        if (this.state.pod.status.containerStatuses.length > 1){
-          logs = "Please select container to see logs"
-        }
-        else {
-          logs = await this.getPogLog(
-            { 
-              timestamps: timestampParam
-            }
-          )
-        }
-      }
-      this.setState({
-        logs: logs
-      });    
+      this.checkGetPodLog("not checked", value)   
     }
     if(stateKey=="switchView"){
-      let logs = "";
-      if (this.state.container != "[all containers]") {
-        logs = await this.getPogLog(
-          {
-            timestamps: !this.state.checkedTimestamp,
-            container: this.state.container
-          }
-        )
-      }
-      else {
-        if (this.state.pod.status.containerStatuses.length > 1){
-          logs = "Please select container to see logs"
-        }
-        else {
-          logs = await this.getPogLog(
-            { 
-              timestamps: !this.state.checkedTimestamp
-            }
-          )
-        }
-      }
-      this.setState({
-        logs: logs
-      });
+      this.checkGetPodLog("checked", this.state.container)
     }
   }
 
@@ -113,6 +66,32 @@ export default class WorkloadPodsScreen extends Component {
         this.state.pod.metadata.name,
         parameters
     ));
+  }
+
+  async checkGetPodLog (type, container) {
+    let timestampParam = type !== "checked" ? this.state.checkedTimestamp : !this.state.checkedTimestamp;
+    let logs = "";
+    if (container != "[all containers]") {
+      logs = await this.getPogLog(
+        { 
+          timestamps: timestampParam,
+          container: container
+        }
+      )
+    }
+    else {
+      if (this.state.pod.status.containerStatuses.length > 1){
+        logs = "Please select container to see logs"
+      }
+      else {
+        logs = await this.getPogLog(
+          { timestamps: timestampParam }
+        )
+      }
+    }
+    this.setState({
+      logs: logs
+    });
   }
 
   setWindow = () => {
@@ -136,31 +115,7 @@ export default class WorkloadPodsScreen extends Component {
         return;
       }
       if (serverStatus[0] == 200) {
-        let timestampParam = this.state.checkedTimestamp;
-        let logs = "";
-        if (this.state.container != "[all containers]") {
-          logs = await this.getPogLog(
-            { 
-              timestamps: timestampParam,
-              container: this.state.container.name 
-            }
-          )
-        }
-        else {
-          if (this.state.pod.status.containerStatuses.length > 1){
-            logs = "Please select container to see logs"
-          }
-          else {
-            logs = await this.getPogLog(
-              { 
-                timestamps: timestampParam
-              }
-            )
-          }
-        }
-        this.setState({
-          logs: logs
-        });
+        this.checkGetPodLog("not checked", this.state.container)
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }
