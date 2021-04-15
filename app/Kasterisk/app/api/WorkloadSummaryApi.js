@@ -71,7 +71,7 @@ class WorkloadSummaryApi extends Component {
     let totalDeployments = deployments.length;
     let readyDeploymentsCnt = 0;
     for (i = 0; i < deployments.length; i++) {
-      if (deployments[i].status.readyReplicas == deployments[i].status.replicas) {
+      if (deployments[i].status.readyReplicas != undefined && deployments[i].status.readyReplicas == deployments[i].status.replicas) {
         readyDeploymentsCnt += 1;
       }
     }

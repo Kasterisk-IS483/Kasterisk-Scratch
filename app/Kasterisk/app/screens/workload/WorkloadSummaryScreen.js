@@ -128,6 +128,7 @@ export default class WorkloadSummaryScreen extends Component {
           podsInfo: await WorkloadSummaryApi.podsInfo(this.state.namespace),
           nodesInfo: await WorkloadSummaryApi.nodesInfo(),
         });
+        console.log(await DeploymentApi.listAllDeployment());
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }

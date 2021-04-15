@@ -138,12 +138,12 @@ export default class AddClusterScreen extends Component {
               size="small"
               onPress={() => navigation.navigate("AWSLogin")}
             />
-            <CustomButton
+            {/* <CustomButton
               image={require(assetsPath + "welcome-button-azure.png")}
               text="Log in With Azure AD"
               size="small"
               onPress={this.AzureLogin}
-            />
+            /> */}
             <View style={commonStyles.divider} />
 
             <CustomButton
