@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, Alert } from "react-native";
 import { TextInput } from "react-native-paper";
 import ModalSelector from 'react-native-modal-selector';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import AwsApi from "../../api/AwsApi";
-import { AWSRegions } from "../../utils/constants";
+import { AWSRegions, checkClusterIdentifier, addToClusterList } from "../../utils/constants";
 import { commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
@@ -64,27 +63,12 @@ const AWSLoginScreen = ({ navigation }) => {
         authType: "aws",
         serviceProvider: "aws"
       };
-
-      try {
-        let check = await AsyncStorage.getItem("@" + clusterIdentifier);
-        if (check != null) {
-          Alert.alert("Storage Error", "Cluster with name " + clusterName + " belonging to user " + userData.name + " already exists in storage, skipping.");
-          continue;
-        }
-        await AsyncStorage.setItem("@" + clusterIdentifier, JSON.stringify(mergeData));
+      let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
+      if (result){
         newClusters.push(clusterIdentifier);
-      } catch (e) {
-        Alert.alert("Storage Error", "Failed to save cluster with name " + clusterName + " to storage");
       }
     }
-    if (newClusters.length > 0) {
-      let storedClusters = await AsyncStorage.getItem("@clusters");
-      if (storedClusters != null) {
-        let clusterArray = JSON.parse(storedClusters);
-        newClusters = newClusters.concat(clusterArray);
-      }
-      await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
-    }
+    await addToClusterList(newClusters);
     setShowSpinner(false);
     navigation.navigate("ChooseCluster");
   };

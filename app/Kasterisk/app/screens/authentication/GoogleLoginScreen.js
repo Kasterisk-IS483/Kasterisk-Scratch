@@ -20,7 +20,7 @@ const GoogleLoginScreen = ({ navigation }) => {
       try {
         let allClusters = await GoogleCloudApi.fetchGkeClusters(projectId, refreshToken);
         let userData = {
-          name: refreshToken,
+          name: projectId,
           user: {
             gcpCredentials: refreshToken,
           },

@@ -1,6 +1,6 @@
 import * as _ from "underscore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { saveCredentials } from "../../utils/constants";
+import { checkClusterIdentifier, addToClusterList } from "../../utils/constants";
 import { Alert } from "react-native";
 
 export enum ActionOnInvalid {
@@ -239,27 +239,12 @@ export async function saveKubeconfigFileToLocal(cluster: Cluster[], user: User[]
       authType: authType,
       serviceProvider: "kubernetes",
     };
-    
-    try {
-      let check = await AsyncStorage.getItem("@" + clusterIdentifier);
-      if (check != null) {
-        Alert.alert("Storage Error", "Cluster with name " + clusterName + " belonging to user " + userName + " already exists in storage, skipping.");
-        continue;
-      }
-      await AsyncStorage.setItem("@" + clusterIdentifier, JSON.stringify(mergeData));
+    let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userName, mergeData);
+    if (result){
       newClusters.push(clusterIdentifier);
-    } catch (e) {
-      Alert.alert("Storage Error", "Failed to save cluster with name " + clusterName + " to storage");
     }
   }
-  if (newClusters.length > 0) {
-    let storedClusters = await AsyncStorage.getItem("@clusters");
-    if (storedClusters != null) {
-      let clusterArray = JSON.parse(storedClusters);
-      newClusters = newClusters.concat(clusterArray);
-    }
-    await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
-  }
+  await addToClusterList(newClusters);
 }
 
 export async function saveKubeconfigContentToLocal(clusterData: Cluster, userData: User, authType: string): Promise<void> {

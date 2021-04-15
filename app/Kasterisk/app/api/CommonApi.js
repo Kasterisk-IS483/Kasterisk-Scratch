@@ -37,7 +37,7 @@ class CommonAPI extends Component {
     } else if (authType == "token") {
       token = userData.user.token;
     } else if (authType == "google") {
-      token = await GoogleCloudApi.refreshAccessToken(userData.name);
+      token = await GoogleCloudApi.refreshAccessToken(userData.user.gcpCredentials);
     }
 
     let baseUrl = clusterData.cluster.server.replace(/^"+|"+$/gm, "");
