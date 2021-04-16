@@ -19,40 +19,44 @@ const GoogleLoginScreen = ({ navigation }) => {
     if (projectId !== "") {
       try {
         let allClusters = await GoogleCloudApi.fetchGkeClusters(projectId, refreshToken);
-        let userData = {
-          name: projectId,
-          user: {
-            gcpCredentials: refreshToken,
-          },
-        };
-        let newClusters = [];
-        for (const aCluster of allClusters) {
-          let clusterName = aCluster.name;
-          let clusterIdentifier = clusterName + "::" + userData.name + "::google";
-          let clusterData = {
-            name: aCluster.name,
-            cluster: {
-              server: aCluster.url,
-              skipTLSVerify: false,
+        if (allClusters.length){
+          let userData = {
+            name: projectId,
+            user: {
+              gcpCredentials: refreshToken,
             },
           };
-          let mergeData = {
-            clusterIdentifier: clusterIdentifier,
-            clusterData: clusterData,
-            userData: userData,
-            authType: "google",
-            serviceProvider: "google"
-          };
-          let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
-          if (result){
-            newClusters.push(clusterIdentifier);
+          let newClusters = [];
+          for (const aCluster of allClusters) {
+            let clusterName = aCluster.name;
+            let clusterIdentifier = clusterName + "::" + userData.name + "::google";
+            let clusterData = {
+              name: aCluster.name,
+              cluster: {
+                server: aCluster.url,
+                skipTLSVerify: false,
+              },
+            };
+            let mergeData = {
+              clusterIdentifier: clusterIdentifier,
+              clusterData: clusterData,
+              userData: userData,
+              authType: "google",
+              serviceProvider: "google"
+            };
+            let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
+            if (result){
+              newClusters.push(clusterIdentifier);
+            }
           }
+          await addToClusterList(newClusters);
+        } else {
+          Alert.alert("Invalid Cluster", "There is no cluster in selected project.");
+          return;
         }
-        await addToClusterList(newClusters);
       } catch (err) {
         console.log(err)
       }
-
     } else {
       Alert.alert("Invalid Entry", "Please select a project.");
       return;
