@@ -49,14 +49,15 @@ export default class FilterLabelSCreen extends Component {
   async updateArr(selectedLabel) {
     console.log("updateArr");
     try {
-      let serverStatus = await checkDefaultCluster();
-      if (!serverStatus){
+      let defaultCluster = await checkDefaultCluster();
+      if (!defaultCluster){
         this.setState({
           spinner: false,
         });
         this.props.navigation.navigate("ChooseCluster");
         return;
       }
+      let serverStatus = await checkServerStatus(defaultCluster);
       console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
@@ -95,6 +96,9 @@ export default class FilterLabelSCreen extends Component {
         });
       } else {
         Alert.alert("Error", "Failed to contact cluster");
+        this.setState({
+          spinner: false,
+        });
       }
     } catch (err) {
       console.log(err);
@@ -204,6 +208,9 @@ export default class FilterLabelSCreen extends Component {
         this.getAllLabels();
       } else {
         Alert.alert("Error", "Failed to contact cluster");
+        this.setState({
+          spinner: false,
+        });
       }
     } catch (err) {
       console.log(err);

@@ -134,6 +134,9 @@ export default class WorkloadSummaryScreen extends Component {
         });
       } else {
         Alert.alert("Error", "Failed to contact cluster");
+        this.setState({
+          spinner: false,
+        });
       }
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
