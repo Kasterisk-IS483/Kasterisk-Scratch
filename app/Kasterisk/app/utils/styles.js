@@ -94,6 +94,8 @@ export const commonStyles = StyleSheet.create({
 
   fieldsContainer: {
     flexDirection: 'row',
+    flexWrap:'wrap',
+    flex:1,
   },
   switchContainer: {
     paddingVertical: spacings.md,
@@ -221,6 +223,7 @@ export const commonStyles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: spacings.md,
     paddingBottom: 0,
+    flexWrap: "wrap",
   },
 });
 export const commonPortraitStyles = StyleSheet.create({
@@ -231,6 +234,7 @@ export const commonPortraitStyles = StyleSheet.create({
   columnContainer: {
     flex: 2,
     flexDirection: "column",
+    flexWrap:'wrap'
   },
   primaryContainer: {
     flex: 3,
