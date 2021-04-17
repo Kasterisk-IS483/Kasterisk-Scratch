@@ -235,7 +235,7 @@ export default class WorkloadPodsScreen extends Component {
           <View style={getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Pods"
               age={getAgeText(this.state.pod.metadata.creationTimestamp)}
-              labels={getLabelButtons(this.state.pod.metadata.labels)}
+              labels={getLabelButtons(this.state.pod.metadata.labels,Object.keys(this.state.pod.metadata.labels).length,true)}
               control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
             />
           </View>

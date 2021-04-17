@@ -162,6 +162,7 @@ export const commonStyles = StyleSheet.create({
   detailsCardInfoRightText: {
     flex: 3,
     paddingTop: spacings.xs,
+    flexWrap:"wrap"
   },
 
   // OverviewCard

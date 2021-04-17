@@ -71,11 +71,15 @@ export default function DetailsCard(props) {
     isPodTemplatedUndefined = props.podTemplate;
   }
 
-  const fieldsContainerTemplate = (style, leftText, rightText) => {
+  const fieldsContainerTemplate = (style, leftText, rightText, isLabel) => {
+   
     return (
       <View style={style}>
         <Title style={commonStyles.detailsCardInfoLeftText}>{leftText}</Title>
+        {console.log(isLabel)}
+        {isLabel=="true"? <View style={commonStyles.detailsCardInfoRightText}>{rightText}</View>:
         <Text style={commonStyles.detailsCardInfoRightText}>{rightText}</Text>
+        }
       </View>
     )
   }
@@ -93,7 +97,7 @@ export default function DetailsCard(props) {
               <View>
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Deployment Strategy", props.deploymentStrategy)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Rolling Update Strategy", props.rollingUpdate)}
-                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Selectors", props.selectors)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Selectors", props.selectors, "true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Min Ready Seconds", props.minReadySec)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Revision History Limit", props.historyLimit)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Replicas", props.replicas)}
@@ -114,7 +118,7 @@ export default function DetailsCard(props) {
                   <Title style={[commonStyles.detailsCardInfoLeftText, { textDecorationLine: 'underline' }]}>
                     Container{props.container !== undefined ? " " + props.container : ""}
                   </Title>
-                  <Text style={commonStyles.detailsCardInfoRightText}>{props.label}</Text>
+                  <View style={commonStyles.detailsCardInfoRightText}>{props.label}</View>
                 </View>
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", props.image)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Ports", props.containerPorts)}
@@ -123,7 +127,7 @@ export default function DetailsCard(props) {
             {isDeploymentMetadata &&
               <View>
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels,"true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
               </View>
             }
@@ -173,7 +177,7 @@ export default function DetailsCard(props) {
             {isPodMetadata &&
               <View>
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels, "true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
               </View>
             }
@@ -200,7 +204,7 @@ export default function DetailsCard(props) {
             {isReplicasetMetadata &&
               <View>
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels, "true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
               </View>
@@ -223,7 +227,7 @@ export default function DetailsCard(props) {
             {isNodeMetadata &&
               <View>
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
-                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels, "true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
               </View>
             }

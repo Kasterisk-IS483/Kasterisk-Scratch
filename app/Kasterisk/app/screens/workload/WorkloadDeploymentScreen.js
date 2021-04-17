@@ -100,7 +100,7 @@ export default class WorkloadDeploymentScreen extends Component {
             <DetailsCard header="Configuration" type="Deployment"
               deploymentStrategy={this.state.deployment.spec.strategy.type}
               rollingUpdate={rollingUpdate}
-              selectors={getLabelButtons(this.state.deployment.metadata.labels)}
+              selectors={getLabelButtons(this.state.deployment.metadata.labels,Object.keys(this.state.deployment.metadata.labels).length,true)}
               minReadySec={this.state.deployment.spec.progressDeadlineSeconds}
               historyLimit={this.state.deployment.spec.revisionHistoryLimit}
               replicas={this.state.deployment.spec.replicas}
@@ -129,7 +129,7 @@ export default class WorkloadDeploymentScreen extends Component {
           <View style={getStyle().columnContainer}>
             <DetailsCard header="Pod Template" type="Deployment"
               container={this.state.deployment.spec.template.spec.containers[0].name}
-              label={getLabelButtons(this.state.deployment.spec.template.metadata.labels)}
+              label={getLabelButtons(this.state.deployment.spec.template.metadata.labels,Object.keys(this.state.deployment.spec.template.metadata.labels).length,true)}
               image={this.state.deployment.spec.template.spec.containers[0].image}
               containerPorts={stringcontainerPorts}
             />
@@ -137,7 +137,7 @@ export default class WorkloadDeploymentScreen extends Component {
           <View style={getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Deployment"
               age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
-              labels={getLabelButtons(this.state.deployment.metadata.labels)}
+              labels={getLabelButtons(this.state.deployment.metadata.labels,Object.keys(this.state.deployment.metadata.labels).length,true)}
               annotations={stringAnnotations}
             />
           </View>

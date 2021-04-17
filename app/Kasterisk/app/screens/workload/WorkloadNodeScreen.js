@@ -123,7 +123,7 @@ export default class WorkloadNodeScreen extends Component {
 
         <DetailsCard header="Metadata" type="Node"
           age={getAgeText(this.state.node.metadata.creationTimestamp)}
-          labels={getLabelButtons(this.state.node.metadata.labels)}
+          labels={getLabelButtons(this.state.node.metadata.labels,Object.keys(this.state.node.metadata.labels).length,true)}
           annotations={stringAnnotations}
         />
       </WorkloadTemplate>
