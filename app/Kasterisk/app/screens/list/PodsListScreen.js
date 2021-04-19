@@ -59,7 +59,7 @@ export default class PodsListScreen extends Component {
         return;
       }
       let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
+      // console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
           pods: await WorkloadSummaryApi.podsInfo(

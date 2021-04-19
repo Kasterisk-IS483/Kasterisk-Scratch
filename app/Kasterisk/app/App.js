@@ -76,7 +76,7 @@ const screenOptions = {
 // ];
 export default class App extends Component {
   constructor(props) {
-    console.log("App.js constructor");
+    // console.log("App.js constructor");
     super(props);
     this.state = {
       spinner: false,
@@ -94,7 +94,7 @@ export default class App extends Component {
       replicasetsArr: [],
       selectedLabel : [],
     };
-    console.log("/App.js constructor");
+    // console.log("/App.js constructor");
   }
 
   // async updateArr(selectedLabel){
@@ -222,7 +222,7 @@ export default class App extends Component {
             selectedItems={selectedLabel}
             selectText=" Pick Items"
             searchInputPlaceholderText="Search Items..."
-            onChangeInput={ (text)=> console.log(text)}
+            // onChangeInput={ (text)=> console.log(text)}
             altFontFamily="ProximaNova-Light"
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
@@ -337,7 +337,7 @@ export default class App extends Component {
     const { namespaceLabels } = route.params;
     return (
       <Drawer.Navigator
-        {...console.log("App.js HomeDrawer")}
+        // {...console.log("App.js HomeDrawer")}
         initialRouteName="WorkloadSummary"
         screenOptions={screenOptions}
         drawerStyle={{ backgroundColor: "white" }}
@@ -480,7 +480,7 @@ export default class App extends Component {
 
   render() {
     const { navigation } = this.props;
-    console.log("App.js render");
+    // console.log("App.js render");
     return (
 
       <NavigationContainer>
@@ -598,7 +598,7 @@ export default class App extends Component {
             options={{ title: "FilterList" }}
           />
         </Stack.Navigator>
-        {console.log("/App.js render")}
+        {/* {console.log("/App.js render")} */}
       </NavigationContainer>
     );
   }

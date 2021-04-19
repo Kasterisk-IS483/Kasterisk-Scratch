@@ -42,7 +42,7 @@ class WorkloadSummaryApi extends Component {
     let readyNodesCnt = 0;
     let notReadyNodesCnt = 0;
     let nodes = await NodeApi.listAllNode();
-    console.log(nodes);
+    // console.log(nodes);
     if(nodes !== undefined){
       let totalNodes = nodes.length;
       for (i = 0; i < nodes.length; i++){

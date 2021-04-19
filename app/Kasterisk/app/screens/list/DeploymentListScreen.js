@@ -61,7 +61,7 @@ export default class DeploymentListScreen extends Component {
         return;
       }
       let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
+      // console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
           deployments: await WorkloadSummaryApi.deploymentsInfo(

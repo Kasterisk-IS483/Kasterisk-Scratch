@@ -112,7 +112,7 @@ export default class WorkloadSummaryScreen extends Component {
         return;
       }
       let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
+      // console.logserverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
           nodeSummary: await WorkloadSummaryApi.nodeSummary(),

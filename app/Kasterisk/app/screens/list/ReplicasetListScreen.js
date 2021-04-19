@@ -61,7 +61,7 @@ export default class ReplicasetListScreen extends Component {
         return;
       }
       let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
+      // console.logserverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
           replicasets: await WorkloadSummaryApi.replicasetsInfo(

@@ -47,7 +47,7 @@ export default class FilterLabelSCreen extends Component {
   }
 
   async updateArr(selectedLabel) {
-    console.log("updateArr");
+    // console.log("updateArr");
     try {
       let defaultCluster = await checkDefaultCluster();
       if (!defaultCluster){
@@ -58,7 +58,7 @@ export default class FilterLabelSCreen extends Component {
         return;
       }
       let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
+      // console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
           deployments: await WorkloadSummaryApi.deploymentsInfo(
@@ -111,7 +111,7 @@ export default class FilterLabelSCreen extends Component {
       selectedLabel,
     });
     this.updateArr(selectedLabel[0]);
-    console.log(selectedLabel[0]);
+    // console.log(selectedLabel[0]);
   };
 
   addLabelsToArray = (labelObject) => {
@@ -187,7 +187,7 @@ export default class FilterLabelSCreen extends Component {
         return;
       }
       let serverStatus = await checkServerStatus(defaultCluster);
-      console.log(serverStatus);
+      // console.log(serverStatus);
       if (serverStatus[0] == 200) {
         this.setState({
           deployments: await WorkloadSummaryApi.deploymentsInfo(
@@ -226,7 +226,7 @@ export default class FilterLabelSCreen extends Component {
   }
 
   render() {
-    console.log("render-filterLabels");
+    // console.log("render-filterLabels");
     const {selectedLabel} = this.state;
     return (
       <View style={{ flex: 1 }}>
@@ -241,7 +241,7 @@ export default class FilterLabelSCreen extends Component {
             selectedItems={selectedLabel}
             selectText=" Pick Label"
             searchInputPlaceholderText="Search Labels..."
-            onChangeInput={ (text)=> console.log(text)}
+            // onChangeInput={ (text)=> console.log(text)}
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
             tagTextColor="#CCC"

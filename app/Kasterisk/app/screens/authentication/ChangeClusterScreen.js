@@ -27,7 +27,7 @@ class ChangeClusterScreen extends Component {
   }
 
   async setLabels(defaultCluster) {
-    console.log("setLabels");
+    // console.log("setLabels");
     this.setState({
       spinner: true,
     });
@@ -36,7 +36,7 @@ class ChangeClusterScreen extends Component {
       // console.log(defaultCluster);
       // if (defaultCluster != null) {
         let serverStatus = await checkServerStatus(defaultCluster);
-        console.log(serverStatus);
+        // console.log(serverStatus);
         if (serverStatus[0] == 200) {
           await AsyncStorage.setItem("@selectedValue", "");
           this.setState({
@@ -46,8 +46,8 @@ class ChangeClusterScreen extends Component {
           Alert.alert("Error", "Failed to contact cluster");
         }
       // }
-      console.log("/setLabels");
-      console.log(this.state.namespaceLabels);
+      // console.log("/setLabels");
+      // console.log(this.state.namespaceLabels);
     } catch (err) {
       Alert.alert("Server Check Failed", err.message);
     }
@@ -57,7 +57,7 @@ class ChangeClusterScreen extends Component {
   }
 
   async componentDidMount() {
-    console.log("ChangeClusterScreen.js mounted");
+    // console.log("ChangeClusterScreen.js mounted");
     // Check if there are any clusters stored in localstorage.
     // if none, redirect to add cluster page
     let allClusters = await AsyncStorage.getItem("@clusters");
@@ -77,7 +77,7 @@ class ChangeClusterScreen extends Component {
     // if yes, redirect to workload summary page
     let defaultCluster = await AsyncStorage.getItem("@defaultCluster");
     if (defaultCluster != null) {
-      console.log("there is default cluster");
+      // console.log("there is default cluster");
       await this.setLabels(defaultCluster);
       this.setState({ 
         spinner: false, 
@@ -99,7 +99,7 @@ class ChangeClusterScreen extends Component {
     } catch (err) { }
 
     if (this.previousCluster != null) {
-      console.log("there is prev cluster");
+      // console.log("there is prev cluster");
       this.previousClusterData = JSON.parse(await AsyncStorage.getItem(this.previousCluster));
     }
 
@@ -118,7 +118,7 @@ class ChangeClusterScreen extends Component {
 
   render() {
     const { navigation } = this.props;
-    console.log("ChangeClusterScreen.js render");
+    // console.log("ChangeClusterScreen.js render");
     return (
       <View style={commonStyles.whiteContainer}>
         <SpinnerOverlay showSpinner={this.state.spinner} />
