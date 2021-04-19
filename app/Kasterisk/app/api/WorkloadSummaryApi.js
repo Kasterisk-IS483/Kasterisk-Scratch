@@ -139,7 +139,7 @@ class WorkloadSummaryApi extends Component {
           isReady,
           "Roles",
           getAgeText(node.metadata.creationTimestamp),
-          "Version"
+          node.metadata.resourceVersion
         ]
         nodesInfo.push(nodeInfo);
       }

@@ -242,7 +242,6 @@ export default class FilterLabelSCreen extends Component {
             selectText=" Pick Label"
             searchInputPlaceholderText="Search Labels..."
             onChangeInput={ (text)=> console.log(text)}
-            altFontFamily="ProximaNova-Light"
             tagRemoveIconColor="#CCC"
             tagBorderColor="#CCC"
             tagTextColor="#CCC"

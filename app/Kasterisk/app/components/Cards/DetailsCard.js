@@ -115,7 +115,7 @@ export default function DetailsCard(props) {
               <View>
                 <View style={{ flexDirection: 'row' }}>
                   <Title style={[commonStyles.detailsCardInfoLeftText, { textDecorationLine: 'underline' }]}>
-                    Container{props.container !== undefined ? " " + props.container : ""}
+                    Container{props.container !== undefined ? ": " + props.container : ""}
                   </Title>
                   <View style={commonStyles.detailsCardInfoRightText}>{props.label}</View>
                 </View>
@@ -150,7 +150,7 @@ export default function DetailsCard(props) {
             {isPodTemplate &&
               isPodTemplatedUndefined.map((container, index) => (
                 <View key={index}>
-                  <Title style={{ textDecorationLine: 'underline' }}>Container{container.name !== undefined ? " " + container.name : ""}</Title>
+                  <Title style={{ textDecorationLine: 'underline' }}>Container{container.name !== undefined ? ": " + container.name : ""}</Title>
                   {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image", container.image)}
                   {fieldsContainerTemplate(commonStyles.fieldsContainer, "Image ID", container.imageID)}
                   {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
