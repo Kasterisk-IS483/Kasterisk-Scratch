@@ -74,7 +74,8 @@ export default class WorkloadReplicasetScreen extends Component {
 
   render() {
     let annotations = this.state.replicaset.metadata.annotations;
-    let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + Object.values(annotations)[0];
+    let desiredReplicas = annotations["deployment.kubernetes.io/desired-replicas"];
+    let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + desiredReplicas;
     let stringAnnotations = annotationsToString(annotations);
     
     return (

@@ -94,8 +94,8 @@ class DetailPageApi extends Component {
         condition.type,
         condition.status,
         getAgeText(condition.lastTransitionTime),
-        "",
-        "",
+        condition.message !== undefined ? condition.message : "",
+        condition.reason !== undefined ? condition.reason : "",
       ];
       PodConditions.push(podCondition);
     }

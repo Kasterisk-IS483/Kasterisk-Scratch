@@ -36,6 +36,7 @@ export default class WorkloadPodsScreen extends Component {
         { key: 'third', title: 'Shell' },
       ],
       pod: this.props.route.params.pod,
+      namespace: this.props.route.params.namespace,
       container: "[all containers]",
       containerList: ["[all containers]"],
       checkedTimestamp: false,
@@ -235,8 +236,9 @@ export default class WorkloadPodsScreen extends Component {
           <View style={getStyle().columnContainer}>
             <DetailsCard header="Metadata" type="Pods"
               age={getAgeText(this.state.pod.metadata.creationTimestamp)}
-              labels={getLabelButtons(this.state.pod.metadata.labels,Object.keys(this.state.pod.metadata.labels).length,true)}
+              labels={this.state.pod.metadata.labels !== undefined ? getLabelButtons(this.state.pod.metadata.labels,Object.keys(this.state.pod.metadata.labels).length,true) : getLabelButtons(this.state.pod.metadata.labels,0)}
               control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
+              namespace={this.state.namespace}
             />
           </View>
         </View>

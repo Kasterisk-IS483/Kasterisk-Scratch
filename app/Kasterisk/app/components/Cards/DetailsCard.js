@@ -76,7 +76,6 @@ export default function DetailsCard(props) {
     return (
       <View style={style}>
         <Title style={commonStyles.detailsCardInfoLeftText}>{leftText}</Title>
-        {console.log(isLabel)}
         {isLabel=="true"? <View style={commonStyles.detailsCardInfoRightText}>{rightText}</View>:
         <Text style={commonStyles.detailsCardInfoRightText}>{rightText}</Text>
         }
@@ -129,6 +128,7 @@ export default function DetailsCard(props) {
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels,"true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Annotations", props.annotations)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Namespace", props.namespace)}
               </View>
             }
 
@@ -179,6 +179,7 @@ export default function DetailsCard(props) {
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Age", props.age)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Labels", props.labels, "true")}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Controlled By", props.control)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Namespace", props.namespace)}
               </View>
             }
 

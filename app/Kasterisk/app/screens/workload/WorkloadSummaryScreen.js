@@ -163,6 +163,7 @@ export default class WorkloadSummaryScreen extends Component {
               item.name
             ),
             pods: await PodApi.listPod(item.namespace),
+            namespace: item.namespace,
           })
         }
       >
@@ -217,6 +218,7 @@ export default class WorkloadSummaryScreen extends Component {
         onPress={async () =>
           navigation.navigate("WorkloadPod", {
             pod: await PodApi.readPod(item.namespace, item.name),
+            namespace: item.namespace,
           })
         }
       >

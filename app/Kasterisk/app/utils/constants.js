@@ -65,9 +65,14 @@ export const saveCredentials = async (storageKey, credentials) => {
 
 /** Generate LabelButtons for various screens **/
 export const getLabelButtons = (cols, numToDisplay, isFull) => {
-  return Object.keys(cols).map((labelItem, labelIndex) => (
-    getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull)
-  ))
+  if (cols !== undefined){
+    return Object.keys(cols).map((labelItem, labelIndex) => (
+      getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull)
+    ))
+  } else {
+    return;
+  }
+
 };
 
 /** Generate single LabelButton **/
@@ -184,7 +189,7 @@ export const annotationsToString = (annotations) => {
   let stringAnnotations = "";
   Object.keys(annotations).forEach(function (key) {
     if (!annotations[key].includes("{") && !annotations[key].includes("/"))
-    stringAnnotations += key + "      " + annotations[key] + "\n";
+    stringAnnotations += key + " : " + annotations[key] + "\n";
   });
   return stringAnnotations;
 }

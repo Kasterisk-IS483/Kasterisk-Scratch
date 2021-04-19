@@ -28,6 +28,7 @@ export default class WorkloadDeploymentScreen extends Component {
       deployment: this.props.route.params.deployment,
       labels: this.props.route.params.labels,
       pods: this.props.route.params.pods,
+      namespace: this.props.route.params.namespace,
     };
   }
 
@@ -75,6 +76,9 @@ export default class WorkloadDeploymentScreen extends Component {
   }
 
   render() {
+
+    let unavailableReplicas = this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas;
+    console.log(this.state.deployment.status.availableReplicas)
     let maxSurge = this.state.deployment.spec.strategy.rollingUpdate !== undefined ? this.state.deployment.spec.strategy.rollingUpdate.maxSurge : 0;
     let maxUnavailable = this.state.deployment.spec.strategy.rollingUpdate !== undefined ? this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable : 0;
     let rollingUpdate = "Max Surge " + maxSurge + ", " + "Max Unavailable " + maxUnavailable;
@@ -91,6 +95,7 @@ export default class WorkloadDeploymentScreen extends Component {
     let stringAnnotations = annotationsToString(annotations);
 
     return (
+      
       <WorkloadTemplate type="details" showSpinner={this.state.spinner}>
         <Title style={commonStyles.headerTitle}>
           {this.state.deployment.metadata.name}
@@ -108,11 +113,11 @@ export default class WorkloadDeploymentScreen extends Component {
           </View>
           <View style={getStyle().columnContainer}>
             <DetailsCard header="Status" type="Deployment"
-              availableReplicas={this.state.deployment.status.availableReplicas}
-              readyReplicas={this.state.deployment.status.readyReplicas}
-              totalReplicas={this.state.deployment.status.replicas}
-              unavailableReplicas={this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas}
-              updatedReplicas={this.state.deployment.status.updatedReplicas}
+              availableReplicas={this.state.deployment.status.availableReplicas !== undefined ? this.state.deployment.status.availableReplicas : 0}
+              readyReplicas={this.state.deployment.status.readyReplicas != undefined ? this.state.deployment.status.readyReplicas : 0}
+              totalReplicas={this.state.deployment.status.replicas != undefined ? this.state.deployment.status.replicas : 0}
+              unavailableReplicas={isNaN(unavailableReplicas) ? 0 : unavailableReplicas}
+              updatedReplicas={this.state.deployment.status.updatedReplicas !== undefined ? this.state.deployment.status.updatedReplicas : 0}
             />
           </View>
         </View>
@@ -139,6 +144,7 @@ export default class WorkloadDeploymentScreen extends Component {
               age={getAgeText(this.state.deployment.metadata.creationTimestamp)}
               labels={getLabelButtons(this.state.deployment.metadata.labels,Object.keys(this.state.deployment.metadata.labels).length,true)}
               annotations={stringAnnotations}
+              namespace={this.state.namespace}
             />
           </View>
         </View>
