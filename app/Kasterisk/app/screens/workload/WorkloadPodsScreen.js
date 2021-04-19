@@ -20,7 +20,6 @@ import {
 } from "../../utils/styles";
 import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
-import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
 export default class WorkloadPodsScreen extends Component {
@@ -324,7 +323,6 @@ export default class WorkloadPodsScreen extends Component {
   render() {
     return (
       <View style={commonStyles.secondaryContainer}>
-        <SpinnerOverlay showSpinner={this.state.spinner} />
         <TabView
           navigationState={this.state}
           onIndexChange={this._handleIndexChange}
