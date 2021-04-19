@@ -158,8 +158,8 @@ export default function DetailsCard(props) {
                   {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
                   {fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
                   {fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
-                  {fieldsContainerTemplate(commonStyles.fieldsContainer, "Args", container.args)}
-                  {fieldsContainerTemplate(commonStyles.fieldsContainer, "Command", container.command)}
+                  {container.args.length==0?<></>:fieldsContainerTemplate(commonStyles.fieldsContainer, "Args", container.args)}
+                  {container.command.length==0?<></>:fieldsContainerTemplate(commonStyles.fieldsContainer, "Command", container.command)}
                   <View>
                     <Title>Volume Mounts</Title>
                     <DataTable>
