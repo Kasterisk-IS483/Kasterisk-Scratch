@@ -65,6 +65,8 @@ export default function DetailsCard(props) {
     imageID: "",
     ready: "",
     restartCount: "",
+    args: "",
+    command: "",
     volumeMounts: [{ name: "", mountPath: "" }]
   }];
   if (props.podTemplate !== undefined) {
@@ -156,6 +158,8 @@ export default function DetailsCard(props) {
                   {/* {fieldsContainerTemplate(commonStyles.fieldsContainer, "Current State", container.currentState)} */}
                   {fieldsContainerTemplate(commonStyles.fieldsContainer, "Ready", container.ready)}
                   {fieldsContainerTemplate(commonStyles.fieldsContainer, "Restart Count", container.restartCount)}
+                  {fieldsContainerTemplate(commonStyles.fieldsContainer, "Args", container.args)}
+                  {fieldsContainerTemplate(commonStyles.fieldsContainer, "Command", container.command)}
                   <View>
                     <Title>Volume Mounts</Title>
                     <DataTable>

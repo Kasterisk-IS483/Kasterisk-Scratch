@@ -201,6 +201,7 @@ export default class WorkloadPodsScreen extends Component {
 
 
   SummaryTab = () => {
+    console.log(JSON.stringify(this.state.pod,null,2))
     return (
       <View>
         <View style={getStyle().rowContainer}>

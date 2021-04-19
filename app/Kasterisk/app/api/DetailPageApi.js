@@ -106,13 +106,28 @@ class DetailPageApi extends Component {
   static PodTemplates = (pod) => {
     let podTemplates = []
     let containerStatuses = pod.status.containerStatuses;
+    let containerSpecs = pod.spec.containers;
     for (i = 0; i < containerStatuses.length; i++) {
+      let args = ""
+      let commands = ""
+      if (containerSpecs[i].args){
+        for (const oneArg of containerSpecs[i].args){
+          args += oneArg + "\n";
+        }
+      }
+      if (containerSpecs[i].command){
+        for (const oneCommand of containerSpecs[i].command){
+          commands += oneCommand + "\n";
+        }
+      }
       let podTemplate = {
         name: containerStatuses[i].name,
         image: containerStatuses[i].image,
         imageID: containerStatuses[i].imageID,
         ready: String(containerStatuses[i].ready),
         restartCount: containerStatuses[i].restartCount,
+        args: args,
+        command: commands,
         volumeMounts: pod.spec.containers[i].volumeMounts,
       }
       podTemplates.push(podTemplate);
