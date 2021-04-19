@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from 'react-native';
 import { Button } from "react-native-paper";
 
 import { colours, spacings } from "../../utils/styles";
@@ -19,22 +20,24 @@ export default function LabelButton({ text = "", displayMore = false, full = tru
   }
 
   return (
-    <Button
-      icon={icon}
-      mode={mode}
-      compact={true}
-      uppercase={false}
-      color={colours.cta}
-      style={{
-        maxWidth: maxWidth,
-        borderRadius: 40,
-        borderColor: colours.cta,
-        marginBottom: spacings.md,
-        marginHorizontal: spacings.sm,
-        paddingHorizontal: spacings.sm,
-      }}
-    >
-      {text}
-    </Button>
+    <View style={{ alignItems: "flex-start" }}>
+      <Button
+        icon={icon}
+        mode={mode}
+        compact={true}
+        uppercase={false}
+        color={colours.cta}
+        style={{
+          maxWidth: maxWidth,
+          borderRadius: 40,
+          borderColor: colours.cta,
+          marginBottom: spacings.md,
+          marginHorizontal: spacings.sm,
+          paddingHorizontal: spacings.sm,
+        }}
+      >
+        {text}
+      </Button>
+    </View>
   );
 }
