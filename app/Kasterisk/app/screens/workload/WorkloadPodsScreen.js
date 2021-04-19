@@ -186,7 +186,7 @@ export default class WorkloadPodsScreen extends Component {
             data={list}
             keyExtractor={item => item}
             labelExtractor={item => item}
-            initValue={"Select a container"}
+            initValue={this.state.pod.status.containerStatuses.length > 1 ? "Select a container" : value}
             animationType={"fade"}
             onChange={(option) => this.updateState(type, option)}
           />
