@@ -202,9 +202,10 @@ export default class FilterLabelSCreen extends Component {
             this.state.namespace,
           ),
         });
-        this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
-        this.state.pods.map((item, index) => this.formatObject(item,"pods"));
-        this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
+        /** uncomment this to onload workloads **/
+        // this.state.deployments.map((item, index) => this.formatObject(item,"deployments"));
+        // this.state.pods.map((item, index) => this.formatObject(item,"pods"));
+        // this.state.replicasets.map((item, index) => this.formatObject(item,"replicasets"));
         this.getAllLabels();
       } else {
         Alert.alert("Error", "Failed to contact cluster");

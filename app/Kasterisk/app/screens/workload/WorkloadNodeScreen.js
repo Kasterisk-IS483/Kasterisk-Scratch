@@ -90,6 +90,7 @@ export default class WorkloadNodeScreen extends Component {
               containerRuntimeVersion={this.state.node.status.nodeInfo.containerRuntimeVersion}
               kernelVersion={this.state.node.status.nodeInfo.kernelVersion}
               kubeProxyVersion={this.state.node.status.nodeInfo.kubeProxyVersion}
+              kubeletVersion={this.state.node.status.nodeInfo.kubeletVersion}
               machineID={this.state.node.status.nodeInfo.machineID}
               operatingSystem={this.state.node.status.nodeInfo.operatingSystem}
               osImage={this.state.node.status.nodeInfo.osImage}

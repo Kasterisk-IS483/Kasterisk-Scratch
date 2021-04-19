@@ -228,7 +228,7 @@ export default class WorkloadPodsScreen extends Component {
 
         <View style={getStyle().rowContainer}>
           <View style={getStyle().columnContainer}>
-            <DetailsCard header="Template" type="Pods"
+            <DetailsCard header="Pod Status Template" type="Pods"
               podTemplate={DetailPageApi.PodTemplates(this.state.pod)}
             />
           </View>

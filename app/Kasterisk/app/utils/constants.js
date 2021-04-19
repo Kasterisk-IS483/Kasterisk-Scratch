@@ -65,7 +65,7 @@ export const saveCredentials = async (storageKey, credentials) => {
 
 /** Generate LabelButtons for various screens **/
 export const getLabelButtons = (cols, numToDisplay, isFull) => {
-  if (cols !== undefined){
+  if (cols !== undefined && cols !== null){
     return Object.keys(cols).map((labelItem, labelIndex) => (
       getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull)
     ))

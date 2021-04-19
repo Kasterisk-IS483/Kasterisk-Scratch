@@ -42,7 +42,6 @@ class WorkloadSummaryApi extends Component {
     let readyNodesCnt = 0;
     let notReadyNodesCnt = 0;
     let nodes = await NodeApi.listAllNode();
-    // console.log(nodes);
     if(nodes !== undefined){
       let totalNodes = nodes.length;
       for (i = 0; i < nodes.length; i++){
@@ -133,13 +132,14 @@ class WorkloadSummaryApi extends Component {
             isReady = "Ready";
           }
         }
+        let role = node.metadata.labels["node-role.kubernetes.io"];
         let nodeInfo = [
           node.metadata.name,
           node.metadata.labels,
           isReady,
-          "Roles",
+          role !== undefined ? role : "None",
           getAgeText(node.metadata.creationTimestamp),
-          node.metadata.resourceVersion
+          node.status.nodeInfo.kubeletVersion,
         ]
         nodesInfo.push(nodeInfo);
       }

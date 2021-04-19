@@ -46,7 +46,7 @@ export default function DetailsCard(props) {
       isPodConfiguration = true;
     } else if (props.header == "Status") {
       isPodStatus = true;
-    } else if (props.header == "Template") {
+    } else if (props.header == "Pod Status Template") {
       isPodTemplate = true;
     } else if (props.header == "Metadata") {
       isPodMetadata = true;
@@ -218,6 +218,7 @@ export default function DetailsCard(props) {
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Container Runtime Version", props.containerRuntimeVersion)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Kernel Version", props.kernelVersion)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "KubeProxy Version", props.kubeProxyVersion)}
+                {fieldsContainerTemplate(commonStyles.fieldsContainer, "Kubelet Version", props.kubeletVersion)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Machine ID", props.machineID)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "Operating System", props.operatingSystem)}
                 {fieldsContainerTemplate(commonStyles.fieldsContainer, "OS Image", props.osImage)}

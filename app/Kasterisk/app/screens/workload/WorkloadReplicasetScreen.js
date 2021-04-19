@@ -74,8 +74,7 @@ export default class WorkloadReplicasetScreen extends Component {
 
   render() {
     let annotations = this.state.replicaset.metadata.annotations;
-    let desiredReplicas = annotations["deployment.kubernetes.io/desired-replicas"];
-    let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + desiredReplicas;
+    let replicaStatus = "Current " + this.state.replicaset.status.replicas + " / " + "Desired " + this.state.replicaset.spec.replicas;
     let stringAnnotations = annotationsToString(annotations);
     
     return (
@@ -89,7 +88,7 @@ export default class WorkloadReplicasetScreen extends Component {
             <DetailsCard header="Configuration" type="Replicaset"
               control={this.state.replicaset.metadata.ownerReferences[0].name}
               replicaStatus={replicaStatus}
-              numberReplica={this.state.replicaset.spec.replicas}
+              numberReplica={this.state.replicaset.status.replicas}
             />
           </View>
           <View style={getStyle().columnContainer}>

@@ -78,7 +78,6 @@ export default class WorkloadDeploymentScreen extends Component {
   render() {
 
     let unavailableReplicas = this.state.deployment.status.replicas - this.state.deployment.status.availableReplicas;
-    // console.logthis.state.deployment.status.availableReplicas)
     let maxSurge = this.state.deployment.spec.strategy.rollingUpdate !== undefined ? this.state.deployment.spec.strategy.rollingUpdate.maxSurge : 0;
     let maxUnavailable = this.state.deployment.spec.strategy.rollingUpdate !== undefined ? this.state.deployment.spec.strategy.rollingUpdate.maxUnavailable : 0;
     let rollingUpdate = "Max Surge " + maxSurge + ", " + "Max Unavailable " + maxUnavailable;
