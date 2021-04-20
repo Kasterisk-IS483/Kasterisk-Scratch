@@ -32,7 +32,7 @@ export default class WorkloadPodsScreen extends Component {
       routes: [
         { key: 'first', title: 'Summary' },
         { key: 'second', title: 'Logs' },
-        { key: 'third', title: 'Shell' },
+        // { key: 'third', title: 'Shell' },
       ],
       pod: this.props.route.params.pod,
       namespace: this.props.route.params.namespace,
@@ -313,8 +313,8 @@ export default class WorkloadPodsScreen extends Component {
         return this.scene(this.SummaryTab());
       case 'second':
         return this.scene(this.LogsTab());
-      case 'third':
-        return this.scene(this.ShellTab());
+      // case 'third':
+      //   return this.scene(this.ShellTab());
       default:
         return null;
     }
