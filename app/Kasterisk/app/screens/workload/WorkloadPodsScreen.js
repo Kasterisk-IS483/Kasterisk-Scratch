@@ -201,7 +201,6 @@ export default class WorkloadPodsScreen extends Component {
 
 
   SummaryTab = () => {
-    console.log(JSON.stringify(this.state.pod,null,2))
     return (
       <View>
         <View style={getStyle().rowContainer}>
@@ -237,7 +236,7 @@ export default class WorkloadPodsScreen extends Component {
             <DetailsCard header="Metadata" type="Pods"
               age={getAgeText(this.state.pod.metadata.creationTimestamp)}
               labels={this.state.pod.metadata.labels !== undefined ? getLabelButtons(this.state.pod.metadata.labels,Object.keys(this.state.pod.metadata.labels).length,true) : getLabelButtons(this.state.pod.metadata.labels,0)}
-              control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "null"}
+              control={this.state.pod.metadata.ownerReferences !== undefined ? this.state.pod.metadata.ownerReferences[0].name : "None"}
               namespace={this.state.namespace}
             />
           </View>
