@@ -170,11 +170,11 @@ export const commonStyles = StyleSheet.create({
   overviewCardContent: {
     flexDirection: 'row',
     alignItems: "center",
-    marginLeft: "15%"
+    marginLeft: "10%"
   },
   overviewCardLabel: {
     flex: 1,
-    fontSize: fonts.md_lg,
+    fontSize: fonts.md,
     textAlign: "center",
     marginRight: "20%",
   },

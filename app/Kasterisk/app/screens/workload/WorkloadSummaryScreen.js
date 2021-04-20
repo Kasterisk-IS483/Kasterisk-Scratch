@@ -309,6 +309,8 @@ export default class WorkloadSummaryScreen extends Component {
                   text2="Pending"
                   no1={this.state.podSummary.readyPods}
                   no2={this.state.podSummary.notReadyPods}
+                  no3={this.state.podSummary.succeededPods}
+                  no4={this.state.podSummary.failedPods}
                 />
               </TouchableOpacity>
             </View>
