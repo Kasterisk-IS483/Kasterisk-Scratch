@@ -107,15 +107,25 @@ class WorkloadSummaryApi extends Component {
     }
     let totalPods = pods.length;
     let readyPodsCnt = 0;
+    let succeededPodsCnt = 0;
+    let failedPodsCnt= 0;
     for (i = 0; i < pods.length; i++) {
       if (pods[i].status.phase == "Running") {
         readyPodsCnt += 1;
       }
+      if(pods[i].status.phase =="Succeeded"){
+        succeededPodsCnt+=1;
+      }
+      if(pods[i].status.phase =="Failed"){
+        failedPodsCnt+=1;
+      }
     }
-    let notReadyPodsCnt = totalPods - readyPodsCnt;
+    let notReadyPodsCnt = totalPods - readyPodsCnt - succeededPodsCnt - failedPodsCnt ;
     return {
       readyPods: readyPodsCnt,
-      notReadyPods: notReadyPodsCnt
+      notReadyPods: notReadyPodsCnt,
+      succeededPods: succeededPodsCnt,
+      failedPods:failedPodsCnt
     }
   }
 
