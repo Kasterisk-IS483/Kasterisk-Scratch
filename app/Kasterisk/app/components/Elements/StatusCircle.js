@@ -34,7 +34,7 @@ export default function StatusCircle({
         bgColor={progressBgColor}
       >
         <Text style={{
-          fontSize: fonts.lg,
+          fontSize: fonts.md_lg,
           fontWeight: "bold",
           color: fontColor,
         }}>

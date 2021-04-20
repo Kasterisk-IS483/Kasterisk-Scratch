@@ -21,6 +21,11 @@ export default function WorkloadCard(props) {
   let progressBgColor;
   let fontColor;
   let cardWidth;
+  //pods
+  let statusConditionRunning;
+  let statusConditionSucceeded;
+  let statusConditionPending;
+  let statusConditionFailed;
 
   if (props.variableField == "Containers") {
     percent = props.status / props.total * 100;    // healthReady / healthTotal * 100
@@ -35,9 +40,23 @@ export default function WorkloadCard(props) {
 
   } else if (props.variableField == "Restarts") {
     percent = 100;
-    statusCondition = props.status.toLowerCase() == "running";
-    statusDisplay = statusCondition ? "Running" : "Pending";
-    statusColorCode = statusCondition ? colours.green : colours.orange;
+    statusConditionRunning = props.status.toLowerCase() == "running" 
+    statusConditionSucceeded= props.status.toLowerCase() == "succeeded" 
+    statusConditionFailed= props.status.toLowerCase() == "failed" 
+    statusConditionPending= props.status.toLowerCase() == "pending" 
+    if(statusConditionRunning){
+      statusDisplay = "Running" 
+      statusColorCode=colours.green
+    }else if (statusConditionPending){
+      statusDisplay = "Pending";
+      statusColorCode = colours.orange;
+    }else if(statusConditionSucceeded){
+      statusDisplay = "Succeeded";
+      statusColorCode = colours.cta;
+    }else if (statusConditionFailed){
+      statusDisplay = "Failed";
+      statusColorCode = colours.red;
+    }
 
     progressColor = statusColorCode;
     progressShadowColor = statusColorCode;
