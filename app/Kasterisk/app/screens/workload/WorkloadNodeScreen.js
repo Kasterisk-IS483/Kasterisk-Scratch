@@ -55,7 +55,9 @@ export default class WorkloadNodeScreen extends Component {
       }
       let serverStatus = await checkServerStatus(defaultCluster);
       if (serverStatus[0] == 200) {
-        // console.logserverStatus);
+        if (this.state.node.name == "network error"){
+          Alert.alert("Error",this.state.pod.description)
+        }
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }

@@ -117,7 +117,11 @@ export default class WorkloadPodsScreen extends Component {
       }
       let serverStatus = await checkServerStatus(defaultCluster);
       if (serverStatus[0] == 200) {
-        this.checkGetPodLog("not checked", this.state.container)
+        if (this.state.pod.name == "network error"){
+          Alert.alert("Error",this.state.pod.description)
+        } else {
+          this.checkGetPodLog("not checked", this.state.container)
+        }
       } else {
         Alert.alert("Error", "Failed to contact cluster");
       }

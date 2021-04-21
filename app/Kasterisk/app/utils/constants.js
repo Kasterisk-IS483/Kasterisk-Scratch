@@ -70,7 +70,7 @@ export const getLabelButtons = (cols, numToDisplay, isFull) => {
       getIndivLabelButton(cols, labelItem, labelIndex, numToDisplay, isFull)
     ))
   } else {
-    return;
+    return <Text></Text>;
   }
 
 };

@@ -31,9 +31,9 @@ export default function TableCard(props) {
   } else if (props.header == "Nodes") {
     headers = ["Name", "Labels", "Status", "Roles", "Age", "Version"];
   } else if (["Deployments List", "Replicasets List"].includes(props.header)) {
-    headers = ["Name", "Age", "Labels", "Containers", "Status", "Selector"];
+    headers = ["Name", "Age", "Labels", "Containers", "Status", "Namespace"];
   } else if (props.header == "Pods List") {
-    headers = ["Name", "Age", "Phase", "Ready", "Restarts", "Labels", "namespace"];
+    headers = ["Name", "Age", "Phase", "Ready", "Restarts", "Labels", "Namespace"];
   } else if (props.header == "Addresses") {
     headers = ["Type", "Address"];
   } else if (props.header == "Resources") {
@@ -53,6 +53,7 @@ export default function TableCard(props) {
           props.table[rowIndex][0]
         ),
         pods: await PodApi.listPod(props.table[rowIndex][5]),
+        namespace: props.table[rowIndex][5],
       }))
     }
     if (props.header == "Replicasets List") {
@@ -72,6 +73,7 @@ export default function TableCard(props) {
           props.table[rowIndex][6],
           props.table[rowIndex][0]
         ),
+        namespace: props.table[rowIndex][6],
       }))
     }
     if (props.header == "Nodes") {

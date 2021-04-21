@@ -74,7 +74,7 @@ class CommonAPI extends Component {
       })
       .catch((error) => {
         console.error(error);
-        return { name: "network error", description: "API Call Failed" };
+        return { name: "network error", description: error };
       });
   };
 
