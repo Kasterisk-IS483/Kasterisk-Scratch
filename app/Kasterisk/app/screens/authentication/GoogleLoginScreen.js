@@ -4,7 +4,7 @@ import ModalSelector from 'react-native-modal-selector';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import GoogleCloudApi from "../../api/GoogleCloudApi";
-import { checkClusterIdentifier, addToClusterList } from "../../utils/constants";
+import { checkClusterIdentifier, addToClusterList, getMergeData } from "../../utils/constants";
 import { commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
@@ -37,13 +37,14 @@ const GoogleLoginScreen = ({ navigation }) => {
                 skipTLSVerify: false,
               },
             };
-            let mergeData = {
-              clusterIdentifier: clusterIdentifier,
-              clusterData: clusterData,
-              userData: userData,
-              authType: "google",
-              serviceProvider: "google"
-            };
+            // let mergeData = {
+            //   clusterIdentifier: clusterIdentifier,
+            //   clusterData: clusterData,
+            //   userData: userData,
+            //   authType: "google",
+            //   serviceProvider: "google"
+            // };
+            let mergeData = getMergeData(clusterIdentifier, clusterData, userData, "google", "google");
             let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
             if (result){
               newClusters.push(clusterIdentifier);

@@ -243,15 +243,15 @@ export default class FilterLabelSCreen extends Component {
             selectText=" Pick Label"
             searchInputPlaceholderText="Search Labels..."
             // onChangeInput={ (text)=> console.log(text)}
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#CCC"
-            selectedItemTextColor="#CCC"
-            selectedItemIconColor="#CCC"
+            tagRemoveIconColor="#696969"
+            tagBorderColor="#696969"
+            tagTextColor="#696969"
+            selectedItemTextColor="#696969"
+            selectedItemIconColor="#696969"
             itemTextColor="#000"
             displayKey="name"
-            searchInputStyle={{ color: '#CCC' }}
-            submitButtonColor="#CCC"
+            searchInputStyle={{ color: '#696969' }}
+            submitButtonColor="#696969"
             submitButtonText="Selected"
             single={true}
             styleTextDropdownSelected={{ padding: spacings.xs }}

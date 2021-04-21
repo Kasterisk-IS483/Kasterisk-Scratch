@@ -1,6 +1,6 @@
 import * as _ from "underscore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { checkClusterIdentifier, addToClusterList } from "../../utils/constants";
+import { checkClusterIdentifier, addToClusterList, getMergeData } from "../../utils/constants";
 import { Alert } from "react-native";
 
 export enum ActionOnInvalid {
@@ -232,13 +232,14 @@ export async function saveKubeconfigFileToLocal(cluster: Cluster[], user: User[]
       break;
     }
     let clusterIdentifier = clusterName + "::" + userName + "::kubernetes";
-    mergeData = {
-      clusterIdentifier: clusterIdentifier,
-      clusterData: clusterData,
-      userData: userData,
-      authType: authType,
-      serviceProvider: "kubernetes",
-    };
+    // mergeData = {
+    //   clusterIdentifier: clusterIdentifier,
+    //   clusterData: clusterData,
+    //   userData: userData,
+    //   authType: authType,
+    //   serviceProvider: "kubernetes",
+    // };
+    mergeData = getMergeData(clusterIdentifier, clusterData, userData, authType, "kubernetes");
     let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userName, mergeData);
     if (result){
       newClusters.push(clusterIdentifier);
@@ -250,32 +251,23 @@ export async function saveKubeconfigFileToLocal(cluster: Cluster[], user: User[]
 export async function saveKubeconfigContentToLocal(clusterData: Cluster, userData: User, authType: string): Promise<void> {
   var newClusters = [];
   let clusterIdentifier = clusterData.name + "::" + userData.name + "::kubernetes";
-  let mergeData = {
-    clusterIdentifier: clusterIdentifier,
-    clusterData: clusterData,
-    userData: userData,
-    authType: authType,
-    serviceProvider: "kubernetes",
-  };
-  
+  // let mergeData = {
+  //   clusterIdentifier: clusterIdentifier,
+  //   clusterData: clusterData,
+  //   userData: userData,
+  //   authType: authType,
+  //   serviceProvider: "kubernetes",
+  // };
+  let mergeData = getMergeData(clusterIdentifier, clusterData, userData, authType, "kubernetes");
   try {
-    let check = await AsyncStorage.getItem("@" + clusterIdentifier);
-    if (check != null) {
-      throw new Error( "Cluster with name " + clusterData.name + " belonging to user " + userData.name + " already exists in storage.");
+    let result = await checkClusterIdentifier(clusterIdentifier, clusterData.name, userData.name, mergeData);
+    if (result){
+      newClusters.push(clusterIdentifier);
     }
-    await AsyncStorage.setItem("@" + clusterIdentifier, JSON.stringify(mergeData));
-    newClusters.push(clusterIdentifier);
   } catch (e) {
     Alert.alert("Storage Error", "Failed to save cluster with name " + clusterData.name + " to storage");
   }
-  if (newClusters.length > 0) {
-    let storedClusters = await AsyncStorage.getItem("@clusters");
-    if (storedClusters != null) {
-      let clusterArray = JSON.parse(storedClusters);
-      newClusters = newClusters.concat(clusterArray);
-    }
-    await AsyncStorage.setItem("@clusters", JSON.stringify(newClusters));
-  }
+  await addToClusterList(newClusters);
 }
 
 // export async function saveURLToken(): Promise<void> {

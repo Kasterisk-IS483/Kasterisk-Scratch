@@ -155,6 +155,19 @@ export const AWSRegions = [
   { label: "AWS GovCloud (US-West) - us-gov-west-1", value: "us-gov-west-1" },
 ];
 
+/** Used to get mergeData used for authentication and storage in 
+    AWSLoginScreen, GoogleLoginScreen, config_types (Kubeconfig) **/
+export const getMergeData = (clusterIdentifier, clusterData, userData, authType, serviceProvider) => {
+  let mergeData = {
+    clusterIdentifier: clusterIdentifier,
+    clusterData: clusterData,
+    userData: userData,
+    authType: authType,
+    serviceProvider: serviceProvider,
+  };
+  return mergeData;
+}
+
 /** Used to check if clusterIdentifier exist for authentication in
     AWSLoginScreen, GoogleLoginScreen, config_types (Kubeconfig) **/
 export const checkClusterIdentifier = async(clusterIdentifier, clusterName, userName, mergeData) => {

@@ -4,7 +4,7 @@ import { TextInput } from "react-native-paper";
 import ModalSelector from 'react-native-modal-selector';
 
 import AwsApi from "../../api/AwsApi";
-import { AWSRegions, checkClusterIdentifier, addToClusterList } from "../../utils/constants";
+import { AWSRegions, checkClusterIdentifier, addToClusterList, getMergeData } from "../../utils/constants";
 import { commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
@@ -56,13 +56,14 @@ const AWSLoginScreen = ({ navigation }) => {
           skipTLSVerify: false,
         },
       };
-      let mergeData = {
-        clusterIdentifier: clusterIdentifier,
-        clusterData: clusterData,
-        userData: userData,
-        authType: "aws",
-        serviceProvider: "aws"
-      };
+      // let mergeData = {
+      //   clusterIdentifier: clusterIdentifier,
+      //   clusterData: clusterData,
+      //   userData: userData,
+      //   authType: "aws",
+      //   serviceProvider: "aws"
+      // };
+      let mergeData = getMergeData(clusterIdentifier, clusterData, userData, "aws", "aws");
       let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
       if (result){
         newClusters.push(clusterIdentifier);
