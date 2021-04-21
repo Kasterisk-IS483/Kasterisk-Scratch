@@ -19,6 +19,7 @@ import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Deployment Detailed Page Screen **/
 export default class WorkloadDeploymentScreen extends Component {
 
   constructor(props) {

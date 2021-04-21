@@ -9,6 +9,7 @@ import { commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
+/** AWS Login screen to add cluster via AWS OIDC **/
 const AWSLoginScreen = ({ navigation }) => {
   const [loginState, setLoginState] = useState({
     accessKeyId: "",
@@ -56,13 +57,6 @@ const AWSLoginScreen = ({ navigation }) => {
           skipTLSVerify: false,
         },
       };
-      // let mergeData = {
-      //   clusterIdentifier: clusterIdentifier,
-      //   clusterData: clusterData,
-      //   userData: userData,
-      //   authType: "aws",
-      //   serviceProvider: "aws"
-      // };
       let mergeData = getMergeData(clusterIdentifier, clusterData, userData, "aws", "aws");
       let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
       if (result){

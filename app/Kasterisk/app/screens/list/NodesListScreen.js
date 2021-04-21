@@ -7,6 +7,7 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Nodes List View Screen **/
 export default class NodesListScreen extends Component {
   constructor(props) {
     super(props);

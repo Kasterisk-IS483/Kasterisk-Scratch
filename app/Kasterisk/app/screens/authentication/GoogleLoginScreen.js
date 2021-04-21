@@ -9,6 +9,7 @@ import { commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
+/** Google Login Screen to add cluster via Google OIDC **/
 const GoogleLoginScreen = ({ navigation }) => {
   const [refreshToken, setRefreshToken] = useState();
   const [projectsList, setProjectsList] = useState();
@@ -37,13 +38,6 @@ const GoogleLoginScreen = ({ navigation }) => {
                 skipTLSVerify: false,
               },
             };
-            // let mergeData = {
-            //   clusterIdentifier: clusterIdentifier,
-            //   clusterData: clusterData,
-            //   userData: userData,
-            //   authType: "google",
-            //   serviceProvider: "google"
-            // };
             let mergeData = getMergeData(clusterIdentifier, clusterData, userData, "google", "google");
             let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userData.name, mergeData);
             if (result){

@@ -232,13 +232,6 @@ export async function saveKubeconfigFileToLocal(cluster: Cluster[], user: User[]
       break;
     }
     let clusterIdentifier = clusterName + "::" + userName + "::kubernetes";
-    // mergeData = {
-    //   clusterIdentifier: clusterIdentifier,
-    //   clusterData: clusterData,
-    //   userData: userData,
-    //   authType: authType,
-    //   serviceProvider: "kubernetes",
-    // };
     mergeData = getMergeData(clusterIdentifier, clusterData, userData, authType, "kubernetes");
     let result = await checkClusterIdentifier(clusterIdentifier, clusterName, userName, mergeData);
     if (result){
@@ -251,13 +244,6 @@ export async function saveKubeconfigFileToLocal(cluster: Cluster[], user: User[]
 export async function saveKubeconfigContentToLocal(clusterData: Cluster, userData: User, authType: string): Promise<void> {
   var newClusters = [];
   let clusterIdentifier = clusterData.name + "::" + userData.name + "::kubernetes";
-  // let mergeData = {
-  //   clusterIdentifier: clusterIdentifier,
-  //   clusterData: clusterData,
-  //   userData: userData,
-  //   authType: authType,
-  //   serviceProvider: "kubernetes",
-  // };
   let mergeData = getMergeData(clusterIdentifier, clusterData, userData, authType, "kubernetes");
   try {
     let result = await checkClusterIdentifier(clusterIdentifier, clusterData.name, userData.name, mergeData);

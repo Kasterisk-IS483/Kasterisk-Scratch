@@ -10,7 +10,6 @@ class NamespaceApi extends Component {
    * Read Specified Namespace
    * GET /api/v1/namespaces/{name}
    * 
-   * @param namespace 
    * @param name 
    */
   static readNamespace = async (name) => {

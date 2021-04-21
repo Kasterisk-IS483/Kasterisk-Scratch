@@ -12,6 +12,7 @@ import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 import { checkServerStatus } from "../../api/KubeApi";
 import WorkloadSummaryApi from "../../api/WorkloadSummaryApi";
 
+/** Change Cluster Screen to change viewing cluster **/
 class ChangeClusterScreen extends Component {
   constructor(props) {
     super(props);

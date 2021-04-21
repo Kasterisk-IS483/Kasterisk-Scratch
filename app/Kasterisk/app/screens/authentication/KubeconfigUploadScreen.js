@@ -14,6 +14,7 @@ import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 const uncheckedIcon = require("../../assets/checkbox-cross.png");
 const checkedIcon = require("../../assets/checkbox-tick.png");
 
+/** Kubeconfig Upload Screen to add cluster via kubeconfig file **/
 export default class KubeconfigUploadScreen extends Component {
   constructor(props) {
     super(props);

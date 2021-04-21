@@ -19,6 +19,7 @@ import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Node Detailed Page Screen **/
 export default class WorkloadNodeScreen extends Component {
 
   constructor(props) {

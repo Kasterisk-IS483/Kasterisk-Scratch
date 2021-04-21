@@ -17,6 +17,8 @@ import { commonStyles, commonPortraitStyles } from "../../utils/styles";
 import CustomButton from "../../components/Buttons/CustomButton";
 
 const assetsPath = "../../assets/";
+
+/** Welcome Screen - when no cluster is added **/
 export default class WelcomeScreen extends Component {
   constructor(props) {
     super(props);

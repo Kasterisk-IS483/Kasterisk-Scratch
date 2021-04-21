@@ -28,6 +28,7 @@ import OverviewCard from "../../components/Cards/OverviewCard";
 import WorkloadCard from "../../components/Cards/WorkloadCard";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
+/** Workload Overview Screen **/
 export default class WorkloadSummaryScreen extends Component {
   constructor(props) {
     super(props);

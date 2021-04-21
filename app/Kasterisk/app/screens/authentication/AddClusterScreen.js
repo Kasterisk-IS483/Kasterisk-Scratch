@@ -16,6 +16,8 @@ import { commonStyles, commonPortraitStyles } from "../../utils/styles";
 import CustomButton from "../../components/Buttons/CustomButton";
 
 const assetsPath = "../../assets/";
+
+/** Add Cluster Screen - when more than 1 cluster added **/
 export default class AddClusterScreen extends Component {
   constructor(props) {
     super(props);
@@ -132,7 +134,6 @@ export default class AddClusterScreen extends Component {
               text="Log in With Google"
               size="small"
               onPress={this.GoogleLogin}
-              // onPress={() => navigation.navigate("GoogleLogin")}
             />
             <CustomButton
               image={require(assetsPath + "welcome-button-aws.png")}

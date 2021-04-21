@@ -91,7 +91,8 @@ class DeploymentApi extends Component {
    * list or watch objects of kind Deployment
    * GET /apis/apps/v1/namespaces/{namespace}/deployments
    * 
-   * @param namespace 
+   * @param namespace
+   * @param parameters
   */
   static listDeployment = async (namespace, parameters) => {
     const deploymentList = await CommonAPI.get(`/apis/apps/v1/namespaces/${namespace}/deployments`, parameters);
@@ -102,6 +103,7 @@ class DeploymentApi extends Component {
    * list or watch objects of kind Deployment in all namespaces
    * GET /apis/apps/v1/deployments
    * 
+   * @param parameters
   */
   static listAllDeployment = async (parameters) => {
     const deploymentList = await CommonAPI.get(`/apis/apps/v1/deployments`, parameters);

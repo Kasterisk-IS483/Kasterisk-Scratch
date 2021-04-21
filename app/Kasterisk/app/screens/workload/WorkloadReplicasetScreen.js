@@ -17,6 +17,7 @@ import {
 import DetailsCard from "../../components/Cards/DetailsCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Replicaset Detailed Page Screen **/
 export default class WorkloadReplicasetScreen extends Component {
 
   constructor(props) {

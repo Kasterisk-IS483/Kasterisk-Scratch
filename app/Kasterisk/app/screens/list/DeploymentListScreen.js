@@ -10,6 +10,7 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Deployments List View Screen **/
 export default class DeploymentListScreen extends Component {
   constructor(props) {
     super(props);

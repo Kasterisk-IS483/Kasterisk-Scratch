@@ -8,6 +8,7 @@ import { colours, spacings, commonStyles } from "../../utils/styles";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import SpinnerOverlay from "../../components/Elements/SpinnerOverlay";
 
+/** Kubeconfig Content Screen to add cluster via manual inputs of kubeconfig file **/
 export default function KubeconfigContentScreen({ navigation }) {
   const [checked, setChecked] = useState("token");
   const [isTLSVerify, setIsTLSVerify] = useState(false);

@@ -10,6 +10,7 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Pods List View Screen **/
 export default class PodsListScreen extends Component {
   constructor(props) {
     super(props);

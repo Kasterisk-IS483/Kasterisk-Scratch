@@ -10,6 +10,7 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Replicasets List View Screen **/
 export default class ReplicasetListScreen extends Component {
   constructor(props) {
     super(props);

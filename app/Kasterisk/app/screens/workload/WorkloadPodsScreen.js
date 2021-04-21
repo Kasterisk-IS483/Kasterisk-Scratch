@@ -22,6 +22,7 @@ import DetailsCard from "../../components/Cards/DetailsCard";
 import TableCard from "../../components/Cards/TableCard";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
+/** Pod Detailed Page Screen **/
 export default class WorkloadPodsScreen extends Component {
 
   constructor(props) {

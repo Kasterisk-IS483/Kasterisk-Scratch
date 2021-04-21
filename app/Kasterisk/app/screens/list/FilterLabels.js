@@ -12,20 +12,7 @@ import {
 } from "../../utils/styles";
 import WorkloadTemplate from "../../components/Templates/WorkloadTemplate";
 
-// const items = [{
-//   id: '92iijs7yta',
-//   name: 'Ondo'
-// }, {
-//   id: '667atsas',
-//   name: 'Maiduguri'
-// }, {
-//   id: 'hsyasajs',
-//   name: 'Anambra'
-// }, {
-//   id: 'suudydjsjd',
-//   name: 'Abuja'
-//   }
-// ];
+/** Filter Labels List View Screen **/
 export default class FilterLabelSCreen extends Component {
   constructor(props) {
     super(props);
