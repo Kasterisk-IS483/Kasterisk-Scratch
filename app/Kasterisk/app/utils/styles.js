@@ -174,7 +174,7 @@ export const commonStyles = StyleSheet.create({
   },
   overviewCardLabel: {
     flex: 1,
-    fontSize: fonts.md,
+    fontSize: fonts.sm,
     textAlign: "center",
     marginRight: "20%",
   },
