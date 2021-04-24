@@ -163,20 +163,20 @@ export const commonStyles = StyleSheet.create({
   detailsCardInfoRightText: {
     flex: 3,
     paddingTop: spacings.xs,
-    flexWrap:"wrap"
+    flexWrap:"wrap",
   },
 
   // OverviewCard
   overviewCardContent: {
-    flexDirection: 'row',
+    flexDirection: "row",
     alignItems: "center",
-    marginLeft: "10%"
+    marginLeft: "10%",
+    marginRight: "15%",
   },
   overviewCardLabel: {
     flex: 1,
     fontSize: fonts.sm,
     textAlign: "center",
-    marginRight: "20%",
   },
 
   // Kubeconfig Content
@@ -275,7 +275,7 @@ export const dashboardStyles = StyleSheet.create({
   rowContainer: {
     ...commonStyles.rowContainer,
     paddingVertical: spacings.xl,
-    marginHorizontal: spacings.xxl
+    marginHorizontal: spacings.xxl,
   },
   columnContainer: {
     ...commonStyles.columnContainer,

@@ -47,13 +47,13 @@ export default function WorkloadCard(props) {
     if(statusConditionRunning){
       statusDisplay = "Running" 
       statusColorCode=colours.green
-    }else if (statusConditionPending){
+    } else if (statusConditionPending){
       statusDisplay = "Pending";
       statusColorCode = colours.orange;
-    }else if(statusConditionSucceeded){
+    } else if(statusConditionSucceeded){
       statusDisplay = "Succeeded";
       statusColorCode = colours.cta;
-    }else if (statusConditionFailed){
+    } else if (statusConditionFailed){
       statusDisplay = "Failed";
       statusColorCode = colours.red;
     }
